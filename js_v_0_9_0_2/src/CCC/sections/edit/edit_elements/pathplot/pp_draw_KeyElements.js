@@ -1,12 +1,12 @@
-function calcRGBElements(cmsClone, rgbResolution){
+function calcRGBElements(rgbResolution){
 
   var areaDim = rgbResolution * 0.7;
 
   pathplotElementPositions=[];
 
-    for (var i = 0; i < cmsClone.getKeyLength(); i++) {
+    for (var i = 0; i < gCMS_Pathplot.getKeyLength(); i++) {
 
-      switch (cmsClone.getKeyType(i)) {
+      switch (gCMS_Pathplot.getKeyType(i)) {
         case "nil key":
           // do nothing
 
@@ -14,26 +14,26 @@ function calcRGBElements(cmsClone, rgbResolution){
         case "twin key":
 
             var drawCircle = true;
-            if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+            if (gCMS_Pathplot.getKeyType(i - 1) === "nil key" || gCMS_Pathplot.getKeyType(i - 1) === "left key")
               drawCircle = false;
 
             ////////////////////////////////////////////////////////////////
             /////// left Color
-            pathplotElementPositions.push(calcRGBElementPos(cmsClone.getLeftKeyColor(i, "rgb"),drawCircle,areaDim,i,0));
+            pathplotElementPositions.push(calcRGBElementPos(gCMS_Pathplot.getLeftKeyColor(i, "rgb"),drawCircle,areaDim,i,0));
 
             ////////////////////////////////////////////////////////////////
             /////// Right Color
-            pathplotElementPositions.push(calcRGBElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,areaDim,i,1));
+            pathplotElementPositions.push(calcRGBElementPos(gCMS_Pathplot.getRightKeyColor(i, "rgb"),true,areaDim,i,1));
 
           break;
         case "left key":
             var drawCircle = true;
-            if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+            if (gCMS_Pathplot.getKeyType(i - 1) === "nil key" || gCMS_Pathplot.getKeyType(i - 1) === "left key")
               drawCircle = false;
 
             ////////////////////////////////////////////////////////////////
             /////// left Color
-            pathplotElementPositions.push(calcRGBElementPos(cmsClone.getLeftKeyColor(i, "rgb"),drawCircle,areaDim,i,0));
+            pathplotElementPositions.push(calcRGBElementPos(gCMS_Pathplot.getLeftKeyColor(i, "rgb"),drawCircle,areaDim,i,0));
 
             ////////////////////////////////////////////////////////
             ///// Right Color
@@ -41,59 +41,51 @@ function calcRGBElements(cmsClone, rgbResolution){
           break;
 
           case "right key":
-            pathplotElementPositions.push(calcRGBElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,areaDim,i,1));
+            pathplotElementPositions.push(calcRGBElementPos(gCMS_Pathplot.getRightKeyColor(i, "rgb"),true,areaDim,i,1));
           break;
         default:
             // dual Key
-            pathplotElementPositions.push(calcRGBElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,areaDim,i,2));
+            pathplotElementPositions.push(calcRGBElementPos(gCMS_Pathplot.getRightKeyColor(i, "rgb"),true,areaDim,i,2));
       }
 
     }
 
-  cmsClone.deleteReferences();
+
 }
 
 function calcRGBElementPos(tmpColor,shape,areaDim,keyindex,colorSide){
 
   var rgbPos = [];
-  rgbPos.push(tmpColor.getRValue() * areaDim);
-  rgbPos.push(tmpColor.getGValue() * areaDim);
-  rgbPos.push(tmpColor.getBValue() * areaDim);
+  rgbPos.push(tmpColor[1] * areaDim);
+  rgbPos.push(tmpColor[2] * areaDim);
+  rgbPos.push(tmpColor[3] * areaDim);
 
   var rgbPos3D = [];
-  rgbPos3D.push(tmpColor.getRValue() *255 - 128);
-  rgbPos3D.push(tmpColor.getGValue() *255 - 128);
-  rgbPos3D.push(tmpColor.getBValue() *255 - 128);
+  rgbPos3D.push(tmpColor[1] *255 - 128);
+  rgbPos3D.push(tmpColor[2] *255 - 128);
+  rgbPos3D.push(tmpColor[3] *255 - 128);
 
-  var showColor = tmpColor.calcRGBColor();
+  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
-    var tmpLMS = showColor.calcLMSColor();
-    showColor = tmpLMS.calcColorBlindRGBColor();
-    tmpLMS.deleteReferences();
-    tmpLMS=null;
+    showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
   }
 
-  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,rgbPos,rgbPos3D];
-
-  tmpColor.deleteReferences();
-  showColor.deleteReferences();
-  tmpColor=null;
-  showColor=null;
-
+  var posArray = [keyindex,showColor,shape,colorSide,rgbPos,rgbPos3D];
   return posArray;
 
 }
 
 /////////////////////////////////////////////////////////////////////
 
-function calcRGBLineElements(cmsClone,vWidth,vHeight){
+function calcRGBLineElements(vWidth,vHeight){
 
   pathplotElementPositions=[];
   lineChartElementPositions=[];
 
-  for (var i = 0; i < cmsClone.getKeyLength(); i++) {
+  for (var i = 0; i < gCMS_Pathplot.getKeyLength(); i++) {
 
-    switch (cmsClone.getKeyType(i)) {
+    switch (gCMS_Pathplot.getKeyType(i)) {
       case "nil key":
         // do nothing
 
@@ -102,39 +94,39 @@ function calcRGBLineElements(cmsClone,vWidth,vHeight){
 
         var drawCircle = true;
 
-        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+        if (gCMS_Pathplot.getKeyType(i - 1) === "nil key" || gCMS_Pathplot.getKeyType(i - 1) === "left key")
           drawCircle = false;
 
         ////////////////////////////////////////////////////////////////
         /////// left Color
-        pathplotElementPositions.push(calcRGB_3D_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),drawCircle,i,0));
+        pathplotElementPositions.push(calcRGB_3D_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "rgb"),drawCircle,i,0));
 
         ////////////////////////////////////////////////////////////////
         /////// Right Color
-        pathplotElementPositions.push(calcRGB_3D_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,1));
+        pathplotElementPositions.push(calcRGB_3D_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "rgb"),true,i,1));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
 
         if (drawCircle) {
-          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "rgb"),true,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "rgb"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         } else {
-          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "rgb"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition((i - 1))-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "rgb"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "rgb"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         }
 
         break;
       case "left key":
 
         var drawCircle = true;
-        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+        if (gCMS_Pathplot.getKeyType(i - 1) === "nil key" || gCMS_Pathplot.getKeyType(i - 1) === "left key")
           drawCircle = false;
 
         ////////////////////////////////////////////////////////////////
         /////// left Color
-        pathplotElementPositions.push(calcRGB_3D_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),drawCircle,i,0));
+        pathplotElementPositions.push(calcRGB_3D_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "rgb"),drawCircle,i,0));
 
         ////////////////////////////////////////////////////////
         ///// Right Color
@@ -144,62 +136,55 @@ function calcRGBLineElements(cmsClone,vWidth,vHeight){
         /////// V Plot
 
         if (drawCircle) {
-          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "rgb"),true,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         } else {
-          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "rgb"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "rgb"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition((i - 1))-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "rgb"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         }
         break;
 
       case "right key":
 
-        pathplotElementPositions.push(calcRGB_3D_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,1));
+        pathplotElementPositions.push(calcRGB_3D_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "rgb"),true,i,1));
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        lineChartElementPositions.push(calcRGB_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        lineChartElementPositions.push(calcRGB_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "rgb"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
 
         break;
       default:
         // dual Key
 
-        pathplotElementPositions.push(calcRGB_3D_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,2));
+        pathplotElementPositions.push(calcRGB_3D_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "rgb"),true,i,2));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
 
-        lineChartElementPositions.push(calcRGB_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,2,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        lineChartElementPositions.push(calcRGB_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "rgb"),true,i,2,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
 
-        if(cmsClone.getKeyType(i-1)==="left key"){
-          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "rgb"),true,i,2,((cmsClone.getRefPosition(i-1)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        if(gCMS_Pathplot.getKeyType(i-1)==="left key"){
+          lineChartElementPositions.push(calcRGB_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "rgb"),true,i,2,((gCMS_Pathplot.getRefPosition(i-1)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         }
     }
 
   }
 
-  cmsClone.deleteReferences();
+
 }
 
 function calcRGB_3D_ElementPos(tmpColor,shape,keyindex,colorSide){
 
   var rgbPos3D = [];
-  rgbPos3D.push(tmpColor.getRValue() *255 - 128);
-  rgbPos3D.push(tmpColor.getGValue() *255 - 128);
-  rgbPos3D.push(tmpColor.getBValue() *255 - 128);
+  rgbPos3D.push(tmpColor[1] *255 - 128);
+  rgbPos3D.push(tmpColor[2] *255 - 128);
+  rgbPos3D.push(tmpColor[3] *255 - 128);
 
-  var showColor = tmpColor.calcRGBColor();
+  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
-    var tmpLMS = showColor.calcLMSColor();
-    showColor = tmpLMS.calcColorBlindRGBColor();
-    tmpLMS.deleteReferences();
-    tmpLMS=null;
+    showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
   }
 
-  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,[undefined,undefined],rgbPos3D]; // first element is to seperate between LineChart element and hue plot element
-  showColor.deleteReferences();
-  tmpColor.deleteReferences();
-  showColor=null;
-  tmpColor=null;
-
+  var posArray = [keyindex,showColor,shape,colorSide,[undefined,undefined],rgbPos3D]; // first element is to seperate between LineChart element and hue plot element
   return posArray;
 
 }
@@ -211,46 +196,37 @@ function calcRGB_LineChart_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,v
   var lineChart_yStart=Math.round(vHeight*0.9)
   var heigthVArea=lineChart_yStart-Math.round(vHeight*0.1);
 
-  var LineChartPos = [];
+  var lineChartPos = [];
   var xPos = lineChart_xStart + xRatio * plotwidth;
-  var yPos1 = Math.round(lineChart_yStart - (heigthVArea * tmpColor.getRValue()));
-  var yPos2 = Math.round(lineChart_yStart - (heigthVArea * tmpColor.getGValue()));
-  var yPos3 = Math.round(lineChart_yStart - (heigthVArea * tmpColor.getBValue()));
+  var yPos1 = Math.round(lineChart_yStart - (heigthVArea * tmpColor[1]));
+  var yPos2 = Math.round(lineChart_yStart - (heigthVArea * tmpColor[2]));
+  var yPos3 = Math.round(lineChart_yStart - (heigthVArea * tmpColor[3]));
 
-  LineChartPos.push(xPos);
-  LineChartPos.push(yPos1);
-  LineChartPos.push(yPos2);
-  LineChartPos.push(yPos3);
+  lineChartPos.push(xPos);
+  lineChartPos.push(yPos1);
+  lineChartPos.push(yPos2);
+  lineChartPos.push(yPos3);
 
-
-  var showColor = tmpColor.calcRGBColor();
+  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
-    var tmpLMS = showColor.calcLMSColor();
-    showColor = tmpLMS.calcColorBlindRGBColor();
-    tmpLMS.deleteReferences();
-    tmpLMS=null;
+    showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
   }
 
-  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,LineChartPos]; // first element is to seperate between LineChart element and hue plot element
-
-  showColor.deleteReferences();
-  tmpColor.deleteReferences();
-  showColor=null;
-  tmpColor=null;
-
+  var posArray = [keyindex,showColor,shape,colorSide,lineChartPos]; // first element is to seperate between LineChart element and hue plot element
   return posArray;
 }
 
 /////////////////////////////////////////////////////////////////////
 
-function calcLMSElements(cmsClone,vWidth,vHeight){
+function calcLMSElements(vWidth,vHeight){
 
   pathplotElementPositions=[];
   lineChartElementPositions=[];
 
-  for (var i = 0; i < cmsClone.getKeyLength(); i++) {
+  for (var i = 0; i < gCMS_Pathplot.getKeyLength(); i++) {
 
-    switch (cmsClone.getKeyType(i)) {
+    switch (gCMS_Pathplot.getKeyType(i)) {
       case "nil key":
         // do nothing
 
@@ -259,39 +235,39 @@ function calcLMSElements(cmsClone,vWidth,vHeight){
 
         var drawCircle = true;
 
-        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+        if (gCMS_Pathplot.getKeyType(i - 1) === "nil key" || gCMS_Pathplot.getKeyType(i - 1) === "left key")
           drawCircle = false;
 
         ////////////////////////////////////////////////////////////////
         /////// left Color
-        pathplotElementPositions.push(calcLMS_3D_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),drawCircle,i,0));
+        pathplotElementPositions.push(calcLMS_3D_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lms"),drawCircle,i,0));
 
         ////////////////////////////////////////////////////////////////
         /////// Right Color
-        pathplotElementPositions.push(calcLMS_3D_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,1));
+        pathplotElementPositions.push(calcLMS_3D_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lms"),true,i,1));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
 
         if (drawCircle) {
-          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lms"),true,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lms"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         } else {
-          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lms"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition((i - 1))-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lms"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lms"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         }
 
         break;
       case "left key":
 
         var drawCircle = true;
-        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+        if (gCMS_Pathplot.getKeyType(i - 1) === "nil key" || gCMS_Pathplot.getKeyType(i - 1) === "left key")
           drawCircle = false;
 
         ////////////////////////////////////////////////////////////////
         /////// left Color
-        pathplotElementPositions.push(calcLMS_3D_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),drawCircle,i,0));
+        pathplotElementPositions.push(calcLMS_3D_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lms"),drawCircle,i,0));
 
         ////////////////////////////////////////////////////////
         ///// Right Color
@@ -301,59 +277,55 @@ function calcLMSElements(cmsClone,vWidth,vHeight){
         /////// V Plot
 
         if (drawCircle) {
-          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lms"),true,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         } else {
-          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lms"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lms"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition((i - 1))-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lms"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         }
         break;
 
       case "right key":
 
-        pathplotElementPositions.push(calcLMS_3D_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,1));
+        pathplotElementPositions.push(calcLMS_3D_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lms"),true,i,1));
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        lineChartElementPositions.push(calcLMS_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        lineChartElementPositions.push(calcLMS_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lms"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
 
         break;
       default:
         // dual Key
 
-        pathplotElementPositions.push(calcLMS_3D_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,2));
+        pathplotElementPositions.push(calcLMS_3D_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lms"),true,i,2));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
 
-        lineChartElementPositions.push(calcLMS_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,2,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        lineChartElementPositions.push(calcLMS_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lms"),true,i,2,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
 
-        if(cmsClone.getKeyType(i-1)==="left key"){
-          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "lms"),true,i,2,((cmsClone.getRefPosition(i-1)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        if(gCMS_Pathplot.getKeyType(i-1)==="left key"){
+          lineChartElementPositions.push(calcLMS_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lms"),true,i,2,((gCMS_Pathplot.getRefPosition(i-1)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         }
     }
 
   }
 
-  cmsClone.deleteReferences();
+
 }
 
 function calcLMS_3D_ElementPos(tmpColor,shape,keyindex,colorSide){
 
   var lmsPos3D = [];
-  lmsPos3D.push(tmpColor.getLValue());
-  lmsPos3D.push(tmpColor.getMValue());
-  lmsPos3D.push(tmpColor.getSValue());
+  lmsPos3D.push(tmpColor[1]);
+  lmsPos3D.push(tmpColor[2]);
+  lmsPos3D.push(tmpColor[3]);
 
-  var showColor = tmpColor.calcRGBColor();
+  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
-    showColor = tmpColor.calcColorBlindRGBColor();
+    showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
   }
 
-  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,[undefined,undefined],lmsPos3D]; // first element is to seperate between LineChart element and hue plot element
-  showColor.deleteReferences();
-  tmpColor.deleteReferences();
-  showColor=null;
-  tmpColor=null;
-
+  var posArray = [keyindex,showColor,shape,colorSide,[undefined,undefined],lmsPos3D]; // first element is to seperate between LineChart element and hue plot element
   return posArray;
 
 }
@@ -365,46 +337,37 @@ function calcLMS_LineChart_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,v
   var lineChart_yStart=Math.round(vHeight*0.9)
   var heigthVArea=lineChart_yStart-Math.round(vHeight*0.1);
 
-  var LineChartPos = [];
+  var lineChartPos = [];
   var xPos = lineChart_xStart + xRatio * plotwidth;
-  var yPos1 = Math.round(lineChart_yStart - (heigthVArea * tmpColor.getLValue()/100));
-  var yPos2 = Math.round(lineChart_yStart - (heigthVArea * tmpColor.getMValue()/100));
-  var yPos3 = Math.round(lineChart_yStart - (heigthVArea * tmpColor.getSValue()/100));
+  var yPos1 = Math.round(lineChart_yStart - (heigthVArea * tmpColor[1]/100));
+  var yPos2 = Math.round(lineChart_yStart - (heigthVArea * tmpColor[2]/100));
+  var yPos3 = Math.round(lineChart_yStart - (heigthVArea * tmpColor[3]/100));
 
-  LineChartPos.push(xPos);
-  LineChartPos.push(yPos1);
-  LineChartPos.push(yPos2);
-  LineChartPos.push(yPos3);
+  lineChartPos.push(xPos);
+  lineChartPos.push(yPos1);
+  lineChartPos.push(yPos2);
+  lineChartPos.push(yPos3);
 
-
-  var showColor = tmpColor.calcRGBColor();
+  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
-    var tmpLMS = showColor.calcLMSColor();
-    showColor = tmpLMS.calcColorBlindRGBColor();
-    tmpLMS.deleteReferences();
-    tmpLMS=null;
+    showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
   }
 
-  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,LineChartPos]; // first element is to seperate between LineChart element and hue plot element
-
-  showColor.deleteReferences();
-  tmpColor.deleteReferences();
-  showColor=null;
-  tmpColor=null;
-
+  var posArray = [keyindex,showColor,shape,colorSide,lineChartPos]; // first element is to seperate between LineChart element and hue plot element
   return posArray;
 }
 
 /////////////////////////////////////////////////////////////////////
 
-function calcHSVElements(cmsClone,hueRes,vWidth,vHeight){
+function calcHSVElements(hueRes,vWidth,vHeight){
 
   pathplotElementPositions=[];
   lineChartElementPositions=[];
 
-  for (var i = 0; i < cmsClone.getKeyLength(); i++) {
+  for (var i = 0; i < gCMS_Pathplot.getKeyLength(); i++) {
 
-    switch (cmsClone.getKeyType(i)) {
+    switch (gCMS_Pathplot.getKeyType(i)) {
       case "nil key":
         // do nothing
 
@@ -413,39 +376,39 @@ function calcHSVElements(cmsClone,hueRes,vWidth,vHeight){
 
         var drawCircle = true;
 
-        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+        if (gCMS_Pathplot.getKeyType(i - 1) === "nil key" || gCMS_Pathplot.getKeyType(i - 1) === "left key")
           drawCircle = false;
 
         ////////////////////////////////////////////////////////////////
         /////// left Color
-        pathplotElementPositions.push(calcHSV_Hue_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),drawCircle,i,0,hueRes));
+        pathplotElementPositions.push(calcHSV_Hue_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "hsv"),drawCircle,i,0,hueRes));
 
         ////////////////////////////////////////////////////////////////
         /////// Right Color
-        pathplotElementPositions.push(calcHSV_Hue_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,1,hueRes));
+        pathplotElementPositions.push(calcHSV_Hue_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "hsv"),true,i,1,hueRes));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
 
         if (drawCircle) {
-          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "hsv"),true,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "hsv"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         } else {
-          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "hsv"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition((i - 1))-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "hsv"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "hsv"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         }
 
         break;
       case "left key":
 
         var drawCircle = true;
-        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+        if (gCMS_Pathplot.getKeyType(i - 1) === "nil key" || gCMS_Pathplot.getKeyType(i - 1) === "left key")
           drawCircle = false;
 
         ////////////////////////////////////////////////////////////////
         /////// left Color
-        pathplotElementPositions.push(calcHSV_Hue_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),drawCircle,i,0,hueRes));
+        pathplotElementPositions.push(calcHSV_Hue_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "hsv"),drawCircle,i,0,hueRes));
 
         ////////////////////////////////////////////////////////
         ///// Right Color
@@ -455,39 +418,39 @@ function calcHSVElements(cmsClone,hueRes,vWidth,vHeight){
         /////// V Plot
 
         if (drawCircle) {
-          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "hsv"),true,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         } else {
-          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "hsv"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "hsv"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition((i - 1))-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "hsv"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         }
         break;
 
       case "right key":
 
-        pathplotElementPositions.push(calcHSV_Hue_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,1,hueRes));
+        pathplotElementPositions.push(calcHSV_Hue_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "hsv"),true,i,1,hueRes));
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        lineChartElementPositions.push(calcHSV_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        lineChartElementPositions.push(calcHSV_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "hsv"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
 
         break;
       default:
         // dual Key
 
-        pathplotElementPositions.push(calcHSV_Hue_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,2,hueRes));
+        pathplotElementPositions.push(calcHSV_Hue_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "hsv"),true,i,2,hueRes));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
 
-        lineChartElementPositions.push(calcHSV_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,2,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        lineChartElementPositions.push(calcHSV_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "hsv"),true,i,2,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
 
-        if(cmsClone.getKeyType(i-1)==="left key"){
-          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "hsv"),true,i,2,((cmsClone.getRefPosition(i-1)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        if(gCMS_Pathplot.getKeyType(i-1)==="left key"){
+          lineChartElementPositions.push(calcHSV_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "hsv"),true,i,2,((gCMS_Pathplot.getRefPosition(i-1)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         }
     }
 
   }
 
-  cmsClone.deleteReferences();
+
 }
 
 function calcHSV_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
@@ -497,8 +460,8 @@ function calcHSV_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
   var colorspaceCenterY = Math.round(hueRes / 2);
 
   var hsPos = [];
-  var tmpDis = tmpColor.getSValue() * colorspaceRadius;
-  var tmpRad = degree360ToRad(tmpColor.getHValue()*360);
+  var tmpDis = tmpColor[2] * colorspaceRadius;
+  var tmpRad = degree360ToRad(tmpColor[1]*360);
   var xPos = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
   var yPos = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
   var tmpY= hueRes-yPos;
@@ -506,30 +469,22 @@ function calcHSV_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
   hsPos.push(tmpY);
 
   var hsvPos3D = [];
-  tmpDis = tmpColor.getSValue() * hsv3DRadius;
+  tmpDis = tmpColor[2] * hsv3DRadius;
   var xPos3D = tmpDis * Math.cos(tmpRad)*-1;
-  var yPos3D = vStart3D+(vEnd3D-vStart3D)*tmpColor.getVValue();
+  var yPos3D = vStart3D+(vEnd3D-vStart3D)*tmpColor[3];
   var zPos3D = tmpDis * Math.sin(tmpRad);
   hsvPos3D.push(xPos3D);
   hsvPos3D.push(yPos3D);
   hsvPos3D.push(zPos3D);
 
-  var showColor = tmpColor.calcRGBColor();
+  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
-    var tmpLMS = showColor.calcLMSColor();
-    showColor = tmpLMS.calcColorBlindRGBColor();
-    tmpLMS.deleteReferences();
-    tmpLMS=null;
+    showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
   }
 
-  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,hsPos,hsvPos3D]; // first element is to seperate between LineChart element and hue plot element
-  showColor.deleteReferences();
-  tmpColor.deleteReferences();
-  showColor=null;
-  tmpColor=null;
-
+  var posArray = [keyindex,showColor,shape,colorSide,hsPos,hsvPos3D]; // first element is to seperate between LineChart element and hue plot element
   return posArray;
-
 }
 
 function calcHSV_LineChart_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,vWidth,vHeight){
@@ -539,46 +494,38 @@ var plotwidth=Math.round(vWidth*0.98)-lineChart_xStart;
 var lineChart_yStart=Math.round(vHeight*0.9)
 var heigthVArea=lineChart_yStart-Math.round(vHeight*0.1);
 
-  var LineChartPos = [];
+  var lineChartPos = [];
   var xPos = lineChart_xStart + xRatio * plotwidth;
-  var yPos1 = Math.round(lineChart_yStart - (heigthVArea * tmpColor.getHValue()));
-  var yPos2 = Math.round(lineChart_yStart - (heigthVArea * tmpColor.getSValue()));
-  var yPos3 = Math.round(lineChart_yStart - (heigthVArea * tmpColor.getVValue()));
+  var yPos1 = Math.round(lineChart_yStart - (heigthVArea * tmpColor[1]));
+  var yPos2 = Math.round(lineChart_yStart - (heigthVArea * tmpColor[2]));
+  var yPos3 = Math.round(lineChart_yStart - (heigthVArea * tmpColor[3]));
 
-  LineChartPos.push(xPos);
-  LineChartPos.push(yPos1);
-  LineChartPos.push(yPos2);
-  LineChartPos.push(yPos3);
+  lineChartPos.push(xPos);
+  lineChartPos.push(yPos1);
+  lineChartPos.push(yPos2);
+  lineChartPos.push(yPos3);
 
 
-  var showColor = tmpColor.calcRGBColor();
+  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
-    var tmpLMS = showColor.calcLMSColor();
-    showColor = tmpLMS.calcColorBlindRGBColor();
-    tmpLMS.deleteReferences();
-    tmpLMS=null;
+    showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
   }
 
-  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,LineChartPos]; // first element is to seperate between LineChart element and hue plot element
-
-  showColor.deleteReferences();
-  tmpColor.deleteReferences();
-  showColor=null;
-  tmpColor=null;
-
+  var posArray = [keyindex,showColor,shape,colorSide,lineChartPos]; // first element is to seperate between LineChart element and hue plot element
   return posArray;
 }
 
 /////////////////////////////////////////////////////////////////////
 
-function calcLabElements(cmsClone,hueRes,vWidth,vHeight){
+function calcLabElements(hueRes,vWidth,vHeight){
 
   pathplotElementPositions=[];
   lineChartElementPositions=[];
 
-  for (var i = 0; i < cmsClone.getKeyLength(); i++) {
+  for (var i = 0; i < gCMS_Pathplot.getKeyLength(); i++) {
 
-    switch (cmsClone.getKeyType(i)) {
+    switch (gCMS_Pathplot.getKeyType(i)) {
       case "nil key":
         // do nothing
 
@@ -587,28 +534,28 @@ function calcLabElements(cmsClone,hueRes,vWidth,vHeight){
 
         var drawCircle = true;
 
-        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+        if (gCMS_Pathplot.getKeyType(i - 1) === "nil key" || gCMS_Pathplot.getKeyType(i - 1) === "left key")
           drawCircle = false;
 
         ////////////////////////////////////////////////////////////////
         /////// left Color
-        pathplotElementPositions.push(calcLab_Hue_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,hueRes));
+        pathplotElementPositions.push(calcLab_Hue_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,hueRes));
 
         ////////////////////////////////////////////////////////////////
         /////// Right Color
-        pathplotElementPositions.push(calcLab_Hue_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,hueRes));
+        pathplotElementPositions.push(calcLab_Hue_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,hueRes));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
 
         if (drawCircle) {
-          lineChartElementPositions.push(calcLab_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcLab_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLab_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lab_rgb_possible"),true,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLab_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         } else {
 
-          lineChartElementPositions.push(calcLab_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcLab_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcLab_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLab_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition((i - 1))-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLab_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLab_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
 
         }
 
@@ -616,12 +563,12 @@ function calcLabElements(cmsClone,hueRes,vWidth,vHeight){
       case "left key":
 
         var drawCircle = true;
-        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+        if (gCMS_Pathplot.getKeyType(i - 1) === "nil key" || gCMS_Pathplot.getKeyType(i - 1) === "left key")
           drawCircle = false;
 
         ////////////////////////////////////////////////////////////////
         /////// left Color
-        pathplotElementPositions.push(calcLab_Hue_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,hueRes));
+        pathplotElementPositions.push(calcLab_Hue_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,hueRes));
 
         ////////////////////////////////////////////////////////
         ///// Right Color
@@ -632,44 +579,44 @@ function calcLabElements(cmsClone,hueRes,vWidth,vHeight){
         /////// V Plot
 
         if (drawCircle) {
-          lineChartElementPositions.push(calcLab_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLab_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lab_rgb_possible"),true,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         } else {
-          lineChartElementPositions.push(calcLab_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcLab_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLab_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition((i - 1))-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLab_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lab_rgb_possible"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         }
         break;
 
       case "right key":
 
-        pathplotElementPositions.push(calcLab_Hue_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,hueRes));
+        pathplotElementPositions.push(calcLab_Hue_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,hueRes));
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        lineChartElementPositions.push(calcLab_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        lineChartElementPositions.push(calcLab_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lab_rgb_possible"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
 
         break;
       default:
         // dual Key
-        pathplotElementPositions.push(calcLab_Hue_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,2,hueRes));
+        pathplotElementPositions.push(calcLab_Hue_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lab_rgb_possible"),true,i,2,hueRes));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        lineChartElementPositions.push(calcLab_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,2,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-        if(cmsClone.getKeyType(i-1)==="left key"){
-          lineChartElementPositions.push(calcLab_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "lab_rgb_possible"),true,i,2,((cmsClone.getRefPosition(i-1)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        lineChartElementPositions.push(calcLab_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lab_rgb_possible"),true,i,2,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+        if(gCMS_Pathplot.getKeyType(i-1)==="left key"){
+          lineChartElementPositions.push(calcLab_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lab_rgb_possible"),true,i,2,((gCMS_Pathplot.getRefPosition(i-1)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         }
     }
 
   }
 
-  cmsClone.deleteReferences();
+
 }
 
 function calcLab_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
 
   var canvasCenter = Math.round(hueRes / 2);
   var abPos = [];
-  var xPos = ((tmpColor.getAValue() / labSpaceRange) * canvasCenter) + canvasCenter;
-  var yPos = ((tmpColor.getBValue() / labSpaceRange) * canvasCenter) + canvasCenter;
+  var xPos = ((tmpColor[2] / labSpaceRange) * canvasCenter) + canvasCenter;
+  var yPos = ((tmpColor[3] / labSpaceRange) * canvasCenter) + canvasCenter;
   var tmpY = hueRes-yPos;
   abPos.push(xPos);
   abPos.push(tmpY);
@@ -681,30 +628,22 @@ function calcLab_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
 
   if(labABMax!=undefined && labABMax!=0){
     var labABMax2 = labABMax*2;
-    xPos3D = labSPos+((tmpColor.get2Value()+labABMax)/labABMax2)*(labEPos-labSPos);
-    yPos3D = labSPos+(tmpColor.get1Value()/100.0)*(labEPos-labSPos);
-    zPos3D = labEPos-((tmpColor.get3Value()+labABMax)/labABMax2)*(labEPos-labSPos);
+    xPos3D = labSPos+((tmpColor[2]+labABMax)/labABMax2)*(labEPos-labSPos);
+    yPos3D = labSPos+(tmpColor[1]/100.0)*(labEPos-labSPos);
+    zPos3D = labEPos-((tmpColor[3]+labABMax)/labABMax2)*(labEPos-labSPos);
   }
 
   labPos3D.push(xPos3D);
   labPos3D.push(yPos3D);
   labPos3D.push(zPos3D);
 
-  var showColor = tmpColor.calcRGBColor();
+  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
-    var tmpLMS = showColor.calcLMSColor();
-    showColor = tmpLMS.calcColorBlindRGBColor();
-    tmpLMS.deleteReferences();
-    tmpLMS=null;
+    showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
   }
 
-  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,abPos,labPos3D]; // first element is to seperate between LineChart element and hue plot element
-
-  showColor.deleteReferences();
-  tmpColor.deleteReferences();
-  showColor=null;
-  tmpColor=null;
-
+  var posArray = [keyindex,showColor,shape,colorSide,abPos,labPos3D]; // first element is to seperate between LineChart element and hue plot element
   return posArray;
 
 }
@@ -716,38 +655,30 @@ var plotwidth=Math.round(vWidth*0.98)-lineChart_xStart;
 var lineChart_yStart=Math.round(vHeight*0.9)
 var heigthVArea=lineChart_yStart-Math.round(vHeight*0.1);
 
-  var LineChartPos = [];
+  var lineChartPos = [];
   var xPos = lineChart_xStart + xRatio * plotwidth;
-  var yPos1 = Math.round(lineChart_yStart - (heigthVArea * tmpColor.getLValue() / 100));
-  var yPos2 = Math.round(lineChart_yStart - (heigthVArea * (tmpColor.getAValue()+labSpaceRange) / (labSpaceRange*2)));
-  var yPos3 = Math.round(lineChart_yStart - (heigthVArea * (tmpColor.getBValue()+labSpaceRange) / (labSpaceRange*2)));
+  var yPos1 = Math.round(lineChart_yStart - (heigthVArea * tmpColor[1] / 100));
+  var yPos2 = Math.round(lineChart_yStart - (heigthVArea * (tmpColor[2]+labSpaceRange) / (labSpaceRange*2)));
+  var yPos3 = Math.round(lineChart_yStart - (heigthVArea * (tmpColor[3]+labSpaceRange) / (labSpaceRange*2)));
 
-  LineChartPos.push(xPos);
-  LineChartPos.push(yPos1);
-  LineChartPos.push(yPos2);
-  LineChartPos.push(yPos3);
+  lineChartPos.push(xPos);
+  lineChartPos.push(yPos1);
+  lineChartPos.push(yPos2);
+  lineChartPos.push(yPos3);
 
-  var showColor = tmpColor.calcRGBColor();
+  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
-    var tmpLMS = showColor.calcLMSColor();
-    showColor = tmpLMS.calcColorBlindRGBColor();
-    tmpLMS.deleteReferences();
-    tmpLMS=null;
+    showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
   }
 
-  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,LineChartPos]; // first element is to seperate between LineChart element and hue plot element
-
-  showColor.deleteReferences();
-  tmpColor.deleteReferences();
-  showColor=null;
-  tmpColor=null;
-
+  var posArray = [keyindex,showColor,shape,colorSide,lineChartPos]; // first element is to seperate between LineChart element and hue plot element
   return posArray;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-function calcDIN99Elements(cmsClone,hueRes,vWidth,vHeight){
+function calcDIN99Elements(hueRes,vWidth,vHeight){
 
   pathplotElementPositions=[];
   lineChartElementPositions=[];
@@ -755,9 +686,9 @@ function calcDIN99Elements(cmsClone,hueRes,vWidth,vHeight){
   rangeA99 = rangeA99Pos - rangeA99Neg;
   rangeB99 = rangeB99Pos - rangeB99Neg;
 
-  for (var i = 0; i < cmsClone.getKeyLength(); i++) {
+  for (var i = 0; i < gCMS_Pathplot.getKeyLength(); i++) {
 
-    switch (cmsClone.getKeyType(i)) {
+    switch (gCMS_Pathplot.getKeyType(i)) {
       case "nil key":
         // do nothing
 
@@ -766,28 +697,28 @@ function calcDIN99Elements(cmsClone,hueRes,vWidth,vHeight){
 
         var drawCircle = true;
 
-        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+        if (gCMS_Pathplot.getKeyType(i - 1) === "nil key" || gCMS_Pathplot.getKeyType(i - 1) === "left key")
           drawCircle = false;
 
         ////////////////////////////////////////////////////////////////
         /////// left Color
-        pathplotElementPositions.push(calcDIN99_Hue_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,hueRes));
+        pathplotElementPositions.push(calcDIN99_Hue_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,hueRes));
 
         ////////////////////////////////////////////////////////////////
         /////// Right Color
-        pathplotElementPositions.push(calcDIN99_Hue_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,hueRes));
+        pathplotElementPositions.push(calcDIN99_Hue_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,hueRes));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
 
         if (drawCircle) {
-          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "din99_rgb_possible"),true,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         } else {
 
-          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition((i - 1))-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
 
         }
 
@@ -795,12 +726,12 @@ function calcDIN99Elements(cmsClone,hueRes,vWidth,vHeight){
       case "left key":
 
         var drawCircle = true;
-        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+        if (gCMS_Pathplot.getKeyType(i - 1) === "nil key" || gCMS_Pathplot.getKeyType(i - 1) === "left key")
           drawCircle = false;
 
         ////////////////////////////////////////////////////////////////
         /////// left Color
-        pathplotElementPositions.push(calcDIN99_Hue_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,hueRes));
+        pathplotElementPositions.push(calcDIN99_Hue_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,hueRes));
 
         ////////////////////////////////////////////////////////
         ///// Right Color
@@ -809,44 +740,44 @@ function calcDIN99Elements(cmsClone,hueRes,vWidth,vHeight){
         ////////////////////////////////////////////////////////////////
         /////// V Plot
         if (drawCircle) {
-          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "din99_rgb_possible"),true,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         } else {
-          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition((i - 1))-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "din99_rgb_possible"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         }
         break;
 
       case "right key":
 
-        pathplotElementPositions.push(calcDIN99_Hue_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,hueRes));
+        pathplotElementPositions.push(calcDIN99_Hue_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,hueRes));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "din99_rgb_possible"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
 
         break;
       default:
         // dual Key
-        pathplotElementPositions.push(calcDIN99_Hue_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,2,hueRes));
+        pathplotElementPositions.push(calcDIN99_Hue_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "din99_rgb_possible"),true,i,2,hueRes));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,2,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-        if(cmsClone.getKeyType(i-1)==="left key"){
-          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "din99_rgb_possible"),true,i,2,((cmsClone.getRefPosition(i-1)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));//calcDIN99_LineChart_ElementPos(tmpColor,drawCircle,i,2,(i - 1)));
+        lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "din99_rgb_possible"),true,i,2,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+        if(gCMS_Pathplot.getKeyType(i-1)==="left key"){
+          lineChartElementPositions.push(calcDIN99_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "din99_rgb_possible"),true,i,2,((gCMS_Pathplot.getRefPosition(i-1)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));//calcDIN99_LineChart_ElementPos(tmpColor,drawCircle,i,2,(i - 1)));
         }
     }
 
   }
 
-  cmsClone.deleteReferences();
+
 }
 
 function calcDIN99_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
 
   var ab99Pos = [];
-  var xPos = (tmpColor.getA99Value() - rangeA99Neg) / rangeA99 * hueRes;
-  var yPos = (tmpColor.getB99Value() - rangeB99Neg) / rangeB99 * hueRes;
+  var xPos = (tmpColor[2] - rangeA99Neg) / rangeA99 * hueRes;
+  var yPos = (tmpColor[3] - rangeB99Neg) / rangeB99 * hueRes;
   var tmpY = hueRes-yPos;
   ab99Pos.push(xPos);
   ab99Pos.push(tmpY);
@@ -857,29 +788,21 @@ function calcDIN99_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
   var zPos3D = 0;
   if(din99ABMax!=undefined && din99ABMax!=0){
     var din99ABMax2 = din99ABMax*2;
-    xPos3D = din99SPos+((tmpColor.get2Value()+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
-    yPos3D = din99SPos+(tmpColor.get1Value()/100.0)*(din99EPos-din99SPos);
-    zPos3D = din99EPos-((tmpColor.get3Value()+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
+    xPos3D = din99SPos+((tmpColor[2]+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
+    yPos3D = din99SPos+(tmpColor[1]/100.0)*(din99EPos-din99SPos);
+    zPos3D = din99EPos-((tmpColor[3]+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
   }
   labPos3D.push(xPos3D);
   labPos3D.push(yPos3D);
   labPos3D.push(zPos3D);
 
-  var showColor = tmpColor.calcRGBColor();
+  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
-    var tmpLMS = showColor.calcLMSColor();
-    showColor = tmpLMS.calcColorBlindRGBColor();
-    tmpLMS.deleteReferences();
-    tmpLMS=null;
+    showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
   }
 
-  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,ab99Pos,labPos3D]; // first element is to seperate between LineChart element and hue plot element
-
-  showColor.deleteReferences();
-  tmpColor.deleteReferences();
-  showColor=null;
-  tmpColor=null;
-
+  var posArray = [keyindex,showColor,shape,colorSide,ab99Pos,labPos3D]; // first element is to seperate between LineChart element and hue plot element
   return posArray;
 
 }
@@ -891,45 +814,37 @@ function calcDIN99_LineChart_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio
   var lineChart_yStart=Math.round(vHeight*0.9)
   var heigthVArea=lineChart_yStart-Math.round(vHeight*0.1);
 
-  var LineChartPos = [];
+  var lineChartPos = [];
   var xPos = lineChart_xStart + xRatio * plotwidth;
-  var yPos1 = Math.round(lineChart_yStart - (heigthVArea * tmpColor.getL99Value() / 100));
-  var yPos2 = Math.round(lineChart_yStart - (heigthVArea * (tmpColor.getA99Value()+(rangeA99Neg*-1)) / (rangeA99Pos-rangeA99Neg)));
-  var yPos3 = Math.round(lineChart_yStart - (heigthVArea * (tmpColor.getB99Value()+(rangeB99Neg*-1)) / (rangeB99Pos-rangeB99Neg)));
+  var yPos1 = Math.round(lineChart_yStart - (heigthVArea * tmpColor[1] / 100));
+  var yPos2 = Math.round(lineChart_yStart - (heigthVArea * (tmpColor[2]+(rangeA99Neg*-1)) / (rangeA99Pos-rangeA99Neg)));
+  var yPos3 = Math.round(lineChart_yStart - (heigthVArea * (tmpColor[3]+(rangeB99Neg*-1)) / (rangeB99Pos-rangeB99Neg)));
 
-  LineChartPos.push(xPos);
-  LineChartPos.push(yPos1);
-  LineChartPos.push(yPos2);
-  LineChartPos.push(yPos3);
+  lineChartPos.push(xPos);
+  lineChartPos.push(yPos1);
+  lineChartPos.push(yPos2);
+  lineChartPos.push(yPos3);
 
-  var showColor = tmpColor.calcRGBColor();
+  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
-    var tmpLMS = showColor.calcLMSColor();
-    showColor = tmpLMS.calcColorBlindRGBColor();
-    tmpLMS.deleteReferences();
-    tmpLMS=null;
+    showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
   }
 
-  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,LineChartPos]; // first element is to seperate between LineChart element and hue plot element
-
-  showColor.deleteReferences();
-  tmpColor.deleteReferences();
-  showColor=null;
-  tmpColor=null;
-
+  var posArray = [keyindex,showColor,shape,colorSide,lineChartPos]; // first element is to seperate between LineChart element and hue plot element
   return posArray;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-function calcLCHElements(cmsClone,hueRes,vWidth,vHeight){
+function calcLCHElements(hueRes,vWidth,vHeight){
 
   pathplotElementPositions=[];
   lineChartElementPositions=[];
 
-  for (var i = 0; i < cmsClone.getKeyLength(); i++) {
+  for (var i = 0; i < gCMS_Pathplot.getKeyLength(); i++) {
 
-    switch (cmsClone.getKeyType(i)) {
+    switch (gCMS_Pathplot.getKeyType(i)) {
       case "nil key":
         // do nothing
 
@@ -938,39 +853,39 @@ function calcLCHElements(cmsClone,hueRes,vWidth,vHeight){
 
         var drawCircle = true;
 
-        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+        if (gCMS_Pathplot.getKeyType(i - 1) === "nil key" || gCMS_Pathplot.getKeyType(i - 1) === "left key")
           drawCircle = false;
 
         ////////////////////////////////////////////////////////////////
         /////// left Color
-        pathplotElementPositions.push(calcLCH_Hue_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,hueRes));
+        pathplotElementPositions.push(calcLCH_Hue_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,hueRes));
 
         ////////////////////////////////////////////////////////////////
         /////// Right Color
-        pathplotElementPositions.push(calcLCH_Hue_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,hueRes));
+        pathplotElementPositions.push(calcLCH_Hue_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,hueRes));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
 
         if (drawCircle) {
-          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lch_rgb_possible"),true,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         } else {
-          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition((i - 1))-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         }
 
         break;
       case "left key":
 
         var drawCircle = true;
-        if (cmsClone.getKeyType(i - 1) === "nil key" || cmsClone.getKeyType(i - 1) === "left key")
+        if (gCMS_Pathplot.getKeyType(i - 1) === "nil key" || gCMS_Pathplot.getKeyType(i - 1) === "left key")
           drawCircle = false;
 
         ////////////////////////////////////////////////////////////////
         /////// left Color
-        pathplotElementPositions.push(calcLCH_Hue_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,hueRes));
+        pathplotElementPositions.push(calcLCH_Hue_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,hueRes));
 
         ////////////////////////////////////////////////////////
         ///// Right Color
@@ -979,38 +894,38 @@ function calcLCHElements(cmsClone,hueRes,vWidth,vHeight){
         ////////////////////////////////////////////////////////////////
         /////// V Plot
         if (drawCircle) {
-          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),true,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lch_rgb_possible"),true,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         } else {
-          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition((i - 1))-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
-          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition((i - 1))-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
+          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(gCMS_Pathplot.getLeftKeyColor(i, "lch_rgb_possible"),drawCircle,i,0,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         }
         break;
 
       case "right key":
 
-        pathplotElementPositions.push(calcLCH_Hue_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,hueRes));
+        pathplotElementPositions.push(calcLCH_Hue_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,hueRes));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        lineChartElementPositions.push(calcLCH_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        lineChartElementPositions.push(calcLCH_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lch_rgb_possible"),true,i,1,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
 
         break;
       default:
         // dual Key
-        pathplotElementPositions.push(calcLCH_Hue_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,2,hueRes));
+        pathplotElementPositions.push(calcLCH_Hue_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lch_rgb_possible"),true,i,2,hueRes));
 
         ////////////////////////////////////////////////////////////////
         /////// V Plot
-        lineChartElementPositions.push(calcLCH_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,2,((cmsClone.getRefPosition(i)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        lineChartElementPositions.push(calcLCH_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lch_rgb_possible"),true,i,2,((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
 
-        if(cmsClone.getKeyType(i-1)==="left key"){
-          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(cmsClone.getRightKeyColor(i, "lch_rgb_possible"),true,i,2,((cmsClone.getRefPosition(i-1)-cmsClone.getRefPosition(0))/ cmsClone.getRefRange()),vWidth,vHeight));
+        if(gCMS_Pathplot.getKeyType(i-1)==="left key"){
+          lineChartElementPositions.push(calcLCH_LineChart_ElementPos(gCMS_Pathplot.getRightKeyColor(i, "lch_rgb_possible"),true,i,2,((gCMS_Pathplot.getRefPosition(i-1)-gCMS_Pathplot.getRefPosition(0))/ gCMS_Pathplot.getRefRange()),vWidth,vHeight));
         }
     }
 
   }
 
-  cmsClone.deleteReferences();
+
 }
 
 function calcLCH_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
@@ -1020,8 +935,8 @@ function calcLCH_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
   var colorspaceCenterY = Math.round(hueRes / 2);
 
   var chPos = [];
-  var tmpDis = tmpColor.getCValue() * colorspaceRadius;
-  var tmpRad = degree360ToRad(tmpColor.getHValue()*360);
+  var tmpDis = tmpColor[2] * colorspaceRadius;
+  var tmpRad = degree360ToRad(tmpColor[3]*360);
   var xPos = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
   var yPos = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
   var tmpY= hueRes-yPos;
@@ -1029,29 +944,21 @@ function calcLCH_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
   chPos.push(tmpY);
 
   var lchPos3D = [];
-  tmpDis = tmpColor.getCValue() * hsv3DRadius;
+  tmpDis = tmpColor[2]* hsv3DRadius;
   var xPos3D = tmpDis * Math.cos(tmpRad)*-1;
-  var yPos3D = vStart3D+(vEnd3D-vStart3D)*tmpColor.getLValue();
+  var yPos3D = vStart3D+(vEnd3D-vStart3D)*tmpColor[1];
   var zPos3D = tmpDis * Math.sin(tmpRad);
   lchPos3D.push(xPos3D);
   lchPos3D.push(yPos3D);
   lchPos3D.push(zPos3D);
 
-  var showColor = tmpColor.calcRGBColor();
+  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
-    var tmpLMS = showColor.calcLMSColor();
-    showColor = tmpLMS.calcColorBlindRGBColor();
-    tmpLMS.deleteReferences();
-    tmpLMS=null;
+    showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
   }
 
-  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,chPos,lchPos3D]; // first element is to seperate between LineChart element and hue plot element
-
-  showColor.deleteReferences();
-  tmpColor.deleteReferences();
-  showColor=null;
-  tmpColor=null;
-
+  var posArray = [keyindex,showColor,shape,colorSide,chPos,lchPos3D]; // first element is to seperate between LineChart element and hue plot element
   return posArray;
 
 }
@@ -1063,32 +970,24 @@ function calcLCH_LineChart_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,v
   var lineChart_yStart=Math.round(vHeight*0.9)
   var heigthVArea=lineChart_yStart-Math.round(vHeight*0.1);
 
-  var LineChartPos = [];
+  var lineChartPos = [];
   var xPos = lineChart_xStart + xRatio * plotwidth;
-  var yPos1 = Math.round(lineChart_yStart - (heigthVArea * tmpColor.getLValue()));
-  var yPos2 = Math.round(lineChart_yStart - (heigthVArea * tmpColor.getCValue()));
-  var yPos3 = Math.round(lineChart_yStart - (heigthVArea * tmpColor.getHValue()));
+  var yPos1 = Math.round(lineChart_yStart - (heigthVArea * tmpColor[1]));
+  var yPos2 = Math.round(lineChart_yStart - (heigthVArea * tmpColor[2]));
+  var yPos3 = Math.round(lineChart_yStart - (heigthVArea * tmpColor[3]));
 
-  LineChartPos.push(xPos);
-  LineChartPos.push(yPos1);
-  LineChartPos.push(yPos2);
-  LineChartPos.push(yPos3);
+  lineChartPos.push(xPos);
+  lineChartPos.push(yPos1);
+  lineChartPos.push(yPos2);
+  lineChartPos.push(yPos3);
 
-  var showColor = tmpColor.calcRGBColor();
+  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
-    var tmpLMS = showColor.calcLMSColor();
-    showColor = tmpLMS.calcColorBlindRGBColor();
-    tmpLMS.deleteReferences();
-    tmpLMS=null;
+    showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
   }
 
-  var posArray = [keyindex,showColor.getHexString(),shape,colorSide,LineChartPos]; // first element is to seperate between LineChart element and hue plot element
-
-  showColor.deleteReferences();
-  tmpColor.deleteReferences();
-  showColor=null;
-  tmpColor=null;
-
+  var posArray = [keyindex,showColor,shape,colorSide,lineChartPos]; // first element is to seperate between LineChart element and hue plot element
   return posArray;
 }
 

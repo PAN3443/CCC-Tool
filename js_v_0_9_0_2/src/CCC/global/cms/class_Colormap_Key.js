@@ -19,6 +19,7 @@ class class_Key{
 
         this.opacityValLeft=1.0;
         this.opacityValRight=1.0;
+        this.determineType();
     }
 
     getKeyPackage(){

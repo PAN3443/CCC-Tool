@@ -647,9 +647,9 @@ class class_CMS {
           startPos = startPos + dist * ratio;
 
           if(i==cmsInfoPackage[6].length-1)
-            this.keyArray.push(new class_Key(cmsPackage[6][i][0],cmsPackage[6][i][1],tmpVal,cmsPackage[6][i][3],cmsPackage[6][i][4]));
+            this.keyArray.push(new class_Key(cmsInfoPackage[6][i][0],cmsInfoPackage[6][i][1],tmpVal,cmsInfoPackage[6][i][3],cmsInfoPackage[6][i][4]));
           else
-            this.keyArray.push(new class_Key(cmsPackage[6][i][0],cmsPackage[6][i][1],startPos,cmsPackage[6][i][3],cmsPackage[6][i][4]));
+            this.keyArray.push(new class_Key(cmsInfoPackage[6][i][0],cmsInfoPackage[6][i][1],startPos,cmsInfoPackage[6][i][3],cmsInfoPackage[6][i][4]));
 
         }
         break;
@@ -663,13 +663,13 @@ class class_CMS {
         this.setRefPosition(insertIndex, endPos);
         var oldColor = this.getLeftKeyColor(insertIndex, "lab");
 
-        this.setLeftKeyColor(insertIndex, cmsPackage[6][cmsInfoPackage[6].length-1][2]); // left key color of the last key of the package
+        this.setLeftKeyColor(insertIndex, cmsInfoPackage[6][cmsInfoPackage[6].length-1][2]); // left key color of the last key of the package
         this.setBur(insertIndex, true);
 
         for (var i = cmsInfoPackage[6].length-2; i >= 0; i--) {
-          var ratio = (cmsPackage[6][i+1][2] - cmsPackage[6][i][2]) / cmsDis;
+          var ratio = (cmsInfoPackage[6][i+1][2] - cmsInfoPackage[6][i][2]) / cmsDis;
           endPos = endPos - dist * ratio;
-          this.insertKey(insertIndex, new class_Key(cmsPackage[6][i][0],cmsPackage[6][i][1],endPos,cmsPackage[6][i][3],cmsPackage[6][i][4]));
+          this.insertKey(insertIndex, new class_Key(cmsInfoPackage[6][i][0],cmsInfoPackage[6][i][1],endPos,cmsInfoPackage[6][i][3],cmsInfoPackage[6][i][4]));
         }
 
         this.setLeftKeyColor(insertIndex, oldColor);

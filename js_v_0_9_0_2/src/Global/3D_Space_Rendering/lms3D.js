@@ -612,15 +612,15 @@ function lms_checkPointIndices(i,j,k){
     lmsGeometry.vertices.push(new THREE.Vector3(i*lms3D_lmsStep,j*lms3D_lmsStep,k*lms3D_lmsStep));
     lms_linesPoints.push(i*lms3D_lmsStep,j*lms3D_lmsStep,k*lms3D_lmsStep);
 
-    gWorkerColor1.updateColor("lms",i*lms3D_lmsStep,j*lms3D_lmsStep,k*lms3D_lmsStep)
+    gWorkColor1.updateColor("lms",i*lms3D_lmsStep,j*lms3D_lmsStep,k*lms3D_lmsStep)
 
     var tmpRGBInfo = gWorkColor1.getColorInfo("rgb");
     if (doColorblindnessSim){
       tmpRGBInfo = gWorkColor1.getColorInfo("rgb_cb");
-      lms_colorArray.push(gWorkerColor1.get_RGB_String());
+      lms_colorArray.push(gWorkColor1.get_RGB_CB_String());
     }
     else {
-      lms_colorArray.push(gWorkerColor1.get_RGB_CB_String());
+      lms_colorArray.push(gWorkColor1.get_RGB_String());
     }
 
     lms_linesColors.push(tmpRGBInfo[1], tmpRGBInfo[2], tmpRGBInfo[3]);

@@ -1,3 +1,6 @@
+var gWorkColor1 = undefined;
+var gWorkColor2 = undefined;
+var gWorkColor3 = undefined;
 
 /// color settings
 // 2000
@@ -40,6 +43,31 @@ var tmLMS_Selected_Inv = [
   [0, 0, 1]
 ];
 var sim_AdaptiveColorblindness = undefined;
+var tmXYZ_Selected = [
+  [0.4124564, 0.3575761, 0.1804375],
+  [0.2126729, 0.7151522, 0.0721750],
+  [0.0193339, 0.1191920, 0.9503041]
+];
+var tmXYZ_Selected_Inv = [
+  [3.2404542, -1.5371385, -0.4985314],
+  [-0.9692660, 1.8760108, 0.0415560],
+  [0.0556434, -0.2040259, 1.0572252]
+];
+var tmLMS_Selected = [
+  [0.38971, 0.68898, -0.07868],
+  [-0.22981, 1.18340, 0.04641],
+  [0, 0, 1]
+];
+var tmLMS_Selected_Inv = [
+  [5917000000 / 3097586539, -3444900000 / 3097586539, 625427369 / 3097586539],
+  [1149050000 / 3097586539, 1948550000 / 3097586539, -49903 / 6195173078],
+  [0, 0, 1]
+];
+var  sim_AdaptiveColorblindness = [
+  [0, 1.05118294, -0.05116099],
+  [0, 1, 0],
+  [0, 0, 1]
+];
 
 
 
@@ -48,20 +76,20 @@ self.addEventListener('message', function(e) {
   switch (e.data.message) {
 
     case "init":
-      self.importScripts('../../../../../../Global/color/class_Colorspace_Basis.js');
-      self.importScripts('../../../../../../Global/color/class_Colorspace_RGB.js');
-      self.importScripts('../../../../../../Global/color/class_Colorspace_XYZ.js');
-      self.importScripts('../../../../../../Global/color/class_Colorspace_LMS.js');
-      self.importScripts('../../../../../../Global/color/class_Colorspace_HSV.js');
-      self.importScripts('../../../../../../Global/color/class_Colorspace_LAB.js');
-      self.importScripts('../../../../../../Global/color/class_Colorspace_LCH.js');
-      self.importScripts('../../../../../../Global/color/class_Colorspace_DIN99.js');
+    self.importScripts('../../../../../../Global/worker/general_processingCases.js');
+    self.importScripts('../../../../../../Global/helper/canvasHelper.js');
+    self.importScripts('../../../../../../Global/color/class_Colorspace_Allrounder.js');
+    self.importScripts('../../../../../../Global/helper/math.js');
 
-      self.importScripts('../../../../../../Global/worker/general_processingCases.js');
-      self.importScripts('../../../../../../Global/helper/math.js');
+    gWorkColor1 = new class_Color("rgb", 0, 0, 0);
+    gWorkColor2 = new class_Color("rgb", 0, 0, 0);
+    gWorkColor3 = new class_Color("rgb", 0, 0, 0);
     break;
     case "getBackground":
       var hueResolution = parseInt(e.data.hueResolution);
+      var colorInfo1 = undefined;
+      var colorInfo2 = undefined;
+      var colorInfo3 = undefined;
       switch (e.data.pp_space) {
         case "rgb":
           var canvasData_GR = new ImageData(hueResolution, hueResolution);
@@ -75,17 +103,16 @@ self.addEventListener('message', function(e) {
           var xWidth = xEnd - xStart;
           var yHeight = yStart - yEnd;
 
-          var tmpRGB_GR = new class_Color_RGB(0,0,0);
-          var tmpRGB_BR = new class_Color_RGB(0,0,0);
-          var tmpRGB_GB = new class_Color_RGB(0,0,0);
+          gWorkColor1 = new class_Color("rgb", 0, 0, 0);
+          gWorkColor2 = new class_Color("rgb", 0, 0, 0);
+          gWorkColor3 = new class_Color("rgb", 0, 0, 0);
 
           if(e.data.fixedValue1!=undefined){
-            tmpRGB_GR.set3Value(e.data.fixedValue3);
-            tmpRGB_BR.set2Value(e.data.fixedValue2);
-            tmpRGB_GB.set1Value(e.data.fixedValue1);
+            gWorkColor1.setValue("rgb", 2, e.data.fixedValue3)
+            gWorkColor2.setValue("rgb", 1, e.data.fixedValue2)
+            gWorkColor3.setValue("rgb", 0, e.data.fixedValue1)
           }
 
-          var deleteColors = [];
           for (var x = 0; x < hueResolution; x++) {
             for (var y = 0; y < hueResolution; y++) {
 
@@ -96,45 +123,39 @@ self.addEventListener('message', function(e) {
                 var xVal = (x - xStart) / xWidth;
                 var yVal = (yStart - y) / yHeight;
 
-                tmpRGB_GR.set1Value(yVal);
-                tmpRGB_GR.set2Value(xVal);
+                gWorkColor1.setValue("rgb", 0,yVal);
+                gWorkColor1.setValue("rgb", 1,xVal);
 
-                tmpRGB_BR.set1Value(yVal);
-                tmpRGB_BR.set3Value(xVal);
+                gWorkColor2.setValue("rgb", 0,yVal);
+                gWorkColor2.setValue("rgb", 2,xVal);
 
-                tmpRGB_GB.set2Value(xVal);
-                tmpRGB_GB.set3Value(yVal);
+                gWorkColor3.setValue("rgb", 1,xVal);
+                gWorkColor3.setValue("rgb", 2,yVal);
 
                 if(e.data.doColorblindnessSim){
-                  var tmpLMS = tmpRGB_GR.calcLMSColor();
-                  tmpRGB_GR.deleteReferences();
-                  tmpRGB_GR = tmpLMS.calcColorBlindRGBColor();
-                  tmpLMS.deleteReferences();
-
-                  tmpLMS = tmpRGB_BR.calcLMSColor();
-                  tmpRGB_BR.deleteReferences();
-                  tmpRGB_BR = tmpLMS.calcColorBlindRGBColor();
-                  tmpLMS.deleteReferences();
-
-                  tmpLMS = tmpRGB_GB.calcLMSColor();
-                  tmpRGB_GB.deleteReferences();
-                  tmpRGB_GB = tmpLMS.calcColorBlindRGBColor();
-                  tmpLMS.deleteReferences();
+                  colorInfo1 = gWorkColor1.getColorInfo("rgb_cb");
+                  colorInfo2 = gWorkColor2.getColorInfo("rgb_cb");
+                  colorInfo3 = gWorkColor3.getColorInfo("rgb_cb");
+                }
+                else{
+                  colorInfo1 = gWorkColor1.getColorInfo("rgb");
+                  colorInfo2 = gWorkColor2.getColorInfo("rgb");
+                  colorInfo3 = gWorkColor3.getColorInfo("rgb");
                 }
 
-                canvasData_GR.data[indices[0]] = Math.round(tmpRGB_GR.get1Value() * 255); // r
-                canvasData_GR.data[indices[1]] = Math.round(tmpRGB_GR.get2Value() * 255); // g
-                canvasData_GR.data[indices[2]] = Math.round(tmpRGB_GR.get3Value() * 255); // b
+                canvasData_GR.data[indices[0]] = Math.round(colorInfo1[1] * 255); // r
+                canvasData_GR.data[indices[1]] = Math.round(colorInfo1[2] * 255); // g
+                canvasData_GR.data[indices[2]] = Math.round(colorInfo1[3] * 255); // b
                 canvasData_GR.data[indices[3]] = 255; //a
 
-                canvasData_BR.data[indices[0]] = Math.round(tmpRGB_BR.get1Value() * 255); // r
-                canvasData_BR.data[indices[1]] = Math.round(tmpRGB_BR.get2Value() * 255); // g
-                canvasData_BR.data[indices[2]] = Math.round(tmpRGB_BR.get3Value() * 255); // b
+                canvasData_BR.data[indices[0]] = Math.round(colorInfo2[1] * 255); // r
+                canvasData_BR.data[indices[1]] = Math.round(colorInfo2[2] * 255); // g
+                canvasData_BR.data[indices[2]] = Math.round(colorInfo2[3] * 255); // b
                 canvasData_BR.data[indices[3]] = 255; //a
 
-                canvasData_GB.data[indices[0]] = Math.round(tmpRGB_GB.get1Value() * 255); // r
-                canvasData_GB.data[indices[1]] = Math.round(tmpRGB_GB.get2Value() * 255); // g
-                canvasData_GB.data[indices[2]] = Math.round(tmpRGB_GB.get3Value() * 255); // b
+                canvasData_GB.data[indices[0]] = Math.round(colorInfo3[1] * 255); // r
+                canvasData_GB.data[indices[1]] = Math.round(colorInfo3[2] * 255); // g
+                canvasData_GB.data[indices[2]] = Math.round(colorInfo3[3] * 255); // b
                 canvasData_GB.data[indices[3]] = 255; //a
               }
 
@@ -161,13 +182,6 @@ self.addEventListener('message', function(e) {
           answerJSON['label2'] = "B";
           self.postMessage(answerJSON);
 
-          /////////////////////////////////////
-          //// delete Colors
-
-          tmpRGB_GR.deleteReferences();
-          tmpRGB_BR.deleteReferences();
-          tmpRGB_GB.deleteReferences();
-
         break;
         case "hsv":
           var background = new ImageData(hueResolution, hueResolution);
@@ -181,8 +195,7 @@ self.addEventListener('message', function(e) {
           if (e.data.fixedValue3!=undefined)
             vVal=e.data.fixedValue3;
 
-          var deleteColors = [];
-          var colorHSV = new class_Color_HSV(0, 0, vVal);
+          gWorkColor1 = new class_Color("hsv", 0, 0, vVal);
 
           for (var x = 0; x < hueResolution; x++) {
 
@@ -200,25 +213,21 @@ self.addEventListener('message', function(e) {
                 var hVal = angle;
                 var sVal = dis / colorspaceRadius;
 
-                colorHSV.set1Value(hVal);
-                colorHSV.set2Value(sVal);
-                var colorRGB = colorHSV.calcRGBColor();
-
+                gWorkColor1.setValue("hsv", 0,hVal);
+                gWorkColor1.setValue("hsv", 1,sVal);
 
                 if(e.data.doColorblindnessSim){
-                  var tmpLMS = colorRGB.calcLMSColor();
-                  deleteColors.push(colorRGB);
-                  colorRGB = tmpLMS.calcColorBlindRGBColor();
-                  deleteColors.push(tmpLMS);
+                  colorInfo1 = gWorkColor1.getColorInfo("rgb_cb");
+                }
+                else{
+                  colorInfo1 = gWorkColor1.getColorInfo("rgb");
                 }
 
                 var indices = getColorIndicesForCoord(x, y, hueResolution);
-
-                background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
-                background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
-                background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
+                background.data[indices[0]] = Math.round(colorInfo1[1] * 255); // r
+                background.data[indices[1]] = Math.round(colorInfo1[2] * 255); // g
+                background.data[indices[2]] = Math.round(colorInfo1[3] * 255); // b
                 background.data[indices[3]] = 255; //a
-                deleteColors.push(colorRGB);
               }
 
             }
@@ -230,12 +239,6 @@ self.addEventListener('message', function(e) {
           answerJSON['canvasID'] = e.data.canvasID_1;
           answerJSON['imageData'] = background;
           self.postMessage(answerJSON);
-
-          colorHSV.deleteReferences();
-
-          for (var i = deleteColors.length-1; i >= 0; i--) {
-            deleteColors[i].deleteReferences();
-          }
         break;
         case "lab":
           var background = new ImageData(hueResolution, hueResolution);
@@ -249,8 +252,8 @@ self.addEventListener('message', function(e) {
           if (e.data.fixedValue1!=undefined)
             lVal=e.data.fixedValue1;
 
-          var deleteColors = [];
-          var colorLAB = new class_Color_LAB(lVal, 0, 0);
+          gWorkColor1 = new class_Color("lab", lVal, 0, 0);
+
           for (var x = 0; x < hueResolution; x++) {
 
             for (var y = 0; y < hueResolution; y++) {
@@ -259,32 +262,25 @@ self.addEventListener('message', function(e) {
                 var aVal = ((x - colorspaceCenterX) / (hueResolution / 2)) * e.data.labSpaceRange;
                 var bVal = ((tmpY - colorspaceCenterY) / (hueResolution / 2)) * e.data.labSpaceRange;
 
-                colorLAB.set2Value(aVal);
-                colorLAB.set3Value(bVal);
-                var colorRGB = undefined;
+                gWorkColor1.setValue("lab", 1,aVal);
+                gWorkColor1.setValue("lab", 2,bVal);
 
-                if(colorLAB.checkRGBPossiblity() || e.data.fixedValue1==undefined){
-                  colorRGB = colorLAB.calcRGBColor();
-                }
-                else {
-                  //colorRGB = new class_Color_RGB(0.5, 0.5, 0.5);
+                if(e.data.fixedValue1!=undefined && !gWorkColor1.checkRGBPossiblity()){
                   continue;
                 }
 
                 if(e.data.doColorblindnessSim){
-                  var tmpLMS = colorRGB.calcLMSColor();
-                  deleteColors.push(colorRGB);
-                  colorRGB = tmpLMS.calcColorBlindRGBColor();
-                  deleteColors.push(tmpLMS);
+                  colorInfo1 = gWorkColor1.getColorInfo("rgb_cb");
+                }
+                else{
+                  colorInfo1 = gWorkColor1.getColorInfo("rgb");
                 }
 
                 var indices = getColorIndicesForCoord(x, y, hueResolution);
-
-                background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
-                background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
-                background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
+                background.data[indices[0]] = Math.round(colorInfo1[1] * 255); // r
+                background.data[indices[1]] = Math.round(colorInfo1[2] * 255); // g
+                background.data[indices[2]] = Math.round(colorInfo1[3] * 255); // b
                 background.data[indices[3]] = 255; //a
-                deleteColors.push(colorRGB);
 
             }
 
@@ -296,10 +292,6 @@ self.addEventListener('message', function(e) {
           answerJSON['imageData'] = background;
           self.postMessage(answerJSON);
 
-          colorLAB.deleteReferences();
-          for (var i = deleteColors.length-1; i >= 0; i--) {
-            deleteColors[i].deleteReferences();
-          }
         break;
         case "din99":
           var background = new ImageData(hueResolution, hueResolution);
@@ -313,8 +305,7 @@ self.addEventListener('message', function(e) {
           if (e.data.fixedValue1!=undefined)
             l99Val=e.data.fixedValue1;
 
-          var deleteColors = [];
-          var colorDIN99 = new class_Color_DIN99(l99Val, 0, 0);
+          gWorkColor1 = new class_Color("din99", l99Val, 0, 0);
           for (var x = 0; x < hueResolution; x++) {
 
             for (var y = 0; y < hueResolution; y++) {
@@ -323,29 +314,25 @@ self.addEventListener('message', function(e) {
                 var a99Val = (x  / hueResolution) * e.data.rangeA99 + e.data.rangeA99Neg;
                 var b99Val = (tmpY / hueResolution) * e.data.rangeB99 + e.data.rangeB99Neg;
 
-                colorDIN99.set2Value(a99Val);
-                colorDIN99.set3Value(b99Val);
-                var colorRGB = undefined;
-                if (colorDIN99.checkRGBPossiblity() || e.data.fixedValue1==undefined){
-                  colorRGB = colorDIN99.calcRGBColor();
-                } else {
-                  //colorRGB = new class_Color_RGB(0.5, 0.5, 0.5);
+                gWorkColor1.setValue("din99", 1,a99Val);
+                gWorkColor1.setValue("din99", 2,b99Val);
+
+                if(e.data.fixedValue1!=undefined && !gWorkColor1.checkRGBPossiblity()){
                   continue;
                 }
 
                 if(e.data.doColorblindnessSim){
-                  var tmpLMS = colorRGB.calcLMSColor();
-                  deleteColors.push(colorRGB);
-                  colorRGB = tmpLMS.calcColorBlindRGBColor();
-                  deleteColors.push(tmpLMS);
+                  colorInfo1 = gWorkColor1.getColorInfo("rgb_cb");
+                }
+                else{
+                  colorInfo1 = gWorkColor1.getColorInfo("rgb");
                 }
 
                 var indices = getColorIndicesForCoord(x, y, hueResolution);
-                background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
-                background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
-                background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
+                background.data[indices[0]] = Math.round(colorInfo1[1] * 255); // r
+                background.data[indices[1]] = Math.round(colorInfo1[2] * 255); // g
+                background.data[indices[2]] = Math.round(colorInfo1[3] * 255); // b
                 background.data[indices[3]] = 255; //a
-                deleteColors.push(colorRGB);
 
             }
           }
@@ -355,11 +342,6 @@ self.addEventListener('message', function(e) {
           answerJSON['canvasID'] = e.data.canvasID_1;
           answerJSON['imageData'] = background;
           self.postMessage(answerJSON);
-
-          colorDIN99.deleteReferences();
-          for (var i = deleteColors.length-1; i >= 0; i--) {
-            deleteColors[i].deleteReferences();
-          }
         break;
         case "lch":
           var background = new ImageData(hueResolution, hueResolution);
@@ -373,8 +355,7 @@ self.addEventListener('message', function(e) {
             if (e.data.fixedValue1!=undefined)
               lVal=e.data.fixedValue1;
 
-            var deleteColors = [];
-            var colorLCH = new class_Color_LCH(lVal,0,0);
+            gWorkColor1 = new class_Color("lch", lVal, 0, 0);
 
             for (var x = 0; x < hueResolution; x++) {
 
@@ -392,32 +373,25 @@ self.addEventListener('message', function(e) {
                   var hVal = angle;
                   var cVal = dis / colorspaceRadius;
 
-                  colorLCH.set2Value(cVal);
-                  colorLCH.set3Value(hVal);
+                  gWorkColor1.setValue("lch", 1,cVal);
+                  gWorkColor1.setValue("lch", 2,hVal);
 
-                  var colorRGB;
-                  if(colorLCH.checkRGBPossiblity() || e.data.fixedValue1==undefined){
-                    colorRGB = colorLCH.calcRGBColor();
-                  }
-                  else {
-                    //colorRGB = new class_Color_RGB(0.5, 0.5, 0.5);
+                  if(e.data.fixedValue1!=undefined && !gWorkColor1.checkRGBPossiblity()){
                     continue;
                   }
 
                   if(e.data.doColorblindnessSim){
-                    var tmpLMS = colorRGB.calcLMSColor();
-                    deleteColors.push(colorRGB);
-                    colorRGB = tmpLMS.calcColorBlindRGBColor();
-                    deleteColors.push(tmpLMS);
+                    colorInfo1 = gWorkColor1.getColorInfo("rgb_cb");
+                  }
+                  else{
+                    colorInfo1 = gWorkColor1.getColorInfo("rgb");
                   }
 
                   var indices = getColorIndicesForCoord(x, y, hueResolution);
-
-                  background.data[indices[0]] = Math.round(colorRGB.get1Value() * 255); // r
-                  background.data[indices[1]] = Math.round(colorRGB.get2Value() * 255); // g
-                  background.data[indices[2]] = Math.round(colorRGB.get3Value() * 255); // b
+                  background.data[indices[0]] = Math.round(colorInfo1[1] * 255); // r
+                  background.data[indices[1]] = Math.round(colorInfo1[2] * 255); // g
+                  background.data[indices[2]] = Math.round(colorInfo1[3] * 255); // b
                   background.data[indices[3]] = 255; //a
-                  deleteColors.push(colorRGB);
 
                 }
 
@@ -425,22 +399,13 @@ self.addEventListener('message', function(e) {
 
             }
 
-
-
           var answerJSON = {};
           answerJSON['pp_space'] = e.data.pp_space;
           answerJSON['canvasID'] = e.data.canvasID_1;
           answerJSON['imageData'] = background;
           self.postMessage(answerJSON);
-
-          colorLCH.deleteReferences();
-
-          for (var i = deleteColors.length-1; i >= 0; i--) {
-            deleteColors[i].deleteReferences();
-          }
         break;
       }
-
 
     break;
   default:

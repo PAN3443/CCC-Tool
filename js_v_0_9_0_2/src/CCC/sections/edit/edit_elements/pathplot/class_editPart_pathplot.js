@@ -1,3 +1,7 @@
+////////////////////////////
+var gCMS_Pathplot = new class_CMS();
+
+///////////////////////////////
 class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
   constructor(divID,parentID) {
@@ -62,13 +66,13 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
   }
 
   showPart(){
-    if(super.showPart()){
+    if(super.showPart){
       this.changePathPlotSpace(); // produce RGB Mesh
     }
   }
 
   updatePart(doBackground,doInterpolationline, initLineChart){
-    /*if(!super.updatePart())
+    if(!super.updatePart())
       return;
 
       switch (this.pathplot_space) {
@@ -81,11 +85,11 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         break;
         default:
           this.pp_drawOthers(doBackground, doInterpolationline, initLineChart);
-      }*/
+      }
   }
 
   resize(){
-    /*var container = document.getElementById(this.partDivID);
+    var container = document.getElementById(this.partDivID);
     this.partIsReady=false;
     if(container==undefined || container==null)
       return;
@@ -268,7 +272,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       break;
       /*case optiSection.isSectionOpen():
         tmpID="id_OptiPage_SelectPathplotType";
-      break;* /
+      break;*/
       default:
           return;
     }
@@ -305,12 +309,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         return;
     }
 
-    this.resize();*/
+    this.resize();
 
   }
 
   changePathPlotSpace(){
-    /*var tmpID = undefined;
+    var tmpID = undefined;
     switch (true) {
       case editSection.isSectionOpen():
         this.pathplot_space=document.getElementById("id_EditPage_SelectPathplotType").options[document.getElementById("id_EditPage_SelectPathplotType").selectedIndex].value;
@@ -360,11 +364,11 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     tmpDiv.addEventListener("mouseup", pp_3D_mouseup);
     tmpDiv.addEventListener("wheel", pp_3D_mousewheel);
     tmpDiv.oncontextmenu=function(){return false;};
-    return tmpDiv;*/
+    return tmpDiv;
   }
 
   createTripleLayerCanvasDiv(height_VH, width_VW, isSquad, id){
-    /*var tmpDiv = document.createElement('div');
+    var tmpDiv = document.createElement('div');
     tmpDiv.id = id;
     tmpDiv.style.width=width_VW+"vw";
     tmpDiv.style.height=height_VH+"vh";
@@ -427,7 +431,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       console.log("pp_canvas_yStart",this.pp_canvas_yStart);
       console.log("pp_canvas_xWidth",this.pp_canvas_xWidth);
       console.log("pp_canvas_yHeight",this.pp_canvas_yHeight);
-      console.log("------------------");* /
+      console.log("------------------");*/
     }
     else {
       switch (this.pp_CanvasMode) {
@@ -447,26 +451,23 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           var pp_canvas_yEnd = this.lineChart_Height*0.1;
           this.pp_canvas_yHeight =this.pp_canvas_yStart-pp_canvas_yEnd;
         }
-    }*/
+    }
   }
 
   pp_rgb_background() {
 
-/*
-
     var fixedColor = undefined;
     if (this.mouseGrappedKeyID != -1) {
-      var tmpCMS = this.getParentCMS();
+      gCMS_Pathplot.setCMSFromPackage(this.getParentCMS());
       switch (this.mouseGrappedColorSide) {
         case 0:
         // left color
-          fixedColor = tmpCMS.getLeftKeyColor(this.mouseGrappedKeyID, "rgb");
+          fixedColor = gCMS_Pathplot.getLeftKeyColor(this.mouseGrappedKeyID, "rgb");
           break;
         default:
           // both colors
-          fixedColor = tmpCMS.getRightKeyColor(this.mouseGrappedKeyID, "rgb");
+          fixedColor = gCMS_Pathplot.getRightKeyColor(this.mouseGrappedKeyID, "rgb");
       }
-      tmpCMS.deleteReferences();
     }
 
     if (doWorker && window.Worker){
@@ -485,9 +486,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         workerJSON['fixedValue3'] = undefined;
       }
       else {
-        workerJSON['fixedValue1'] = fixedColor.get1Value();
-        workerJSON['fixedValue2'] = fixedColor.get2Value();
-        workerJSON['fixedValue3'] = fixedColor.get3Value();
+        workerJSON['fixedValue1'] = fixedColor[1];
+        workerJSON['fixedValue2'] = fixedColor[2];
+        workerJSON['fixedValue3'] = fixedColor[3];
       }
       this.pathplot_worker_background.postMessage(workerJSON);
     }
@@ -496,11 +497,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       setSquadRes_Canvas(this.partDivID+"_PP_RB_l0");
       setSquadRes_Canvas(this.partDivID+"_PP_BG_l0");
       drawRGBBackground(document.getElementById(this.partDivID+"_PP_RG_l0").getContext("2d"),document.getElementById(this.partDivID+"_PP_RB_l0").getContext("2d"),document.getElementById(this.partDivID+"_PP_BG_l0").getContext("2d"),fixedColor);
-      if(fixedColor!=undefined){
-        fixedColor.deleteReferences();
-        fixedColor=null;
-      }
-    }*/
+    }
 
 
 
@@ -508,48 +505,48 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
   pp_rgb_interpolationLine() {
 
-    /*setSquadRes_Canvas(this.partDivID+"_PP_RG_l1"); // global -> helper -> canvasHelper
+    setSquadRes_Canvas(this.partDivID+"_PP_RG_l1"); // global -> helper -> canvasHelper
     setSquadRes_Canvas(this.partDivID+"_PP_RB_l1");
     setSquadRes_Canvas(this.partDivID+"_PP_BG_l1");
 
-    calcRGBInterpolationLine(this.getParentCMS(),this.pathplot_hueRes);
+    calcRGBInterpolationLine(this.pathplot_hueRes);
 
     drawInterpolationLine(document.getElementById(this.partDivID+"_PP_RG_l1").getContext("2d"),1,0,true);
     drawInterpolationLine(document.getElementById(this.partDivID+"_PP_RB_l1").getContext("2d"),2,0,true);
     drawInterpolationLine(document.getElementById(this.partDivID+"_PP_BG_l1").getContext("2d"),1,2,true);
 
-    this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);/*/
+    this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);
 
   }
 
   pp_rgb_drawElements(){
 
-    /*setSquadRes_Canvas(this.partDivID+"_PP_RG_l2"); // global -> helper -> canvasHelper
+    setSquadRes_Canvas(this.partDivID+"_PP_RG_l2"); // global -> helper -> canvasHelper
     setSquadRes_Canvas(this.partDivID+"_PP_RB_l2");
     setSquadRes_Canvas(this.partDivID+"_PP_BG_l2");
 
-    calcRGBElements(this.getParentCMS(),this.pathplot_hueRes);
+    calcRGBElements(this.pathplot_hueRes);
 
     drawPathplotElements(document.getElementById(this.partDivID+"_PP_RG_l2").getContext("2d"), 1, 0,true,this.mouseAboveKeyID,this.mouseGrappedColorSide);
     drawPathplotElements(document.getElementById(this.partDivID+"_PP_RB_l2").getContext("2d"), 2, 0,true,this.mouseAboveKeyID,this.mouseGrappedColorSide);
     drawPathplotElements(document.getElementById(this.partDivID+"_PP_BG_l2").getContext("2d"), 1, 2,true,this.mouseAboveKeyID,this.mouseGrappedColorSide);
 
-    this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);*/
+    this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);
   }
 
   pp_drawRGBorLMS_LineChart(doInterpolationline, initLineChart){
 
-    /*if (initLineChart)
+    if (initLineChart)
       this.pp_init_LineChart();
 
     if (drawInterpolationLine)
       this.pp_rgblms_LineChart_interpolationLine();
 
-    this.pp_rgblms_LineChart_drawElements();*/
+    this.pp_rgblms_LineChart_drawElements();
   }
 
   pp_rgblms_LineChart_drawElements(){
-  /*  var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l2");
+    var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l2");
     canvasObj0.width = this.lineChart_Width;
     canvasObj0.height = this.lineChart_Height;
 
@@ -563,10 +560,10 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
     switch (this.pathplot_space) {
       case "rgb-line":
-          calcRGBLineElements(this.getParentCMS(),this.lineChart_Width,this.lineChart_Height);
+          calcRGBLineElements(this.lineChart_Width,this.lineChart_Height);
         break;
         case "lms":
-          calcLMSElements(this.getParentCMS(),this.lineChart_Width,this.lineChart_Height);
+          calcLMSElements(this.lineChart_Width,this.lineChart_Height);
           break;
       default:
         return;
@@ -577,12 +574,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     drawLineChartElements(canvasObj1.getContext("2d"),1,this.mouseAboveKeyID,this.mouseGrappedColorSide);
     drawLineChartElements(canvasObj2.getContext("2d"),2,this.mouseAboveKeyID,this.mouseGrappedColorSide);
 
-    this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);*/
+    this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);
 
   }
 
   pp_rgblms_LineChart_interpolationLine(){
-  /*  var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l1");
+    var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l1");
     canvasObj0.width = this.lineChart_Width;
     canvasObj0.height = this.lineChart_Height;
 
@@ -596,10 +593,10 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
     switch (this.pathplot_space) {
       case "rgb-line":
-          calcInterpolationLine_RGBLine(this.getParentCMS(),this.lineChart_Width,this.lineChart_Height);
+          calcInterpolationLine_RGBLine(this.lineChart_Width,this.lineChart_Height);
         break;
         case "lms":
-          calcInterpolationLine_LMS(this.getParentCMS(),this.lineChart_Width,this.lineChart_Height);
+          calcInterpolationLine_LMS(this.lineChart_Width,this.lineChart_Height);
           break;
       default:
         return;
@@ -610,14 +607,14 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     drawInterpolationLine_LineChart(canvasObj1.getContext("2d"), 1);
     drawInterpolationLine_LineChart(canvasObj2.getContext("2d"), 2);
 
-    this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);*/
+    this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);
 
   }
 
   pp_drawOthers(calcBackground, drawInterpolationLine, initLineChart) {
 
 
-    /*if (initLineChart)
+    if (initLineChart)
       this.pp_init_LineChart();
 
     if (calcBackground)
@@ -627,25 +624,24 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     if (drawInterpolationLine)
       this.pp_other_interpolationLine();
 
-    this.pp_other_drawElements();*/
+    this.pp_other_drawElements();
   }
 
   pp_hueInit() {
-      /*this.pathplot_hueRes= document.getElementById(this.partDivID+"_PP_Hue_l0").getBoundingClientRect().height;
+      this.pathplot_hueRes= document.getElementById(this.partDivID+"_PP_Hue_l0").getBoundingClientRect().height;
 
       var fixedColor = undefined;
       if (this.mouseGrappedKeyID != -1) {
-        var tmpCMS = this.getParentCMS();
+        gCMS_Pathplot.setCMSFromPackage(this.getParentCMS());
         switch (this.mouseGrappedColorSide) {
           case 0:
           // left color
-            fixedColor = tmpCMS.getLeftKeyColor(this.mouseGrappedKeyID, this.pathplot_space);
+            fixedColor = gCMS_Pathplot.getLeftKeyColor(this.mouseGrappedKeyID, this.pathplot_space);
             break;
           default:
             // both colors
-            fixedColor = tmpCMS.getRightKeyColor(this.mouseGrappedKeyID, this.pathplot_space);
+            fixedColor = gCMS_Pathplot.getRightKeyColor(this.mouseGrappedKeyID, this.pathplot_space);
         }
-        tmpCMS.deleteReferences();
       }
 
       if (doWorker && window.Worker){
@@ -669,9 +665,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           workerJSON['fixedValue3'] = undefined;
         }
         else {
-          workerJSON['fixedValue1'] = fixedColor.get1Value();
-          workerJSON['fixedValue2'] = fixedColor.get2Value();
-          workerJSON['fixedValue3'] = fixedColor.get3Value();
+          workerJSON['fixedValue1'] = fixedColor[1];
+          workerJSON['fixedValue2'] = fixedColor[2];
+          workerJSON['fixedValue3'] = fixedColor[3];
         }
         this.pathplot_worker_background.postMessage(workerJSON);
       }
@@ -692,16 +688,11 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
                   drawLCHBackground(document.getElementById(this.partDivID+"_PP_Hue_l0").getContext("2d"),fixedColor);
                   break;
         }
-
-        if(fixedColor!=undefined){
-          fixedColor.deleteReferences();
-          fixedColor=null;
-        }
-      }*/
+      }
   }
 
   pp_init_LineChart() {
-    /*var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l0");
+    var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l0");
     var box = canvasObj0.getBoundingClientRect();
     this.lineChart_Width = box.width;
     this.lineChart_Height = box.height;
@@ -718,41 +709,41 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
     switch (this.pathplot_space) {
     case "rgb-line":
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj0.getContext("2d"),0,255, "R");
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj1.getContext("2d"),0,255, "G");
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj2.getContext("2d"),0,255, "B");
+      draw_LineChart_Coordinates(canvasObj0.getContext("2d"),0,255, "R");
+      draw_LineChart_Coordinates(canvasObj1.getContext("2d"),0,255, "G");
+      draw_LineChart_Coordinates(canvasObj2.getContext("2d"),0,255, "B");
     break;
     case "lms":
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L");
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj1.getContext("2d"),0,100, "M");
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj2.getContext("2d"),0,100, "S");
+      draw_LineChart_Coordinates(canvasObj0.getContext("2d"),0,100, "L");
+      draw_LineChart_Coordinates(canvasObj1.getContext("2d"),0,100, "M");
+      draw_LineChart_Coordinates(canvasObj2.getContext("2d"),0,100, "S");
     break;
     case "hsv":
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj0.getContext("2d"),0,360, "H");
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj1.getContext("2d"),0,100, "S");
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj2.getContext("2d"),0,100, "V");
+      draw_LineChart_Coordinates(canvasObj0.getContext("2d"),0,360, "H");
+      draw_LineChart_Coordinates(canvasObj1.getContext("2d"),0,100, "S");
+      draw_LineChart_Coordinates(canvasObj2.getContext("2d"),0,100, "V");
      break;
     case "lab":
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L");
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj1.getContext("2d"),labSpaceRange*-1,labSpaceRange, "A");
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj2.getContext("2d"),labSpaceRange*-1,labSpaceRange, "B");
+      draw_LineChart_Coordinates(canvasObj0.getContext("2d"),0,100, "L");
+      draw_LineChart_Coordinates(canvasObj1.getContext("2d"),labSpaceRange*-1,labSpaceRange, "A");
+      draw_LineChart_Coordinates(canvasObj2.getContext("2d"),labSpaceRange*-1,labSpaceRange, "B");
       break;
     case "din99":
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L99");
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj1.getContext("2d"),rangeA99Neg,rangeA99Pos, "A99");
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj2.getContext("2d"),rangeB99Neg,rangeB99Pos, "B99");
+      draw_LineChart_Coordinates(canvasObj0.getContext("2d"),0,100, "L99");
+      draw_LineChart_Coordinates(canvasObj1.getContext("2d"),rangeA99Neg,rangeA99Pos, "A99");
+      draw_LineChart_Coordinates(canvasObj2.getContext("2d"),rangeB99Neg,rangeB99Pos, "B99");
       break;
     case "lch":
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj0.getContext("2d"),0,100, "L");
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj1.getContext("2d"),0,100, "C");
-      draw_LineChart_Coordinates(this.getParentCMS(),canvasObj2.getContext("2d"),0,360, "H");
+      draw_LineChart_Coordinates(canvasObj0.getContext("2d"),0,100, "L");
+      draw_LineChart_Coordinates(canvasObj1.getContext("2d"),0,100, "C");
+      draw_LineChart_Coordinates(canvasObj2.getContext("2d"),0,360, "H");
      break;
-   }*/
+    }
   }
 
   pp_other_interpolationLine() {
 
-    /*var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l1");
+    var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l1");
     canvasObj0.width = this.lineChart_Width;
     canvasObj0.height = this.lineChart_Height;
 
@@ -772,16 +763,16 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
     switch (this.pathplot_space) {
       case "hsv":
-        calcInterpolationLine_HSV(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
+        calcInterpolationLine_HSV(this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
         break;
         case "lab":
-          calcInterpolationLine_Lab(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
+          calcInterpolationLine_Lab(this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
           break;
           case "din99":
-            calcInterpolationLine_DIN99(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
+            calcInterpolationLine_DIN99(this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
             break;
             case "lch":
-              calcInterpolationLine_LCH(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
+              calcInterpolationLine_LCH(this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
               break;
       default:
         return;
@@ -793,12 +784,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     drawInterpolationLine_LineChart(canvasObj1.getContext("2d"), 1);
     drawInterpolationLine_LineChart(canvasObj2.getContext("2d"), 2);
 
-    this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);*/
+    this.pp_LineGroup=draw3DInterpolationLine(this.pp_LineGroup);
   }
 
   pp_other_drawElements() {
 
-    /*var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l2");
+    var canvasObj0 = document.getElementById(this.partDivID+"_PP_C1_l2");
     canvasObj0.width = this.lineChart_Width;
     canvasObj0.height = this.lineChart_Height;
 
@@ -818,16 +809,16 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
     switch (this.pathplot_space) {
       case "hsv":
-        calcHSVElements(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
+        calcHSVElements(this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
         break;
         case "lab":
-          calcLabElements(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
+          calcLabElements(this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
           break;
           case "din99":
-            calcDIN99Elements(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
+            calcDIN99Elements(this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
             break;
             case "lch":
-              calcLCHElements(this.getParentCMS(),this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
+              calcLCHElements(this.pathplot_hueRes,this.lineChart_Width,this.lineChart_Height);
               break;
       default:
         return;
@@ -840,12 +831,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     drawLineChartElements(canvasObj1.getContext("2d"),1,this.mouseAboveKeyID,this.mouseGrappedColorSide);
     drawLineChartElements(canvasObj2.getContext("2d"),2,this.mouseAboveKeyID,this.mouseGrappedColorSide);
 
-    this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);*/
+    this.pp_ElementGroup=drawPathplot3DElements(this.pp_ElementGroup,this.mouseAboveKeyID,this.mouseGrappedColorSide);
 
   }
 
   pp_mouseMove(id,mousePosX,mousePosY){
-    /*if(this.pp_CanvasMode == undefined)
+    if(this.pp_CanvasMode == undefined)
       return;
 
     this.mousePosX =mousePosX;
@@ -856,18 +847,18 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       tmpSpace="rgb";
 
     if(this.mouseGrappedKeyID==-1){
-      var tmpCMS = this.getParentCMS();
+      gCMS_Pathplot.setCMSFromPackage(this.getParentCMS());
       document.getElementById(id).style.cursor = "default";
       var oldmouseAboveKeyID = this.mouseAboveKeyID;
       var found = false;
 
-      for (var i = 0; i < tmpCMS.getKeyLength(); i++) {
+      for (var i = 0; i < gCMS_Pathplot.getKeyLength(); i++) {
 
           var position = [-1,-1];
           // tmpX is only important for the LineCharts
-          var tmpX = this.pp_canvas_xStart+((tmpCMS.getRefPosition(i)-tmpCMS.getRefPosition(0))/tmpCMS.getRefRange())*this.pp_canvas_xWidth;
+          var tmpX = this.pp_canvas_xStart+((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/gCMS_Pathplot.getRefRange())*this.pp_canvas_xWidth;
 
-          switch (tmpCMS.getKeyType(i)) {
+          switch (gCMS_Pathplot.getKeyType(i)) {
             case "nil key":
               // do nothing
               break;
@@ -875,118 +866,85 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
             ////////////////////////////////////////////////////////////////
             /////// Right Color
-            var tmpColor2 = tmpCMS.getRightKeyColor(i, tmpSpace);
-            position =  this.getColorPosInCanvas(tmpColor2);
+            position =  this.getColorPosInCanvas(gCMS_Pathplot.getRightKeyColor(i, tmpSpace));
             if(this.pp_isLineChart)
               position[0]=tmpX;
             if(this.pp_checkPosition(position[0], position[1], i, 1, drawCircle)){
                 found = true;
-                tmpColor2.deleteReferences();
-                tmpColor2=null;
                 break;
             }
 
             ////////////////////////////////////////////////////////////////
             /////// left Color
-              var tmpColor = tmpCMS.getLeftKeyColor(i, tmpSpace);
               var drawCircle = true;
-              if (tmpCMS.getKeyType(i-1) === "nil key" || tmpCMS.getKeyType(i-1) === "left key")
+              if (gCMS_Pathplot.getKeyType(i-1) === "nil key" || gCMS_Pathplot.getKeyType(i-1) === "left key")
                 drawCircle = false;
 
-              position =  this.getColorPosInCanvas(tmpColor);
+              position =  this.getColorPosInCanvas(gCMS_Pathplot.getLeftKeyColor(i, tmpSpace));
               if(this.pp_isLineChart)
                 position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 0, drawCircle)){
                   found = true;
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
-                  tmpColor2.deleteReferences();
-                  tmpColor2=null;
                   break;
               }
 
               // because we draw constant bands with two rects in the LineCharts
               if(this.pp_isLineChart && !drawCircle){
-                tmpX = this.pp_canvas_xStart+((tmpCMS.getRefPosition(i-1)-tmpCMS.getRefPosition(0))/tmpCMS.getRefRange())*this.pp_canvas_xWidth;
+                tmpX = this.pp_canvas_xStart+((gCMS_Pathplot.getRefPosition(i-1)-gCMS_Pathplot.getRefPosition(0))/gCMS_Pathplot.getRefRange())*this.pp_canvas_xWidth;
                 if(this.checkInsideRect(tmpX, position[1], i, 0)){
                     found = true;
-                    tmpColor.deleteReferences();
-                    tmpColor=null;
-                    tmpColor2.deleteReferences();
-                    tmpColor2=null;
                     break;
                 }
               }
 
-              tmpColor.deleteReferences();
-              tmpColor=null;
-              tmpColor2.deleteReferences();
-              tmpColor2=null;
               break;
             case "left key":
               var drawCircle = true;
-              if (tmpCMS.getKeyType(i-1) === "nil key" || tmpCMS.getKeyType(i-1) === "left key")
+              if (gCMS_Pathplot.getKeyType(i-1) === "nil key" || gCMS_Pathplot.getKeyType(i-1) === "left key")
                 drawCircle = false;
               ////////////////////////////////////////////////////////////////
               /////// left Color
-              var tmpColor = tmpCMS.getLeftKeyColor(i, tmpSpace);
-              position =  this.getColorPosInCanvas(tmpColor);
+              position =  this.getColorPosInCanvas(gCMS_Pathplot.getLeftKeyColor(i, tmpSpace));
               if(this.pp_isLineChart)
                 position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 0, drawCircle)){
                   found = true;
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
                   break;
               }
 
 
               // because we draw constant bands with two rects in the LineCharts
               if(this.pp_isLineChart && !drawCircle){
-                tmpX = this.pp_canvas_xStart+((tmpCMS.getRefPosition(i-1)-tmpCMS.getRefPosition(0))/tmpCMS.getRefRange())*this.pp_canvas_xWidth;
+                tmpX = this.pp_canvas_xStart+((gCMS_Pathplot.getRefPosition(i-1)-gCMS_Pathplot.getRefPosition(0))/gCMS_Pathplot.getRefRange())*this.pp_canvas_xWidth;
                 if(this.checkInsideRect(tmpX, position[1], i, 0)){
                     found = true;
-                    tmpColor.deleteReferences();
-                    tmpColor=null;
                     break;
                 }
               }
 
-              tmpColor.deleteReferences();
-              tmpColor=null;
               ////////////////////////////////////////////////////////
               ///// Right Color
               // do nothing
               break;
 
               case "right key":
-              var tmpColor = tmpCMS.getRightKeyColor(i, tmpSpace); // right color because of right key
-              position =  this.getColorPosInCanvas(tmpColor);
+              position =  this.getColorPosInCanvas(gCMS_Pathplot.getRightKeyColor(i, tmpSpace));
               if(this.pp_isLineChart)
                 position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 1, true)){
                   found = true;
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
                   break;
               }
-              tmpColor.deleteReferences();
-              tmpColor=null;
               break;
             default:
               // dual Key
-              tmpColor = tmpCMS.getRightKeyColor(i, tmpSpace); // right color because of right key
-              position = this.getColorPosInCanvas(tmpColor);
+              position = this.getColorPosInCanvas(gCMS_Pathplot.getRightKeyColor(i, tmpSpace));
               if(this.pp_isLineChart)
                 position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 2, true)){
                   found = true;
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
                   break;
               }
-              tmpColor.deleteReferences();
-              tmpColor=null;
           }
 
           if(found){
@@ -996,11 +954,11 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
               tmpSpace="rgb";
 
             if(this.mouseGrappedColorSide==0){
-              this.pp_currentColor=tmpCMS.getLeftKeyColor(this.mouseAboveKeyID, tmpSpace);
+              this.pp_currentColor=gCMS_Pathplot.getLeftKeyColor(this.mouseAboveKeyID, tmpSpace);
               this.update_CoordID();
             }
             else{
-              this.pp_currentColor=tmpCMS.getRightKeyColor(this.mouseAboveKeyID, tmpSpace);
+              this.pp_currentColor=gCMS_Pathplot.getRightKeyColor(this.mouseAboveKeyID, tmpSpace);
               this.update_CoordID();
             }
             break;
@@ -1012,7 +970,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         this.update_CoordID();
       }
 
-      tmpCMS.deleteReferences();
+
+      /*if(oldmouseAboveKeyID!=this.mouseAboveKeyID)
+        this.updatePart(false,false,false);//*/
 
     } ///// END: if (mouseGrappedKeyID==-1)
     else{
@@ -1021,7 +981,6 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       if(newColor==undefined)
         return;
 
-      this.pp_currentColor.deleteReferences();
       this.pp_currentColor = newColor;
 
       this.update_CoordID()
@@ -1031,16 +990,16 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           switch (this.mouseGrappedColorSide) {
             case 0:
             // left color
-              editSection.editCMS.setLeftKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
+              editSection.editCMS.setLeftKeyColor(this.mouseGrappedKeyID, this.pp_currentColor);
               break;
             case 1:
               // right color
-              editSection.editCMS.setRightKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
+              editSection.editCMS.setRightKeyColor(this.mouseGrappedKeyID, this.pp_currentColor);
               break;
             case 2:
               // both colors
-              editSection.editCMS.setLeftKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
-              editSection.editCMS.setRightKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
+              editSection.editCMS.setLeftKeyColor(this.mouseGrappedKeyID, this.pp_currentColor);
+              editSection.editCMS.setRightKeyColor(this.mouseGrappedKeyID, this.pp_currentColor);
               break;
           }
         break;
@@ -1048,36 +1007,36 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           switch (this.mouseGrappedColorSide) {
             case 0:
             // left color
-              optiSection.editCMS.setLeftKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
+              optiSection.editCMS.setLeftKeyColor(this.mouseGrappedKeyID, this.pp_currentColor);
               break;
             case 1:
               // right color
-              optiSection.editCMS.setRightKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
+              optiSection.editCMS.setRightKeyColor(this.mouseGrappedKeyID, this.pp_currentColor);
               break;
             case 2:
               // both colors
-              optiSection.editCMS.setLeftKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
-              optiSection.editCMS.setRightKeyColor(this.mouseGrappedKeyID, cloneColor(this.pp_currentColor));
+              optiSection.editCMS.setLeftKeyColor(this.mouseGrappedKeyID, this.pp_currentColor);
+              optiSection.editCMS.setRightKeyColor(this.mouseGrappedKeyID, this.pp_currentColor);
               break;
           }
         break;
       }
 
-    } ///// END: else => (mouseGrappedKeyID!=-1)*/
+    } ///// END: else => (mouseGrappedKeyID!=-1)
 
 
   }
 
   pp_checkPosition(centerPosX, centerPosY, i, colorside, isCircle){
 
-    /*if(isCircle)
+    if(isCircle)
       return this.checkInsideCirce(centerPosX, centerPosY, i, colorside);
     else
-      return this.checkInsideRect(centerPosX, centerPosY, i, colorside);*/
+      return this.checkInsideRect(centerPosX, centerPosY, i, colorside);
   }
 
   checkInsideRect(centerPosX, centerPosY, i, colorside) {
-    /*if (this.mouseAboveKeyID == i) {
+    if (this.mouseAboveKeyID == i) {
       if (this.mousePosX < centerPosX - this.bigcircleRad ||
         this.mousePosX > centerPosX + this.bigcircleRad ||
         this.mousePosY < centerPosY - this.bigcircleRad ||
@@ -1104,12 +1063,12 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         this.mouseGrappedColorSide=-1;
         return false;
       }
-    }*/
+    }
   }
 
   checkInsideCirce(centerPosX, centerPosY, i, colorside){
 
-    /*var dis = Math.sqrt(Math.pow(centerPosX - this.mousePosX, 2) + Math.pow(centerPosY - this.mousePosY, 2));
+    var dis = Math.sqrt(Math.pow(centerPosX - this.mousePosX, 2) + Math.pow(centerPosY - this.mousePosY, 2));
 
     if (this.mouseAboveKeyID == i) {
       // Circle -> Part of Scaled Band
@@ -1130,25 +1089,25 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       } else {
         return false;
       }
-    }*/
+    }
 
   }
 
   getColorPosInCanvas(tmpColor){
-    /*var position = [-1,-1];
+    var position = [-1,-1];
     if(this.pathplot_space=="rgb"){
       switch (this.pp_CanvasMode) {
         case "RG":
-        position[0] = tmpColor.getGValue() * this.pp_canvas_xWidth + this.pp_canvas_xStart;
-        position[1] = this.pp_canvas_yStart - tmpColor.getRValue() * this.pp_canvas_yHeight;
+        position[0] = tmpColor[2] * this.pp_canvas_xWidth + this.pp_canvas_xStart;
+        position[1] = this.pp_canvas_yStart - tmpColor[1] * this.pp_canvas_yHeight;
         break;
         case "RB":
-        position[0] = tmpColor.getBValue() * this.pp_canvas_xWidth + this.pp_canvas_xStart;
-        position[1] = this.pp_canvas_yStart - tmpColor.getRValue() * this.pp_canvas_yHeight;
+        position[0] = tmpColor[3] * this.pp_canvas_xWidth + this.pp_canvas_xStart;
+        position[1] = this.pp_canvas_yStart - tmpColor[1] * this.pp_canvas_yHeight;
         break;
         case "BG":
-        position[0] = tmpColor.getGValue() * this.pp_canvas_xWidth + this.pp_canvas_xStart;
-        position[1] = this.pp_canvas_yStart - tmpColor.getBValue() * this.pp_canvas_yHeight;
+        position[0] = tmpColor[2] * this.pp_canvas_xWidth + this.pp_canvas_xStart;
+        position[1] = this.pp_canvas_yStart - tmpColor[3] * this.pp_canvas_yHeight;
         break;
         }
     }
@@ -1160,23 +1119,23 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         switch (this.pathplot_space) {
             case "hsv":
               var colorspaceRadius =  Math.round((this.pathplot_hueRes*0.95 / 2));
-              var tmpDis = tmpColor.getSValue() * colorspaceRadius;
-              var tmpRad = degree360ToRad(tmpColor.getHValue()*360);
+              var tmpDis = tmpColor[2] * colorspaceRadius;
+              var tmpRad = degree360ToRad(tmpColor[1]*360);
               position[0] = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
               position[1] = this.pathplot_hueRes-(tmpDis * Math.sin(tmpRad) + colorspaceCenterY);
             break;
             case "lab":
-              position[0] = ((tmpColor.getAValue() / labSpaceRange) * this.pathplot_hueRes / 2) + colorspaceCenterX;
-              position[1] = this.pathplot_hueRes-(((tmpColor.getBValue() / labSpaceRange) * this.pathplot_hueRes / 2) + colorspaceCenterY);
+              position[0] = ((tmpColor[2] / labSpaceRange) * this.pathplot_hueRes / 2) + colorspaceCenterX;
+              position[1] = this.pathplot_hueRes-(((tmpColor[3] / labSpaceRange) * this.pathplot_hueRes / 2) + colorspaceCenterY);
             break;
             case "din99":
-              position[0] = (tmpColor.getA99Value() - rangeA99Neg) / rangeA99 * this.pathplot_hueRes;
-              position[1] = this.pathplot_hueRes-((tmpColor.getB99Value() - rangeB99Neg) / rangeB99 * this.pathplot_hueRes);
+              position[0] = (tmpColor[2] - rangeA99Neg) / rangeA99 * this.pathplot_hueRes;
+              position[1] = this.pathplot_hueRes-((tmpColor[3] - rangeB99Neg) / rangeB99 * this.pathplot_hueRes);
             break;
             case "lch":
               var colorspaceRadius =  Math.round((this.pathplot_hueRes*0.95 / 2));
-              var tmpDis = tmpColor.getCValue() * colorspaceRadius;
-              var tmpRad = degree360ToRad(tmpColor.getHValue()*360);
+              var tmpDis = tmpColor[2] * colorspaceRadius;
+              var tmpRad = degree360ToRad(tmpColor[3]*360);
               position[0] = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
               position[1] = this.pathplot_hueRes-(tmpDis * Math.sin(tmpRad) + colorspaceCenterY);
             break;
@@ -1190,44 +1149,44 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           var factor =1;
           switch (this.pp_CanvasMode) {
             case "C1":
-              relevantComponent=tmpColor.get1Value();
+              relevantComponent=tmpColor[1];
               if(this.pathplot_space=="lab" || this.pathplot_space=="din99" || this.pathplot_space=="lms")
                 factor=100;
             break;
             case "C2":
               switch (this.pathplot_space) {
                 case "lms":
-                  relevantComponent=tmpColor.getMValue();
+                  relevantComponent=tmpColor[2];
                   factor=100;
                   break;
                 case "lab":
-                  relevantComponent=(tmpColor.getAValue()+labSpaceRange);
+                  relevantComponent=(tmpColor[2]+labSpaceRange);
                   factor=(labSpaceRange*2);
                   break;
                 case "din99":
-                  relevantComponent=tmpColor.getA99Value()+(rangeA99Neg*-1);
+                  relevantComponent=tmpColor[2]+(rangeA99Neg*-1);
                   factor=(rangeA99Pos-rangeA99Neg);
                   break;
                 default:
-                  relevantComponent=tmpColor.get2Value();
+                  relevantComponent=tmpColor[2];
               }
             break;
             case "C3":
             switch (this.pathplot_space) {
               case "lms":
-                relevantComponent=tmpColor.getSValue();
+                relevantComponent=tmpColor[3];
                 factor=100;
                 break;
               case "lab":
-                relevantComponent=(tmpColor.getBValue()+labSpaceRange);
+                relevantComponent=(tmpColor[3]+labSpaceRange);
                 factor=(labSpaceRange*2);
                 break;
               case "din99":
-                relevantComponent=tmpColor.getB99Value()+(rangeB99Neg*-1);
+                relevantComponent=tmpColor[3]+(rangeB99Neg*-1);
                 factor=(rangeB99Pos-rangeB99Neg);
                 break;
               default:
-                relevantComponent=tmpColor.get3Value();
+                relevantComponent=tmpColor[3];
             }
             break;
             default:
@@ -1236,23 +1195,23 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           position[1] = Math.round(this.pp_canvas_yStart - (this.pp_canvas_yHeight * relevantComponent)/factor);
         }
     }
-    return position;*/
+    return position;
   }
 
   pp_determinMouseColor(){
 
-    /*if(this.pathplot_space=="rgb"){
+    if(this.pathplot_space=="rgb"){
       var val1 = parseInt((this.mousePosX-this.pp_canvas_xStart)/this.pp_canvas_xWidth*255)/255;
       var val2 = parseInt((this.pp_canvas_yStart-this.mousePosY)/this.pp_canvas_yHeight*255)/255;
       switch (this.pp_CanvasMode) {
         case "RG":
-          return new class_Color_RGB(val2,val1,this.pp_currentColor.get3Value());
+          return ["rgb",val2,val1,this.pp_currentColor[3]];
         break;
         case "RB":
-          return new class_Color_RGB(val2,this.pp_currentColor.get2Value(),val1);
+          return ["rgb",val2,this.pp_currentColor[2],val1];
         break;
         case "BG":
-          return new class_Color_RGB(this.pp_currentColor.get1Value(),val1,val2);
+          return ["rgb",this.pp_currentColor[1],val1,val2];
         break;
         }
     }
@@ -1272,18 +1231,16 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
                 var angle = atan2_360Degree(tx,ty); // values 0-1 ...
                 var hVal = parseInt(angle)/360;
                 var sVal = parseInt(dis / colorspaceRadius *100)/100;
-                return new class_Color_HSV(hVal,sVal,this.pp_currentColor.get3Value());
+                return ["hsv",hVal,sVal,this.pp_currentColor[3]];
               }
             break;
             case "lab":
               var aVal = parseInt(((this.mousePosX - colorspaceCenterX) / (this.pathplot_hueRes / 2)) * labSpaceRange);
               var bVal = parseInt(((colorspaceCenterY-this.mousePosY) / (this.pathplot_hueRes / 2)) * labSpaceRange);
-              var tmpColor = new class_Color_LAB(this.pp_currentColor.get1Value(), aVal, bVal);
-              if (tmpColor.checkRGBPossiblity())
-                return tmpColor;
+              gWorkColor1.updateColor("lab",this.pp_currentColor[1], aVal, bVal);
+              if (gWorkColor1.checkRGBPossiblity())
+                return gWorkColor1.getColorInfo("lab");
 
-              tmpColor.deleteReferences();
-              tmpColor=null;
               return undefined;
             break;
             case "din99":
@@ -1291,12 +1248,10 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
             var b99Val = parseInt(((this.pathplot_hueRes-this.mousePosY) / this.pathplot_hueRes) * rangeB99 + rangeB99Neg);
             if (a99Val < rangeA99Neg || a99Val > rangeA99Pos || b99Val < rangeB99Neg || b99Val > rangeB99Pos)
               return undefined;
-            var tmpColor = new class_Color_DIN99(this.pp_currentColor.get1Value(), a99Val, b99Val);
-            if (tmpColor.checkRGBPossiblity())
-              return tmpColor;
+            gWorkColor1.updateColor("din99",this.pp_currentColor[1], a99Val, b99Val);
+            if (gWorkColor1.checkRGBPossiblity())
+              return gWorkColor1.getColorInfo("din99");
 
-            tmpColor.deleteReferences();
-            tmpColor=null;
             return undefined;
             break;
             case "lch":
@@ -1308,12 +1263,10 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
                 var angle = atan2_360Degree(tx,ty); // values 0-1 ...
                 var hVal = parseInt(angle)/360;
                 var cVal = parseInt(dis / colorspaceRadius * 100)/100;
-                var tmpColor = new class_Color_LCH(this.pp_currentColor.get1Value(), cVal,hVal);
-                if (tmpColor.checkRGBPossiblity())
-                  return tmpColor;
+                gWorkColor1.updateColor("lch",this.pp_currentColor[1], cVal,hVal);
+                if (gWorkColor1.checkRGBPossiblity())
+                  return gWorkColor1.getColorInfo("lch");
 
-                tmpColor.deleteReferences();
-                tmpColor=null;
                 return undefined;
               }
             break;
@@ -1330,45 +1283,37 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
             case "C1":
             switch (this.pathplot_space) {
                 case "rgb-line":
-                  return new class_Color_RGB(parseInt(newValue*255)/255,this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
+                  return ["rgb",parseInt(newValue*255)/255,this.pp_currentColor[2],this.pp_currentColor[3]];
                 break;
                 case "hsv":
-                  return new class_Color_HSV(parseInt(newValue*360)/360,this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
+                  return ["hsv",parseInt(newValue*360)/360,this.pp_currentColor[2],this.pp_currentColor[3]];
                 break;
                 case "lms":
-                  var tmpColor = new class_Color_LMS(parseInt(newValue*100),this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
-                  if (tmpColor.checkRGBPossiblity())
-                    return tmpColor;
+                  gWorkColor1.updateColor("lms",parseInt(newValue*100),this.pp_currentColor[2],this.pp_currentColor[3]);
+                  if (gWorkColor1.checkRGBPossiblity())
+                    return gWorkColor1.getColorInfo("lms");
 
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
                   return undefined;
                 break;
                 case "lab":
-                  var tmpColor = new class_Color_LAB(parseInt(newValue*100),this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
-                  if (tmpColor.checkRGBPossiblity())
-                    return tmpColor;
+                  gWorkColor1.updateColor("lab",parseInt(newValue*100),this.pp_currentColor[2],this.pp_currentColor[3]);
+                  if (gWorkColor1.checkRGBPossiblity())
+                    return gWorkColor1.getColorInfo("lab");
 
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
                   return undefined;
                 break;
                 case "din99":
-                  var tmpColor = new class_Color_DIN99(parseInt(newValue*100),this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
-                  if (tmpColor.checkRGBPossiblity())
-                    return tmpColor;
+                  gWorkColor1.updateColor("din99",parseInt(newValue*100),this.pp_currentColor[2],this.pp_currentColor[3]);
+                  if (gWorkColor1.checkRGBPossiblity())
+                    return gWorkColor1.getColorInfo("din99");
 
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
                   return undefined;
                 break;
                 case "lch":
-                  var tmpColor = new class_Color_LCH(parseInt(newValue*100)/100,this.pp_currentColor.get2Value(),this.pp_currentColor.get3Value());
-                  if (tmpColor.checkRGBPossiblity())
-                    return tmpColor;
+                  gWorkColor1.updateColor("lch",parseInt(newValue*100)/100,this.pp_currentColor[2],this.pp_currentColor[3]);
+                  if (gWorkColor1.checkRGBPossiblity())
+                    return gWorkColor1.getColorInfo("lch");
 
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
                   return undefined;
                 break;
                   default:
@@ -1378,45 +1323,37 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
             case "C2":
             switch (this.pathplot_space) {
                 case "rgb-line":
-                  return new class_Color_RGB(this.pp_currentColor.get1Value(),parseInt(newValue*255)/255,this.pp_currentColor.get3Value());
+                  return ["rgb",this.pp_currentColor[1],parseInt(newValue*255)/255,this.pp_currentColor[3]];
                 break;
                 case "hsv":
-                  return new class_Color_HSV(this.pp_currentColor.get1Value(),parseInt(newValue*100)/100,this.pp_currentColor.get3Value());
+                  return ["hsv",this.pp_currentColor[1],parseInt(newValue*100)/100,this.pp_currentColor[3]];
                 break;
                 case "lms":
-                  var tmpColor = new class_Color_LMS(this.pp_currentColor.get1Value(),parseInt(newValue*100),this.pp_currentColor.get3Value());
-                  if (tmpColor.checkRGBPossiblity())
-                    return tmpColor;
+                  gWorkColor1.updateColor("lms",this.pp_currentColor[1],parseInt(newValue*100),this.pp_currentColor[3]);
+                  if (gWorkColor1.checkRGBPossiblity())
+                    return gWorkColor1.getColorInfo("lms");
 
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
                   return undefined;
                 break;
                 case "lab":
-                  var tmpColor = new class_Color_LAB(this.pp_currentColor.get1Value(),parseInt(newValue*(labSpaceRange*2)+(labSpaceRange*-1)),this.pp_currentColor.get3Value());
-                  if (tmpColor.checkRGBPossiblity())
-                    return tmpColor;
+                  gWorkColor1.updateColor("lab",this.pp_currentColor[1],parseInt(newValue*(labSpaceRange*2)+(labSpaceRange*-1)),this.pp_currentColor[3]);
+                  if (gWorkColor1.checkRGBPossiblity())
+                    return gWorkColor1.getColorInfo("lab");
 
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
                   return undefined;
                 break;
                 case "din99":
-                  var tmpColor = new class_Color_DIN99(this.pp_currentColor.get1Value(),parseInt(newValue*(rangeA99Pos-rangeA99Neg)+(rangeA99Neg)),this.pp_currentColor.get3Value());
-                  if (tmpColor.checkRGBPossiblity())
-                    return tmpColor;
+                  gWorkColor1.updateColor("din99",this.pp_currentColor[1],parseInt(newValue*(rangeA99Pos-rangeA99Neg)+(rangeA99Neg)),this.pp_currentColor[3]);
+                  if (gWorkColor1.checkRGBPossiblity())
+                    return gWorkColor1.getColorInfo("din99");
 
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
                   return undefined;
                 break;
                 case "lch":
-                  var tmpColor = new class_Color_LCH(this.pp_currentColor.get1Value(),parseInt(newValue*100)/100,this.pp_currentColor.get3Value());
-                  if (tmpColor.checkRGBPossiblity())
-                    return tmpColor;
+                  gWorkColor1.updateColor("lch",this.pp_currentColor[1],parseInt(newValue*100)/100,this.pp_currentColor[3]);
+                  if (gWorkColor1.checkRGBPossiblity())
+                    return gWorkColor1.getColorInfo("lch");
 
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
                   return undefined;
                 break;
                   default:
@@ -1426,45 +1363,37 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
             case "C3":
             switch (this.pathplot_space) {
                 case "rgb-line":
-                  return new class_Color_RGB(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*255)/255);
+                  return ["rgb",this.pp_currentColor[1],this.pp_currentColor[2],parseInt(newValue*255)/255];
                 break;
                 case "hsv":
-                  return new class_Color_HSV(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*100)/100);
+                  return ["hsv",this.pp_currentColor[1],this.pp_currentColor[2],parseInt(newValue*100)/100];
                 break;
                 case "lms":
-                  var tmpColor = new class_Color_LMS(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*100));
-                  if (tmpColor.checkRGBPossiblity())
-                    return tmpColor;
+                  gWorkColor1.updateColor("lms",this.pp_currentColor[1],this.pp_currentColor[2],parseInt(newValue*100));
+                  if (gWorkColor1.checkRGBPossiblity())
+                    return gWorkColor1.getColorInfo("lms");
 
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
                   return undefined;
                 break;
                 case "lab":
-                  var tmpColor = new class_Color_LAB(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*(labSpaceRange*2)+(labSpaceRange*-1)));
-                  if (tmpColor.checkRGBPossiblity())
-                    return tmpColor;
+                  gWorkColor1.updateColor("lab",this.pp_currentColor[1],this.pp_currentColor[2],parseInt(newValue*(labSpaceRange*2)+(labSpaceRange*-1)));
+                  if (gWorkColor1.checkRGBPossiblity())
+                    return gWorkColor1.getColorInfo("lab");
 
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
                   return undefined;
                 break;
                 case "din99":
-                  var tmpColor = new class_Color_DIN99(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*(rangeB99Pos-rangeB99Neg)+(rangeB99Neg)));
-                  if (tmpColor.checkRGBPossiblity())
-                    return tmpColor;
+                  gWorkColor1.updateColor("din99",this.pp_currentColor[1],this.pp_currentColor[2],parseInt(newValue*(rangeB99Pos-rangeB99Neg)+(rangeB99Neg)));
+                  if (gWorkColor1.checkRGBPossiblity())
+                    return gWorkColor1.getColorInfo("din99");
 
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
                   return undefined;
                 break;
                 case "lch":
-                  var tmpColor = new class_Color_LCH(this.pp_currentColor.get1Value(),this.pp_currentColor.get2Value(),parseInt(newValue*360)/360);
-                  if (tmpColor.checkRGBPossiblity())
-                    return tmpColor;
+                  gWorkColor1.updateColor("lch",this.pp_currentColor[1],this.pp_currentColor[2],parseInt(newValue*360)/360);
+                  if (gWorkColor1.checkRGBPossiblity())
+                    return gWorkColor1.getColorInfo("lch");
 
-                  tmpColor.deleteReferences();
-                  tmpColor=null;
                   return undefined;
                 break;
                   default:
@@ -1480,11 +1409,11 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
         }
     }
-    return undefined;*/
+    return undefined;
   }
 
   update_CoordID(){
-  /*  if(this.pathPlot_CoordID==undefined)
+    if(this.pathPlot_CoordID==undefined)
       return
 
     if(this.pp_currentColor==undefined){
@@ -1503,57 +1432,57 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
             case "rgb":
             case "rgb-line":
             c1_name = "R : ";
-            c1_val = parseInt(this.pp_currentColor.get1Value()*255);
+            c1_val = parseInt(this.pp_currentColor[1]*255);
             c2_name = ",  G : ";
-            c2_val = parseInt(this.pp_currentColor.get2Value()*255);
+            c2_val = parseInt(this.pp_currentColor[2]*255);
             c3_name = ",  B : ";
-            c3_val = parseInt(this.pp_currentColor.get3Value()*255);
+            c3_val = parseInt(this.pp_currentColor[3]*255);
             break;
             case "hsv":
             c1_name = "H : ";
-            c1_val = parseInt(this.pp_currentColor.get1Value()*360);
+            c1_val = parseInt(this.pp_currentColor[1]*360);
             c2_name = ",  S : ";
-            c2_val = parseInt(this.pp_currentColor.get2Value()*100);
+            c2_val = parseInt(this.pp_currentColor[2]*100);
             c3_name = ",  V : ";
-            c3_val = parseInt(this.pp_currentColor.get3Value()*100);
+            c3_val = parseInt(this.pp_currentColor[3]*100);
             break;
             case "lab":
             c1_name = "L : ";
-            c1_val = parseInt(this.pp_currentColor.get1Value());
+            c1_val = parseInt(this.pp_currentColor[1]);
             c2_name = ",  A : ";
-            c2_val = parseInt(this.pp_currentColor.get2Value());
+            c2_val = parseInt(this.pp_currentColor[2]);
             c3_name = ",  B : ";
-            c3_val = parseInt(this.pp_currentColor.get3Value());
+            c3_val = parseInt(this.pp_currentColor[3]);
               break;
             case "din99":
             c1_name = "L99 : ";
-            c1_val = parseInt(this.pp_currentColor.get1Value());
+            c1_val = parseInt(this.pp_currentColor[1]);
             c2_name = ",  A99 : ";
-            c2_val = parseInt(this.pp_currentColor.get2Value());
+            c2_val = parseInt(this.pp_currentColor[2]);
             c3_name = ",  B99 : ";
-            c3_val = parseInt(this.pp_currentColor.get3Value());
+            c3_val = parseInt(this.pp_currentColor[3]);
             break;
             case "lms":
             c1_name = "L : ";
-            c1_val = parseInt(this.pp_currentColor.get1Value());
+            c1_val = parseInt(this.pp_currentColor[1]);
             c2_name = ",  M : ";
-            c2_val = parseInt(this.pp_currentColor.get2Value());
+            c2_val = parseInt(this.pp_currentColor[2]);
             c3_name = ",  S : ";
-            c3_val = parseInt(this.pp_currentColor.get3Value());
+            c3_val = parseInt(this.pp_currentColor[3]);
               break;
             case "lch":
             c1_name = "L : ";
-            c1_val = parseInt(this.pp_currentColor.get1Value()*100);
+            c1_val = parseInt(this.pp_currentColor[1]*100);
             c2_name = ",  C : ";
-            c2_val = parseInt(this.pp_currentColor.get2Value()*100);
+            c2_val = parseInt(this.pp_currentColor[2]*100);
             c3_name = ",  H : ";
-            c3_val = parseInt(this.pp_currentColor.get3Value()*360);
+            c3_val = parseInt(this.pp_currentColor[3]*360);
             break;
             default:
               document.getElementById(this.pathPlot_CoordID).innerHTML="";
               return;
           }
-          document.getElementById(this.pathPlot_CoordID).innerHTML=c1_name.bold()+c1_val+c2_name.bold()+c2_val+c3_name.bold()+c3_val;*/
+          document.getElementById(this.pathPlot_CoordID).innerHTML=c1_name.bold()+c1_val+c2_name.bold()+c2_val+c3_name.bold()+c3_val;
   }
 
 

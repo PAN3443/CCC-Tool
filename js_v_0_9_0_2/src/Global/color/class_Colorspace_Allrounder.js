@@ -159,11 +159,29 @@ class class_Color {
       case "LMS": case "lms": case "Lms":
         return ["lms", this.val_1_lms, this.val_2_lms, this.val_3_lms];
       case "rgb_string":
-        return "rgb("+this.val_1_rgb+","+this.val_2_rgb+","+this.val_3_rgb+")";
+        return "rgb("+Math.round(this.val_1_rgb*255)+","+Math.round(this.val_2_rgb*255)+","+Math.round(this.val_3_rgb*255)+")";
       case "rgb_cb_string":
-        return "rgb("+this.val_1_rgb_cb+","+this.val_2_rgb_cb+","+this.val_3_rgb_cb+")";
+        return "rgb("+Math.round(this.val_1_rgb_cb*255)+","+Math.round(this.val_2_rgb_cb*255)+","+Math.round(this.val_3_rgb_cb*255)+")";
+      case "rgb_hex":
+        var rhex = this.valueToHex(Math.round(this.val_1_rgb * 255));
+        var ghex = this.valueToHex(Math.round(this.val_2_rgb * 255));
+        var bhex = this.valueToHex(Math.round(this.val_3_rgb * 255));
+        return "#" + rhex + ghex + bhex;
+      case "rgb_cb_hex":
+        var rhex = this.valueToHex(Math.round(this.val_1_rgb_cb * 255));
+        var ghex = this.valueToHex(Math.round(this.val_2_rgb_cb * 255));
+        var bhex = this.valueToHex(Math.round(this.val_3_rgb_cb * 255));
+        return "#" + rhex + ghex + bhex;
     }
       return undefined;
+  }
+
+  valueToHex(val) {
+    var hex = Number(val).toString(16);
+    if (hex.length < 2) {
+      hex = "0" + hex;
+    }
+    return hex;
   }
 
   getColorComponent(space, index){ // index is element of [0,1,2]
@@ -175,17 +193,17 @@ class class_Color {
   }
 
   get_RGB_String(){
-    return "rgb("+this.val_1_rgb*255+","+this.val_2_rgb*255+","+this.val_3_rgb*255+")";
+    return "rgb("+Math.round(this.val_1_rgb*255)+","+Math.round(this.val_2_rgb*255)+","+Math.round(this.val_3_rgb*255)+")";
   }
 
   get_RGB_CB_String(){
-    return "rgb("+this.val_1_rgb_cb*255+","+this.val_2_rgb_cb*255+","+this.val_3_rgb_cb*255+")";
+    return "rgb("+Math.round(this.val_1_rgb_cb*255)+","+Math.round(this.val_2_rgb_cb*255)+","+Math.round(this.val_3_rgb_cb*255)+")";
   }
   ////////////////////////////////////////////////////////////////
   ///////////////////////////// Set /////////////////////////////
   ///////////////////////////////////////////////////////////////
   setValue(space, index, value){
-    switch (type) {
+    switch (space) {
       case "RGB": case "rgb": case "Rgb":
         switch (index) {
           case 0:

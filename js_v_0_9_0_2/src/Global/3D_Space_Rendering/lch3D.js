@@ -41,12 +41,14 @@ function lchMesh(colorspaceGroup){
     geometry.vertices.push(new THREE.Vector3(xPos,vStart3D,zPos));
     geometry.vertices.push(new THREE.Vector3(xPos,vEnd3D,zPos));
 
+    currentColorInfo1 = ["lch",0.0,1.0,hueVal];
     gWorkColor1.updateColor("lch",0.0,1.0,hueVal);
     var tmpRGBInfo=gWorkColor1.getColorInfo("rgb");
     if(doColorblindnessSim)
       tmpRGBInfo=gWorkColor1.getColorInfo("rgb_cb");
     linesColors.push( tmpRGBInfo[1], tmpRGBInfo[2], tmpRGBInfo[3]);
 
+    currentColorInfo2 = ["lch",1.0,1.0,hueVal];
     gWorkColor1.updateColor("lch",1.0,1.0,hueVal);
     var tmpRGBInfo=gWorkColor1.getColorInfo("rgb");
     if(doColorblindnessSim)
@@ -91,7 +93,7 @@ function lchMesh(colorspaceGroup){
       geometry.faces.push(new THREE.Face3(currentIndex1, lastIndex1, lastIndex2 ));
 
       // Color currentIndex1
-      gWorkColor1.updateColor(currentColorInfo1);
+      gWorkColor1.updateColor(currentColorInfo1[0],currentColorInfo1[1],currentColorInfo1[2],currentColorInfo1[3]);
       var tmpRGBString=gWorkColor1.get_RGB_String();
       if(doColorblindnessSim)
         tmpRGBString=gWorkColor1.get_RGB_CB_String();
@@ -100,7 +102,7 @@ function lchMesh(colorspaceGroup){
       geometry.faces[geometry.faces.length-4].vertexColors[0] = new THREE.Color(tmpRGBString);
 
       // Color currentIndex2
-      gWorkColor1.updateColor(currentColorInfo2);
+      gWorkColor1.updateColor(currentColorInfo2[0],currentColorInfo2[1],currentColorInfo2[2],currentColorInfo2[3]);
       var tmpRGBString=gWorkColor1.get_RGB_String();
       if(doColorblindnessSim)
         tmpRGBString=gWorkColor1.get_RGB_CB_String();
@@ -108,7 +110,7 @@ function lchMesh(colorspaceGroup){
       geometry.faces[geometry.faces.length-3].vertexColors[0] = new THREE.Color(tmpRGBString);
 
       // Color lastIndex1
-      gWorkColor1.updateColor(lastColorInfo1);
+      gWorkColor1.updateColor(lastColorInfo1[0],lastColorInfo1[1],lastColorInfo1[2],lastColorInfo1[3]);
       var tmpRGBString = gWorkColor1.get_RGB_String();
 if (doColorblindnessSim)
   tmpRGBString = gWorkColor1.get_RGB_CB_String();
@@ -116,7 +118,7 @@ if (doColorblindnessSim)
       geometry.faces[geometry.faces.length-4].vertexColors[2] = new THREE.Color(tmpRGBString);
 
       // Color lastIndex2
-      gWorkColor1.updateColor(lastColorInfo2);
+      gWorkColor1.updateColor(lastColorInfo2[0],lastColorInfo2[1],lastColorInfo2[2],lastColorInfo2[3]);
       var tmpRGBString=gWorkColor1.get_RGB_String();
       if(doColorblindnessSim)
         tmpRGBString=gWorkColor1.get_RGB_CB_String();
@@ -168,7 +170,7 @@ if (doColorblindnessSim)
       geometry.faces.push(new THREE.Face3(firstIndex1, currentIndex1, currentIndex2 ));
 
       // Color firstIndex1
-      gWorkColor1.updateColor(firstColorInfo1);
+      gWorkColor1.updateColor(firstColorInfo1[0],firstColorInfo1[1],firstColorInfo1[2],firstColorInfo1[3]);
       var tmpRGBString=gWorkColor1.get_RGB_String();
       if(doColorblindnessSim)
         tmpRGBString=gWorkColor1.get_RGB_CB_String();
@@ -177,7 +179,7 @@ if (doColorblindnessSim)
       geometry.faces[geometry.faces.length-4].vertexColors[0] = new THREE.Color(tmpRGBString);
 
       // Color firstIndex2
-      gWorkColor1.updateColor(firstColorInfo2);
+      gWorkColor1.updateColor(firstColorInfo2[0],firstColorInfo2[1],firstColorInfo2[2],firstColorInfo2[3]);
       var tmpRGBString=gWorkColor1.get_RGB_String();
       if(doColorblindnessSim)
         tmpRGBString=gWorkColor1.get_RGB_CB_String();
@@ -185,7 +187,7 @@ if (doColorblindnessSim)
       geometry.faces[geometry.faces.length-3].vertexColors[0] = new THREE.Color(tmpRGBString);
 
       // Color currentIndex1
-      gWorkColor1.updateColor(currentColorInfo1);
+      gWorkColor1.updateColor(currentColorInfo1[0],currentColorInfo1[1],currentColorInfo1[2],currentColorInfo1[3]);
       var tmpRGBString=gWorkColor1.get_RGB_String();
       if(doColorblindnessSim)
         tmpRGBString=gWorkColor1.get_RGB_CB_String();
@@ -193,7 +195,7 @@ if (doColorblindnessSim)
       geometry.faces[geometry.faces.length-4].vertexColors[2] = new THREE.Color(tmpRGBString);
 
       // Color currentIndex2
-      gWorkColor1.updateColor(currentColorInfo2);
+      gWorkColor1.updateColor(currentColorInfo2[0],currentColorInfo2[1],currentColorInfo2[2],currentColorInfo2[3]);
       var tmpRGBString=gWorkColor1.get_RGB_String();
       if(doColorblindnessSim)
         tmpRGBString=gWorkColor1.get_RGB_CB_String();

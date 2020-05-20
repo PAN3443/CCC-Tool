@@ -104,7 +104,7 @@ function draw_RGB_Coordinates(context, hueResolution, xlabel, ylabel) {
   context.fillText(ylabel, xStart - fontSize, yEndArrow);
 }
 
-function draw_LineChart_Coordinates(cmsClone, lineChart_Contex, startValue, endValue,labelText){
+function draw_LineChart_Coordinates(lineChart_Contex, startValue, endValue,labelText){
 
   var lineChart_Width = lineChart_Contex.canvas.clientWidth;
   var lineChart_Height = lineChart_Contex.canvas.clientHeight;
@@ -128,7 +128,7 @@ function draw_LineChart_Coordinates(cmsClone, lineChart_Contex, startValue, endV
   lineChart_Contex.strokeStyle = arrowFontColor;
   lineChart_Contex.fillStyle = arrowFontColor;
 
-  var widthVArea = cmsClone.getRefRange();
+  var widthVArea = gCMS_Pathplot.getRefRange();
 
   var tmpCounter = 0;
   var leftCounter = 0;
@@ -136,9 +136,9 @@ function draw_LineChart_Coordinates(cmsClone, lineChart_Contex, startValue, endV
   var xPosPos;
   var plotwidth = xEnd - xStart;
 
-  for (var i = 0; i < cmsClone.getKeyLength(); i++) {
+  for (var i = 0; i < gCMS_Pathplot.getKeyLength(); i++) {
 
-    xPosPos = xStart + ((cmsClone.getRefPosition(i) - cmsClone.getRefPosition(0)) / widthVArea) * plotwidth;
+    xPosPos = xStart + ((gCMS_Pathplot.getRefPosition(i) - gCMS_Pathplot.getRefPosition(0)) / widthVArea) * plotwidth;
 
     lineChart_Contex.beginPath();
     lineChart_Contex.lineWidth = Math.round(Math.round(lineChart_Height * 0.01) / 2);
@@ -203,7 +203,6 @@ function draw_LineChart_Coordinates(cmsClone, lineChart_Contex, startValue, endV
 
   // the fill color
   lineChart_Contex.fill();
-  cmsClone.deleteReferences();
 
   lineChart_Contex.font = fontSize_Label + "px Arial";
   lineChart_Contex.fillText(labelText, labelPos, fontSize_Label);

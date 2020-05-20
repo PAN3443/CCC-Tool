@@ -14,7 +14,6 @@ var de94_k_L = 1.0,
 var de94_k_1 = 0.045,
   de94_k_2 = 0.015;
 
-
 var din99_kE = 1;
 var din99_kCH = 1;
 var cielab_ref_X = 94.811;
@@ -50,21 +49,21 @@ var sim_AdaptiveColorblindness = [
 ];
 
 // CMS
-
 var currentCMS = 0; // 0=Edit, 1=Opti, 2=Probe
 var editCMS = undefined;
 var optiCMS = undefined;
 var probeCMS = undefined;
 var somethingChanged = false;
 
-// Offscreen Canvas
-var canvas = undefined;
-var canvasContex = undefined;
 
 var error = 100; // 0.01
 var errorMath = 1e12;
 
+////////// CMS VIS //////////////
 var worker_drawCMS = undefined;
+var drawCMS_ID = undefined;
+/////////////////////////////////
+
 self.addEventListener('message', function(e) {
   switch (e.data.message) {
     case "init":
@@ -96,14 +95,17 @@ self.addEventListener('message', function(e) {
         'message': 'init'
       });
       break;
-    case "getCMSName":
-
-      break;
-    case "getCMSName":
-
-      break;
     case "drawCMS":
 
+    break;
+    case "drawCMS_Data":
+        var drawCMS_ID = e.data.cmsCanvasID;
+        var workerJSON = {};
+        workerJSON['message'] = "setSize";
+        workerJSON['width'] = e.data.img_W;
+        workerJSON['height'] = e.data.img_H;
+        worker_drawCMS.postMessage(workerJSON);
+        workerRequest_DrawCMS();
       break;
     case "setCMSName":
       singleUpdate_EditSection();
@@ -122,7 +124,7 @@ self.addEventListener('message', function(e) {
       somethingChanged = false;
       currentCMS = 0;
       //// Update CMS of subworker //////
-      workerRequest_updateDrawCMS();
+      workerRequest_updateCMS();
       //////////////////////////////////
       intervalUpdate_EditSection();
       singleUpdate_EditSection();
@@ -182,7 +184,7 @@ function intervalUpdate_EditSection() {
 ///  Worker Request
 //////////////////////////////////////////////
 
-function workerRequest_updateDrawCMS() {
+function workerRequest_updateCMS() {
 
   var workerJSON = {};
   workerJSON['message'] = "updateDrawCMS";

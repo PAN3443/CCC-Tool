@@ -1,9 +1,10 @@
+
 class class_Edit_Section extends class_Edit_Basis_Section {
 
   constructor() {
     super('id_EditPage');
 
-    this.tmpWorkCMS = undefined;
+    this.tmpWorkCMS = new class_CMS();
     this.myDesignID = undefined;
 
     /// Part: CMS VIS
@@ -39,15 +40,15 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     /// for predefined structures
-    this.constBands = [/*new class_Color_RGB(0, 0, 0), new class_Color_RGB(1, 1, 1), new class_Color_RGB(70 / 255, 70 / 255, 70 / 255), new class_Color_RGB(145 / 255, 143 / 255, 129 / 255),
-      new class_Color_RGB(225 / 255, 226 / 255, 211 / 255), new class_Color_RGB(253 / 255, 103 / 255, 105 / 255), new class_Color_RGB(252 / 255, 13 / 255, 28 / 255),
-      new class_Color_RGB(151 / 255, 4 / 255, 12 / 255), new class_Color_RGB(254 / 255, 193 / 255, 109 / 255), new class_Color_RGB(253 / 255, 152 / 255, 39 / 255),
-      new class_Color_RGB(152 / 255, 91 / 255, 19 / 255), new class_Color_RGB(95 / 255, 56 / 255, 23 / 255), new class_Color_RGB(199 / 255, 178 / 255, 155 / 255),
-      new class_Color_RGB(248 / 255, 227 / 255, 197 / 255), new class_Color_RGB(255 / 255, 253 / 255, 186 / 255), new class_Color_RGB(255 / 255, 240 / 255, 42 / 255),
-      new class_Color_RGB(191 / 255, 239 / 255, 134 / 255), new class_Color_RGB(102 / 255, 163 / 255, 107 / 255), new class_Color_RGB(6 / 255, 109 / 255, 40 / 255),
-      new class_Color_RGB(186 / 255, 239 / 255, 236 / 255), new class_Color_RGB(68 / 255, 233 / 255, 239 / 255), new class_Color_RGB(27 / 255, 142 / 255, 163 / 255),
-      new class_Color_RGB(89 / 255, 151 / 255, 235 / 255), new class_Color_RGB(17 / 255, 52 / 255, 230 / 255), new class_Color_RGB(21 / 255, 23 / 255, 114 / 255),
-      new class_Color_RGB(126 / 255, 126 / 255, 174 / 255), new class_Color_RGB(170 / 255, 42 / 255, 185 / 255), new class_Color_RGB(74 / 255, 0 / 255, 72 / 255)*/
+    this.constBands = [["rgb",0, 0, 0], ["rgb",1, 1, 1], ["rgb",70 / 255, 70 / 255, 70 / 255], ["rgb",145 / 255, 143 / 255, 129 / 255],
+      ["rgb",225 / 255, 226 / 255, 211 / 255], ["rgb",253 / 255, 103 / 255, 105 / 255], ["rgb",252 / 255, 13 / 255, 28 / 255],
+      ["rgb",151 / 255, 4 / 255, 12 / 255], ["rgb",254 / 255, 193 / 255, 109 / 255], ["rgb",253 / 255, 152 / 255, 39 / 255],
+      ["rgb",152 / 255, 91 / 255, 19 / 255], ["rgb",95 / 255, 56 / 255, 23 / 255], ["rgb",199 / 255, 178 / 255, 155 / 255],
+      ["rgb",248 / 255, 227 / 255, 197 / 255], ["rgb",255 / 255, 253 / 255, 186 / 255], ["rgb",255 / 255, 240 / 255, 42 / 255],
+      ["rgb",191 / 255, 239 / 255, 134 / 255], ["rgb",102 / 255, 163 / 255, 107 / 255], ["rgb",6 / 255, 109 / 255, 40 / 255],
+      ["rgb",186 / 255, 239 / 255, 236 / 255], ["rgb",68 / 255, 233 / 255, 239 / 255], ["rgb",27 / 255, 142 / 255, 163 / 255],
+      ["rgb",89 / 255, 151 / 255, 235 / 255], ["rgb",17 / 255, 52 / 255, 230 / 255], ["rgb",21 / 255, 23 / 255, 114 / 255],
+      ["rgb",126 / 255, 126 / 255, 174 / 255], ["rgb",170 / 255, 42 / 255, 185 / 255], ["rgb",74 / 255, 0 / 255, 72 / 255]
     ];
 
     this.selectedPredefinedType = 0;
@@ -97,7 +98,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
   hideSection(){
     super.hideSection();
-    /*this.part_Pathplot.pp_3D_StopAnimation();*/
+    this.part_Pathplot.pp_3D_StopAnimation();
   }
 
   showSection(){
@@ -106,18 +107,18 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   }
 
   selectInterpolationSpace(){
-    /*var selectedIndex = document.getElementById("id_EditPage_SelectInterpolationSpace").selectedIndex;
+    var selectedIndex = document.getElementById("id_EditPage_SelectInterpolationSpace").selectedIndex;
     this.editCMS.setInterpolationSpace(document.getElementById("id_EditPage_SelectInterpolationSpace").options[selectedIndex].value);
     this.saveCreateProcess();
     this.updateSection();
     if(this.showPredefined){
       this.drawPredefined();
-    }*/
+    }
   }
 
   changeInterpolationType(type){
 
-    /*switch (type){
+    switch (type){
       case 0:
         this.editCMS.setInterpolationType("linear");
         break;
@@ -130,34 +131,26 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     this.updateSection();
     if(this.showPredefined){
       this.drawPredefined();
-    }*/
+    }
   }
 
   setCMS(cmsPackage, id) {
-    var workerJSON = {};
-    workerJSON['message'] = "updateEditCMS";
-    workerJSON['cmsInfoPackage'] = cmsPackage;
-    global_worker_EditSection.postMessage(workerJSON);
-    this.myDesignID = id;
-  }
+   var workerJSON = {};
+   this.editCMS.setCMSFromPackage(cmsPackage)
+   this.myDesignID = id;
+ }
 
-  createCMS(name, intSpace) {
-    var cmsPackage = [name,intSpace,"linear",["rgb",0,0,0],["rgb",0,0,0],["rgb",0,0,0],[],[]];
-    myDesignsSection.pushCMS(cmsPackage);
-    this.myDesignID = myDesignsSection.getMyDesignLength();
-    var workerJSON = {};
-    workerJSON['message'] = "updateEditCMS";
-    workerJSON['cmsInfoPackage'] = myDesignsSection.getMyDesignCMS(this.myDesignID);
-    global_worker_EditSection.postMessage(workerJSON);
-    document.getElementById("id_edit_editWarning").style.visibility="visible";
-  }
+ createCMS(name, intSpace) {
+   var cmsPackage = [name,intSpace,"linear",["rgb",0,0,0],["rgb",0,0,0],["rgb",0,0,0],[],[]];
+   myDesignsSection.pushCMS(cmsPackage);
+   this.myDesignID = myDesignsSection.getMyDesignLength();
+   this.editCMS.setCMSFromPackage(cmsPackage)
+   document.getElementById("id_edit_editWarning").style.visibility="visible";
+ }
 
   replaceWithWorkCMS(){
-    /*this.editCMS.deleteReferences();
-    this.editCMS = cloneCMS(this.tmpWorkCMS);
-    this.tmpWorkCMS.deleteReferences();
-    //updateSection() function at the drag end event or other events
-    this.saveCreateProcess();*/
+    this.editCMS.setCMSFromPackage(this.tmpWorkCMS.createCMSInfoPackage());
+    this.saveCreateProcess();
   }
 
   styleEditPage(){
@@ -248,6 +241,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           document.getElementById("id_EditPage_MappingDiv").style.display="none";
         }
 
+        this.doPagePeculiarity();
         this.updateSection();
   }
 
@@ -271,72 +265,71 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   ////////////////////////////////////////////////////////////////////////////
 
   updateSection(){
-      /*super.updateSection();
+      super.updateSection();
 
-      this.updateKeyEdit(undefined);*/
+      this.updateKeyEdit(undefined);
   }
 
   saveCreateProcess(){
 
-        /*if(this.processPosition<this.colormapProcess.length-1){
-            this.colormapProcess[0].deleteReferences;
+        if(this.processPosition<this.colormapProcess.length-1){
             this.colormapProcess[0]=undefined;
             this.colormapProcess = this.colormapProcess.slice(0, this.processPosition+1);
-            this.colormapProcess.push(cloneCMS(this.editCMS));
+            this.colormapProcess.push(this.editCMS.createCMSInfoPackage());
             this.processPosition = this.colormapProcess.length-1
         }
         else{
           if(this.colormapProcess.length <= this.processLimitation){
-            this.colormapProcess.push(cloneCMS(this.editCMS));
+            this.colormapProcess.push(this.editCMS.createCMSInfoPackage());
             this.processPosition = this.colormapProcess.length-1
           }
           else{
             this.colormapProcess.shift();
-            this.colormapProcess.push(cloneCMS(this.editCMS));
+            this.colormapProcess.push(this.editCMS.createCMSInfoPackage());
             this.processPosition = this.colormapProcess.length-1
           }
         }
 
         this.somethingChanged=true;
-        document.getElementById("id_edit_editWarning").style.visibility="visible";*/
+        document.getElementById("id_edit_editWarning").style.visibility="visible";
   }
 
   undo(){
-    /*if(this.processPosition>0){
+    if(this.processPosition>0){
       this.processPosition--;
-      this.editCMS = this.colormapProcess[this.processPosition];
+      this.editCMS.setCMSFromPackage(this.colormapProcess[this.processPosition]);
       this.updateSection();
-    }*/
+    }
   }
 
   redo(){
-    /*if(this.processPosition<this.colormapProcess.length-1){
+    if(this.processPosition<this.colormapProcess.length-1){
       this.processPosition++;
-      this.editCMS = this.colormapProcess[this.processPosition];
+      this.editCMS.setCMSFromPackage(this.colormapProcess[this.processPosition]);
       this.updateSection();
-    }*/
+    }
   }
 
   saveAsNew(){
-    /*if(!myDesignsSection.checkMyDesignLimit()){
-      myDesignsSection.pushCMS(cloneCMS(this.editCMS));
+    if(!myDesignsSection.checkMyDesignLimit()){
+      myDesignsSection.pushCMS(this.editCMS.createCMSInfoPackage());
       this.myDesignID=myDesignsSection.getMyDesignLength()-1;
       this.somethingChanged=false;
       document.getElementById("id_edit_editWarning").style.visibility="hidden";
     }
     else{
       openAlert("You already used the full CMS-storage and the CMS can not saved as new one!");
-    }*/
+    }
   }
 
   save(){
-    /*myDesignsSection.updateCMS(this.myDesignID,cloneCMS(this.editCMS));
+    myDesignsSection.updateCMS(this.myDesignID,this.editCMS.createCMSInfoPackage());
     document.getElementById("id_edit_editWarning").style.visibility="hidden";
-    this.somethingChanged=false;*/
+    this.somethingChanged=false;
   }
 
   doPagePeculiarity(){
-    /*super.doPagePeculiarity();
+    super.doPagePeculiarity();
     /// draw Predefined;
 
     if(this.showPredefined){
@@ -344,23 +337,57 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       this.drawConstantBands();
     }
 
+    document.getElementById('id_edit_cms_SetName').value = this.editCMS.getColormapName();
+    document.getElementById('id_edit_cms_SetNaN').style.background = this.editCMS.getNaNColor("rgb_string");
+    document.getElementById('id_edit_cms_SetBelow').style.background = this.editCMS.getAboveColor("rgb_string");
+    document.getElementById('id_edit_cms_SetAbove').style.background = this.editCMS.getBelowColor("rgb_string");
 
-    document.getElementById('id_edit_cms_SetNaN').style.background = this.editCMS.getNaNColor("rgb").getRGBString();
-    document.getElementById('id_edit_cms_SetBelow').style.background = this.editCMS.getAboveColor("rgb").getRGBString();
-    document.getElementById('id_edit_cms_SetAbove').style.background = this.editCMS.getBelowColor("rgb").getRGBString();
+    for (var i = 0; i < document.getElementById("id_EditPage_SelectInterpolationSpace").options.length; i++) {
+      if(document.getElementById("id_EditPage_SelectInterpolationSpace").options[i].value===this.editCMS.getInterpolationSpace()){
+        document.getElementById("id_EditPage_SelectInterpolationSpace").selectedIndex=i;
+      }
+    }
+    /*document.getElementById("id_edit_SetSpaceLAB").style.background = "var(--main-coloredButton_Dark)";
+    document.getElementById("id_edit_SetSpaceDIN99").style.background = "var(--main-coloredButton_Dark)";
+    document.getElementById("id_edit_SetSpaceRGB").style.background = "var(--main-coloredButton_Dark)";
+    document.getElementById("id_edit_SetSpaceHSV").style.background = "var(--main-coloredButton_Dark)";
 
-    */
+    switch (this.editCMS.getInterpolationSpace()){
+      case "lab":
+        document.getElementById("id_edit_SetSpaceLAB").style.background = "var(--main-active-coloredButton_Dark)";
+      break;
+      case "din99":
+        document.getElementById("id_edit_SetSpaceDIN99").style.background = "var(--main-active-coloredButton_Dark)";
+      break;
+      case "rgb":
+        document.getElementById("id_edit_SetSpaceRGB").style.background = "var(--main-active-coloredButton_Dark)";
+      break;
+      case "hsv":
+        document.getElementById("id_edit_SetSpaceHSV").style.background = "var(--main-active-coloredButton_Dark)";
+      break;
+    }*/
+
+    document.getElementById("id_edit_SetTypeLinear").style.background = "var(--main-coloredButton_Dark)";
+    document.getElementById("id_edit_SetTypeSpline").style.background = "var(--main-coloredButton_Dark)";
+    switch (this.editCMS.getInterpolationType()){
+      case "linear":
+        document.getElementById("id_edit_SetTypeLinear").style.background = "var(--main-active-coloredButton_Dark)";
+      break;
+      case "spline":
+        document.getElementById("id_edit_SetTypeSpline").style.background = "var(--main-active-coloredButton_Dark)";
+      break;
+    }
   }
 
   changeCMSName(){
-    /*var newName = document.getElementById('id_edit_cms_SetName').value;
+    var newName = document.getElementById('id_edit_cms_SetName').value;
     if(newName!==""){
       this.editCMS.setColormapName(newName);
       this.saveCreateProcess();
     }
     else{
       document.getElementById('id_edit_cms_SetName').value = this.editCMS.getColormapName();
-    }*/
+    }
 
   }
 
@@ -374,16 +401,16 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   ////////////////////////////////////////////////////////////////////////////
 
   setDraggedID(id) {
-    /*this.currentDraggedID = id;*/
+    this.currentDraggedID = id;
   }
 
   setDraggedType(type){
-    /*this.currentDraggedType=type;*/
+    this.currentDraggedType=type;
   }
 
   drawConstantBands() {
 
-    /*//---------------------------
+    //---------------------------
     // --------- Empty Divs
     document.getElementById('id_EditPage_ConstBandDiv').innerHTML = "";
 
@@ -396,15 +423,11 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       iDiv.className = 'class_predefinedConstBands';
       iDiv.setAttribute('draggable', true);
 
+      gWorkColor1.updateColor(this.constBands[i][0],this.constBands[i][1],this.constBands[i][2],this.constBands[i][3]);
       if (doColorblindnessSim) {
-        var tmpLMS = this.constBands[i].calcLMSColor();
-        var toolColor = tmpLMS.calcColorBlindRGBColor();
-        iDiv.style.background = toolColor.getRGBString();
-        tmpLMS.deleteReferences();
-        toolColor.deleteReferences();
-        tmpLMS = null;
+        iDiv.style.background = gWorkColor1.getColorInfo("rgb_cb_string");
       } else {
-        iDiv.style.background = this.constBands[i].getRGBString();
+        iDiv.style.background = gWorkColor1.getColorInfo("rgb_string");
       }
 
       iDiv.addEventListener("dragstart", cmsStructureOnDragStart);
@@ -419,16 +442,16 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
       document.getElementById('id_EditPage_ConstBandDiv').appendChild(iDiv);
 
-    }*/
+    }
   }
 
   changePredefined(type){
-    /*this.selectedPredefinedType=type;
-    this.drawPredefined();*/
+    this.selectedPredefinedType=type;
+    this.drawPredefined();
   }
 
   drawPredefined() {
-    /*var children = document.getElementById("id_EditPage_Predefined_CMS_Div").children;
+    var children = document.getElementById("id_EditPage_Predefined_CMS_Div").children;
     for (var i = children.length-1; i >=0; i--) {
       children[i].parentNode.removeChild(children[i]);
     }
@@ -459,13 +482,13 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
       document.getElementById('id_EditPage_Predefined_CMS_Div').appendChild(tmpCMSlinear);
       gallerySection.drawElementWithGalleryCMS("predefined_linear_" + i + "_" + this.selectedPredefinedType, this.selectedPredefinedType, i, 200, 1,this.editCMS.getInterpolationSpace(),this.editCMS.getInterpolationType());
-    }// END:FOR(i)*/
+    }// END:FOR(i)
 
   }
 
   dragOver(mousePosX,mousePosY){
 
-    /*if(mousePosX==undefined || mousePosY==undefined)
+    if(mousePosX==undefined || mousePosY==undefined)
       return;
 
     if(this.editCMS.getKeyLength()!=0){
@@ -481,7 +504,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
         if(keyIndex!=undefined && this.predefinedDrawStatus!=keyIndex){
 
-          this.tmpWorkCMS = cloneCMS(this.editCMS);
+          this.tmpWorkCMS.setCMSFromPackage(this.editCMS.createCMSInfoPackage())
           //this.tmpWorkCMS.setPreventIntervals(true);
           switch(this.currentDraggedType){
                 case "c":
@@ -509,11 +532,6 @@ class class_Edit_Section extends class_Edit_Basis_Section {
                                 var oldColor = this.tmpWorkCMS.getLeftKeyColor(keyIndex,"lab");
                                 this.tmpWorkCMS.setLeftKeyColor(keyIndex,cloneColor(this.constBands[this.currentDraggedID])); // create left key
                                 this.tmpWorkCMS.insertKey(keyIndex, new class_Key(oldColor,undefined,startPos,true));
-
-                                if(oldColor!=undefined){
-                                  oldColor.deleteReferences();
-                                  oldColor=null;
-                                }
                             }
 
                 break;
@@ -541,7 +559,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
       if(this.predefinedDrawStatus!=-1){
 
-        this.tmpWorkCMS = cloneCMS(this.editCMS);
+        this.tmpWorkCMS.setCMSFromPackage(this.editCMS.createCMSInfoPackage())
         //this.tmpWorkCMS.setPreventIntervals(true);
 
         switch(this.currentDraggedType){
@@ -553,10 +571,10 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
               case "m":
                     // -> myDesign CMS
-                    //this.tmpWorkCMS = cloneCMS(myDesignsList[this.currentDraggedID]);
+                    //this.tmpWorkCMS.setCMSFromPackage(myDesignsList[this.currentDraggedID]);
               break;
               case "p":
-                this.tmpWorkCMS = gallerySection.getPredefinedCMS(this.selectedPredefinedType,this.currentDraggedID);
+                this.tmpWorkCMS.setCMSFromPackage(gallerySection.getPredefinedCMS(this.selectedPredefinedType,this.currentDraggedID));
                 this.tmpWorkCMS.setColormapName(this.editCMS.getColormapName());
               break;
           }
@@ -566,16 +584,15 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           this.predefinedDrawStatus=-1;
       }
 
-    }*/
+    }
 
   }
 
   drawWorkCMS(){
-    /*var tmpCMS = cloneCMS(this.editCMS);
-    this.editCMS = cloneCMS(this.tmpWorkCMS);
+    var tmpCMS = this.editCMS.createCMSInfoPackage();
+    this.editCMS.setCMSFromPackage(this.tmpWorkCMS.createCMSInfoPackage());
     this.drawEditCMSVIS();
-    this.editCMS.deleteReferences();
-    this.editCMS=tmpCMS;*/
+    this.editCMS.setCMSFromPackage(tmpCMS);
   }
 
 
@@ -588,11 +605,11 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   ////////////////////////////////////////////////////////////////////////////
 
   getKeyModus(){
-    /*return this.keyModus;*/
+    return this.keyModus;
   }
 
   setKeyModus(modus){
-    /*document.getElementById("id_edit_AddModus").style.visibility = "hidden";
+    document.getElementById("id_edit_AddModus").style.visibility = "hidden";
     switch (modus) {
       case 0:
           this.keyModus=0;
@@ -609,11 +626,11 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           document.getElementById("id_edit_AddModus").innerHTML = "-";
           document.getElementById("id_edit_AddModus").title="Remove Key Modus";
       break;
-    }*/
+    }
   }
 
   cmsVisMouseMove(mousePosX,mousePosY){
-    /*if(this.editCMS.getKeyLength()!=0){
+    if(this.editCMS.getKeyLength()!=0){
 
       if(this.keyModus==1){
         if(this.around_LinearCMSVis_yPosition(mousePosY) && mousePosX>this.editCMS_cmsArea_x1 && mousePosX<this.editCMS_cmsArea_x1+this.editCMS_cmsArea_width){
@@ -623,8 +640,8 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
           var tmpColor = this.editCMS.calculateColor(tmpRef);
 
-          this.tmpWorkCMS = cloneCMS(this.editCMS);
-          this.tmpWorkCMS.addKey(new class_Key(new class_Color_RGB(tmpColor.get1Value(),tmpColor.get2Value(),tmpColor.get3Value()), new class_Color_RGB(tmpColor.get1Value(),tmpColor.get2Value(),tmpColor.get3Value()), tmpRef, false));
+          this.tmpWorkCMS.setCMSFromPackage(this.editCMS.createCMSInfoPackage())
+          this.tmpWorkCMS.addKey(new class_Key(["rgb",tmpColor.get1Value(),tmpColor.get2Value(),tmpColor.get3Value()], ["rgb",tmpColor.get1Value(),tmpColor.get2Value(),tmpColor.get3Value()], tmpRef, false));
           this.drawAddKey=true;
           this.drawOriginal=true;
         }
@@ -737,34 +754,34 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           }
 
         }
-    }*/
+    }
   }
 
   cmsVisDeleteKey(){
-    /*if(this.overKeyID==0 || this.overKeyID==undefined || this.overKeyID==this.editCMS.getKeyLength()-1)
+    if(this.overKeyID==0 || this.overKeyID==undefined || this.overKeyID==this.editCMS.getKeyLength()-1)
       return;
 
     this.editCMS.deleteKey(this.overKeyID);
     this.saveCreateProcess();
-    this.updateSection();*/
+    this.updateSection();
   }
 
   grappedSomething(){
-    /*if(this.grappedKey || this.grappedBurdock)
+    if(this.grappedKey || this.grappedBurdock)
       return true;
-    return false;*/
+    return false;
   }
 
   resetGrapMoveVars(){
-    /*//this.editCMS.setPreventIntervals(false);
+    //this.editCMS.setPreventIntervals(false);
     this.grappedKey = false;
     this.grappedBurdock = false;
     this.overKeyID = undefined;
-    this.overBurdockID = undefined;*/
+    this.overBurdockID = undefined;
   }
 
   cmsVisGrap(){
-    /*if(this.overKeyID!=undefined){
+    if(this.overKeyID!=undefined){
         this.grappedKey = true;
         //this.editCMS.setPreventIntervals(true);
         document.getElementById('id_EditPage_CMS_Canvas').style.cursor="col-resize";
@@ -784,7 +801,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     else {
         //this.editCMS.setPreventIntervals(false);
         this.grappedBurdock = false;
-    }*/
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -797,7 +814,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
   updateKeyEdit(keyIndex){
     //
-    /*document.getElementById("id_EditPage_KeyValueEdit_dropdown").style.display="none";
+    document.getElementById("id_EditPage_KeyValueEdit_dropdown").style.display="none";
     //
     var selectbox = document.getElementById("id_EditPage_EditKey_List");
     var lastSelectedIndex = selectbox.selectedIndex;
@@ -852,12 +869,12 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       selectbox.selectedIndex = keyIndex;
     }
 
-    this.selectKey();*/
+    this.selectKey();
   }
 
   selectKey(){
     //
-    /*if(document.getElementById("id_EditPage_KeyValueEdit_dropdown").style.display!=="none")
+    if(document.getElementById("id_EditPage_KeyValueEdit_dropdown").style.display!=="none")
     refreshKeyValueEdit(); // if the user open the value edit dropdown and switch the keys the dropdown window need to be updated
     //
     var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
@@ -883,20 +900,20 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         document.getElementById("id_editPage_KeyBurdock").style.background = "var(--main-active-coloredButton)";
       else
         document.getElementById("id_editPage_KeyBurdock").style.background = "var(--main-coloredButton)";
-    }*/
+    }
   }
 
   deleteSelectedKey(){
-    /*var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
+    var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
     this.editCMS.deleteKey(selectedKey);
     //this.updateKeyEdit(selectedKey);
     this.updateSection();
-    this.saveCreateProcess();*/
+    this.saveCreateProcess();
   }
 
   drawKeyDiv(divID,keyIndex, doColorPicker){
 
-    /*document.getElementById(divID).innerHTML="";
+    document.getElementById(divID).innerHTML="";
 
     if(keyIndex==undefined || keyIndex<0 || keyIndex>=this.editCMS.getKeyLength())
       return;
@@ -914,6 +931,11 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       newLine.setAttribute('y2','0');
       newLine.setAttribute("stroke", "black");
       svg.append(newLine);
+
+    var rgbType = "rgb_string";
+
+    if(doColorblindnessSim)
+      rgbType = "rgb_cb_string";
 
     switch (this.editCMS.getKeyType(keyIndex)) {
       case "nil key": // Nil
@@ -962,43 +984,29 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
           }
 
+
           switch (this.editCMS.getKeyType(keyIndex)){
             case "right key":
                 divDouble.style.height = "100%";
                 divLeft.appendChild(svg);
                 if(doColorPicker)
                   divRight.style.cursor = "pointer";
-                var tmpColor = this.editCMS.getRightKeyColorCB(keyIndex,doColorblindnessSim);
-                divRight.style.background = tmpColor.getRGBString();
-                tmpColor.deleteReferences();
-                tmpColor=null;
+                divRight.style.background = this.editCMS.getRightKeyColor(keyIndex,rgbType);
               break;
               case "twin key":
               if(doColorPicker)
                 divLeft.style.cursor = "pointer";
-              var tmpColor = this.editCMS.getLeftKeyColorCB(keyIndex,doColorblindnessSim);
-              divLeft.style.background = tmpColor.getRGBString();
-              tmpColor.deleteReferences();
-              tmpColor=null;
+              divLeft.style.background = this.editCMS.getLeftKeyColor(keyIndex,rgbType);
               if(doColorPicker)
                 divRight.style.cursor = "pointer";
-              var tmpColor2 = this.editCMS.getRightKeyColorCB(keyIndex,doColorblindnessSim);
-              divRight.style.background = tmpColor2.getRGBString();
-              tmpColor2.deleteReferences();
-              tmpColor2=null;
+              divRight.style.background = this.editCMS.getRightKeyColor(keyIndex,rgbType);
 
               if(this.editCMS.getMoT(keyIndex)){
                   // right color is middle of triple
-                  var tmpColor3 = this.editCMS.getRightKeyColorCB(keyIndex,doColorblindnessSim);
-                  divTop.style.background = tmpColor3.getRGBString();
-                  tmpColor3.deleteReferences();
-                  tmpColor3=null;
+                  divTop.style.background = this.editCMS.getRightKeyColor(keyIndex,rgbType);
               }
               else{
-                  var tmpColor3 = this.editCMS.getLeftKeyColorCB(keyIndex,doColorblindnessSim);
-                  divTop.style.background = tmpColor3.getRGBString();
-                  tmpColor3.deleteReferences();
-                  tmpColor3=null;
+                  divTop.style.background = this.editCMS.getLeftKeyColor(keyIndex,rgbType);
               }
 
               document.getElementById(divID).appendChild(divTop);
@@ -1007,10 +1015,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
                 if(doColorPicker)
                   divLeft.style.cursor = "pointer";
-                var tmpColor = this.editCMS.getLeftKeyColorCB(keyIndex,doColorblindnessSim);
-                divLeft.style.background = tmpColor.getRGBString();
-                tmpColor.deleteReferences();
-                tmpColor=null;
+                divLeft.style.background = this.editCMS.getLeftKeyColor(keyIndex,rgbType);
                 divRight.appendChild(svg);
 
                 if(keyIndex==this.editCMS.getKeyLength()-1){
@@ -1019,16 +1024,10 @@ class class_Edit_Section extends class_Edit_Basis_Section {
                 else{
                   if(this.editCMS.getMoT(keyIndex)){
                       // right color is middle of triple
-                      var tmpColor2 = this.editCMS.getLeftKeyColorCB(keyIndex+1,doColorblindnessSim);
-                      divTop.style.background = tmpColor2.getRGBString();
-                      tmpColor2.deleteReferences();
-                      tmpColor2=null;
+                      divTop.style.background = this.editCMS.getLeftKeyColor(keyIndex+1,rgbType);
                   }
                   else{
-                      var tmpColor2 = this.editCMS.getLeftKeyColorCB(keyIndex,doColorblindnessSim);
-                      divTop.style.background = tmpColor2.getRGBString();
-                      tmpColor2.deleteReferences();
-                      tmpColor2=null;
+                      divTop.style.background = this.editCMS.getLeftKeyColor(keyIndex,rgbType);
                   }
 
 
@@ -1045,14 +1044,9 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       default: // case 4 dual
 
       var divDual = document.createElement('div');
-
       divDual.style.width = '100%';
       divDual.style.height = "100%";
-
-      var tmpColor = this.editCMS.getLeftKeyColorCB(keyIndex,doColorblindnessSim);
-      divDual.style.background = tmpColor.getRGBString();
-      tmpColor.deleteReferences();
-      tmpColor=null;
+      divDual.style.background = this.editCMS.getLeftKeyColor(keyIndex,rgbType);
       document.getElementById(divID).appendChild(divDual);
 
       if(doColorPicker){
@@ -1061,12 +1055,12 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         divDual.addEventListener("click", openColorPicker);
       }
 
-    }*/
+    }
   }
 
   updateKeyTypeButtons(type){
 
-    /*document.getElementById("id_editPage_KeyTypeNil").style.background = "var(--main-coloredButton)";
+    document.getElementById("id_editPage_KeyTypeNil").style.background = "var(--main-coloredButton)";
     document.getElementById("id_editPage_KeyTypeTwin").style.background = "var(--main-coloredButton)";
     document.getElementById("id_editPage_KeyTypeLeft").style.background = "var(--main-coloredButton)";
     document.getElementById("id_editPage_KeyTypeRight").style.background = "var(--main-coloredButton)";
@@ -1107,12 +1101,12 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           }
 
       break;
-    }*/
+    }
   }
 
   changeKeyType(type){
 
-    /*var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
+    var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
 
     if(selectedKey==-1)
       return;
@@ -1175,12 +1169,12 @@ this.updateKeyTypeButtons("right key");
     }
 
     this.updateSection();
-    this.saveCreateProcess();*/
+    this.saveCreateProcess();
 
   }
 
   changeBurdock(){
-    /*var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
+    var selectedKey= document.getElementById("id_EditPage_EditKey_List").selectedIndex;
     if(this.editCMS.getBur(selectedKey)){
       this.editCMS.setBur(selectedKey,false);
       document.getElementById("id_editPage_KeyBurdock").style.background = "var(--main-coloredButton)";
@@ -1190,7 +1184,7 @@ this.updateKeyTypeButtons("right key");
       document.getElementById("id_editPage_KeyBurdock").style.background = "var(--main-active-coloredButton)";
     }
     this.saveCreateProcess();
-    this.drawEditCMSVIS();*/
+    this.drawEditCMSVIS();
   }
   ////////////////////////////////////////////////////////////////////////////
   ////////           (END) CMS Visualization Key Edit             ////////////

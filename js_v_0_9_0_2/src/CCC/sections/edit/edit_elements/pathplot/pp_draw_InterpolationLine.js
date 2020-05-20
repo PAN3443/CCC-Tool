@@ -1,9 +1,7 @@
 
-function extraSamplingCMS(cms){
-
+function extraSamplingCMS(){
   // calc intervals
-
-  switch (cms.getInterpolationType()) {
+  /*switch (cms.getInterpolationType()) {
     case "linear":
         var currentPathplotSpace = undefined;
 
@@ -40,7 +38,7 @@ function extraSamplingCMS(cms){
             for (var j = continuousSections[i][0]; j < continuousSections[i][1]; j++) {
               var tmpColor1 = cms.getRightKeyColor(j, cms.getInterpolationSpace());
               var tmpColor2 = cms.getLeftKeyColor(j+1, cms.getInterpolationSpace());
-              var hueDiff = Math.abs(tmpColor1.getHValue()-tmpColor2.getHValue());
+              var hueDiff = Math.abs(tmpColor1[1]-tmpColor2[1]);
               numList[j]=maxInterval*hueDiff;
             }
           }
@@ -50,78 +48,73 @@ function extraSamplingCMS(cms){
           cms.replaceExportIntervalWithDeltaInterval();
         }
     break;
-  }
+  }*/
 }
 
-function calcRGBInterpolationLine(cmsClone,rgbResolution){
+function calcRGBInterpolationLine(rgbResolution){
   pathplotLines=[];
   pathplotLinesDashed=[];
 
   var areaDim = rgbResolution * 0.7;
 
-  extraSamplingCMS(cmsClone);
+  extraSamplingCMS();
 
-  for (var i = 0; i < cmsClone.getKeyLength()-1; i++) {
+  for (var i = 0; i < gCMS_Pathplot.getKeyLength()-1; i++) {
 
-    switch (cmsClone.getKeyType(i)) {
+    switch (gCMS_Pathplot.getKeyType(i)) {
       case "nil key":
 
       break;
 
       case "left key":
-        pathplotLinesDashed.push(getRGBLineSegment(cmsClone.getLeftKeyColor(i,"rgb"),cmsClone.getLeftKeyColor(i+1,"rgb"),areaDim));
+        pathplotLinesDashed.push(getRGBLineSegment(gCMS_Pathplot.getLeftKeyColor(i,"rgb"),gCMS_Pathplot.getLeftKeyColor(i+1,"rgb"),areaDim));
         break;
 
       case "twin key":
 
-        pathplotLinesDashed.push(getRGBLineSegment(cmsClone.getLeftKeyColor(i,"rgb"),cmsClone.getRightKeyColor(i,"rgb"),areaDim));
+        pathplotLinesDashed.push(getRGBLineSegment(gCMS_Pathplot.getLeftKeyColor(i,"rgb"),gCMS_Pathplot.getRightKeyColor(i,"rgb"),areaDim));
 
       default:
 
-        if(cmsClone.getExportSamplingLength(i)==0){
-            pathplotLines.push(getRGBLineSegment(cmsClone.getRightKeyColor(i,"rgb"),cmsClone.getLeftKeyColor(i+1,"rgb"),areaDim));
+        if(gCMS_Pathplot.getIntervalLength(i)==0){
+            pathplotLines.push(getRGBLineSegment(gCMS_Pathplot.getRightKeyColor(i,"rgb"),gCMS_Pathplot.getLeftKeyColor(i+1,"rgb"),areaDim));
         }
         else {
-          pathplotLines.push(getRGBLineSegment(cmsClone.getRightKeyColor(i,"rgb"),cmsClone.getExportSamplingColor(i,0,"rgb"),areaDim));
+          pathplotLines.push(getRGBLineSegment(gCMS_Pathplot.getRightKeyColor(i,"rgb"),gCMS_Pathplot.getIntervalColor(i,0,"rgb"),areaDim));
 
-          for(var j=0; j<cmsClone.getExportSamplingLength(i)-1; j++){
-            pathplotLines.push(getRGBLineSegment(cmsClone.getExportSamplingColor(i,j,"rgb"),cmsClone.getExportSamplingColor(i,j+1,"rgb"),areaDim));
+          for(var j=0; j<gCMS_Pathplot.getIntervalLength(i)-1; j++){
+            pathplotLines.push(getRGBLineSegment(gCMS_Pathplot.getIntervalColor(i,j,"rgb"),gCMS_Pathplot.getIntervalColor(i,j+1,"rgb"),areaDim));
           }
 
-          pathplotLines.push(getRGBLineSegment(cmsClone.getExportSamplingColor(i,cmsClone.getExportSamplingLength(i)-1,"rgb"),cmsClone.getLeftKeyColor(i+1,"rgb"),areaDim));
+          pathplotLines.push(getRGBLineSegment(gCMS_Pathplot.getIntervalColor(i,gCMS_Pathplot.getIntervalLength(i)-1,"rgb"),gCMS_Pathplot.getLeftKeyColor(i+1,"rgb"),areaDim));
         }
       }
 
     }
-    cmsClone.deleteReferences();
 }
 
 function getRGBLineSegment(fromColor, tillColor,areaDim){
 
   var rgbFromPos = [];
-  rgbFromPos.push(fromColor.getRValue() * areaDim);
-  rgbFromPos.push(fromColor.getGValue() * areaDim);
-  rgbFromPos.push(fromColor.getBValue() * areaDim);
+  rgbFromPos.push(fromColor[1] * areaDim);
+  rgbFromPos.push(fromColor[2] * areaDim);
+  rgbFromPos.push(fromColor[3] * areaDim);
 
   var rgbTillPos = [];
-  rgbTillPos.push(tillColor.getRValue() * areaDim);
-  rgbTillPos.push(tillColor.getGValue() * areaDim);
-  rgbTillPos.push(tillColor.getBValue() * areaDim);
+  rgbTillPos.push(tillColor[1] * areaDim);
+  rgbTillPos.push(tillColor[2] * areaDim);
+  rgbTillPos.push(tillColor[3] * areaDim);
 
   var rgbFromPos3D = [];
-  rgbFromPos3D.push(fromColor.getRValue() *255 - 128);
-  rgbFromPos3D.push(fromColor.getGValue() *255 - 128);
-  rgbFromPos3D.push(fromColor.getBValue() *255 - 128);
+  rgbFromPos3D.push(fromColor[1] *255 - 128);
+  rgbFromPos3D.push(fromColor[2] *255 - 128);
+  rgbFromPos3D.push(fromColor[3] *255 - 128);
 
   var rgbTillPos3D = [];
-  rgbTillPos3D.push(tillColor.getRValue() *255 - 128);
-  rgbTillPos3D.push(tillColor.getGValue() *255 - 128);
-  rgbTillPos3D.push(tillColor.getBValue() *255 - 128);
+  rgbTillPos3D.push(tillColor[1] *255 - 128);
+  rgbTillPos3D.push(tillColor[2] *255 - 128);
+  rgbTillPos3D.push(tillColor[3] *255 - 128);
   ///////////////////////////////////////////////////////////////////
-  fromColor.deleteReferences();
-  tillColor.deleteReferences();
-  fromColor=null;
-  tillColor=null;
 
   var posArray = [rgbFromPos,rgbTillPos,rgbFromPos3D,rgbTillPos3D];
 
@@ -130,71 +123,66 @@ function getRGBLineSegment(fromColor, tillColor,areaDim){
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-function calcInterpolationLine_RGBLine(cmsClone,vWidth,vHeight){
+function calcInterpolationLine_RGBLine(vWidth,vHeight){
   pathplotLines=[];
   pathplotLinesDashed=[];
   pathplotLinesLineChart=[];
-  var cmsRefRange = cmsClone.getRefRange();
-  var cmsStartRef = cmsClone.getRefPosition(0);
+  var cmsRefRange = gCMS_Pathplot.getRefRange();
+  var cmsStartRef = gCMS_Pathplot.getRefPosition(0);
 
-  extraSamplingCMS(cmsClone);
+  extraSamplingCMS();
 
-  for (var i = 0; i < cmsClone.getKeyLength() - 1; i++) {
+  for (var i = 0; i < gCMS_Pathplot.getKeyLength() - 1; i++) {
 
-    switch (cmsClone.getKeyType(i)) {
+    switch (gCMS_Pathplot.getKeyType(i)) {
       case "nil key":
-        pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(cmsClone.getLeftKeyColor(i + 1, "rgb"), cmsClone.getLeftKeyColor(i + 1, "rgb"),((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(gCMS_Pathplot.getLeftKeyColor(i + 1, "rgb"), gCMS_Pathplot.getLeftKeyColor(i + 1, "rgb"),((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       break;
 
       case "left key":
-        pathplotLinesDashed.push(getLineSegment_3D_RGBLine(cmsClone.getLeftKeyColor(i, "rgb"), cmsClone.getLeftKeyColor(i + 1, "rgb")));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(cmsClone.getLeftKeyColor(i + 1, "rgb"),cmsClone.getLeftKeyColor(i + 1, "rgb"),((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLinesDashed.push(getLineSegment_3D_RGBLine(gCMS_Pathplot.getLeftKeyColor(i, "rgb"), gCMS_Pathplot.getLeftKeyColor(i + 1, "rgb")));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(gCMS_Pathplot.getLeftKeyColor(i + 1, "rgb"),gCMS_Pathplot.getLeftKeyColor(i + 1, "rgb"),((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         break;
 
       case "twin key":
 
-        pathplotLinesDashed.push(getLineSegment_3D_RGBLine(cmsClone.getRightKeyColor(i, "rgb"), cmsClone.getLeftKeyColor(i, "rgb")));
+        pathplotLinesDashed.push(getLineSegment_3D_RGBLine(gCMS_Pathplot.getRightKeyColor(i, "rgb"), gCMS_Pathplot.getLeftKeyColor(i, "rgb")));
 
       default:
 
-      if(cmsClone.getExportSamplingLength(i)==0){
-          pathplotLines.push(getLineSegment_3D_RGBLine(cmsClone.getRightKeyColor(i,"rgb"),cmsClone.getLeftKeyColor(i+1,"rgb")));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(cmsClone.getRightKeyColor(i,"rgb"),cmsClone.getLeftKeyColor(i+1,"rgb"), ((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+      if(gCMS_Pathplot.getIntervalLength(i)==0){
+          pathplotLines.push(getLineSegment_3D_RGBLine(gCMS_Pathplot.getRightKeyColor(i,"rgb"),gCMS_Pathplot.getLeftKeyColor(i+1,"rgb")));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(gCMS_Pathplot.getRightKeyColor(i,"rgb"),gCMS_Pathplot.getLeftKeyColor(i+1,"rgb"), ((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
       else {
-        pathplotLines.push(getLineSegment_3D_RGBLine(cmsClone.getRightKeyColor(i,"rgb"),cmsClone.getExportSamplingColor(i,0,"rgb")));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(cmsClone.getRightKeyColor(i,"rgb"),cmsClone.getExportSamplingColor(i,0,"rgb"), ((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getExportSamplingRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_3D_RGBLine(gCMS_Pathplot.getRightKeyColor(i,"rgb"),gCMS_Pathplot.getIntervalColor(i,0,"rgb")));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(gCMS_Pathplot.getRightKeyColor(i,"rgb"),gCMS_Pathplot.getIntervalColor(i,0,"rgb"), ((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getIntervalRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
 
-        for(var j=0; j<cmsClone.getExportSamplingLength(i)-1; j++){
-          pathplotLines.push(getLineSegment_3D_RGBLine(cmsClone.getExportSamplingColor(i,j,"rgb"),cmsClone.getExportSamplingColor(i,j+1,"rgb")));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(cmsClone.getExportSamplingColor(i, j, "rgb"),cmsClone.getExportSamplingColor(i, j + 1, "rgb"), ((cmsClone.getExportSamplingRef(i,j)-cmsStartRef)/cmsRefRange),((cmsClone.getExportSamplingRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        for(var j=0; j<gCMS_Pathplot.getIntervalLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_3D_RGBLine(gCMS_Pathplot.getIntervalColor(i,j,"rgb"),gCMS_Pathplot.getIntervalColor(i,j+1,"rgb")));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(gCMS_Pathplot.getIntervalColor(i, j, "rgb"),gCMS_Pathplot.getIntervalColor(i, j + 1, "rgb"), ((gCMS_Pathplot.getIntervalRef(i,j)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getIntervalRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         }
-        pathplotLines.push(getLineSegment_3D_RGBLine(cmsClone.getExportSamplingColor(i,cmsClone.getExportSamplingLength(i)-1,"rgb"),cmsClone.getLeftKeyColor(i+1,"rgb")));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(cmsClone.getExportSamplingColor(i,cmsClone.getExportSamplingLength(i)-1,"rgb"),cmsClone.getLeftKeyColor(i+1,"rgb"),((cmsClone.getExportSamplingRef(i,cmsClone.getExportSamplingLength(i)-1)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_3D_RGBLine(gCMS_Pathplot.getIntervalColor(i,gCMS_Pathplot.getIntervalLength(i)-1,"rgb"),gCMS_Pathplot.getLeftKeyColor(i+1,"rgb")));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(gCMS_Pathplot.getIntervalColor(i,gCMS_Pathplot.getIntervalLength(i)-1,"rgb"),gCMS_Pathplot.getLeftKeyColor(i+1,"rgb"),((gCMS_Pathplot.getIntervalRef(i,gCMS_Pathplot.getIntervalLength(i)-1)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
     }
 
   }
 
-  cmsClone.deleteReferences();
 }
 
 function getLineSegment_3D_RGBLine(fromColor, tillColor){
 
   var rgbFromPos3D = [];
-  rgbFromPos3D.push(fromColor.getRValue() *255 - 128);
-  rgbFromPos3D.push(fromColor.getGValue() *255 - 128);
-  rgbFromPos3D.push(fromColor.getBValue() *255 - 128);
+  rgbFromPos3D.push(fromColor[1] *255 - 128);
+  rgbFromPos3D.push(fromColor[2] *255 - 128);
+  rgbFromPos3D.push(fromColor[3] *255 - 128);
 
   var rgbTillPos3D = [];
-  rgbTillPos3D.push(tillColor.getRValue() *255 - 128);
-  rgbTillPos3D.push(tillColor.getGValue() *255 - 128);
-  rgbTillPos3D.push(tillColor.getBValue() *255 - 128);
+  rgbTillPos3D.push(tillColor[1] *255 - 128);
+  rgbTillPos3D.push(tillColor[2] *255 - 128);
+  rgbTillPos3D.push(tillColor[3] *255 - 128);
   ///////////////////////////////////////////////////////////////////
-  fromColor.deleteReferences();
-  tillColor.deleteReferences();
-  fromColor=null;
-  tillColor=null;
 
   var posArray = [undefined,undefined,rgbFromPos3D,rgbTillPos3D];
   return posArray;
@@ -210,9 +198,9 @@ function getLineSegment_LineChart_RGBLine(fromColor, tillColor, xRatio, xRatio2,
 
   var fromPos = [];
   var xPos1 = lineChart_xStart + xRatio * plotwidth;
-  var yPos11 = Math.round(lineChart_yStart - (heigthVArea * fromColor.getRValue()));
-  var yPos12 = Math.round(lineChart_yStart - (heigthVArea * fromColor.getGValue()));
-  var yPos13 = Math.round(lineChart_yStart - (heigthVArea * fromColor.getBValue()));
+  var yPos11 = Math.round(lineChart_yStart - (heigthVArea * fromColor[1]));
+  var yPos12 = Math.round(lineChart_yStart - (heigthVArea * fromColor[2]));
+  var yPos13 = Math.round(lineChart_yStart - (heigthVArea * fromColor[3]));
 
   fromPos.push(xPos1);
   fromPos.push(yPos11);
@@ -221,18 +209,14 @@ function getLineSegment_LineChart_RGBLine(fromColor, tillColor, xRatio, xRatio2,
 
   var tillPos = [];
   var xPos2 = lineChart_xStart + xRatio2 * plotwidth;
-  var yPos21 = Math.round(lineChart_yStart - (heigthVArea * tillColor.getRValue()));
-  var yPos22 = Math.round(lineChart_yStart - (heigthVArea * tillColor.getGValue()));
-  var yPos23 = Math.round(lineChart_yStart - (heigthVArea * tillColor.getBValue()));
+  var yPos21 = Math.round(lineChart_yStart - (heigthVArea * tillColor[1]));
+  var yPos22 = Math.round(lineChart_yStart - (heigthVArea * tillColor[2]));
+  var yPos23 = Math.round(lineChart_yStart - (heigthVArea * tillColor[3]));
   tillPos.push(xPos2);
   tillPos.push(yPos21);
   tillPos.push(yPos22);
   tillPos.push(yPos23);
   ///////////////////////////////////////////////////////////////////
-  fromColor.deleteReferences();
-  tillColor.deleteReferences();
-  fromColor=null;
-  tillColor=null;
 
   var posArray = [fromPos,tillPos];
   return posArray;
@@ -240,69 +224,66 @@ function getLineSegment_LineChart_RGBLine(fromColor, tillColor, xRatio, xRatio2,
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-function calcInterpolationLine_LMS(cmsClone,vWidth,vHeight){
+function calcInterpolationLine_LMS(vWidth,vHeight){
   pathplotLines=[];
   pathplotLinesDashed=[];
   pathplotLinesLineChart=[];
-  var cmsRefRange = cmsClone.getRefRange();
-  var cmsStartRef = cmsClone.getRefPosition(0);
+  var cmsRefRange = gCMS_Pathplot.getRefRange();
+  var cmsStartRef = gCMS_Pathplot.getRefPosition(0);
 
-  extraSamplingCMS(cmsClone);
+  extraSamplingCMS();
 
-  for (var i = 0; i < cmsClone.getKeyLength() - 1; i++) {
+  for (var i = 0; i < gCMS_Pathplot.getKeyLength() - 1; i++) {
 
-    switch (cmsClone.getKeyType(i)) {
+    switch (gCMS_Pathplot.getKeyType(i)) {
       case "nil key":
-        pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(cmsClone.getLeftKeyColor(i + 1, "lms"), cmsClone.getLeftKeyColor(i + 1, "lms"),((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(gCMS_Pathplot.getLeftKeyColor(i + 1, "lms"), gCMS_Pathplot.getLeftKeyColor(i + 1, "lms"),((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       break;
 
       case "left key":
-        pathplotLinesDashed.push(getLineSegment_3D_LMS(cmsClone.getLeftKeyColor(i, "lms"), cmsClone.getLeftKeyColor(i + 1, "lms")));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(cmsClone.getLeftKeyColor(i + 1, "lms"),cmsClone.getLeftKeyColor(i + 1, "lms"),((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLinesDashed.push(getLineSegment_3D_LMS(gCMS_Pathplot.getLeftKeyColor(i, "lms"), gCMS_Pathplot.getLeftKeyColor(i + 1, "lms")));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(gCMS_Pathplot.getLeftKeyColor(i + 1, "lms"),gCMS_Pathplot.getLeftKeyColor(i + 1, "lms"),((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         break;
 
       case "twin key":
 
-        pathplotLinesDashed.push(getLineSegment_3D_LMS(cmsClone.getRightKeyColor(i, "lms"), cmsClone.getLeftKeyColor(i, "lms")));
+        pathplotLinesDashed.push(getLineSegment_3D_LMS(gCMS_Pathplot.getRightKeyColor(i, "lms"), gCMS_Pathplot.getLeftKeyColor(i, "lms")));
 
       default:
 
-      if(cmsClone.getExportSamplingLength(i)==0){
-          pathplotLines.push(getLineSegment_3D_LMS(cmsClone.getRightKeyColor(i,"lms"),cmsClone.getLeftKeyColor(i+1,"lms")));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(cmsClone.getRightKeyColor(i,"lms"),cmsClone.getLeftKeyColor(i+1,"lms"), ((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+      if(gCMS_Pathplot.getIntervalLength(i)==0){
+          pathplotLines.push(getLineSegment_3D_LMS(gCMS_Pathplot.getRightKeyColor(i,"lms"),gCMS_Pathplot.getLeftKeyColor(i+1,"lms")));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(gCMS_Pathplot.getRightKeyColor(i,"lms"),gCMS_Pathplot.getLeftKeyColor(i+1,"lms"), ((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
       else {
-        pathplotLines.push(getLineSegment_3D_LMS(cmsClone.getRightKeyColor(i,"lms"),cmsClone.getExportSamplingColor(i,0,"lms")));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(cmsClone.getRightKeyColor(i,"lms"),cmsClone.getExportSamplingColor(i,0,"lms"), ((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getExportSamplingRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_3D_LMS(gCMS_Pathplot.getRightKeyColor(i,"lms"),gCMS_Pathplot.getIntervalColor(i,0,"lms")));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(gCMS_Pathplot.getRightKeyColor(i,"lms"),gCMS_Pathplot.getIntervalColor(i,0,"lms"), ((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getIntervalRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
 
-        for(var j=0; j<cmsClone.getExportSamplingLength(i)-1; j++){
-          pathplotLines.push(getLineSegment_3D_LMS(cmsClone.getExportSamplingColor(i,j,"lms"),cmsClone.getExportSamplingColor(i,j+1,"lms")));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(cmsClone.getExportSamplingColor(i, j, "lms"),cmsClone.getExportSamplingColor(i, j + 1, "lms"), ((cmsClone.getExportSamplingRef(i,j)-cmsStartRef)/cmsRefRange),((cmsClone.getExportSamplingRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        for(var j=0; j<gCMS_Pathplot.getIntervalLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_3D_LMS(gCMS_Pathplot.getIntervalColor(i,j,"lms"),gCMS_Pathplot.getIntervalColor(i,j+1,"lms")));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(gCMS_Pathplot.getIntervalColor(i, j, "lms"),gCMS_Pathplot.getIntervalColor(i, j + 1, "lms"), ((gCMS_Pathplot.getIntervalRef(i,j)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getIntervalRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         }
-        pathplotLines.push(getLineSegment_3D_LMS(cmsClone.getExportSamplingColor(i,cmsClone.getExportSamplingLength(i)-1,"lms"),cmsClone.getLeftKeyColor(i+1,"lms")));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(cmsClone.getExportSamplingColor(i,cmsClone.getExportSamplingLength(i)-1,"lms"),cmsClone.getLeftKeyColor(i+1,"lms"),((cmsClone.getExportSamplingRef(i,cmsClone.getExportSamplingLength(i)-1)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_3D_LMS(gCMS_Pathplot.getIntervalColor(i,gCMS_Pathplot.getIntervalLength(i)-1,"lms"),gCMS_Pathplot.getLeftKeyColor(i+1,"lms")));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(gCMS_Pathplot.getIntervalColor(i,gCMS_Pathplot.getIntervalLength(i)-1,"lms"),gCMS_Pathplot.getLeftKeyColor(i+1,"lms"),((gCMS_Pathplot.getIntervalRef(i,gCMS_Pathplot.getIntervalLength(i)-1)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
     }
 
   }
 
-  cmsClone.deleteReferences();
 }
 
 function getLineSegment_3D_LMS(fromColor, tillColor){
 
   var lmsFromPos3D = [];
-  lmsFromPos3D.push(fromColor.getLValue());
-  lmsFromPos3D.push(fromColor.getMValue());
-  lmsFromPos3D.push(fromColor.getSValue());
+  lmsFromPos3D.push(fromColor[1]);
+  lmsFromPos3D.push(fromColor[2]);
+  lmsFromPos3D.push(fromColor[3]);
 
   var lmsTillPos3D = [];
-  lmsTillPos3D.push(tillColor.getLValue());
-  lmsTillPos3D.push(tillColor.getMValue());
-  lmsTillPos3D.push(tillColor.getSValue());
+  lmsTillPos3D.push(tillColor[1]);
+  lmsTillPos3D.push(tillColor[2]);
+  lmsTillPos3D.push(tillColor[3]);
   ///////////////////////////////////////////////////////////////////
-  fromColor.deleteReferences();
-  tillColor.deleteReferences();
   fromColor=null;
   tillColor=null;
 
@@ -320,9 +301,9 @@ function getLineSegment_LineChart_LMS(fromColor, tillColor, xRatio, xRatio2,vWid
 
   var fromPos = [];
   var xPos1 = lineChart_xStart + xRatio * plotwidth;
-  var yPos11 = Math.round(lineChart_yStart - (heigthVArea * fromColor.getLValue()/100));
-  var yPos12 = Math.round(lineChart_yStart - (heigthVArea * fromColor.getMValue()/100));
-  var yPos13 = Math.round(lineChart_yStart - (heigthVArea * fromColor.getSValue()/100));
+  var yPos11 = Math.round(lineChart_yStart - (heigthVArea * fromColor[1]/100));
+  var yPos12 = Math.round(lineChart_yStart - (heigthVArea * fromColor[2]/100));
+  var yPos13 = Math.round(lineChart_yStart - (heigthVArea * fromColor[3]/100));
 
   fromPos.push(xPos1);
   fromPos.push(yPos11);
@@ -331,73 +312,68 @@ function getLineSegment_LineChart_LMS(fromColor, tillColor, xRatio, xRatio2,vWid
 
   var tillPos = [];
   var xPos2 = lineChart_xStart + xRatio2 * plotwidth;
-  var yPos21 = Math.round(lineChart_yStart - (heigthVArea * tillColor.getLValue()/100));
-  var yPos22 = Math.round(lineChart_yStart - (heigthVArea * tillColor.getMValue()/100));
-  var yPos23 = Math.round(lineChart_yStart - (heigthVArea * tillColor.getSValue()/100));
+  var yPos21 = Math.round(lineChart_yStart - (heigthVArea * tillColor[1]/100));
+  var yPos22 = Math.round(lineChart_yStart - (heigthVArea * tillColor[2]/100));
+  var yPos23 = Math.round(lineChart_yStart - (heigthVArea * tillColor[3]/100));
   tillPos.push(xPos2);
   tillPos.push(yPos21);
   tillPos.push(yPos22);
   tillPos.push(yPos23);
   ///////////////////////////////////////////////////////////////////
-  fromColor.deleteReferences();
-  tillColor.deleteReferences();
-  fromColor=null;
-  tillColor=null;
 
   var posArray = [fromPos,tillPos];
   return posArray;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-function calcInterpolationLine_HSV(cmsClone,hueRes,vWidth,vHeight){
+function calcInterpolationLine_HSV(hueRes,vWidth,vHeight){
   pathplotLines=[];
   pathplotLinesDashed=[];
   pathplotLinesLineChart=[];
-  var cmsRefRange = cmsClone.getRefRange();
-  var cmsStartRef = cmsClone.getRefPosition(0);
+  var cmsRefRange = gCMS_Pathplot.getRefRange();
+  var cmsStartRef = gCMS_Pathplot.getRefPosition(0);
 
-  extraSamplingCMS(cmsClone);
+  extraSamplingCMS();
 
   //////////////////////////////////////
 
-  for (var i = 0; i < cmsClone.getKeyLength() - 1; i++) {
+  for (var i = 0; i < gCMS_Pathplot.getKeyLength() - 1; i++) {
 
-    switch (cmsClone.getKeyType(i)) {
+    switch (gCMS_Pathplot.getKeyType(i)) {
       case "nil key":
-        pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(cmsClone.getLeftKeyColor(i + 1, "hsv"), cmsClone.getLeftKeyColor(i + 1, "hsv"),((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(gCMS_Pathplot.getLeftKeyColor(i + 1, "hsv"), gCMS_Pathplot.getLeftKeyColor(i + 1, "hsv"),((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       break;
 
       case "left key":
-        pathplotLinesDashed.push(getLineSegment_Hue_HSV(cmsClone.getLeftKeyColor(i, "hsv"), cmsClone.getLeftKeyColor(i + 1, "hsv"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(cmsClone.getLeftKeyColor(i + 1, "hsv"),cmsClone.getLeftKeyColor(i + 1, "hsv"),((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLinesDashed.push(getLineSegment_Hue_HSV(gCMS_Pathplot.getLeftKeyColor(i, "hsv"), gCMS_Pathplot.getLeftKeyColor(i + 1, "hsv"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(gCMS_Pathplot.getLeftKeyColor(i + 1, "hsv"),gCMS_Pathplot.getLeftKeyColor(i + 1, "hsv"),((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         break;
 
       case "twin key":
 
-        pathplotLinesDashed.push(getLineSegment_Hue_HSV(cmsClone.getRightKeyColor(i, "hsv"), cmsClone.getLeftKeyColor(i, "hsv"),hueRes));
+        pathplotLinesDashed.push(getLineSegment_Hue_HSV(gCMS_Pathplot.getRightKeyColor(i, "hsv"), gCMS_Pathplot.getLeftKeyColor(i, "hsv"),hueRes));
 
       default:
 
-      if(cmsClone.getExportSamplingLength(i)==0){
-          pathplotLines.push(getLineSegment_Hue_HSV(cmsClone.getRightKeyColor(i,"hsv"),cmsClone.getLeftKeyColor(i+1,"hsv"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(cmsClone.getRightKeyColor(i,"hsv"),cmsClone.getLeftKeyColor(i+1,"hsv"), ((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+      if(gCMS_Pathplot.getIntervalLength(i)==0){
+          pathplotLines.push(getLineSegment_Hue_HSV(gCMS_Pathplot.getRightKeyColor(i,"hsv"),gCMS_Pathplot.getLeftKeyColor(i+1,"hsv"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(gCMS_Pathplot.getRightKeyColor(i,"hsv"),gCMS_Pathplot.getLeftKeyColor(i+1,"hsv"), ((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
       else {
-        pathplotLines.push(getLineSegment_Hue_HSV(cmsClone.getRightKeyColor(i,"hsv"),cmsClone.getExportSamplingColor(i,0,"hsv"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(cmsClone.getRightKeyColor(i,"hsv"),cmsClone.getExportSamplingColor(i,0,"hsv"), ((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getExportSamplingRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_Hue_HSV(gCMS_Pathplot.getRightKeyColor(i,"hsv"),gCMS_Pathplot.getIntervalColor(i,0,"hsv"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(gCMS_Pathplot.getRightKeyColor(i,"hsv"),gCMS_Pathplot.getIntervalColor(i,0,"hsv"), ((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getIntervalRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
 
-        for(var j=0; j<cmsClone.getExportSamplingLength(i)-1; j++){
-          pathplotLines.push(getLineSegment_Hue_HSV(cmsClone.getExportSamplingColor(i,j,"hsv"),cmsClone.getExportSamplingColor(i,j+1,"hsv"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(cmsClone.getExportSamplingColor(i, j, "hsv"),cmsClone.getExportSamplingColor(i, j + 1, "hsv"), ((cmsClone.getExportSamplingRef(i,j)-cmsStartRef)/cmsRefRange),((cmsClone.getExportSamplingRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        for(var j=0; j<gCMS_Pathplot.getIntervalLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_Hue_HSV(gCMS_Pathplot.getIntervalColor(i,j,"hsv"),gCMS_Pathplot.getIntervalColor(i,j+1,"hsv"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(gCMS_Pathplot.getIntervalColor(i, j, "hsv"),gCMS_Pathplot.getIntervalColor(i, j + 1, "hsv"), ((gCMS_Pathplot.getIntervalRef(i,j)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getIntervalRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         }
-        pathplotLines.push(getLineSegment_Hue_HSV(cmsClone.getExportSamplingColor(i,cmsClone.getExportSamplingLength(i)-1,"hsv"),cmsClone.getLeftKeyColor(i+1,"hsv"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(cmsClone.getExportSamplingColor(i,cmsClone.getExportSamplingLength(i)-1,"hsv"),cmsClone.getLeftKeyColor(i+1,"hsv"),((cmsClone.getExportSamplingRef(i,cmsClone.getExportSamplingLength(i)-1)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_Hue_HSV(gCMS_Pathplot.getIntervalColor(i,gCMS_Pathplot.getIntervalLength(i)-1,"hsv"),gCMS_Pathplot.getLeftKeyColor(i+1,"hsv"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(gCMS_Pathplot.getIntervalColor(i,gCMS_Pathplot.getIntervalLength(i)-1,"hsv"),gCMS_Pathplot.getLeftKeyColor(i+1,"hsv"),((gCMS_Pathplot.getIntervalRef(i,gCMS_Pathplot.getIntervalLength(i)-1)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
     }
 
   }
 
-  cmsClone.deleteReferences();
 }
 
 function getLineSegment_Hue_HSV(fromColor, tillColor,hueRes){
@@ -407,8 +383,8 @@ function getLineSegment_Hue_HSV(fromColor, tillColor,hueRes){
   var colorspaceCenterY = Math.round(hueRes / 2);
 
   var fromPos = [];
-  var tmpDis = fromColor.getSValue() * colorspaceRadius;
-  var tmpRad = degree360ToRad(fromColor.getHValue()*360);
+  var tmpDis = fromColor[2] * colorspaceRadius;
+  var tmpRad = degree360ToRad(fromColor[1]*360);
   var xPos1 = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
   var yPos1 = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
   var tmpY= hueRes-yPos1;
@@ -416,9 +392,9 @@ function getLineSegment_Hue_HSV(fromColor, tillColor,hueRes){
   fromPos.push(tmpY);
 
   var fromPos3D = [];
-  tmpDis = fromColor.getSValue() * hsv3DRadius;
+  tmpDis = fromColor[2] * hsv3DRadius;
   var xPos3D1 = tmpDis * Math.cos(tmpRad)*-1;
-  var yPos3D1 = vStart3D+(vEnd3D-vStart3D)*fromColor.getVValue();
+  var yPos3D1 = vStart3D+(vEnd3D-vStart3D)*fromColor[3];
   var zPos3D1 = tmpDis * Math.sin(tmpRad);
   fromPos3D.push(xPos3D1);
   fromPos3D.push(yPos3D1);
@@ -427,8 +403,8 @@ function getLineSegment_Hue_HSV(fromColor, tillColor,hueRes){
   /////////////////////////////////////////////////
 
   var tillPos = [];
-  tmpDis = tillColor.getSValue() * colorspaceRadius;
-  tmpRad = degree360ToRad(tillColor.getHValue()*360);
+  tmpDis = tillColor[2] * colorspaceRadius;
+  tmpRad = degree360ToRad(tillColor[1]*360);
   var xPos2 = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
   var yPos2 = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
   var tmpY2= hueRes-yPos2;
@@ -437,18 +413,14 @@ function getLineSegment_Hue_HSV(fromColor, tillColor,hueRes){
 
 
   var tillPos3D = [];
-  tmpDis = tillColor.getSValue() * hsv3DRadius;
+  tmpDis = tillColor[2] * hsv3DRadius;
   var xPos3D2 = tmpDis * Math.cos(tmpRad)*-1;
-  var yPos3D2 = vStart3D+(vEnd3D-vStart3D)*tillColor.getVValue();
+  var yPos3D2 = vStart3D+(vEnd3D-vStart3D)*tillColor[3];
   var zPos3D2 = tmpDis * Math.sin(tmpRad);
   tillPos3D.push(xPos3D2);
   tillPos3D.push(yPos3D2);
   tillPos3D.push(zPos3D2);
   ///////////////////////////////////////////////////////////////////
-  fromColor.deleteReferences();
-  tillColor.deleteReferences();
-  fromColor=null;
-  tillColor=null;
 
   var posArray = [fromPos,tillPos,fromPos3D,tillPos3D];
   return posArray;
@@ -464,9 +436,9 @@ function getLineSegment_LineChart_HSV(fromColor, tillColor, xRatio, xRatio2,vWid
 
   var fromPos = [];
   var xPos1 = lineChart_xStart + xRatio * plotwidth;
-  var yPos11 = Math.round(lineChart_yStart - (heigthVArea * fromColor.getHValue()));
-  var yPos12 = Math.round(lineChart_yStart - (heigthVArea * fromColor.getSValue()));
-  var yPos13 = Math.round(lineChart_yStart - (heigthVArea * fromColor.getVValue()));
+  var yPos11 = Math.round(lineChart_yStart - (heigthVArea * fromColor[1]));
+  var yPos12 = Math.round(lineChart_yStart - (heigthVArea * fromColor[2]));
+  var yPos13 = Math.round(lineChart_yStart - (heigthVArea * fromColor[3]));
 
   fromPos.push(xPos1);
   fromPos.push(yPos11);
@@ -475,76 +447,71 @@ function getLineSegment_LineChart_HSV(fromColor, tillColor, xRatio, xRatio2,vWid
 
   var tillPos = [];
   var xPos2 = lineChart_xStart + xRatio2 * plotwidth;
-  var yPos21 = Math.round(lineChart_yStart - (heigthVArea * tillColor.getHValue()));
-  var yPos22 = Math.round(lineChart_yStart - (heigthVArea * tillColor.getSValue()));
-  var yPos23 = Math.round(lineChart_yStart - (heigthVArea * tillColor.getVValue()));
+  var yPos21 = Math.round(lineChart_yStart - (heigthVArea * tillColor[1]));
+  var yPos22 = Math.round(lineChart_yStart - (heigthVArea * tillColor[2]));
+  var yPos23 = Math.round(lineChart_yStart - (heigthVArea * tillColor[3]));
   tillPos.push(xPos2);
   tillPos.push(yPos21);
   tillPos.push(yPos22);
   tillPos.push(yPos23);
   ///////////////////////////////////////////////////////////////////
-  fromColor.deleteReferences();
-  tillColor.deleteReferences();
-  fromColor=null;
-  tillColor=null;
 
   var posArray = [fromPos,tillPos];
   return posArray;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-function calcInterpolationLine_Lab(cmsClone,hueRes,vWidth,vHeight){
+function calcInterpolationLine_Lab(hueRes,vWidth,vHeight){
   pathplotLines=[];
   pathplotLinesDashed=[];
   pathplotLinesLineChart=[];
-  var cmsRefRange = cmsClone.getRefRange();
-  var cmsStartRef = cmsClone.getRefPosition(0);
+  var cmsRefRange = gCMS_Pathplot.getRefRange();
+  var cmsStartRef = gCMS_Pathplot.getRefPosition(0);
 
-  extraSamplingCMS(cmsClone);
+  extraSamplingCMS();
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
-  for (var i = 0; i < cmsClone.getKeyLength() - 1; i++) {
+  for (var i = 0; i < gCMS_Pathplot.getKeyLength() - 1; i++) {
 
-    switch (cmsClone.getKeyType(i)) {
+    switch (gCMS_Pathplot.getKeyType(i)) {
       case "nil key":
-        pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(cmsClone.getLeftKeyColor(i + 1, "lab_rgb_possible"), cmsClone.getLeftKeyColor(i + 1, "lab_rgb_possible"), ((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(gCMS_Pathplot.getLeftKeyColor(i + 1, "lab_rgb_possible"), gCMS_Pathplot.getLeftKeyColor(i + 1, "lab_rgb_possible"), ((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       break;
 
       case "left key":
-        pathplotLinesDashed.push(getLineSegment_Hue_Lab(cmsClone.getLeftKeyColor(i, "lab_rgb_possible"), cmsClone.getLeftKeyColor(i + 1, "lab_rgb_possible"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(cmsClone.getLeftKeyColor(i + 1, "lab_rgb_possible"),cmsClone.getLeftKeyColor(i + 1, "lab_rgb_possible"),((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLinesDashed.push(getLineSegment_Hue_Lab(gCMS_Pathplot.getLeftKeyColor(i, "lab_rgb_possible"), gCMS_Pathplot.getLeftKeyColor(i + 1, "lab_rgb_possible"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(gCMS_Pathplot.getLeftKeyColor(i + 1, "lab_rgb_possible"),gCMS_Pathplot.getLeftKeyColor(i + 1, "lab_rgb_possible"),((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         break;
 
       case "twin key":
 
-        pathplotLinesDashed.push(getLineSegment_Hue_Lab(cmsClone.getRightKeyColor(i, "lab_rgb_possible"), cmsClone.getLeftKeyColor(i, "lab_rgb_possible"),hueRes));
+        pathplotLinesDashed.push(getLineSegment_Hue_Lab(gCMS_Pathplot.getRightKeyColor(i, "lab_rgb_possible"), gCMS_Pathplot.getLeftKeyColor(i, "lab_rgb_possible"),hueRes));
         // no break because we want to do the default here, too!
 
       default:
 
-      if(cmsClone.getExportSamplingLength(i)==0){
-          pathplotLines.push(getLineSegment_Hue_Lab(cmsClone.getRightKeyColor(i,"lab_rgb_possible"),cmsClone.getLeftKeyColor(i+1,"lab_rgb_possible"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(cmsClone.getRightKeyColor(i,"lab_rgb_possible"),cmsClone.getLeftKeyColor(i+1,"lab_rgb_possible"), ((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+      if(gCMS_Pathplot.getIntervalLength(i)==0){
+          pathplotLines.push(getLineSegment_Hue_Lab(gCMS_Pathplot.getRightKeyColor(i,"lab_rgb_possible"),gCMS_Pathplot.getLeftKeyColor(i+1,"lab_rgb_possible"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(gCMS_Pathplot.getRightKeyColor(i,"lab_rgb_possible"),gCMS_Pathplot.getLeftKeyColor(i+1,"lab_rgb_possible"), ((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
       else {
-          pathplotLines.push(getLineSegment_Hue_Lab(cmsClone.getRightKeyColor(i,"lab_rgb_possible"),cmsClone.getExportSamplingColor(i,0,"lab_rgb_possible"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(cmsClone.getRightKeyColor(i,"lab_rgb_possible"),cmsClone.getExportSamplingColor(i,0,"lab_rgb_possible"), ((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getExportSamplingRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+          pathplotLines.push(getLineSegment_Hue_Lab(gCMS_Pathplot.getRightKeyColor(i,"lab_rgb_possible"),gCMS_Pathplot.getIntervalColor(i,0,"lab_rgb_possible"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(gCMS_Pathplot.getRightKeyColor(i,"lab_rgb_possible"),gCMS_Pathplot.getIntervalColor(i,0,"lab_rgb_possible"), ((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getIntervalRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
 
-        for(var j=0; j<cmsClone.getExportSamplingLength(i)-1; j++){
-          pathplotLines.push(getLineSegment_Hue_Lab(cmsClone.getExportSamplingColor(i,j,"lab_rgb_possible"),cmsClone.getExportSamplingColor(i,j+1,"lab_rgb_possible"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(cmsClone.getExportSamplingColor(i, j, "lab_rgb_possible"),cmsClone.getExportSamplingColor(i, j + 1, "lab_rgb_possible"), ((cmsClone.getExportSamplingRef(i,j)-cmsStartRef)/cmsRefRange),((cmsClone.getExportSamplingRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        for(var j=0; j<gCMS_Pathplot.getIntervalLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_Hue_Lab(gCMS_Pathplot.getIntervalColor(i,j,"lab_rgb_possible"),gCMS_Pathplot.getIntervalColor(i,j+1,"lab_rgb_possible"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(gCMS_Pathplot.getIntervalColor(i, j, "lab_rgb_possible"),gCMS_Pathplot.getIntervalColor(i, j + 1, "lab_rgb_possible"), ((gCMS_Pathplot.getIntervalRef(i,j)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getIntervalRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         }
 
-        pathplotLines.push(getLineSegment_Hue_Lab(cmsClone.getExportSamplingColor(i,cmsClone.getExportSamplingLength(i)-1,"lab_rgb_possible"),cmsClone.getLeftKeyColor(i+1,"lab_rgb_possible"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(cmsClone.getExportSamplingColor(i,cmsClone.getExportSamplingLength(i)-1,"lab_rgb_possible"),cmsClone.getLeftKeyColor(i+1,"lab_rgb_possible"),((cmsClone.getExportSamplingRef(i,cmsClone.getExportSamplingLength(i)-1)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_Hue_Lab(gCMS_Pathplot.getIntervalColor(i,gCMS_Pathplot.getIntervalLength(i)-1,"lab_rgb_possible"),gCMS_Pathplot.getLeftKeyColor(i+1,"lab_rgb_possible"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(gCMS_Pathplot.getIntervalColor(i,gCMS_Pathplot.getIntervalLength(i)-1,"lab_rgb_possible"),gCMS_Pathplot.getLeftKeyColor(i+1,"lab_rgb_possible"),((gCMS_Pathplot.getIntervalRef(i,gCMS_Pathplot.getIntervalLength(i)-1)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
 
     }
 
   }
 
-  cmsClone.deleteReferences();
 }
 
 function getLineSegment_Hue_Lab(fromColor, tillColor,hueRes){
@@ -553,8 +520,8 @@ function getLineSegment_Hue_Lab(fromColor, tillColor,hueRes){
 
   var fromPos = [];
 
-  var xPos1 = ((fromColor.getAValue() / labSpaceRange) * canvasCenter) + canvasCenter;
-  var yPos1 = ((fromColor.getBValue() / labSpaceRange) * canvasCenter) + canvasCenter;
+  var xPos1 = ((fromColor[2] / labSpaceRange) * canvasCenter) + canvasCenter;
+  var yPos1 = ((fromColor[3] / labSpaceRange) * canvasCenter) + canvasCenter;
   var tmpY = hueRes-yPos1;
   fromPos.push(xPos1);
   fromPos.push(tmpY);
@@ -565,9 +532,9 @@ function getLineSegment_Hue_Lab(fromColor, tillColor,hueRes){
   var zPos3D1 = 0;
   if(labABMax!=undefined && labABMax!=0){
     var labABMax2 = labABMax*2;
-    xPos3D1 = labSPos+((fromColor.get2Value()+labABMax)/labABMax2)*(labEPos-labSPos);
-    yPos3D1 = labSPos+(fromColor.get1Value()/100.0)*(labEPos-labSPos);
-    zPos3D1 = labEPos-((fromColor.get3Value()+labABMax)/labABMax2)*(labEPos-labSPos);
+    xPos3D1 = labSPos+((fromColor[2]+labABMax)/labABMax2)*(labEPos-labSPos);
+    yPos3D1 = labSPos+(fromColor[1]/100.0)*(labEPos-labSPos);
+    zPos3D1 = labEPos-((fromColor[3]+labABMax)/labABMax2)*(labEPos-labSPos);
   }
   fromPos3D.push(xPos3D1);
   fromPos3D.push(yPos3D1);
@@ -576,8 +543,8 @@ function getLineSegment_Hue_Lab(fromColor, tillColor,hueRes){
   /////////////////////////////////////////////////
 
   var tillPos = [];
-  var xPos2 = ((tillColor.getAValue() / labSpaceRange) * canvasCenter) + canvasCenter;
-  var yPos2 = ((tillColor.getBValue() / labSpaceRange) * canvasCenter) + canvasCenter;
+  var xPos2 = ((tillColor[2] / labSpaceRange) * canvasCenter) + canvasCenter;
+  var yPos2 = ((tillColor[3] / labSpaceRange) * canvasCenter) + canvasCenter;
   var tmpY2 = hueRes-yPos2;
   tillPos.push(xPos2);
   tillPos.push(tmpY2);
@@ -589,18 +556,14 @@ function getLineSegment_Hue_Lab(fromColor, tillColor,hueRes){
   var zPos3D2 = 0;
   if(labABMax!=undefined && labABMax!=0){
     var labABMax2 = labABMax*2;
-    xPos3D2 = labSPos+((tillColor.get2Value()+labABMax)/labABMax2)*(labEPos-labSPos);
-    yPos3D2 = labSPos+(tillColor.get1Value()/100.0)*(labEPos-labSPos);
-    zPos3D2 = labEPos-((tillColor.get3Value()+labABMax)/labABMax2)*(labEPos-labSPos);
+    xPos3D2 = labSPos+((tillColor[2]+labABMax)/labABMax2)*(labEPos-labSPos);
+    yPos3D2 = labSPos+(tillColor[1]/100.0)*(labEPos-labSPos);
+    zPos3D2 = labEPos-((tillColor[3]+labABMax)/labABMax2)*(labEPos-labSPos);
   }
   tillPos3D.push(xPos3D2);
   tillPos3D.push(yPos3D2);
   tillPos3D.push(zPos3D2);
   ///////////////////////////////////////////////////////////////////
-  fromColor.deleteReferences();
-  tillColor.deleteReferences();
-  fromColor=null;
-  tillColor=null;
 
   var posArray = [fromPos,tillPos,fromPos3D,tillPos3D];
   return posArray;
@@ -616,9 +579,9 @@ function getLineSegment_LineChart_Lab(fromColor, tillColor, xRatio, xRatio2,vWid
 
   var fromPos = [];
   var xPos1 = lineChart_xStart + xRatio * plotwidth;
-  var yPos11 = Math.round(lineChart_yStart - (heigthVArea * fromColor.getLValue() / 100));
-  var yPos12 = Math.round(lineChart_yStart - (heigthVArea * (fromColor.getAValue()+labSpaceRange) / (labSpaceRange*2)));
-  var yPos13 = Math.round(lineChart_yStart - (heigthVArea * (fromColor.getBValue()+labSpaceRange) / (labSpaceRange*2)));
+  var yPos11 = Math.round(lineChart_yStart - (heigthVArea * fromColor[1] / 100));
+  var yPos12 = Math.round(lineChart_yStart - (heigthVArea * (fromColor[2]+labSpaceRange) / (labSpaceRange*2)));
+  var yPos13 = Math.round(lineChart_yStart - (heigthVArea * (fromColor[3]+labSpaceRange) / (labSpaceRange*2)));
   fromPos.push(xPos1);
   fromPos.push(yPos11);
   fromPos.push(yPos12);
@@ -626,81 +589,76 @@ function getLineSegment_LineChart_Lab(fromColor, tillColor, xRatio, xRatio2,vWid
 
   var tillPos = [];
   var xPos2 = lineChart_xStart + xRatio2 * plotwidth;
-  var yPos21 = Math.round(lineChart_yStart - (heigthVArea * tillColor.getLValue() / 100));
-  var yPos22 = Math.round(lineChart_yStart - (heigthVArea * (tillColor.getAValue()+labSpaceRange) / (labSpaceRange*2)));
-  var yPos23 = Math.round(lineChart_yStart - (heigthVArea * (tillColor.getBValue()+labSpaceRange) / (labSpaceRange*2)));
+  var yPos21 = Math.round(lineChart_yStart - (heigthVArea * tillColor[1] / 100));
+  var yPos22 = Math.round(lineChart_yStart - (heigthVArea * (tillColor[2]+labSpaceRange) / (labSpaceRange*2)));
+  var yPos23 = Math.round(lineChart_yStart - (heigthVArea * (tillColor[3]+labSpaceRange) / (labSpaceRange*2)));
   tillPos.push(xPos2);
   tillPos.push(yPos21);
   tillPos.push(yPos22);
   tillPos.push(yPos23);
   ///////////////////////////////////////////////////////////////////
-  fromColor.deleteReferences();
-  tillColor.deleteReferences();
-  fromColor=null;
-  tillColor=null;
 
   var posArray = [fromPos,tillPos];
   return posArray;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-function calcInterpolationLine_DIN99(cmsClone,hueRes,vWidth,vHeight){
+function calcInterpolationLine_DIN99(hueRes,vWidth,vHeight){
   pathplotLines=[];
   pathplotLinesDashed=[];
   pathplotLinesLineChart=[];
-  var cmsRefRange = cmsClone.getRefRange();
-  var cmsStartRef = cmsClone.getRefPosition(0);
+  var cmsRefRange = gCMS_Pathplot.getRefRange();
+  var cmsStartRef = gCMS_Pathplot.getRefPosition(0);
 
   rangeA99 = rangeA99Pos - rangeA99Neg;
   rangeB99 = rangeB99Pos - rangeB99Neg;
 
-  extraSamplingCMS(cmsClone);
+  extraSamplingCMS();
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
-  for (var i = 0; i < cmsClone.getKeyLength() - 1; i++) {
+  for (var i = 0; i < gCMS_Pathplot.getKeyLength() - 1; i++) {
 
-    switch (cmsClone.getKeyType(i)) {
+    switch (gCMS_Pathplot.getKeyType(i)) {
       case "nil key":
-        pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(cmsClone.getLeftKeyColor(i + 1, "din99_rgb_possible"), cmsClone.getLeftKeyColor(i + 1, "din99_rgb_possible"), ((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(gCMS_Pathplot.getLeftKeyColor(i + 1, "din99_rgb_possible"), gCMS_Pathplot.getLeftKeyColor(i + 1, "din99_rgb_possible"), ((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       break;
       case "left key":
-        pathplotLinesDashed.push(getLineSegment_Hue_DIN99(cmsClone.getLeftKeyColor(i, "din99_rgb_possible"), cmsClone.getLeftKeyColor(i + 1, "din99_rgb_possible"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(cmsClone.getLeftKeyColor(i + 1, "din99_rgb_possible"),cmsClone.getLeftKeyColor(i + 1, "din99_rgb_possible"),((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLinesDashed.push(getLineSegment_Hue_DIN99(gCMS_Pathplot.getLeftKeyColor(i, "din99_rgb_possible"), gCMS_Pathplot.getLeftKeyColor(i + 1, "din99_rgb_possible"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(gCMS_Pathplot.getLeftKeyColor(i + 1, "din99_rgb_possible"),gCMS_Pathplot.getLeftKeyColor(i + 1, "din99_rgb_possible"),((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         break;
 
       case "twin key":
 
-          pathplotLinesDashed.push(getLineSegment_Hue_DIN99(cmsClone.getRightKeyColor(i, "din99_rgb_possible"), cmsClone.getLeftKeyColor(i, "din99_rgb_possible"),hueRes));
+          pathplotLinesDashed.push(getLineSegment_Hue_DIN99(gCMS_Pathplot.getRightKeyColor(i, "din99_rgb_possible"), gCMS_Pathplot.getLeftKeyColor(i, "din99_rgb_possible"),hueRes));
 
           // no break because we want to do the default here, too!
 
       default:
 
-      if(cmsClone.getExportSamplingLength(i)==0){
-          pathplotLines.push(getLineSegment_Hue_DIN99(cmsClone.getRightKeyColor(i,"din99_rgb_possible"),cmsClone.getLeftKeyColor(i+1,"din99_rgb_possible"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(cmsClone.getRightKeyColor(i,"din99_rgb_possible"),cmsClone.getLeftKeyColor(i+1,"din99_rgb_possible"), ((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+      if(gCMS_Pathplot.getIntervalLength(i)==0){
+          pathplotLines.push(getLineSegment_Hue_DIN99(gCMS_Pathplot.getRightKeyColor(i,"din99_rgb_possible"),gCMS_Pathplot.getLeftKeyColor(i+1,"din99_rgb_possible"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(gCMS_Pathplot.getRightKeyColor(i,"din99_rgb_possible"),gCMS_Pathplot.getLeftKeyColor(i+1,"din99_rgb_possible"), ((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
 
       }
       else {
-          pathplotLines.push(getLineSegment_Hue_DIN99(cmsClone.getRightKeyColor(i,"din99_rgb_possible"),cmsClone.getExportSamplingColor(i,0,"din99_rgb_possible"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(cmsClone.getRightKeyColor(i,"din99_rgb_possible"),cmsClone.getExportSamplingColor(i,0,"din99_rgb_possible"), ((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getExportSamplingRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+          pathplotLines.push(getLineSegment_Hue_DIN99(gCMS_Pathplot.getRightKeyColor(i,"din99_rgb_possible"),gCMS_Pathplot.getIntervalColor(i,0,"din99_rgb_possible"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(gCMS_Pathplot.getRightKeyColor(i,"din99_rgb_possible"),gCMS_Pathplot.getIntervalColor(i,0,"din99_rgb_possible"), ((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getIntervalRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
 
 
-        for(var j=0; j<cmsClone.getExportSamplingLength(i)-1; j++){
-          pathplotLines.push(getLineSegment_Hue_DIN99(cmsClone.getExportSamplingColor(i,j,"din99_rgb_possible"),cmsClone.getExportSamplingColor(i,j+1,"din99_rgb_possible"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(cmsClone.getExportSamplingColor(i, j, "din99_rgb_possible"),cmsClone.getExportSamplingColor(i, j + 1, "din99_rgb_possible"), ((cmsClone.getExportSamplingRef(i,j)-cmsStartRef)/cmsRefRange),((cmsClone.getExportSamplingRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        for(var j=0; j<gCMS_Pathplot.getIntervalLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_Hue_DIN99(gCMS_Pathplot.getIntervalColor(i,j,"din99_rgb_possible"),gCMS_Pathplot.getIntervalColor(i,j+1,"din99_rgb_possible"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(gCMS_Pathplot.getIntervalColor(i, j, "din99_rgb_possible"),gCMS_Pathplot.getIntervalColor(i, j + 1, "din99_rgb_possible"), ((gCMS_Pathplot.getIntervalRef(i,j)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getIntervalRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         }
 
-        pathplotLines.push(getLineSegment_Hue_DIN99(cmsClone.getExportSamplingColor(i,cmsClone.getExportSamplingLength(i)-1,"din99_rgb_possible"),cmsClone.getLeftKeyColor(i+1,"din99_rgb_possible"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(cmsClone.getExportSamplingColor(i,cmsClone.getExportSamplingLength(i)-1,"din99_rgb_possible"),cmsClone.getLeftKeyColor(i+1,"din99_rgb_possible"),((cmsClone.getExportSamplingRef(i,cmsClone.getExportSamplingLength(i)-1)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_Hue_DIN99(gCMS_Pathplot.getIntervalColor(i,gCMS_Pathplot.getIntervalLength(i)-1,"din99_rgb_possible"),gCMS_Pathplot.getLeftKeyColor(i+1,"din99_rgb_possible"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(gCMS_Pathplot.getIntervalColor(i,gCMS_Pathplot.getIntervalLength(i)-1,"din99_rgb_possible"),gCMS_Pathplot.getLeftKeyColor(i+1,"din99_rgb_possible"),((gCMS_Pathplot.getIntervalRef(i,gCMS_Pathplot.getIntervalLength(i)-1)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
 
     }
 
   }
 
-  cmsClone.deleteReferences();
 }
 
 function getLineSegment_Hue_DIN99(fromColor, tillColor,hueRes){
@@ -708,8 +666,8 @@ function getLineSegment_Hue_DIN99(fromColor, tillColor,hueRes){
   var canvasCenter = Math.round(hueRes / 2);
 
   var fromPos = [];
-  var xPos1 = (fromColor.getA99Value() - rangeA99Neg) / rangeA99 * hueRes;
-  var yPos1 = (fromColor.getB99Value() - rangeB99Neg) / rangeB99 * hueRes;
+  var xPos1 = (fromColor[2] - rangeA99Neg) / rangeA99 * hueRes;
+  var yPos1 = (fromColor[3] - rangeB99Neg) / rangeB99 * hueRes;
   var tmpY = hueRes-yPos1;
   fromPos.push(xPos1);
   fromPos.push(tmpY);
@@ -720,9 +678,9 @@ function getLineSegment_Hue_DIN99(fromColor, tillColor,hueRes){
   var zPos3D1 = 0;
   if(din99ABMax!=undefined && din99ABMax!=0){
     var din99ABMax2 = din99ABMax*2;
-    xPos3D1 = din99SPos+((fromColor.get2Value()+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
-    yPos3D1 = din99SPos+(fromColor.get1Value()/100.0)*(din99EPos-din99SPos);
-    zPos3D1 = din99EPos-((fromColor.get3Value()+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
+    xPos3D1 = din99SPos+((fromColor[2]+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
+    yPos3D1 = din99SPos+(fromColor[1]/100.0)*(din99EPos-din99SPos);
+    zPos3D1 = din99EPos-((fromColor[3]+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
   }
   fromPos3D.push(xPos3D1);
   fromPos3D.push(yPos3D1);
@@ -731,8 +689,8 @@ function getLineSegment_Hue_DIN99(fromColor, tillColor,hueRes){
   /////////////////////////////////////////////////
 
   var tillPos = [];
-  var xPos2 = (tillColor.getA99Value() - rangeA99Neg) / rangeA99 * hueRes;
-  var yPos2 = (tillColor.getB99Value() - rangeB99Neg) / rangeB99 * hueRes;
+  var xPos2 = (tillColor[2] - rangeA99Neg) / rangeA99 * hueRes;
+  var yPos2 = (tillColor[3] - rangeB99Neg) / rangeB99 * hueRes;
   var tmpY2 = hueRes-yPos2;
   tillPos.push(xPos2);
   tillPos.push(tmpY2);
@@ -743,18 +701,14 @@ function getLineSegment_Hue_DIN99(fromColor, tillColor,hueRes){
   var zPos3D2 = 0;
   if(din99ABMax!=undefined && din99ABMax!=0){
     var din99ABMax2 = din99ABMax*2;
-    xPos3D2 = din99SPos+((tillColor.get2Value()+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
-    yPos3D2 = din99SPos+(tillColor.get1Value()/100.0)*(din99EPos-din99SPos);
-    zPos3D2 = din99EPos-((tillColor.get3Value()+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
+    xPos3D2 = din99SPos+((tillColor[2]+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
+    yPos3D2 = din99SPos+(tillColor[1]/100.0)*(din99EPos-din99SPos);
+    zPos3D2 = din99EPos-((tillColor[3]+din99ABMax)/din99ABMax2)*(din99EPos-din99SPos);
   }
   tillPos3D.push(xPos3D2);
   tillPos3D.push(yPos3D2);
   tillPos3D.push(zPos3D2);
   ///////////////////////////////////////////////////////////////////
-  fromColor.deleteReferences();
-  tillColor.deleteReferences();
-  fromColor=null;
-  tillColor=null;
 
   var posArray = [fromPos,tillPos,fromPos3D,tillPos3D];
   return posArray;
@@ -770,9 +724,9 @@ function getLineSegment_LineChart_DIN99(fromColor, tillColor, xRatio, xRatio2,vW
 
   var fromPos = [];
   var xPos1 = lineChart_xStart + xRatio * plotwidth;
-  var yPos11 = Math.round(lineChart_yStart - (heigthVArea * fromColor.getL99Value() / 100));
-  var yPos12 = Math.round(lineChart_yStart - (heigthVArea * (fromColor.getA99Value()+(rangeA99Neg*-1)) / (rangeA99Pos-rangeA99Neg)));
-  var yPos13 = Math.round(lineChart_yStart - (heigthVArea * (fromColor.getB99Value()+(rangeB99Neg*-1)) / (rangeB99Pos-rangeB99Neg)));
+  var yPos11 = Math.round(lineChart_yStart - (heigthVArea * fromColor[1] / 100));
+  var yPos12 = Math.round(lineChart_yStart - (heigthVArea * (fromColor[2]+(rangeA99Neg*-1)) / (rangeA99Pos-rangeA99Neg)));
+  var yPos13 = Math.round(lineChart_yStart - (heigthVArea * (fromColor[3]+(rangeB99Neg*-1)) / (rangeB99Pos-rangeB99Neg)));
   fromPos.push(xPos1);
   fromPos.push(yPos11);
   fromPos.push(yPos12);
@@ -780,67 +734,63 @@ function getLineSegment_LineChart_DIN99(fromColor, tillColor, xRatio, xRatio2,vW
 
   var tillPos = [];
   var xPos2 = lineChart_xStart + xRatio2 * plotwidth;
-  var yPos21 = Math.round(lineChart_yStart - (heigthVArea * tillColor.getL99Value() / 100));
-  var yPos22 = Math.round(lineChart_yStart - (heigthVArea * (tillColor.getA99Value()+(rangeA99Neg*-1)) / (rangeA99Pos-rangeA99Neg)));
-  var yPos23 = Math.round(lineChart_yStart - (heigthVArea * (tillColor.getB99Value()+(rangeB99Neg*-1)) / (rangeB99Pos-rangeB99Neg)));
+  var yPos21 = Math.round(lineChart_yStart - (heigthVArea * tillColor[1] / 100));
+  var yPos22 = Math.round(lineChart_yStart - (heigthVArea * (tillColor[2]+(rangeA99Neg*-1)) / (rangeA99Pos-rangeA99Neg)));
+  var yPos23 = Math.round(lineChart_yStart - (heigthVArea * (tillColor[3]+(rangeB99Neg*-1)) / (rangeB99Pos-rangeB99Neg)));
   tillPos.push(xPos2);
   tillPos.push(yPos21);
   tillPos.push(yPos22);
   tillPos.push(yPos23);
   ///////////////////////////////////////////////////////////////////
-  fromColor.deleteReferences();
-  tillColor.deleteReferences();
-  fromColor=null;
-  tillColor=null;
 
   var posArray = [fromPos,tillPos];
   return posArray;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-function calcInterpolationLine_LCH(cmsClone,hueRes,vWidth,vHeight){
+function calcInterpolationLine_LCH(hueRes,vWidth,vHeight){
   pathplotLines=[];
   pathplotLinesDashed=[];
   pathplotLinesLineChart=[];
-  var cmsRefRange = cmsClone.getRefRange();
-  var cmsStartRef = cmsClone.getRefPosition(0);
+  var cmsRefRange = gCMS_Pathplot.getRefRange();
+  var cmsStartRef = gCMS_Pathplot.getRefPosition(0);
 
-  extraSamplingCMS(cmsClone);
+  extraSamplingCMS();
 
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
-  for (var i = 0; i < cmsClone.getKeyLength() - 1; i++) {
+  for (var i = 0; i < gCMS_Pathplot.getKeyLength() - 1; i++) {
 
-    switch (cmsClone.getKeyType(i)) {
+    switch (gCMS_Pathplot.getKeyType(i)) {
       case "nil key":
-        pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(cmsClone.getLeftKeyColor(i + 1, "lch_rgb_possible"), cmsClone.getLeftKeyColor(i + 1, "lch_rgb_possible"), ((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(gCMS_Pathplot.getLeftKeyColor(i + 1, "lch_rgb_possible"), gCMS_Pathplot.getLeftKeyColor(i + 1, "lch_rgb_possible"), ((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       break;
 
       case "left key":
-        pathplotLinesDashed.push(getLineSegment_Hue_LCH(cmsClone.getLeftKeyColor(i, "lch_rgb_possible"), cmsClone.getLeftKeyColor(i + 1, "lch_rgb_possible"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(cmsClone.getLeftKeyColor(i + 1, "lch_rgb_possible"),cmsClone.getLeftKeyColor(i + 1, "lch_rgb_possible"),((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLinesDashed.push(getLineSegment_Hue_LCH(gCMS_Pathplot.getLeftKeyColor(i, "lch_rgb_possible"), gCMS_Pathplot.getLeftKeyColor(i + 1, "lch_rgb_possible"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(gCMS_Pathplot.getLeftKeyColor(i + 1, "lch_rgb_possible"),gCMS_Pathplot.getLeftKeyColor(i + 1, "lch_rgb_possible"),((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         break;
 
       case "twin key":
 
-        pathplotLinesDashed.push(getLineSegment_Hue_LCH(cmsClone.getRightKeyColor(i, "lch_rgb_possible"), cmsClone.getLeftKeyColor(i, "lch_rgb_possible"),hueRes));
+        pathplotLinesDashed.push(getLineSegment_Hue_LCH(gCMS_Pathplot.getRightKeyColor(i, "lch_rgb_possible"), gCMS_Pathplot.getLeftKeyColor(i, "lch_rgb_possible"),hueRes));
 
       default:
 
-      if(cmsClone.getExportSamplingLength(i)==0){
-          pathplotLines.push(getLineSegment_Hue_LCH(cmsClone.getRightKeyColor(i,"lch_rgb_possible"),cmsClone.getLeftKeyColor(i+1,"lch_rgb_possible"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(cmsClone.getRightKeyColor(i,"lch_rgb_possible"),cmsClone.getLeftKeyColor(i+1,"lch_rgb_possible"), ((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+      if(gCMS_Pathplot.getIntervalLength(i)==0){
+          pathplotLines.push(getLineSegment_Hue_LCH(gCMS_Pathplot.getRightKeyColor(i,"lch_rgb_possible"),gCMS_Pathplot.getLeftKeyColor(i+1,"lch_rgb_possible"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(gCMS_Pathplot.getRightKeyColor(i,"lch_rgb_possible"),gCMS_Pathplot.getLeftKeyColor(i+1,"lch_rgb_possible"), ((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
       else {
-        pathplotLines.push(getLineSegment_Hue_LCH(cmsClone.getRightKeyColor(i,"lch_rgb_possible"),cmsClone.getExportSamplingColor(i,0,"lch_rgb_possible"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(cmsClone.getRightKeyColor(i,"lch_rgb_possible"),cmsClone.getExportSamplingColor(i,0,"lch_rgb_possible"), ((cmsClone.getRefPosition(i)-cmsStartRef)/cmsRefRange),((cmsClone.getExportSamplingRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_Hue_LCH(gCMS_Pathplot.getRightKeyColor(i,"lch_rgb_possible"),gCMS_Pathplot.getIntervalColor(i,0,"lch_rgb_possible"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(gCMS_Pathplot.getRightKeyColor(i,"lch_rgb_possible"),gCMS_Pathplot.getIntervalColor(i,0,"lch_rgb_possible"), ((gCMS_Pathplot.getRefPosition(i)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getIntervalRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
 
-        for(var j=0; j<cmsClone.getExportSamplingLength(i)-1; j++){
-          pathplotLines.push(getLineSegment_Hue_LCH(cmsClone.getExportSamplingColor(i,j,"lch_rgb_possible"),cmsClone.getExportSamplingColor(i,j+1,"lch_rgb_possible"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(cmsClone.getExportSamplingColor(i, j, "lch_rgb_possible"),cmsClone.getExportSamplingColor(i, j + 1, "lch_rgb_possible"), ((cmsClone.getExportSamplingRef(i,j)-cmsStartRef)/cmsRefRange),((cmsClone.getExportSamplingRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        for(var j=0; j<gCMS_Pathplot.getIntervalLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_Hue_LCH(gCMS_Pathplot.getIntervalColor(i,j,"lch_rgb_possible"),gCMS_Pathplot.getIntervalColor(i,j+1,"lch_rgb_possible"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(gCMS_Pathplot.getIntervalColor(i, j, "lch_rgb_possible"),gCMS_Pathplot.getIntervalColor(i, j + 1, "lch_rgb_possible"), ((gCMS_Pathplot.getIntervalRef(i,j)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getIntervalRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         }
-        pathplotLines.push(getLineSegment_Hue_LCH(cmsClone.getExportSamplingColor(i,cmsClone.getExportSamplingLength(i)-1,"lch_rgb_possible"),cmsClone.getLeftKeyColor(i+1,"lch_rgb_possible"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(cmsClone.getExportSamplingColor(i,cmsClone.getExportSamplingLength(i)-1,"lch_rgb_possible"),cmsClone.getLeftKeyColor(i+1,"lch_rgb_possible"),((cmsClone.getExportSamplingRef(i,cmsClone.getExportSamplingLength(i)-1)-cmsStartRef)/cmsRefRange),((cmsClone.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_Hue_LCH(gCMS_Pathplot.getIntervalColor(i,gCMS_Pathplot.getIntervalLength(i)-1,"lch_rgb_possible"),gCMS_Pathplot.getLeftKeyColor(i+1,"lch_rgb_possible"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(gCMS_Pathplot.getIntervalColor(i,gCMS_Pathplot.getIntervalLength(i)-1,"lch_rgb_possible"),gCMS_Pathplot.getLeftKeyColor(i+1,"lch_rgb_possible"),((gCMS_Pathplot.getIntervalRef(i,gCMS_Pathplot.getIntervalLength(i)-1)-cmsStartRef)/cmsRefRange),((gCMS_Pathplot.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
 
 
@@ -848,7 +798,6 @@ function calcInterpolationLine_LCH(cmsClone,hueRes,vWidth,vHeight){
 
   }
 
-  cmsClone.deleteReferences();
 }
 
 function getLineSegment_Hue_LCH(fromColor, tillColor,hueRes){
@@ -858,8 +807,8 @@ function getLineSegment_Hue_LCH(fromColor, tillColor,hueRes){
   var colorspaceCenterY = Math.round(hueRes / 2);
 
   var fromPos = [];
-  var tmpDis = fromColor.getCValue() * colorspaceRadius;
-  var tmpRad = degree360ToRad(fromColor.getHValue()*360);
+  var tmpDis = fromColor[2] * colorspaceRadius;
+  var tmpRad = degree360ToRad(fromColor[3]*360);
   var xPos1 = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
   var yPos1 = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
   var tmpY= hueRes-yPos1;
@@ -867,9 +816,9 @@ function getLineSegment_Hue_LCH(fromColor, tillColor,hueRes){
   fromPos.push(tmpY);
 
   var fromPos3D = [];
-  tmpDis = fromColor.getCValue() * hsv3DRadius;
+  tmpDis = fromColor[2] * hsv3DRadius;
   var xPos3D1 = tmpDis * Math.cos(tmpRad)*-1;
-  var yPos3D1 = vStart3D+(vEnd3D-vStart3D)*fromColor.getLValue();
+  var yPos3D1 = vStart3D+(vEnd3D-vStart3D)*fromColor[1];
   var zPos3D1 = tmpDis * Math.sin(tmpRad);
   fromPos3D.push(xPos3D1);
   fromPos3D.push(yPos3D1);
@@ -878,8 +827,8 @@ function getLineSegment_Hue_LCH(fromColor, tillColor,hueRes){
   /////////////////////////////////////////////////
 
   var tillPos = [];
-  tmpDis = tillColor.getCValue() * colorspaceRadius;
-  tmpRad = degree360ToRad(tillColor.getHValue()*360);
+  tmpDis = tillColor[2] * colorspaceRadius;
+  tmpRad = degree360ToRad(tillColor[3]*360);
   var xPos2 = tmpDis * Math.cos(tmpRad) + colorspaceCenterX;
   var yPos2 = tmpDis * Math.sin(tmpRad) + colorspaceCenterY;
   var tmpY2= hueRes-yPos2;
@@ -888,18 +837,14 @@ function getLineSegment_Hue_LCH(fromColor, tillColor,hueRes){
 
 
   var tillPos3D = [];
-  tmpDis = tillColor.getCValue() * hsv3DRadius;
+  tmpDis = tillColor[2] * hsv3DRadius;
   var xPos3D2 = tmpDis * Math.cos(tmpRad)*-1;
-  var yPos3D2 = vStart3D+(vEnd3D-vStart3D)*tillColor.getLValue();
+  var yPos3D2 = vStart3D+(vEnd3D-vStart3D)*tillColor[1];
   var zPos3D2 = tmpDis * Math.sin(tmpRad);
   tillPos3D.push(xPos3D2);
   tillPos3D.push(yPos3D2);
   tillPos3D.push(zPos3D2);
   ///////////////////////////////////////////////////////////////////
-  fromColor.deleteReferences();
-  tillColor.deleteReferences();
-  fromColor=null;
-  tillColor=null;
 
   var posArray = [fromPos,tillPos,fromPos3D,tillPos3D];
   return posArray;
@@ -915,9 +860,9 @@ function getLineSegment_LineChart_LCH(fromColor, tillColor, xRatio, xRatio2,vWid
 
   var fromPos = [];
   var xPos1 = lineChart_xStart + xRatio * plotwidth;
-  var yPos11 = Math.round(lineChart_yStart - (heigthVArea * fromColor.getLValue()));
-  var yPos12 = Math.round(lineChart_yStart - (heigthVArea * fromColor.getCValue()));
-  var yPos13 = Math.round(lineChart_yStart - (heigthVArea * fromColor.getHValue()));
+  var yPos11 = Math.round(lineChart_yStart - (heigthVArea * fromColor[1]));
+  var yPos12 = Math.round(lineChart_yStart - (heigthVArea * fromColor[2]));
+  var yPos13 = Math.round(lineChart_yStart - (heigthVArea * fromColor[3]));
   fromPos.push(xPos1);
   fromPos.push(yPos11);
   fromPos.push(yPos12);
@@ -925,18 +870,14 @@ function getLineSegment_LineChart_LCH(fromColor, tillColor, xRatio, xRatio2,vWid
 
   var tillPos = [];
   var xPos2 = lineChart_xStart + xRatio2 * plotwidth;
-  var yPos21 = Math.round(lineChart_yStart - (heigthVArea * tillColor.getLValue()));
-  var yPos22 = Math.round(lineChart_yStart - (heigthVArea * tillColor.getCValue()));
-  var yPos23 = Math.round(lineChart_yStart - (heigthVArea * tillColor.getHValue()));
+  var yPos21 = Math.round(lineChart_yStart - (heigthVArea * tillColor[1]));
+  var yPos22 = Math.round(lineChart_yStart - (heigthVArea * tillColor[2]));
+  var yPos23 = Math.round(lineChart_yStart - (heigthVArea * tillColor[3]));
   tillPos.push(xPos2);
   tillPos.push(yPos21);
   tillPos.push(yPos22);
   tillPos.push(yPos23);
   ///////////////////////////////////////////////////////////////////
-  fromColor.deleteReferences();
-  tillColor.deleteReferences();
-  fromColor=null;
-  tillColor=null;
 
   var posArray = [fromPos,tillPos];
   return posArray;

@@ -614,8 +614,5 @@ function create_RGB_Plane_Mesh(numberOfPieces, startPos) {
   meshRGB.position.y = 0;
   meshRGB.position.z = 0;
 
-  tmpRGBColor.deleteReferences();
-  tmpRGBColor = null;
-
   return meshRGB;
 }

@@ -20,36 +20,33 @@ class class_Edit_Part_Basis{
     return this.partIsReady;
   }
 
-  /*getParentCMS(){
+  getParentCMS(){
     switch (this.parentID) {
       case "id_EditPage":
-        return cloneCMS(editSection.editCMS);
+        return editSection.editCMS.createCMSInfoPackage();
       break;
       case "id_OptimizationPage":
-        return cloneCMS(optiSection.editCMS);
+        return optiSection.editCMS.createCMSInfoPackage();
       break;
       case "id_ProbePage":
-        return cloneCMS(probeSection.editCMS);
+        return probeSection.editCMS.createCMSInfoPackage();
       break;
     }
   }
 
-  setParentCMS(cms){
+  setParentCMS(cmsPackage){
     switch (this.parentID) {
       case "id_EditPage":
-        editSection.editCMS.deleteReferences();
-        editSection.editCMS=cms;
+        editSection.editCMS.setCMSFromPackage(cmsPackage);
       break;
       case "id_OptimizationPage":
-        optiSection.editCMS.deleteReferences();
-        optiSection.editCMS=cms;
+        optiSection.editCMS.setCMSFromPackage(cmsPackage);
       break;
       case "id_ProbePage":
-        probeSection.editCMS.deleteReferences();
-        probeSection.editCMS=cms;
+        probeSection.editCMS.setCMSFromPackage(cmsPackage);
       break;
     }
-  }*/
+  }
 
   resize(){
 

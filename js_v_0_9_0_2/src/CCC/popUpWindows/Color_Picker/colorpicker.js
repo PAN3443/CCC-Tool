@@ -733,7 +733,12 @@ function event_colorpicker_MouseClick(event) {
     document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(tmpRGBColorInfo[2] * 255);
     document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(tmpRGBColorInfo[3] * 255);
   }
-  document.getElementById(colorpickerAffectID).style.background = colorpickerColor.getRGBString();
+
+  if(doColorblindnessSim)
+    document.getElementById(colorpickerAffectID).style.background = colorpickerColor.getColorInfo("rgb_cb_string");
+  else
+    document.getElementById(colorpickerAffectID).style.background = colorpickerColor.getColorInfo("rgb_string");
+
 }
 
 

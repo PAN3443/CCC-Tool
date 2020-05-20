@@ -44,7 +44,7 @@ function pathplot2DAnimation(){
   }
 }
 
-function getRGBXYPos(tmpColor,xWidth,yHeight,xStart,yStart,mode){
+/*function getRGBXYPos(tmpColor,xWidth,yHeight,xStart,yStart,mode){
 
   var position = [0,0];
   switch (mode) {
@@ -64,10 +64,8 @@ function getRGBXYPos(tmpColor,xWidth,yHeight,xStart,yStart,mode){
         return;
 
   }
-
   return position;
-
-}
+}*/
 
 function pp_2D_mouseMove(event) {
 
