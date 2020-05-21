@@ -70,13 +70,13 @@ function refreshKeyValueEdit(){
   document.getElementById("id_EditPage_KeyValueEdit_nextVal").innerHTML="";
 
   if(selectedIndex!=0){
-    document.getElementById("id_EditPage_KeyValueEdit_previousVal").innerHTML=editSection.editCMS.getRefPosition(selectedIndex-1)+" <";
+    document.getElementById("id_EditPage_KeyValueEdit_previousVal").innerHTML=editSection.editCMS.getRefPosition(selectedIndex-1).toFixed(5)+" <";
   }
 
   document.getElementById("id_EditPage_KeyValueEdit_input").value = editSection.editCMS.getRefPosition(selectedIndex);
 
   if(selectedIndex!=editSection.editCMS.getKeyLength()-1){
-    document.getElementById("id_EditPage_KeyValueEdit_nextVal").innerHTML= "< "+editSection.editCMS.getRefPosition(selectedIndex+1);
+    document.getElementById("id_EditPage_KeyValueEdit_nextVal").innerHTML= "< "+editSection.editCMS.getRefPosition(selectedIndex+1).toFixed(5);
   }
 }
 

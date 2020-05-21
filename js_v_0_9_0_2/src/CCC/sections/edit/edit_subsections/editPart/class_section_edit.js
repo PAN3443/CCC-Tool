@@ -35,7 +35,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
     // save process
     this.colormapProcess = [];
     this.processPosition = -1;
-    this.processLimitation = 20;
+    this.processLimitation = 50;
     this.somethingChanged= false;
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -138,6 +138,8 @@ class class_Edit_Section extends class_Edit_Basis_Section {
    var workerJSON = {};
    this.editCMS.setCMSFromPackage(cmsPackage)
    this.myDesignID = id;
+   this.updateElements_CMS_Ref();
+   this.colormapProcess = [];
  }
 
  createCMS(name, intSpace) {
@@ -146,6 +148,8 @@ class class_Edit_Section extends class_Edit_Basis_Section {
    this.myDesignID = myDesignsSection.getMyDesignLength();
    this.editCMS.setCMSFromPackage(cmsPackage)
    document.getElementById("id_edit_editWarning").style.visibility="visible";
+   this.updateElements_CMS_Ref();
+   this.colormapProcess = [];
  }
 
   replaceWithWorkCMS(){
@@ -517,7 +521,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
                                 var tmpVal = this.tmpWorkCMS.getRefPosition(keyIndex);
                                 var dist = Math.abs(tmpVal-this.tmpWorkCMS.getRefPosition(keyIndex-1));
                                 this.tmpWorkCMS.setRefPosition(keyIndex,tmpVal-dist*0.5);
-                                this.tmpWorkCMS.pushKey(new class_Key(cloneColor(this.constBands[this.currentDraggedID]),undefined,tmpVal,true)); // push left key
+                                this.tmpWorkCMS.pushKey(new class_Key(this.constBands[this.currentDraggedID],undefined,tmpVal,true)); // push left key
                                 break;
 
                               default:
@@ -530,7 +534,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
                                 this.tmpWorkCMS.setBur(keyIndex,true);
                                 // case constant add Keys
                                 var oldColor = this.tmpWorkCMS.getLeftKeyColor(keyIndex,"lab");
-                                this.tmpWorkCMS.setLeftKeyColor(keyIndex,cloneColor(this.constBands[this.currentDraggedID])); // create left key
+                                this.tmpWorkCMS.setLeftKeyColor(keyIndex,this.constBands[this.currentDraggedID]); // create left key
                                 this.tmpWorkCMS.insertKey(keyIndex, new class_Key(oldColor,undefined,startPos,true));
                             }
 
@@ -566,7 +570,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
               case "c":
                 this.tmpWorkCMS.clear();
                 this.tmpWorkCMS.pushKey(new class_Key(undefined, undefined, 0, true));
-                this.tmpWorkCMS.pushKey(new class_Key(cloneColor(this.constBands[this.currentDraggedID]), undefined, 1, true));
+                this.tmpWorkCMS.pushKey(new class_Key(this.constBands[this.currentDraggedID], undefined, 1, true));
               break;
 
               case "m":
@@ -638,10 +642,10 @@ class class_Edit_Section extends class_Edit_Basis_Section {
           var tmpRef = (mousePosX-this.editCMS_cmsArea_x1)/this.editCMS_cmsArea_width * Math.abs(this.editCMS.getRefPosition(this.editCMS.getKeyLength()-1)-this.editCMS.getRefPosition(0))+this.editCMS.getRefPosition(0);
           tmpRef = parseFloat(tmpRef);
 
-          var tmpColor = this.editCMS.calculateColor(tmpRef);
+          var tmpColor = this.editCMS.calculateColor(tmpRef,"rgb");
 
           this.tmpWorkCMS.setCMSFromPackage(this.editCMS.createCMSInfoPackage())
-          this.tmpWorkCMS.addKey(new class_Key(["rgb",tmpColor.get1Value(),tmpColor.get2Value(),tmpColor.get3Value()], ["rgb",tmpColor.get1Value(),tmpColor.get2Value(),tmpColor.get3Value()], tmpRef, false));
+          this.tmpWorkCMS.addKey(new class_Key([tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]], [tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]], tmpRef, false));
           this.drawAddKey=true;
           this.drawOriginal=true;
         }
@@ -850,7 +854,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         keyDiv.style.overflow = "hidden";
 
         p_KeyIndex.innerHTML = i+1;
-        p_RefValue.innerHTML = this.editCMS.getRefPosition(i);
+        p_RefValue.innerHTML = this.editCMS.getRefPosition(i).toFixed(5);
         opt.appendChild(p_KeyIndex);
         opt.appendChild(keyDiv);
         opt.appendChild(p_RefValue);
@@ -1126,7 +1130,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
           var tmpColor = this.editCMS.getLeftKeyColor(selectedKey,"hsv");
 
-          if(tmpColor.get3Value()>0.5)
+          if(tmpColor[3]>0.5)
           {
             tmpColor.set3Value(0.25);
           }
@@ -1148,7 +1152,7 @@ this.updateKeyTypeButtons("left key");
         if(this.editCMS.getKeyType(selectedKey)==="nil key"){
           var tmpColor = this.editCMS.getLeftKeyColor(selectedKey+1,"hsv");
 
-          if(tmpColor.get3Value()>0.5)
+          if(tmpColor[3]>0.5)
           {
             tmpColor.set3Value(0.25);
           }

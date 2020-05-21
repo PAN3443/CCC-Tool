@@ -20,7 +20,7 @@ class class_Edit_Part_Basis{
     return this.partIsReady;
   }
 
-  getParentCMS(){
+  /*getParentCMS(){
     switch (this.parentID) {
       case "id_EditPage":
         return editSection.editCMS.createCMSInfoPackage();
@@ -46,7 +46,7 @@ class class_Edit_Part_Basis{
         probeSection.editCMS.setCMSFromPackage(cmsPackage);
       break;
     }
-  }
+  }*/
 
   resize(){
 

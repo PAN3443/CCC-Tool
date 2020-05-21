@@ -1,5 +1,5 @@
 ////////////////////////////
-var gCMS_Pathplot = new class_CMS();
+var ref_GlobalCMS = new class_CMS();
 
 ///////////////////////////////
 class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
@@ -458,15 +458,15 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
     var fixedColor = undefined;
     if (this.mouseGrappedKeyID != -1) {
-      gCMS_Pathplot.setCMSFromPackage(this.getParentCMS());
+      //ref_GlobalCMS.setCMSFromPackage(this.getParentCMS());
       switch (this.mouseGrappedColorSide) {
         case 0:
         // left color
-          fixedColor = gCMS_Pathplot.getLeftKeyColor(this.mouseGrappedKeyID, "rgb");
+          fixedColor = ref_GlobalCMS.getLeftKeyColor(this.mouseGrappedKeyID, "rgb");
           break;
         default:
           // both colors
-          fixedColor = gCMS_Pathplot.getRightKeyColor(this.mouseGrappedKeyID, "rgb");
+          fixedColor = ref_GlobalCMS.getRightKeyColor(this.mouseGrappedKeyID, "rgb");
       }
     }
 
@@ -632,15 +632,15 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
       var fixedColor = undefined;
       if (this.mouseGrappedKeyID != -1) {
-        gCMS_Pathplot.setCMSFromPackage(this.getParentCMS());
+        //ref_GlobalCMS.setCMSFromPackage(this.getParentCMS());
         switch (this.mouseGrappedColorSide) {
           case 0:
           // left color
-            fixedColor = gCMS_Pathplot.getLeftKeyColor(this.mouseGrappedKeyID, this.pathplot_space);
+            fixedColor = ref_GlobalCMS.getLeftKeyColor(this.mouseGrappedKeyID, this.pathplot_space);
             break;
           default:
             // both colors
-            fixedColor = gCMS_Pathplot.getRightKeyColor(this.mouseGrappedKeyID, this.pathplot_space);
+            fixedColor = ref_GlobalCMS.getRightKeyColor(this.mouseGrappedKeyID, this.pathplot_space);
         }
       }
 
@@ -847,18 +847,18 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       tmpSpace="rgb";
 
     if(this.mouseGrappedKeyID==-1){
-      gCMS_Pathplot.setCMSFromPackage(this.getParentCMS());
+      //ref_GlobalCMS.setCMSFromPackage(this.getParentCMS());
       document.getElementById(id).style.cursor = "default";
       var oldmouseAboveKeyID = this.mouseAboveKeyID;
       var found = false;
 
-      for (var i = 0; i < gCMS_Pathplot.getKeyLength(); i++) {
+      for (var i = 0; i < ref_GlobalCMS.getKeyLength(); i++) {
 
           var position = [-1,-1];
           // tmpX is only important for the LineCharts
-          var tmpX = this.pp_canvas_xStart+((gCMS_Pathplot.getRefPosition(i)-gCMS_Pathplot.getRefPosition(0))/gCMS_Pathplot.getRefRange())*this.pp_canvas_xWidth;
+          var tmpX = this.pp_canvas_xStart+((ref_GlobalCMS.getRefPosition(i)-ref_GlobalCMS.getRefPosition(0))/ref_GlobalCMS.getRefRange())*this.pp_canvas_xWidth;
 
-          switch (gCMS_Pathplot.getKeyType(i)) {
+          switch (ref_GlobalCMS.getKeyType(i)) {
             case "nil key":
               // do nothing
               break;
@@ -866,7 +866,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
             ////////////////////////////////////////////////////////////////
             /////// Right Color
-            position =  this.getColorPosInCanvas(gCMS_Pathplot.getRightKeyColor(i, tmpSpace));
+            position =  this.getColorPosInCanvas(ref_GlobalCMS.getRightKeyColor(i, tmpSpace));
             if(this.pp_isLineChart)
               position[0]=tmpX;
             if(this.pp_checkPosition(position[0], position[1], i, 1, drawCircle)){
@@ -877,10 +877,10 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
             ////////////////////////////////////////////////////////////////
             /////// left Color
               var drawCircle = true;
-              if (gCMS_Pathplot.getKeyType(i-1) === "nil key" || gCMS_Pathplot.getKeyType(i-1) === "left key")
+              if (ref_GlobalCMS.getKeyType(i-1) === "nil key" || ref_GlobalCMS.getKeyType(i-1) === "left key")
                 drawCircle = false;
 
-              position =  this.getColorPosInCanvas(gCMS_Pathplot.getLeftKeyColor(i, tmpSpace));
+              position =  this.getColorPosInCanvas(ref_GlobalCMS.getLeftKeyColor(i, tmpSpace));
               if(this.pp_isLineChart)
                 position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 0, drawCircle)){
@@ -890,7 +890,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
               // because we draw constant bands with two rects in the LineCharts
               if(this.pp_isLineChart && !drawCircle){
-                tmpX = this.pp_canvas_xStart+((gCMS_Pathplot.getRefPosition(i-1)-gCMS_Pathplot.getRefPosition(0))/gCMS_Pathplot.getRefRange())*this.pp_canvas_xWidth;
+                tmpX = this.pp_canvas_xStart+((ref_GlobalCMS.getRefPosition(i-1)-ref_GlobalCMS.getRefPosition(0))/ref_GlobalCMS.getRefRange())*this.pp_canvas_xWidth;
                 if(this.checkInsideRect(tmpX, position[1], i, 0)){
                     found = true;
                     break;
@@ -900,11 +900,11 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
               break;
             case "left key":
               var drawCircle = true;
-              if (gCMS_Pathplot.getKeyType(i-1) === "nil key" || gCMS_Pathplot.getKeyType(i-1) === "left key")
+              if (ref_GlobalCMS.getKeyType(i-1) === "nil key" || ref_GlobalCMS.getKeyType(i-1) === "left key")
                 drawCircle = false;
               ////////////////////////////////////////////////////////////////
               /////// left Color
-              position =  this.getColorPosInCanvas(gCMS_Pathplot.getLeftKeyColor(i, tmpSpace));
+              position =  this.getColorPosInCanvas(ref_GlobalCMS.getLeftKeyColor(i, tmpSpace));
               if(this.pp_isLineChart)
                 position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 0, drawCircle)){
@@ -915,7 +915,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
               // because we draw constant bands with two rects in the LineCharts
               if(this.pp_isLineChart && !drawCircle){
-                tmpX = this.pp_canvas_xStart+((gCMS_Pathplot.getRefPosition(i-1)-gCMS_Pathplot.getRefPosition(0))/gCMS_Pathplot.getRefRange())*this.pp_canvas_xWidth;
+                tmpX = this.pp_canvas_xStart+((ref_GlobalCMS.getRefPosition(i-1)-ref_GlobalCMS.getRefPosition(0))/ref_GlobalCMS.getRefRange())*this.pp_canvas_xWidth;
                 if(this.checkInsideRect(tmpX, position[1], i, 0)){
                     found = true;
                     break;
@@ -928,7 +928,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
               break;
 
               case "right key":
-              position =  this.getColorPosInCanvas(gCMS_Pathplot.getRightKeyColor(i, tmpSpace));
+              position =  this.getColorPosInCanvas(ref_GlobalCMS.getRightKeyColor(i, tmpSpace));
               if(this.pp_isLineChart)
                 position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 1, true)){
@@ -938,7 +938,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
               break;
             default:
               // dual Key
-              position = this.getColorPosInCanvas(gCMS_Pathplot.getRightKeyColor(i, tmpSpace));
+              position = this.getColorPosInCanvas(ref_GlobalCMS.getRightKeyColor(i, tmpSpace));
               if(this.pp_isLineChart)
                 position[0]=tmpX;
               if(this.pp_checkPosition(position[0], position[1], i, 2, true)){
@@ -954,11 +954,11 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
               tmpSpace="rgb";
 
             if(this.mouseGrappedColorSide==0){
-              this.pp_currentColor=gCMS_Pathplot.getLeftKeyColor(this.mouseAboveKeyID, tmpSpace);
+              this.pp_currentColor=ref_GlobalCMS.getLeftKeyColor(this.mouseAboveKeyID, tmpSpace);
               this.update_CoordID();
             }
             else{
-              this.pp_currentColor=gCMS_Pathplot.getRightKeyColor(this.mouseAboveKeyID, tmpSpace);
+              this.pp_currentColor=ref_GlobalCMS.getRightKeyColor(this.mouseAboveKeyID, tmpSpace);
               this.update_CoordID();
             }
             break;

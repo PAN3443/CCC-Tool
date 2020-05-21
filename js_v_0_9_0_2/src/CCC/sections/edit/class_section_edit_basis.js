@@ -45,6 +45,10 @@ class class_Edit_Basis_Section extends class_Section {
     this.doPagePeculiarity();
   }
 
+  updateElements_CMS_Ref(){
+    ref_GlobalCMS = this.editCMS;
+  }
+
   doPagePeculiarity(){
     // is empty. Filled at the classes extends from this class
     // is for special updating of the section, which not need to be done with each call of updateSection()

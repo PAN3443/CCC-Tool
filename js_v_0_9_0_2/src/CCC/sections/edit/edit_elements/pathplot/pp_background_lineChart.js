@@ -128,7 +128,7 @@ function draw_LineChart_Coordinates(lineChart_Contex, startValue, endValue,label
   lineChart_Contex.strokeStyle = arrowFontColor;
   lineChart_Contex.fillStyle = arrowFontColor;
 
-  var widthVArea = gCMS_Pathplot.getRefRange();
+  var widthVArea = ref_GlobalCMS.getRefRange();
 
   var tmpCounter = 0;
   var leftCounter = 0;
@@ -136,9 +136,9 @@ function draw_LineChart_Coordinates(lineChart_Contex, startValue, endValue,label
   var xPosPos;
   var plotwidth = xEnd - xStart;
 
-  for (var i = 0; i < gCMS_Pathplot.getKeyLength(); i++) {
+  for (var i = 0; i < ref_GlobalCMS.getKeyLength(); i++) {
 
-    xPosPos = xStart + ((gCMS_Pathplot.getRefPosition(i) - gCMS_Pathplot.getRefPosition(0)) / widthVArea) * plotwidth;
+    xPosPos = xStart + ((ref_GlobalCMS.getRefPosition(i) - ref_GlobalCMS.getRefPosition(0)) / widthVArea) * plotwidth;
 
     lineChart_Contex.beginPath();
     lineChart_Contex.lineWidth = Math.round(Math.round(lineChart_Height * 0.01) / 2);
