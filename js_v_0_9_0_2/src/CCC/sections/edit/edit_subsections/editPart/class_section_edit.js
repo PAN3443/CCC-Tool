@@ -145,7 +145,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
  createCMS(name, intSpace) {
    var cmsPackage = [name,intSpace,"linear",["rgb",0,0,0],["rgb",0,0,0],["rgb",0,0,0],[],[]];
    myDesignsSection.pushCMS(cmsPackage);
-   this.myDesignID = myDesignsSection.getMyDesignLength();
+   this.myDesignID = myDesignsSection.getMyDesignLength()-1;
    this.editCMS.setCMSFromPackage(cmsPackage)
    document.getElementById("id_edit_editWarning").style.visibility="visible";
    this.updateElements_CMS_Ref();
@@ -826,6 +826,8 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
     for (var i = 0; i < this.editCMS.getKeyLength(); i++) {
         var opt = document.createElement('option');
+        opt.style.marginTop = "0.25vh";
+        opt.style.marginBottom = "0.25vh";
         opt.style.display = "flex";
         //opt.innerHTML = "Key : \t"+ (i+1) +";\t  "++";\t   Reference : " + ;
 

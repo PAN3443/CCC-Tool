@@ -4,24 +4,22 @@
 
 class class_Interval{
     constructor(colorInfo, refPos) {
-        this.iColor= new class_Color(colorInfo[0],colorInfo[1], colorInfo[2], colorInfo[3]);
+        this.iColor= colorInfo; //new class_Color(colorInfo[0],colorInfo[1], colorInfo[2], colorInfo[3]);
         this.ref = refPos;
-        this.setColor(color);
     }
 
     deleteReferences(){
-      this.iColor.deleteReferences();
+      delete this.iColor;
       delete this.ref;
     }
 
     setColor(colorInfo) {
-        if(colorInfo != undefined){ // should never happen
-          this.iColor.updateColor(colorInfo[0],colorInfo[1], colorInfo[2], colorInfo[3]);
-        }
+      this.iColor=colorInfo;
     }
 
     getColor(colorspace) {
-      this.iColor.getColorInfo(colorspace);
+      gWorkColor1.updateColor(this.iColor[0],this.iColor[1], this.iColor[2], this.iColor[3]);
+      return gWorkColor1.getColorInfo(colorspace);
     }
 
     setRefPosition(pos) {

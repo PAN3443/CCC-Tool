@@ -10,7 +10,14 @@ class class_CMS {
     this.colorAbove = new class_Color("rgb", 0, 0, 0);
 
     this.keyArray = [];
-    this.intervalArray = [];
+
+
+    ///////////////////////
+    this.autoCalcWorkColors = false; // for export(manual), for pathplot and analysis =>auto
+    this.workIntervalColors=[]; // for pathplot, analysis, export
+
+    //////// supportColors
+    this.supportColors = [];
     this.spline_tArray = [0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25 // 0 till 0.25 fine
       , 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7,
       0.75, 0.775, 0.8, 0.825, 0.85, 0.875, 0.9, 0.925, 0.95, 0.975
@@ -39,13 +46,13 @@ class class_CMS {
     }
     delete this.keyArray;
 
-    for (var i = this.intervalArray.length - 1; i >= 0; i--) {
-      for (var j = this.intervalArray[i].length - 1; j >= 0; j--) {
-        this.intervalArray[i][j].deleteReferences();
-        this.intervalArray[i][j] = null;
+    for (var i = this.supportColors.length - 1; i >= 0; i--) {
+      for (var j = this.supportColors[i].length - 1; j >= 0; j--) {
+        this.supportColors[i][j].deleteReferences();
+        this.supportColors[i][j] = null;
       }
     }
-    delete this.intervalArray;
+    delete this.supportColors;
 
 
     for (var i = this.probeSetArray.length - 1; i >= 0; i--) {
@@ -56,18 +63,19 @@ class class_CMS {
 
   }
 
-  clearIntervalColors() {
-    for (var i = this.intervalArray.length - 1; i >= 0; i--) {
-      for (var j = this.intervalArray[i].length - 1; j >= 0; j--) {
-        this.intervalArray[i][j].deleteReferences();
-        this.intervalArray[i][j] = null;
+  clearSupportColorsColors() {
+    for (var i = this.supportColors.length - 1; i >= 0; i--) {
+      for (var j = this.supportColors[i].length - 1; j >= 0; j--) {
+        this.supportColors[i][j].deleteReferences();
+        this.supportColors[i][j] = null;
       }
+      this.supportColors[i]=[];
     }
-    this.intervalArray = [];
+    this.supportColors = [];
 
-    for (var keyIndex = 0; keyIndex < this.keyArray.length - 1; keyIndex++) {
-      this.intervalArray.push([]);
-    }
+    /*for (var keyIndex = 0; keyIndex < this.keyArray.length - 1; keyIndex++) {
+      this.supportColors.push([]);
+    }*/
   }
 
   clear() {
@@ -77,13 +85,13 @@ class class_CMS {
     }
     this.keyArray = [];
 
-    for (var i = this.intervalArray.length - 1; i >= 0; i--) {
-      for (var j = this.intervalArray[i].length - 1; j >= 0; j--) {
-        this.intervalArray[i][j].deleteReferences();
-        this.intervalArray[i][j] = null;
+    for (var i = this.supportColors.length - 1; i >= 0; i--) {
+      for (var j = this.supportColors[i].length - 1; j >= 0; j--) {
+        this.supportColors[i][j].deleteReferences();
+        this.supportColors[i][j] = null;
       }
     }
-    this.intervalArray = [];
+    this.supportColors = [];
 
     for (var i = this.probeSetArray.length - 1; i >= 0; i--) {
       this.probeSetArray[i].deleteReferences();
@@ -145,25 +153,34 @@ class class_CMS {
   }
 
   //********************************************************************************//
-  //***************************   Interval functions   *****************************//
+  //***************************   Work Interval Colors   *****************************//
   //********************************************************************************//
+
+
   calcExportSampling(numberIntervals){
 
   }
 
-  getIntervalLength(keyBandIndex){
-    if(keyBandIndex<this.intervalArray.length)
-      return this.intervalArray[keyBandIndex].length;
+
+
+  //********************************************************************************//
+  //***************************   SupportColors functions   *****************************//
+  //********************************************************************************//
+
+
+  getSupportColorsLength(keyBandIndex){
+    if(keyBandIndex<this.supportColors.length)
+      return this.supportColors[keyBandIndex].length;
     else
       return 0;
   }
 
-  getIntervalColor(keyBandIndex,index,colorspace){
-        return this.intervalArray[keyBandIndex][index].getColor(colorspace);
+  getSupportColor(keyBandIndex,index,colorspace){
+        return this.supportColors[keyBandIndex][index].getColor(colorspace);
     }
 
-  getIntervalRef(keyBandIndex,index){
-        return this.intervalArray[keyBandIndex][index].getRefPosition();
+  getSupportColorRef(keyBandIndex,index){
+        return this.supportColors[keyBandIndex][index].getRefPosition();
     }
 
   getSplineColors(keyIndex1, keyIndex2) {
@@ -216,21 +233,6 @@ class class_CMS {
 
   getInterpolationType() {
     return this.interpolationType;
-  }
-
-  getIntervalLength(keyBandIndex) {
-    if (keyBandIndex < this.intervalArray.length)
-      return this.intervalArray[keyBandIndex].length;
-    else
-      return 0;
-  }
-
-  getIntervalColor(keyBandIndex, index, colorspace) {
-    return this.intervalArray[keyBandIndex][index].getColor(colorspace);
-  }
-
-  getIntervalRef(keyBandIndex, index) {
-    return this.intervalArray[keyBandIndex][index].getRefPosition();
   }
 
   getRefRange() {
@@ -509,28 +511,28 @@ class class_CMS {
         }
 
         var newColorValues = undefined;
-        if (this.getIntervalLength(i) > 0){
-          if (val > this.keyArray[i].getRefPosition() && val <= this.getIntervalRef(i, 0)) {
+        if (this.getSupportColorsLength(i) > 0){
+          if (val > this.keyArray[i].getRefPosition() && val <= this.getSupportColorRef(i, 0)) {
             var leftRef = this.keyArray[i].getRefPosition();
-            var rightRef = this.getIntervalRef(i, 0);
-            var intervalColor2 = this.getIntervalColor(i, 0, this.interpolationSpace);
+            var rightRef = this.getSupportColorRef(i, 0);
+            var supportColor2 = this.getSupportColorColor(i, 0, this.interpolationSpace);
             var tmpRatio = (val - leftRef) / (rightRef - leftRef);
-            newColorValues = calcGradientLinear(color1[1], color1[2], color1[3], intervalColor2[1], intervalColor2[2], intervalColor2[3], tmpRatio);
-          } else if (val > this.getIntervalRef(i, this.getIntervalLength(i) - 1) && val < this.keyArray[i + 1].getRefPosition()) {
-            var leftRef = this.getIntervalRef(i, this.getIntervalLength(i) - 1);
+            newColorValues = calcGradientLinear(color1[1], color1[2], color1[3], supportColor2[1], supportColor2[2], supportColor2[3], tmpRatio);
+          } else if (val > this.getSupportColorRef(i, this.getSupportColorsLength(i) - 1) && val < this.keyArray[i + 1].getRefPosition()) {
+            var leftRef = this.getSupportColorRef(i, this.getSupportColorsLength(i) - 1);
             var rightRef = this.keyArray[i + 1].getRefPosition();
-            var intervalColor1 = this.getIntervalColor(i, this.getIntervalLength(i) - 1, this.interpolationSpace);
+            var supportColor1 = this.getSupportColor(i, this.getSupportColorsLength(i) - 1, this.interpolationSpace);
             var tmpRatio = (val - leftRef) / (rightRef - leftRef);
-            newColorValues = calcGradientLinear(intervalColor1[1], intervalColor1[2], intervalColor1[3], color2[1], color2[2], color2[3], tmpRatio);
+            newColorValues = calcGradientLinear(supportColor1[1], supportColor1[2], supportColor1[3], color2[1], color2[2], color2[3], tmpRatio);
           } else {
-            for (var j = 0; j < this.getIntervalLength(i) - 1; j++) {
-              if (val > this.getIntervalRef(i, j) && val <= this.getIntervalRef(i, j + 1)) {
-                var leftRef = this.getIntervalRef(i, j);
-                var rightRef = this.getIntervalRef(i, j + 1);
-                var intervalColor1 = this.getIntervalColor(i, j, this.interpolationSpace);
-                var intervalColor2 = this.getIntervalColor(i, j + 1, this.interpolationSpace);
+            for (var j = 0; j < this.getSupportColorsLength(i) - 1; j++) {
+              if (val > this.getSupportColorRef(i, j) && val <= this.getSupportColorRef(i, j + 1)) {
+                var leftRef = this.getSupportColorRef(i, j);
+                var rightRef = this.getSupportColorRef(i, j + 1);
+                var supportColor1 = this.getSupportColor(i, j, this.interpolationSpace);
+                var supportColor2 = this.getSupportColor(i, j + 1, this.interpolationSpace);
                 var tmpRatio = (val - leftRef) / (rightRef - leftRef);
-                newColorValues = calcGradientLinear(intervalColor1[1], intervalColor1[2], intervalColor1[3], intervalColor2[1], intervalColor2[2], intervalColor2[3], tmpRatio);
+                newColorValues = calcGradientLinear(supportColor1[1], supportColor1[2], supportColor1[3], supportColor2[1], supportColor2[2], supportColor2[3], tmpRatio);
               }
             }
           }
@@ -793,25 +795,25 @@ class class_CMS {
           canvasData = createConstantBand(canvasData, linearKey_xPos, 0, elementwidth, canvasObject.height, this.getLeftKeyColor(i + 1, this.getInterpolationSpace()), canvasObject.width);
           break;
         default:
-          if ((this.getInterpolationSpace() === "de94-ds" || this.getInterpolationSpace() === "de2000-ds" || this.getInterpolationType() === "spline") && this.getIntervalLength(i) > 0) {
+          if ((this.getInterpolationSpace() === "de94-ds" || this.getInterpolationSpace() === "de2000-ds" || this.getInterpolationType() === "spline") && this.getSupportColorsLength(i) > 0) {
 
             var linearKey_Sub_xPos = linearKey_xPos;
 
-            // from left key to first interval
-            elementwidth = Math.round((this.getIntervalRef(i, 0) - this.getRefPosition(i)) / (this.getRefPosition(this.getKeyLength() - 1) - this.getRefPosition(0)) * canvasObject.width);
-            canvasData = createScaledBand(canvasData, linearKey_Sub_xPos, 0, elementwidth, canvasObject.height, this.getRightKeyColor(i, this.getInterpolationSpace()), this.getIntervalColor(i, 0, this.getInterpolationSpace()), canvasObject.width);
+            // from left key to first support color
+            elementwidth = Math.round((this.getSupportColorRef(i, 0) - this.getRefPosition(i)) / (this.getRefPosition(this.getKeyLength() - 1) - this.getRefPosition(0)) * canvasObject.width);
+            canvasData = createScaledBand(canvasData, linearKey_Sub_xPos, 0, elementwidth, canvasObject.height, this.getRightKeyColor(i, this.getInterpolationSpace()), this.getSupportColor(i, 0, this.getInterpolationSpace()), canvasObject.width);
 
-            // between intervals
-            for (var j = 0; j < this.getIntervalLength(i) - 1; j++) {
+            // between support colors
+            for (var j = 0; j < this.getSupportColorsLength(i) - 1; j++) {
               linearKey_Sub_xPos += elementwidth;
-              elementwidth = Math.round((this.getIntervalRef(i, j + 1) - this.getIntervalRef(i, j)) / (this.getRefPosition(this.getKeyLength() - 1) - this.getRefPosition(0)) * canvasObject.width);
-              canvasData = createScaledBand(canvasData, linearKey_Sub_xPos, 0, elementwidth, canvasObject.height, this.getIntervalColor(i, j, this.getInterpolationSpace()), this.getIntervalColor(i, j + 1, this.getInterpolationSpace()), canvasObject.width);
+              elementwidth = Math.round((this.getSupportColorRef(i, j + 1) - this.getSupportColorRef(i, j)) / (this.getRefPosition(this.getKeyLength() - 1) - this.getRefPosition(0)) * canvasObject.width);
+              canvasData = createScaledBand(canvasData, linearKey_Sub_xPos, 0, elementwidth, canvasObject.height, this.getSupportColor(i, j, this.getInterpolationSpace()), this.getSupportColor(i, j + 1, this.getInterpolationSpace()), canvasObject.width);
             }
-            // from last interval to last key
+            // from last support color to last key
             linearKey_Sub_xPos += elementwidth;
             var tmpEndPos = Math.round((this.getRefPosition(i + 1) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength() - 1) - this.getRefPosition(0)) * canvasObject.width);
             elementwidth = (tmpEndPos - linearKey_Sub_xPos);
-            canvasData = createScaledBand(canvasData, linearKey_Sub_xPos, 0, elementwidth, canvasObject.height, this.getIntervalColor(i, this.getIntervalLength(i) - 1, this.getInterpolationSpace()), this.getLeftKeyColor(i + 1, this.getInterpolationSpace()), canvasObject.width);
+            canvasData = createScaledBand(canvasData, linearKey_Sub_xPos, 0, elementwidth, canvasObject.height, this.getSupportColor(i, this.getSupportColorsLength(i) - 1, this.getInterpolationSpace()), this.getLeftKeyColor(i + 1, this.getInterpolationSpace()), canvasObject.width);
           } else
             canvasData = createScaledBand(canvasData, linearKey_xPos, 0, elementwidth, canvasObject.height, this.getRightKeyColor(i, this.getInterpolationSpace()), this.getLeftKeyColor(i + 1, this.getInterpolationSpace()), canvasObject.width);
 
@@ -868,25 +870,25 @@ class class_CMS {
           canvasData = createConstantBandVertical(canvasData, canvasObject.height - linearKey_yPos, canvasObject.width, elementheight, this.getLeftKeyColor(i + 1, this.getInterpolationSpace()), canvasObject.width);
           break;
         default:
-          if ((this.getInterpolationSpace() === "de94-ds" || this.getInterpolationSpace() === "de2000-ds" || this.getInterpolationType() === "spline") && this.getIntervalLength(i) > 0) {
+          if ((this.getInterpolationSpace() === "de94-ds" || this.getInterpolationSpace() === "de2000-ds" || this.getInterpolationType() === "spline") && this.getSupportColorsLength(i) > 0) {
 
             var linearKey_Sub_yPos = linearKey_yPos;
 
-            // from left key to first interval
-            elementheight = Math.round((this.getIntervalRef(i, 0) - this.getRefPosition(i)) / (this.getRefPosition(this.getKeyLength() - 1) - this.getRefPosition(0)) * canvasObject.height);
-            canvasData = createScaledBandVertical(canvasData, canvasObject.height - linearKey_Sub_yPos, canvasObject.width, elementheight, this.getRightKeyColor(i, this.getInterpolationSpace()), this.getIntervalColor(i, 0, this.getInterpolationSpace()), canvasObject.width);
+            // from left key to first support color
+            elementheight = Math.round((this.getSupportColorRef(i, 0) - this.getRefPosition(i)) / (this.getRefPosition(this.getKeyLength() - 1) - this.getRefPosition(0)) * canvasObject.height);
+            canvasData = createScaledBandVertical(canvasData, canvasObject.height - linearKey_Sub_yPos, canvasObject.width, elementheight, this.getRightKeyColor(i, this.getInterpolationSpace()), this.getSupportColor(i, 0, this.getInterpolationSpace()), canvasObject.width);
 
-            // between intervals
-            for (var j = 0; j < this.getIntervalLength(i) - 1; j++) {
+            // between support colors
+            for (var j = 0; j < this.getSupportColorsLength(i) - 1; j++) {
               linearKey_Sub_yPos += elementheight;
-              elementheight = Math.round((this.getIntervalRef(i, j + 1) - this.getIntervalRef(i, j)) / (this.getRefPosition(this.getKeyLength() - 1) - this.getRefPosition(0)) * canvasObject.height);
-              canvasData = createScaledBandVertical(canvasData, canvasObject.height - linearKey_Sub_yPos, canvasObject.width, elementheight, this.getIntervalColor(i, j, this.getInterpolationSpace()), this.getIntervalColor(i, j + 1, this.getInterpolationSpace()), canvasObject.width);
+              elementheight = Math.round((this.getSupportColorRef(i, j + 1) - this.getSupportColorRef(i, j)) / (this.getRefPosition(this.getKeyLength() - 1) - this.getRefPosition(0)) * canvasObject.height);
+              canvasData = createScaledBandVertical(canvasData, canvasObject.height - linearKey_Sub_yPos, canvasObject.width, elementheight, this.getSupportColor(i, j, this.getInterpolationSpace()), this.getSupportColor(i, j + 1, this.getInterpolationSpace()), canvasObject.width);
             }
-            // from last interval to last key
+            // from last support color to last key
             linearKey_Sub_yPos += elementheight;
             var tmpEndPos = Math.round((this.getRefPosition(i + 1) - this.getRefPosition(0)) / (this.getRefPosition(this.getKeyLength() - 1) - this.getRefPosition(0)) * canvasObject.height);
             elementheight = (tmpEndPos - linearKey_Sub_yPos);
-            canvasData = createScaledBandVertical(canvasData, canvasObject.height - linearKey_Sub_yPos, canvasObject.width, elementheight, this.getIntervalColor(i, this.getIntervalLength(i) - 1, this.getInterpolationSpace()), this.getLeftKeyColor(i + 1, this.getInterpolationSpace()), canvasObject.width);
+            canvasData = createScaledBandVertical(canvasData, canvasObject.height - linearKey_Sub_yPos, canvasObject.width, elementheight, this.getSupportColor(i, this.getSupportColorsLength(i) - 1, this.getInterpolationSpace()), this.getLeftKeyColor(i + 1, this.getInterpolationSpace()), canvasObject.width);
           } else {
             canvasData = createScaledBandVertical(canvasData, canvasObject.height - linearKey_yPos, canvasObject.width, elementheight, this.getRightKeyColor(i, this.getInterpolationSpace()), this.getLeftKeyColor(i + 1, this.getInterpolationSpace()), canvasObject.width);
           }
@@ -936,21 +938,21 @@ class class_CMS {
             canvasData = createConstantBand(canvasData, currentSktech_xPos, 0, sketch_BandWidth, canvasObject.height, this.getLeftKeyColor(i + 1, this.getInterpolationSpace()), canvasObject.width);
             break;
           default:
-            if ((this.getInterpolationSpace() === "de94-ds" || this.getInterpolationSpace() === "de2000-ds" || this.getInterpolationType() === "spline") && this.getIntervalLength(i) > 0) {
-              var sketch_SubBandWidth = Math.round(sketch_BandWidth / (this.getIntervalLength(i) + 1));
+            if ((this.getInterpolationSpace() === "de94-ds" || this.getInterpolationSpace() === "de2000-ds" || this.getInterpolationType() === "spline") && this.getSupportColorsLength(i) > 0) {
+              var sketch_SubBandWidth = Math.round(sketch_BandWidth / (this.getSupportColorsLength(i) + 1));
               var currentSktech_SubxPos = currentSktech_xPos;
 
-              // from left key to first interval
-              canvasData = createScaledBand(canvasData, currentSktech_SubxPos, 0, sketch_SubBandWidth, canvasObject.height, this.getRightKeyColor(i, this.getInterpolationSpace()), this.getIntervalColor(i, 0, this.getInterpolationSpace()), canvasObject.width);
+              // from left key to first support color
+              canvasData = createScaledBand(canvasData, currentSktech_SubxPos, 0, sketch_SubBandWidth, canvasObject.height, this.getRightKeyColor(i, this.getInterpolationSpace()), this.getSupportColor(i, 0, this.getInterpolationSpace()), canvasObject.width);
               currentSktech_SubxPos += sketch_SubBandWidth;
-              // between intervals
-              for (var j = 0; j < this.getIntervalLength(i) - 1; j++) {
-                canvasData = createScaledBand(canvasData, currentSktech_SubxPos, 0, sketch_SubBandWidth, canvasObject.height, this.getIntervalColor(i, j, this.getInterpolationSpace()), this.getIntervalColor(i, j + 1, this.getInterpolationSpace()), canvasObject.width);
+              // between support colors
+              for (var j = 0; j < this.getSupportColorsLength(i) - 1; j++) {
+                canvasData = createScaledBand(canvasData, currentSktech_SubxPos, 0, sketch_SubBandWidth, canvasObject.height, this.getSupportColor(i, j, this.getInterpolationSpace()), this.getSupportColor(i, j + 1, this.getInterpolationSpace()), canvasObject.width);
                 currentSktech_SubxPos += sketch_SubBandWidth;
               }
-              // from last interval to last key
+              // from last support color to last key
               sketch_SubBandWidth = (currentSktech_xPos + sketch_BandWidth - currentSktech_SubxPos);
-              canvasData = createScaledBand(canvasData, currentSktech_SubxPos, 0, sketch_SubBandWidth, canvasObject.height, this.getIntervalColor(i, this.getIntervalLength(i) - 1, this.getInterpolationSpace()), this.getLeftKeyColor(i + 1, this.getInterpolationSpace()), canvasObject.width);
+              canvasData = createScaledBand(canvasData, currentSktech_SubxPos, 0, sketch_SubBandWidth, canvasObject.height, this.getSupportColor(i, this.getSupportColorsLength(i) - 1, this.getInterpolationSpace()), this.getLeftKeyColor(i + 1, this.getInterpolationSpace()), canvasObject.width);
             } else {
               canvasData = createScaledBand(canvasData, currentSktech_xPos, 0, sketch_BandWidth, canvasObject.height, this.getRightKeyColor(i, this.getInterpolationSpace()), this.getLeftKeyColor(i + 1, this.getInterpolationSpace()), canvasObject.width);
             }

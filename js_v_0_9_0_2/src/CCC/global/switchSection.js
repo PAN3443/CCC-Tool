@@ -38,7 +38,7 @@ function showMyDesignsPage(){
 
   if(editSection.isSectionOpen()){
     if(editSection.somethingChanged){
-      if(myDesignsSection.myDesignsList[editSection.myDesignID].getKeyLength()==0){
+      if(myDesignsSection.myDesignsList[editSection.myDesignID][6].length==0){
         document.getElementById("id_PopUp_AskCheck").onclick = function (){
           closeAsk();
           myDesignsSection.selectedCMSID=editSection.myDesignID;

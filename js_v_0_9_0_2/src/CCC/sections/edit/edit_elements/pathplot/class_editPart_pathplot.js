@@ -1201,8 +1201,8 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
   pp_determinMouseColor(){
 
     if(this.pathplot_space=="rgb"){
-      var val1 = parseInt((this.mousePosX-this.pp_canvas_xStart)/this.pp_canvas_xWidth*255)/255;
-      var val2 = parseInt((this.pp_canvas_yStart-this.mousePosY)/this.pp_canvas_yHeight*255)/255;
+      var val1 = this.checkOutOfRange(parseInt((this.mousePosX-this.pp_canvas_xStart)/this.pp_canvas_xWidth*255)/255);
+      var val2 = this.checkOutOfRange(parseInt((this.pp_canvas_yStart-this.mousePosY)/this.pp_canvas_yHeight*255)/255);
       switch (this.pp_CanvasMode) {
         case "RG":
           return ["rgb",val2,val1,this.pp_currentColor[3]];
@@ -1283,10 +1283,10 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
             case "C1":
             switch (this.pathplot_space) {
                 case "rgb-line":
-                  return ["rgb",parseInt(newValue*255)/255,this.pp_currentColor[2],this.pp_currentColor[3]];
+                  return ["rgb",this.checkOutOfRange(parseInt(newValue*255)/255),this.pp_currentColor[2],this.pp_currentColor[3]];
                 break;
                 case "hsv":
-                  return ["hsv",parseInt(newValue*360)/360,this.pp_currentColor[2],this.pp_currentColor[3]];
+                  return ["hsv",this.checkOutOfRange(parseInt(newValue*360)/360),this.pp_currentColor[2],this.pp_currentColor[3]];
                 break;
                 case "lms":
                   gWorkColor1.updateColor("lms",parseInt(newValue*100),this.pp_currentColor[2],this.pp_currentColor[3]);
@@ -1323,10 +1323,10 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
             case "C2":
             switch (this.pathplot_space) {
                 case "rgb-line":
-                  return ["rgb",this.pp_currentColor[1],parseInt(newValue*255)/255,this.pp_currentColor[3]];
+                  return ["rgb",this.pp_currentColor[1],this.checkOutOfRange(parseInt(newValue*255)/255),this.pp_currentColor[3]];
                 break;
                 case "hsv":
-                  return ["hsv",this.pp_currentColor[1],parseInt(newValue*100)/100,this.pp_currentColor[3]];
+                  return ["hsv",this.pp_currentColor[1],this.checkOutOfRange(parseInt(newValue*100)/100),this.pp_currentColor[3]];
                 break;
                 case "lms":
                   gWorkColor1.updateColor("lms",this.pp_currentColor[1],parseInt(newValue*100),this.pp_currentColor[3]);
@@ -1363,10 +1363,10 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
             case "C3":
             switch (this.pathplot_space) {
                 case "rgb-line":
-                  return ["rgb",this.pp_currentColor[1],this.pp_currentColor[2],parseInt(newValue*255)/255];
+                  return ["rgb",this.pp_currentColor[1],this.pp_currentColor[2],this.checkOutOfRange(parseInt(newValue*255)/255)];
                 break;
                 case "hsv":
-                  return ["hsv",this.pp_currentColor[1],this.pp_currentColor[2],parseInt(newValue*100)/100];
+                  return ["hsv",this.pp_currentColor[1],this.pp_currentColor[2],this.checkOutOfRange(parseInt(newValue*100)/100)];
                 break;
                 case "lms":
                   gWorkColor1.updateColor("lms",this.pp_currentColor[1],this.pp_currentColor[2],parseInt(newValue*100));
@@ -1410,6 +1410,15 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         }
     }
     return undefined;
+  }
+
+  checkOutOfRange(value){
+    if(value>1)
+      value=1;
+    if(value<0)
+      value=0;
+
+    return value;
   }
 
   update_CoordID(){
