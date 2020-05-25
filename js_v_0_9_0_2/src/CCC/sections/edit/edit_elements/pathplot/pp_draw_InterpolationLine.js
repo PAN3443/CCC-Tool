@@ -57,8 +57,6 @@ function calcRGBInterpolationLine(rgbResolution){
 
   var areaDim = rgbResolution * 0.7;
 
-  extraSamplingCMS();
-
   for (var i = 0; i < ref_GlobalCMS.getKeyLength()-1; i++) {
 
     switch (ref_GlobalCMS.getKeyType(i)) {
@@ -76,17 +74,17 @@ function calcRGBInterpolationLine(rgbResolution){
 
       default:
 
-        if(ref_GlobalCMS.getIntervalLength(i)==0){
+        if(ref_GlobalCMS.get_PP_WorkColorLength(i)==0){
             pathplotLines.push(getRGBLineSegment(ref_GlobalCMS.getRightKeyColor(i,"rgb"),ref_GlobalCMS.getLeftKeyColor(i+1,"rgb"),areaDim));
         }
         else {
-          pathplotLines.push(getRGBLineSegment(ref_GlobalCMS.getRightKeyColor(i,"rgb"),ref_GlobalCMS.getIntervalColor(i,0,"rgb"),areaDim));
+          pathplotLines.push(getRGBLineSegment(ref_GlobalCMS.getRightKeyColor(i,"rgb"),ref_GlobalCMS.get_PP_WorkColor(i,0,"rgb"),areaDim));
 
-          for(var j=0; j<ref_GlobalCMS.getIntervalLength(i)-1; j++){
-            pathplotLines.push(getRGBLineSegment(ref_GlobalCMS.getIntervalColor(i,j,"rgb"),ref_GlobalCMS.getIntervalColor(i,j+1,"rgb"),areaDim));
+          for(var j=0; j<ref_GlobalCMS.get_PP_WorkColorLength(i)-1; j++){
+            pathplotLines.push(getRGBLineSegment(ref_GlobalCMS.get_PP_WorkColor(i,j,"rgb"),ref_GlobalCMS.get_PP_WorkColor(i,j+1,"rgb"),areaDim));
           }
 
-          pathplotLines.push(getRGBLineSegment(ref_GlobalCMS.getIntervalColor(i,ref_GlobalCMS.getIntervalLength(i)-1,"rgb"),ref_GlobalCMS.getLeftKeyColor(i+1,"rgb"),areaDim));
+          pathplotLines.push(getRGBLineSegment(ref_GlobalCMS.get_PP_WorkColor(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1,"rgb"),ref_GlobalCMS.getLeftKeyColor(i+1,"rgb"),areaDim));
         }
       }
 
@@ -130,8 +128,6 @@ function calcInterpolationLine_RGBLine(vWidth,vHeight){
   var cmsRefRange = ref_GlobalCMS.getRefRange();
   var cmsStartRef = ref_GlobalCMS.getRefPosition(0);
 
-  extraSamplingCMS();
-
   for (var i = 0; i < ref_GlobalCMS.getKeyLength() - 1; i++) {
 
     switch (ref_GlobalCMS.getKeyType(i)) {
@@ -150,20 +146,20 @@ function calcInterpolationLine_RGBLine(vWidth,vHeight){
 
       default:
 
-      if(ref_GlobalCMS.getIntervalLength(i)==0){
+      if(ref_GlobalCMS.get_PP_WorkColorLength(i)==0){
           pathplotLines.push(getLineSegment_3D_RGBLine(ref_GlobalCMS.getRightKeyColor(i,"rgb"),ref_GlobalCMS.getLeftKeyColor(i+1,"rgb")));
           pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(ref_GlobalCMS.getRightKeyColor(i,"rgb"),ref_GlobalCMS.getLeftKeyColor(i+1,"rgb"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
       else {
-        pathplotLines.push(getLineSegment_3D_RGBLine(ref_GlobalCMS.getRightKeyColor(i,"rgb"),ref_GlobalCMS.getIntervalColor(i,0,"rgb")));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(ref_GlobalCMS.getRightKeyColor(i,"rgb"),ref_GlobalCMS.getIntervalColor(i,0,"rgb"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getIntervalRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_3D_RGBLine(ref_GlobalCMS.getRightKeyColor(i,"rgb"),ref_GlobalCMS.get_PP_WorkColor(i,0,"rgb")));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(ref_GlobalCMS.getRightKeyColor(i,"rgb"),ref_GlobalCMS.get_PP_WorkColor(i,0,"rgb"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.get_PP_WorkColorRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
 
-        for(var j=0; j<ref_GlobalCMS.getIntervalLength(i)-1; j++){
-          pathplotLines.push(getLineSegment_3D_RGBLine(ref_GlobalCMS.getIntervalColor(i,j,"rgb"),ref_GlobalCMS.getIntervalColor(i,j+1,"rgb")));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(ref_GlobalCMS.getIntervalColor(i, j, "rgb"),ref_GlobalCMS.getIntervalColor(i, j + 1, "rgb"), ((ref_GlobalCMS.getIntervalRef(i,j)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getIntervalRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        for(var j=0; j<ref_GlobalCMS.get_PP_WorkColorLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_3D_RGBLine(ref_GlobalCMS.get_PP_WorkColor(i,j,"rgb"),ref_GlobalCMS.get_PP_WorkColor(i,j+1,"rgb")));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(ref_GlobalCMS.get_PP_WorkColor(i, j, "rgb"),ref_GlobalCMS.get_PP_WorkColor(i, j + 1, "rgb"), ((ref_GlobalCMS.get_PP_WorkColorRef(i,j)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.get_PP_WorkColorRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         }
-        pathplotLines.push(getLineSegment_3D_RGBLine(ref_GlobalCMS.getIntervalColor(i,ref_GlobalCMS.getIntervalLength(i)-1,"rgb"),ref_GlobalCMS.getLeftKeyColor(i+1,"rgb")));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(ref_GlobalCMS.getIntervalColor(i,ref_GlobalCMS.getIntervalLength(i)-1,"rgb"),ref_GlobalCMS.getLeftKeyColor(i+1,"rgb"),((ref_GlobalCMS.getIntervalRef(i,ref_GlobalCMS.getIntervalLength(i)-1)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_3D_RGBLine(ref_GlobalCMS.get_PP_WorkColor(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1,"rgb"),ref_GlobalCMS.getLeftKeyColor(i+1,"rgb")));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_RGBLine(ref_GlobalCMS.get_PP_WorkColor(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1,"rgb"),ref_GlobalCMS.getLeftKeyColor(i+1,"rgb"),((ref_GlobalCMS.get_PP_WorkColorRef(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
     }
 
@@ -231,8 +227,6 @@ function calcInterpolationLine_LMS(vWidth,vHeight){
   var cmsRefRange = ref_GlobalCMS.getRefRange();
   var cmsStartRef = ref_GlobalCMS.getRefPosition(0);
 
-  extraSamplingCMS();
-
   for (var i = 0; i < ref_GlobalCMS.getKeyLength() - 1; i++) {
 
     switch (ref_GlobalCMS.getKeyType(i)) {
@@ -251,20 +245,20 @@ function calcInterpolationLine_LMS(vWidth,vHeight){
 
       default:
 
-      if(ref_GlobalCMS.getIntervalLength(i)==0){
+      if(ref_GlobalCMS.get_PP_WorkColorLength(i)==0){
           pathplotLines.push(getLineSegment_3D_LMS(ref_GlobalCMS.getRightKeyColor(i,"lms"),ref_GlobalCMS.getLeftKeyColor(i+1,"lms")));
           pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(ref_GlobalCMS.getRightKeyColor(i,"lms"),ref_GlobalCMS.getLeftKeyColor(i+1,"lms"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
       else {
-        pathplotLines.push(getLineSegment_3D_LMS(ref_GlobalCMS.getRightKeyColor(i,"lms"),ref_GlobalCMS.getIntervalColor(i,0,"lms")));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(ref_GlobalCMS.getRightKeyColor(i,"lms"),ref_GlobalCMS.getIntervalColor(i,0,"lms"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getIntervalRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_3D_LMS(ref_GlobalCMS.getRightKeyColor(i,"lms"),ref_GlobalCMS.get_PP_WorkColor(i,0,"lms")));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(ref_GlobalCMS.getRightKeyColor(i,"lms"),ref_GlobalCMS.get_PP_WorkColor(i,0,"lms"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.get_PP_WorkColorRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
 
-        for(var j=0; j<ref_GlobalCMS.getIntervalLength(i)-1; j++){
-          pathplotLines.push(getLineSegment_3D_LMS(ref_GlobalCMS.getIntervalColor(i,j,"lms"),ref_GlobalCMS.getIntervalColor(i,j+1,"lms")));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(ref_GlobalCMS.getIntervalColor(i, j, "lms"),ref_GlobalCMS.getIntervalColor(i, j + 1, "lms"), ((ref_GlobalCMS.getIntervalRef(i,j)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getIntervalRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        for(var j=0; j<ref_GlobalCMS.get_PP_WorkColorLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_3D_LMS(ref_GlobalCMS.get_PP_WorkColor(i,j,"lms"),ref_GlobalCMS.get_PP_WorkColor(i,j+1,"lms")));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(ref_GlobalCMS.get_PP_WorkColor(i, j, "lms"),ref_GlobalCMS.get_PP_WorkColor(i, j + 1, "lms"), ((ref_GlobalCMS.get_PP_WorkColorRef(i,j)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.get_PP_WorkColorRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         }
-        pathplotLines.push(getLineSegment_3D_LMS(ref_GlobalCMS.getIntervalColor(i,ref_GlobalCMS.getIntervalLength(i)-1,"lms"),ref_GlobalCMS.getLeftKeyColor(i+1,"lms")));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(ref_GlobalCMS.getIntervalColor(i,ref_GlobalCMS.getIntervalLength(i)-1,"lms"),ref_GlobalCMS.getLeftKeyColor(i+1,"lms"),((ref_GlobalCMS.getIntervalRef(i,ref_GlobalCMS.getIntervalLength(i)-1)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_3D_LMS(ref_GlobalCMS.get_PP_WorkColor(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1,"lms"),ref_GlobalCMS.getLeftKeyColor(i+1,"lms")));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_LMS(ref_GlobalCMS.get_PP_WorkColor(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1,"lms"),ref_GlobalCMS.getLeftKeyColor(i+1,"lms"),((ref_GlobalCMS.get_PP_WorkColorRef(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
     }
 
@@ -333,8 +327,6 @@ function calcInterpolationLine_HSV(hueRes,vWidth,vHeight){
   var cmsRefRange = ref_GlobalCMS.getRefRange();
   var cmsStartRef = ref_GlobalCMS.getRefPosition(0);
 
-  extraSamplingCMS();
-
   //////////////////////////////////////
 
   for (var i = 0; i < ref_GlobalCMS.getKeyLength() - 1; i++) {
@@ -355,20 +347,20 @@ function calcInterpolationLine_HSV(hueRes,vWidth,vHeight){
 
       default:
 
-      if(ref_GlobalCMS.getIntervalLength(i)==0){
+      if(ref_GlobalCMS.get_PP_WorkColorLength(i)==0){
           pathplotLines.push(getLineSegment_Hue_HSV(ref_GlobalCMS.getRightKeyColor(i,"hsv"),ref_GlobalCMS.getLeftKeyColor(i+1,"hsv"),hueRes));
           pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(ref_GlobalCMS.getRightKeyColor(i,"hsv"),ref_GlobalCMS.getLeftKeyColor(i+1,"hsv"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
       else {
-        pathplotLines.push(getLineSegment_Hue_HSV(ref_GlobalCMS.getRightKeyColor(i,"hsv"),ref_GlobalCMS.getIntervalColor(i,0,"hsv"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(ref_GlobalCMS.getRightKeyColor(i,"hsv"),ref_GlobalCMS.getIntervalColor(i,0,"hsv"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getIntervalRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_Hue_HSV(ref_GlobalCMS.getRightKeyColor(i,"hsv"),ref_GlobalCMS.get_PP_WorkColor(i,0,"hsv"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(ref_GlobalCMS.getRightKeyColor(i,"hsv"),ref_GlobalCMS.get_PP_WorkColor(i,0,"hsv"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.get_PP_WorkColorRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
 
-        for(var j=0; j<ref_GlobalCMS.getIntervalLength(i)-1; j++){
-          pathplotLines.push(getLineSegment_Hue_HSV(ref_GlobalCMS.getIntervalColor(i,j,"hsv"),ref_GlobalCMS.getIntervalColor(i,j+1,"hsv"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(ref_GlobalCMS.getIntervalColor(i, j, "hsv"),ref_GlobalCMS.getIntervalColor(i, j + 1, "hsv"), ((ref_GlobalCMS.getIntervalRef(i,j)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getIntervalRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        for(var j=0; j<ref_GlobalCMS.get_PP_WorkColorLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_Hue_HSV(ref_GlobalCMS.get_PP_WorkColor(i,j,"hsv"),ref_GlobalCMS.get_PP_WorkColor(i,j+1,"hsv"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(ref_GlobalCMS.get_PP_WorkColor(i, j, "hsv"),ref_GlobalCMS.get_PP_WorkColor(i, j + 1, "hsv"), ((ref_GlobalCMS.get_PP_WorkColorRef(i,j)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.get_PP_WorkColorRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         }
-        pathplotLines.push(getLineSegment_Hue_HSV(ref_GlobalCMS.getIntervalColor(i,ref_GlobalCMS.getIntervalLength(i)-1,"hsv"),ref_GlobalCMS.getLeftKeyColor(i+1,"hsv"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(ref_GlobalCMS.getIntervalColor(i,ref_GlobalCMS.getIntervalLength(i)-1,"hsv"),ref_GlobalCMS.getLeftKeyColor(i+1,"hsv"),((ref_GlobalCMS.getIntervalRef(i,ref_GlobalCMS.getIntervalLength(i)-1)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_Hue_HSV(ref_GlobalCMS.get_PP_WorkColor(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1,"hsv"),ref_GlobalCMS.getLeftKeyColor(i+1,"hsv"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_HSV(ref_GlobalCMS.get_PP_WorkColor(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1,"hsv"),ref_GlobalCMS.getLeftKeyColor(i+1,"hsv"),((ref_GlobalCMS.get_PP_WorkColorRef(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
     }
 
@@ -468,8 +460,6 @@ function calcInterpolationLine_Lab(hueRes,vWidth,vHeight){
   var cmsRefRange = ref_GlobalCMS.getRefRange();
   var cmsStartRef = ref_GlobalCMS.getRefPosition(0);
 
-  extraSamplingCMS();
-
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
   for (var i = 0; i < ref_GlobalCMS.getKeyLength() - 1; i++) {
@@ -491,21 +481,21 @@ function calcInterpolationLine_Lab(hueRes,vWidth,vHeight){
 
       default:
 
-      if(ref_GlobalCMS.getIntervalLength(i)==0){
+      if(ref_GlobalCMS.get_PP_WorkColorLength(i)==0){
           pathplotLines.push(getLineSegment_Hue_Lab(ref_GlobalCMS.getRightKeyColor(i,"lab"),ref_GlobalCMS.getLeftKeyColor(i+1,"lab"),hueRes));
           pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(ref_GlobalCMS.getRightKeyColor(i,"lab"),ref_GlobalCMS.getLeftKeyColor(i+1,"lab"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
       else {
-          pathplotLines.push(getLineSegment_Hue_Lab(ref_GlobalCMS.getRightKeyColor(i,"lab"),ref_GlobalCMS.getIntervalColor(i,0,"lab"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(ref_GlobalCMS.getRightKeyColor(i,"lab"),ref_GlobalCMS.getIntervalColor(i,0,"lab"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getIntervalRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+          pathplotLines.push(getLineSegment_Hue_Lab(ref_GlobalCMS.getRightKeyColor(i,"lab"),ref_GlobalCMS.get_PP_WorkColor(i,0,"lab"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(ref_GlobalCMS.getRightKeyColor(i,"lab"),ref_GlobalCMS.get_PP_WorkColor(i,0,"lab"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.get_PP_WorkColorRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
 
-        for(var j=0; j<ref_GlobalCMS.getIntervalLength(i)-1; j++){
-          pathplotLines.push(getLineSegment_Hue_Lab(ref_GlobalCMS.getIntervalColor(i,j,"lab"),ref_GlobalCMS.getIntervalColor(i,j+1,"lab"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(ref_GlobalCMS.getIntervalColor(i, j, "lab"),ref_GlobalCMS.getIntervalColor(i, j + 1, "lab"), ((ref_GlobalCMS.getIntervalRef(i,j)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getIntervalRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        for(var j=0; j<ref_GlobalCMS.get_PP_WorkColorLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_Hue_Lab(ref_GlobalCMS.get_PP_WorkColor(i,j,"lab"),ref_GlobalCMS.get_PP_WorkColor(i,j+1,"lab"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(ref_GlobalCMS.get_PP_WorkColor(i, j, "lab"),ref_GlobalCMS.get_PP_WorkColor(i, j + 1, "lab"), ((ref_GlobalCMS.get_PP_WorkColorRef(i,j)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.get_PP_WorkColorRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         }
 
-        pathplotLines.push(getLineSegment_Hue_Lab(ref_GlobalCMS.getIntervalColor(i,ref_GlobalCMS.getIntervalLength(i)-1,"lab"),ref_GlobalCMS.getLeftKeyColor(i+1,"lab"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(ref_GlobalCMS.getIntervalColor(i,ref_GlobalCMS.getIntervalLength(i)-1,"lab"),ref_GlobalCMS.getLeftKeyColor(i+1,"lab"),((ref_GlobalCMS.getIntervalRef(i,ref_GlobalCMS.getIntervalLength(i)-1)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_Hue_Lab(ref_GlobalCMS.get_PP_WorkColor(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1,"lab"),ref_GlobalCMS.getLeftKeyColor(i+1,"lab"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_Lab(ref_GlobalCMS.get_PP_WorkColor(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1,"lab"),ref_GlobalCMS.getLeftKeyColor(i+1,"lab"),((ref_GlobalCMS.get_PP_WorkColorRef(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
 
     }
@@ -613,8 +603,6 @@ function calcInterpolationLine_DIN99(hueRes,vWidth,vHeight){
   rangeA99 = rangeA99Pos - rangeA99Neg;
   rangeB99 = rangeB99Pos - rangeB99Neg;
 
-  extraSamplingCMS();
-
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
   for (var i = 0; i < ref_GlobalCMS.getKeyLength() - 1; i++) {
@@ -636,23 +624,23 @@ function calcInterpolationLine_DIN99(hueRes,vWidth,vHeight){
 
       default:
 
-      if(ref_GlobalCMS.getIntervalLength(i)==0){
+      if(ref_GlobalCMS.get_PP_WorkColorLength(i)==0){
           pathplotLines.push(getLineSegment_Hue_DIN99(ref_GlobalCMS.getRightKeyColor(i,"din99"),ref_GlobalCMS.getLeftKeyColor(i+1,"din99"),hueRes));
           pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(ref_GlobalCMS.getRightKeyColor(i,"din99"),ref_GlobalCMS.getLeftKeyColor(i+1,"din99"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
 
       }
       else {
-          pathplotLines.push(getLineSegment_Hue_DIN99(ref_GlobalCMS.getRightKeyColor(i,"din99"),ref_GlobalCMS.getIntervalColor(i,0,"din99"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(ref_GlobalCMS.getRightKeyColor(i,"din99"),ref_GlobalCMS.getIntervalColor(i,0,"din99"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getIntervalRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+          pathplotLines.push(getLineSegment_Hue_DIN99(ref_GlobalCMS.getRightKeyColor(i,"din99"),ref_GlobalCMS.get_PP_WorkColor(i,0,"din99"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(ref_GlobalCMS.getRightKeyColor(i,"din99"),ref_GlobalCMS.get_PP_WorkColor(i,0,"din99"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.get_PP_WorkColorRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
 
 
-        for(var j=0; j<ref_GlobalCMS.getIntervalLength(i)-1; j++){
-          pathplotLines.push(getLineSegment_Hue_DIN99(ref_GlobalCMS.getIntervalColor(i,j,"din99"),ref_GlobalCMS.getIntervalColor(i,j+1,"din99"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(ref_GlobalCMS.getIntervalColor(i, j, "din99"),ref_GlobalCMS.getIntervalColor(i, j + 1, "din99"), ((ref_GlobalCMS.getIntervalRef(i,j)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getIntervalRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        for(var j=0; j<ref_GlobalCMS.get_PP_WorkColorLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_Hue_DIN99(ref_GlobalCMS.get_PP_WorkColor(i,j,"din99"),ref_GlobalCMS.get_PP_WorkColor(i,j+1,"din99"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(ref_GlobalCMS.get_PP_WorkColor(i, j, "din99"),ref_GlobalCMS.get_PP_WorkColor(i, j + 1, "din99"), ((ref_GlobalCMS.get_PP_WorkColorRef(i,j)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.get_PP_WorkColorRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         }
 
-        pathplotLines.push(getLineSegment_Hue_DIN99(ref_GlobalCMS.getIntervalColor(i,ref_GlobalCMS.getIntervalLength(i)-1,"din99"),ref_GlobalCMS.getLeftKeyColor(i+1,"din99"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(ref_GlobalCMS.getIntervalColor(i,ref_GlobalCMS.getIntervalLength(i)-1,"din99"),ref_GlobalCMS.getLeftKeyColor(i+1,"din99"),((ref_GlobalCMS.getIntervalRef(i,ref_GlobalCMS.getIntervalLength(i)-1)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_Hue_DIN99(ref_GlobalCMS.get_PP_WorkColor(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1,"din99"),ref_GlobalCMS.getLeftKeyColor(i+1,"din99"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_DIN99(ref_GlobalCMS.get_PP_WorkColor(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1,"din99"),ref_GlobalCMS.getLeftKeyColor(i+1,"din99"),((ref_GlobalCMS.get_PP_WorkColorRef(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
 
     }
@@ -755,8 +743,6 @@ function calcInterpolationLine_LCH(hueRes,vWidth,vHeight){
   var cmsRefRange = ref_GlobalCMS.getRefRange();
   var cmsStartRef = ref_GlobalCMS.getRefPosition(0);
 
-  extraSamplingCMS();
-
   var tmpColor, tmpColor2, xPos, xPos2, yPos, yPos2;
 
   for (var i = 0; i < ref_GlobalCMS.getKeyLength() - 1; i++) {
@@ -777,20 +763,20 @@ function calcInterpolationLine_LCH(hueRes,vWidth,vHeight){
 
       default:
 
-      if(ref_GlobalCMS.getIntervalLength(i)==0){
+      if(ref_GlobalCMS.get_PP_WorkColorLength(i)==0){
           pathplotLines.push(getLineSegment_Hue_LCH(ref_GlobalCMS.getRightKeyColor(i,"lch"),ref_GlobalCMS.getLeftKeyColor(i+1,"lch"),hueRes));
           pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(ref_GlobalCMS.getRightKeyColor(i,"lch"),ref_GlobalCMS.getLeftKeyColor(i+1,"lch"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
       else {
-        pathplotLines.push(getLineSegment_Hue_LCH(ref_GlobalCMS.getRightKeyColor(i,"lch"),ref_GlobalCMS.getIntervalColor(i,0,"lch"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(ref_GlobalCMS.getRightKeyColor(i,"lch"),ref_GlobalCMS.getIntervalColor(i,0,"lch"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getIntervalRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_Hue_LCH(ref_GlobalCMS.getRightKeyColor(i,"lch"),ref_GlobalCMS.get_PP_WorkColor(i,0,"lch"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(ref_GlobalCMS.getRightKeyColor(i,"lch"),ref_GlobalCMS.get_PP_WorkColor(i,0,"lch"), ((ref_GlobalCMS.getRefPosition(i)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.get_PP_WorkColorRef(i,0)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
 
-        for(var j=0; j<ref_GlobalCMS.getIntervalLength(i)-1; j++){
-          pathplotLines.push(getLineSegment_Hue_LCH(ref_GlobalCMS.getIntervalColor(i,j,"lch"),ref_GlobalCMS.getIntervalColor(i,j+1,"lch"),hueRes));
-          pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(ref_GlobalCMS.getIntervalColor(i, j, "lch"),ref_GlobalCMS.getIntervalColor(i, j + 1, "lch"), ((ref_GlobalCMS.getIntervalRef(i,j)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getIntervalRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        for(var j=0; j<ref_GlobalCMS.get_PP_WorkColorLength(i)-1; j++){
+          pathplotLines.push(getLineSegment_Hue_LCH(ref_GlobalCMS.get_PP_WorkColor(i,j,"lch"),ref_GlobalCMS.get_PP_WorkColor(i,j+1,"lch"),hueRes));
+          pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(ref_GlobalCMS.get_PP_WorkColor(i, j, "lch"),ref_GlobalCMS.get_PP_WorkColor(i, j + 1, "lch"), ((ref_GlobalCMS.get_PP_WorkColorRef(i,j)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.get_PP_WorkColorRef(i,j + 1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
         }
-        pathplotLines.push(getLineSegment_Hue_LCH(ref_GlobalCMS.getIntervalColor(i,ref_GlobalCMS.getIntervalLength(i)-1,"lch"),ref_GlobalCMS.getLeftKeyColor(i+1,"lch"),hueRes));
-        pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(ref_GlobalCMS.getIntervalColor(i,ref_GlobalCMS.getIntervalLength(i)-1,"lch"),ref_GlobalCMS.getLeftKeyColor(i+1,"lch"),((ref_GlobalCMS.getIntervalRef(i,ref_GlobalCMS.getIntervalLength(i)-1)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
+        pathplotLines.push(getLineSegment_Hue_LCH(ref_GlobalCMS.get_PP_WorkColor(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1,"lch"),ref_GlobalCMS.getLeftKeyColor(i+1,"lch"),hueRes));
+        pathplotLinesLineChart.push(getLineSegment_LineChart_LCH(ref_GlobalCMS.get_PP_WorkColor(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1,"lch"),ref_GlobalCMS.getLeftKeyColor(i+1,"lch"),((ref_GlobalCMS.get_PP_WorkColorRef(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1)-cmsStartRef)/cmsRefRange),((ref_GlobalCMS.getRefPosition(i+1)-cmsStartRef)/cmsRefRange),vWidth,vHeight));
       }
 
 

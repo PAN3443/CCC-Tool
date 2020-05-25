@@ -435,9 +435,6 @@ class class_Edit_Basis_Section extends class_Section {
 
   drawColorRect(contex, colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth, rgbColor, isGrey) {
 
-
-
-
     if (isGrey == true) {
       contex.fillStyle = rgbColor;
       contex.fillRect(colorrectXPos, colorrectYPos, colorrectWitdh, colorrectHeigth);
