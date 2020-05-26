@@ -526,15 +526,21 @@ class class_CMS {
 
   setInterpolationType(type) {
     this.interpolationType = type;
+    this.updateSupportColors(); // new interpolationType => supportColors need to be updated
   }
 
   setRefPosition(index, ref) {
     this.keyArray[index].setRefPosition(ref);
+
+    updateKeySurroundingSupportColors(index)
+
+    if(index!=)
+      updateKeySurroundingSupportColors(index-1)
   }
 
   setInterpolationSpace(space) {
     this.interpolationSpace = space;
-
+    this.updateSupportColors(); // new interpolationSpace => supportColors need to be updateKeySurroundingSupportColors
   }
 
   setColormapName(newName) {
