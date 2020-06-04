@@ -509,7 +509,6 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         if(keyIndex!=undefined && this.predefinedDrawStatus!=keyIndex){
 
           this.tmpWorkCMS.setCMSFromPackage(this.editCMS.createCMSInfoPackage())
-          //this.tmpWorkCMS.setPreventIntervals(true);
           switch(this.currentDraggedType){
                 case "c":
                         // ->const
@@ -549,7 +548,6 @@ class class_Edit_Section extends class_Edit_Basis_Section {
             }
 
             this.predefinedDrawStatus=keyIndex;
-            //this.tmpWorkCMS.setPreventIntervals(false);
             this.drawWorkCMS();
 
           }
@@ -579,6 +577,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
               break;
               case "p":
                 this.tmpWorkCMS.setCMSFromPackage(gallerySection.getPredefinedCMS(this.selectedPredefinedType,this.currentDraggedID));
+                this.tmpWorkCMS.changePathPlotSpace(this.part_Pathplot.pathplot_space);
                 this.tmpWorkCMS.setColormapName(this.editCMS.getColormapName());
               break;
           }

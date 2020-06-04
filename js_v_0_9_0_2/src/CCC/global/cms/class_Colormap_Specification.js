@@ -21,11 +21,14 @@ class class_CMS {
 
     ///////////////////////
     // for pathplot, analysis, export
-    this.autoCalc_PP_Colors = false; // for export(manual), for pathplot and analysis =>auto
     this.pathplotWorkColors=[];
     this.pathplotSpace=undefined;
     this.autoCalc_Analysis_Colors = false;
+    this.analysisWorkColorType="none"; // none, interval, bandinterval
+    this.analysisWorkColorIntervalNum=200;
     this.analysisWorkColors=[];
+    this.exportColorType="none"; // none, interval, bandinterval
+    this.exportColorIntervalNum=200;
     this.exportWorkColors=[];
 
 
@@ -172,41 +175,48 @@ class class_CMS {
   //********************************************************************************//
   //***************************   Work Interval Colors   *****************************//
   //********************************************************************************//
-
-  determinePathplineColors(keyID1,keyID2){
-    // export
-
-    /*(if)
-    calculateBandColor(keyID1,keyID2)*/
-
-    if(this.interpolationSpace==="hsv" || this.interpolationSpace==="lch"){
-      // for the hsv and lch we need work colors to sample the degree (hue) change.
-      /*var maxInterval = 90;
-      var numList = [];
-      var continuousSections = this.searchForContinuousSections(0,this.getKeyLength()-1);
-      for (var i = 0; i < this.getKeyLength()-1; i++) {
-        numList.push(0);
-      }
-
-      for (var i = 0; i < continuousSections.length; i++) {
-        for (var j = continuousSections[i][0]; j < continuousSections[i][1]; j++) {
-          var tmpColor1 = this.getRightKeyColor(j, this.getInterpolationSpace());
-          var tmpColor2 = this.getLeftKeyColor(j+1, this.getInterpolationSpace());
-          var hueDiff = Math.abs(tmpColor1.getHValue()-tmpColor2.getHValue());
-          numList[j]=maxInterval*hueDiff;
-        }
-      }
-      this.calcSpecificKeyIntervalColors(numList);*/
-    }
-    else{
-      if(this.interpolationSpace!=this.pathplotSpace){
-        // if the interpolation space is the pathplot space we don't need work colors, because the colors are connented with straight lines
-
-        if(this.interpolationSpace==="de94-ds" || this.interpolationSpace==="de2000-ds"){}
-          tmpInterpolationSpace="lab";
-      }
+  changePathPlotSpace(space){
+    switch (true) {
+      case (space==="rgb-line"):
+        this.pathplotSpace="rgb";
+        break;
+      default:
+        this.pathplotSpace=space;
     }
 
+    for (var i = 0; i < this.keyArray.length-1; i++) {
+      this.determinePathplineColors(i);
+    }
+  }
+
+  determinePathplineColors(bandID){
+    if(this.pathplotSpace==undefined)
+        return;
+
+    switch (true) {
+      case (this.interpolationSpace==="hsv" || this.interpolationSpace==="lch"):
+        // for the hsv and lch we need work colors to sample the degree (hue) change.
+        var maxInterval = 90;
+        var continuousSections = this.searchForContinuousSections(0,this.getKeyLength()-1);
+        var tmpColor1 = this.getRightKeyColor(bandID, this.getInterpolationSpace());
+        var tmpColor2 = this.getLeftKeyColor(bandID+1, this.getInterpolationSpace());
+        var hueDiff = undefined;
+        if(this.interpolationSpace==="hsv")
+          hueDiff=Math.abs(tmpColor1[1]-tmpColor2[1]);
+        else
+          hueDiff=Math.abs(tmpColor1[3]-tmpColor2[3]);
+        var neededColors=maxInterval*hueDiff;
+        this.pathplotWorkColors[bandID]=this.calcSpecificKeyIntervalColors(neededColors,bandID);
+      break;
+      case (this.interpolationSpace==="de94-ds" || this.interpolationSpace==="de2000-ds"):
+        // copy the support colors, where we already used the delta interval technique
+        this.pathplotWorkColors[bandID]=this.supportColors[bandID];
+      break;
+      case (this.interpolationSpace!=this.pathplotSpace):
+        this.pathplotWorkColors[bandID]=this.calcDeltaIntervalColors(bandID);
+      break;
+      // if the interpolation space is the pathplot space we don't need work colors, because the colors are connented with straight lines
+    }
   }
 
   get_PP_WorkColorLength(index){
@@ -217,18 +227,16 @@ class class_CMS {
   }
 
   get_PP_WorkColor(keyBandIndex,index,colorspace){
-        if(this.pathplotWorkColors[keyBandIndex][index][0]===colorspace)
-          return this.pathplotWorkColors[keyBandIndex][index];
+      if(this.pathplotWorkColors[keyBandIndex][index][0]===colorspace)
+        return this.pathplotWorkColors[keyBandIndex][index];
 
-        gWorkColor1.updateColor(this.pathplotWorkColors[keyBandIndex][index][0][0],this.pathplotWorkColors[keyBandIndex][index][0][1],this.pathplotWorkColors[keyBandIndex][index][0][2],this.pathplotWorkColors[keyBandIndex][index][0][3]);
-        return gWorkColor1.getColor(colorspace);
-    }
+      gWorkColor1.updateColor(this.pathplotWorkColors[keyBandIndex][index][0][0],this.pathplotWorkColors[keyBandIndex][index][0][1],this.pathplotWorkColors[keyBandIndex][index][0][2],this.pathplotWorkColors[keyBandIndex][index][0][3]);
+      return gWorkColor1.getColorInfo(colorspace);
+  }
 
-    get_PP_WorkColorRef(keyBandIndex,index){
-          return this.pathplotWorkColors[keyBandIndex][index][1];
-      }
-
-
+  get_PP_WorkColorRef(keyBandIndex,index){
+      return this.pathplotWorkColors[keyBandIndex][index][1];
+  }
 
   changeAutoWorkColors(bool){
     this.autoCalcWorkColors=bool;
@@ -240,8 +248,6 @@ class class_CMS {
   calcExportSampling(numberIntervals){
 
   }
-
-
 
   //********************************************************************************//
   //***************************   SupportColors functions   *****************************//
@@ -281,10 +287,10 @@ class class_CMS {
       return;
       case (this.interpolationType==="spline"):
 
-              var ref1 = this.keyArray[keyIndex].getRefPosition();
-              var ref2 = this.keyArray[keyIndex+1].getRefPosition();
+              var ref1 = this.keyArray[keyID].getRefPosition();
+              var ref2 = this.keyArray[keyID+1].getRefPosition();
               var tmpIntervals = undefined;
-              tmpIntervals = calcSplineIntervalBetween_C1C2(this.spline_tArray, this.getSplineColors(keyIndex), 1.0,this.interpolationSpace);
+              tmpIntervals = calcSplineIntervalBetween_C1C2(this.spline_tArray, this.getSplineColors(keyID), 1.0,this.interpolationSpace);
 
               if(tmpIntervals==undefined)
                 break;
@@ -306,7 +312,14 @@ class class_CMS {
               }// For
       break;
       case (this.interpolationSpace==="de94-ds" || this.interpolationSpace==="de2000-ds"):
-        var tmpDeltaIntervals=this.calcDeltaIntervalColors(keyIndex);
+        var tmpDeltaIntervals=undefined;
+        var ref1 = this.keyArray[keyID].getRefPosition();
+        var ref2 = this.keyArray[keyID+1].getRefPosition();
+
+        if(this.interpolationSpace==="de94-ds")
+          tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyID].getRightKeyColor(this.interpolationSpace),this.keyArray[keyID+1].getLeftKeyColor(this.interpolationSpace), this.jnd_de94, this.interpolationSpace);
+        else
+          tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyID].getRightKeyColor(this.interpolationSpace),this.keyArray[keyID+1].getLeftKeyColor(this.interpolationSpace), this.jnd_de2000, this.interpolationSpace);
 
         if(tmpDeltaIntervals==undefined)
           break;
@@ -323,30 +336,17 @@ class class_CMS {
               intervalRef = currentPos;
             }
             // the ratio of the colordifference determine the new ref position
-
-            this.supportColors[keyIndex].push([tmpDeltaIntervals[0][i], intervalRef]);
+            this.supportColors[keyID].push([tmpDeltaIntervals[0][i], intervalRef]);
             }// For
 
+            //console.log("----------------------------------------------------------");
       break;
     }
 
     // even with no support colors the algorithm for pathplot and analysis may need work colors
-
-
-
-
-    // we need supportColors for Spline Interpolation and Interpolation
-
-
-     /*= false; // for export(manual), for pathplot and analysis =>auto
-    this.pathplotWorkColors=[];
-    this.autoCalc_Analysis_Colors = false;
-    if(this.autoCalc_PP_Colors)
-
-    if()*/
+    this.determinePathplineColors(keyID);
 
   }
-
 
   calcDeltaIntervalColors(keyIndex){
 
@@ -358,8 +358,6 @@ class class_CMS {
         var ref2 = this.keyArray[keyIndex+1].getRefPosition();
 
         var tmpDeltaIntervals = undefined;
-
-
           switch (this.interpolationSpace) {
             case "rgb":
               tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), 25, this.interpolationSpace);
@@ -379,6 +377,8 @@ class class_CMS {
             case "din99":
               tmpDeltaIntervals = calcDeltaIntervalBetween_C1C2(this.keyArray[keyIndex].getRightKeyColor(this.interpolationSpace),this.keyArray[keyIndex+1].getLeftKeyColor(this.interpolationSpace), this.jnd_din99, this.interpolationSpace);
             break;
+            default:
+              return [];
           }
 
         if(tmpDeltaIntervals==undefined)
@@ -400,6 +400,7 @@ class class_CMS {
             }// For
 
       }// If
+
       return tmpResultIntervals;
  }
 
@@ -415,7 +416,7 @@ class class_CMS {
           return this.supportColors[keyBandIndex][index];
 
         gWorkColor1.updateColor(this.supportColors[keyBandIndex][index][0][0],this.supportColors[keyBandIndex][index][0][1],this.supportColors[keyBandIndex][index][0][2],this.supportColors[keyBandIndex][index][0][3]);
-        return gWorkColor1.getColor(colorspace);
+        return gWorkColor1.getColorInfo(colorspace);
     }
 
   getSupportColorRef(keyBandIndex,index){
@@ -468,6 +469,34 @@ class class_CMS {
     return [c0, c1, c2, c3];
 
   }
+
+
+  calcSpecificKeyIntervalColors(numIntervals, bandID){
+   // with the specific interval list the user can set for each continuousBand a number of intervals
+   // for the calucation of this colors we use the support colors
+
+     if(isNaN(numIntervals))
+       return [];
+
+      if(numIntervals<2)
+       return [];
+
+      var tmpColors = [];
+      if(this.keyArray[bandID].getKeyType()!="nil key" && this.keyArray[bandID].getKeyType()!="left key"){
+
+          var ref1 = this.keyArray[bandID].getRefPosition();
+          var ref2 = this.keyArray[bandID+1].getRefPosition();
+          var intervalDistance = Math.abs(ref2-ref1)/numIntervals;
+          var currentRef = ref1;
+
+          for (var i = 0; i < numIntervals-1; i++) {
+           currentRef+=intervalDistance;
+           var intervalColor = this.calculateBandColor(bandID, currentRef, this.interpolationSpace);
+           tmpColors.push([intervalColor, currentRef]);
+          }
+       }
+       return tmpColors;
+ }
 
   //********************************************************************************//
   //***************************     Get functions      *****************************//
@@ -532,10 +561,10 @@ class class_CMS {
   setRefPosition(index, ref) {
     this.keyArray[index].setRefPosition(ref);
 
-    updateKeySurroundingSupportColors(index)
+    this.updateKeySurroundingSupportColors(index);
 
-    if(index!=)
-      updateKeySurroundingSupportColors(index-1)
+    if(index!=0)
+      this.updateKeySurroundingSupportColors(index-1);
   }
 
   setInterpolationSpace(space) {
@@ -590,7 +619,7 @@ class class_CMS {
     this.exportWorkColors.splice(index, 1);
 
     if(index!=0)
-      this.calcBandSupportColors(index-1,index);
+      this.calcBandSupportColors(index-1);
   }
 
   getKeyLength() {
@@ -772,7 +801,7 @@ class class_CMS {
     for (var i = 0; i < this.keyArray.length - 1; i++) {
 
       if (val > this.keyArray[i].getRefPosition() && val < this.keyArray[i + 1].getRefPosition()) {
-        return this.calculateBandColor(i,i+1,val,space);
+        return this.calculateBandColor(i,val,space);
       }
 
       if (val == this.keyArray[i].getRefPosition()) {
@@ -807,12 +836,10 @@ class class_CMS {
     return this.colorNaN.getColorInfo(space);
   }
 
+  calculateBandColor(bandID,val,space){
 
-
-  calculateBandColor(keyID1,keyID2,val,space){
-
-  var color1 = this.keyArray[keyID1].getRightKeyColor(this.interpolationSpace);
-  var color2 = this.keyArray[keyID2].getLeftKeyColor(this.interpolationSpace);
+  var color1 = this.keyArray[bandID].getRightKeyColor(this.interpolationSpace);
+  var color2 = this.keyArray[bandID+1].getLeftKeyColor(this.interpolationSpace);
 
   if (color1 == undefined) {
     if(space===this.interpolationSpace)
@@ -822,34 +849,34 @@ class class_CMS {
   }
 
   var newColorValues = undefined;
-  if (this.getSupportColorsLength(keyID1) > 0){
-    if (val > this.keyArray[keyID1].getRefPosition() && val <= this.getSupportColorRef(i, 0)) {
-      var leftRef = this.keyArray[keyID1].getRefPosition();
-      var rightRef = this.getSupportColorRef(keyID1, 0);
-      var supportColor2 = this.getSupportColorColor(keyID1, 0, this.interpolationSpace);
+  if (this.getSupportColorsLength(bandID) > 0){
+    if (val > this.keyArray[bandID].getRefPosition() && val <= this.getSupportColorRef(bandID, 0)) {
+      var leftRef = this.keyArray[bandID].getRefPosition();
+      var rightRef = this.getSupportColorRef(bandID, 0);
+      var supportColor2 = this.getSupportColorColor(bandID, 0, this.interpolationSpace);
       var tmpRatio = (val - leftRef) / (rightRef - leftRef);
       newColorValues = calcGradientLinear(color1[1], color1[2], color1[3], supportColor2[1], supportColor2[2], supportColor2[3], tmpRatio);
-    } else if (val > this.getSupportColorRef(keyID1, this.getSupportColorsLength(keyID1) - 1) && val < this.keyArray[keyID2].getRefPosition()) {
-      var leftRef = this.getSupportColorRef(keyID1, this.getSupportColorsLength(keyID1) - 1);
-      var rightRef = this.keyArray[keyID2].getRefPosition();
-      var supportColor1 = this.getSupportColor(keyID1, this.getSupportColorsLength(keyID1) - 1, this.interpolationSpace);
+    } else if (val > this.getSupportColorRef(bandID, this.getSupportColorsLength(bandID) - 1) && val < this.keyArray[bandID+1].getRefPosition()) {
+      var leftRef = this.getSupportColorRef(bandID, this.getSupportColorsLength(bandID) - 1);
+      var rightRef = this.keyArray[bandID+1].getRefPosition();
+      var supportColor1 = this.getSupportColor(bandID, this.getSupportColorsLength(bandID) - 1, this.interpolationSpace);
       var tmpRatio = (val - leftRef) / (rightRef - leftRef);
       newColorValues = calcGradientLinear(supportColor1[1], supportColor1[2], supportColor1[3], color2[1], color2[2], color2[3], tmpRatio);
     } else {
-      for (var j = 0; j < this.getSupportColorsLength(keyID1) - 1; j++) {
-        if (val > this.getSupportColorRef(keyID1, j) && val <= this.getSupportColorRef(i, j + 1)) {
-          var leftRef = this.getSupportColorRef(keyID1, j);
-          var rightRef = this.getSupportColorRef(keyID1, j + 1);
-          var supportColor1 = this.getSupportColor(keyID1, j, this.interpolationSpace);
-          var supportColor2 = this.getSupportColor(keyID1, j + 1, this.interpolationSpace);
+      for (var j = 0; j < this.getSupportColorsLength(bandID) - 1; j++) {
+        if (val > this.getSupportColorRef(bandID, j) && val <= this.getSupportColorRef(bandID, j + 1)) {
+          var leftRef = this.getSupportColorRef(bandID, j);
+          var rightRef = this.getSupportColorRef(bandID, j + 1);
+          var supportColor1 = this.getSupportColor(bandID, j, this.interpolationSpace);
+          var supportColor2 = this.getSupportColor(bandID, j + 1, this.interpolationSpace);
           var tmpRatio = (val - leftRef) / (rightRef - leftRef);
           newColorValues = calcGradientLinear(supportColor1[1], supportColor1[2], supportColor1[3], supportColor2[1], supportColor2[2], supportColor2[3], tmpRatio);
         }
       }
     }
   } else {
-    var leftRef = this.keyArray[keyID1].getRefPosition();
-    var rightRef = this.keyArray[keyID2].getRefPosition();
+    var leftRef = this.keyArray[bandID].getRefPosition();
+    var rightRef = this.keyArray[bandID+1].getRefPosition();
     var tmpRatio = (val - leftRef) / (rightRef - leftRef);
     newColorValues = calcGradientLinear(color1[1], color1[2], color1[3], color2[1], color2[2], color2[3], tmpRatio);
   }
@@ -859,7 +886,6 @@ class class_CMS {
   gWorkColor1.updateColor(this.interpolationSpace,newColorValues[0], newColorValues[1], newColorValues[2]);
   return gWorkColor1.getColorInfo(space);
  }
-
 
   createCMSInfoPackage(){ // we can use these packages to update the worker with a new CMS
     var tmpPack = [];
@@ -883,12 +909,35 @@ class class_CMS {
     //////////////////////////////////
     tmpPack.push(tmpProbePack);
 
+    //// SupportColor Info
+    tmpPack.push(this.pathplotSpace);
+    tmpPack.push(this.analysisWorkColorType); // none, interval, bandinterval
+    tmpPack.push(this.analysisWorkColorIntervalNum);
+    tmpPack.push(this.exportColorType); // none, interval, bandinterval
+    tmpPack.push(this.exportColorIntervalNum);
+    tmpPack.push(this.jnd_lab); // just noticeable difference for space lab
+    tmpPack.push(this.jnd_de94); // just noticeable difference for space lab with metric DE94
+    tmpPack.push(this.jnd_de2000); // just noticeable difference for space lab with metric CIEDE2000
+    tmpPack.push(this.jnd_din99); // just noticeable difference for space din99
+
     return tmpPack;
 
   }
 
   setCMSFromPackage(cmsPackage){
     this.clear();
+
+    this.pathplotSpace=cmsPackage[8];
+    this.analysisWorkColorType=cmsPackage[9]; // none, interval, bandinterval
+    this.analysisWorkColorIntervalNum=cmsPackage[10];
+    this.exportColorType=cmsPackage[11]; // none, interval, bandinterval
+    this.exportColorIntervalNum=cmsPackage[12];
+    this.jnd_lab=cmsPackage[13]; // just noticeable difference for space lab
+    this.jnd_de94=cmsPackage[14]; // just noticeable difference for space lab with metric DE94
+    this.jnd_de2000=cmsPackage[15]; // just noticeable difference for space lab with metric CIEDE2000
+    this.jnd_din99=cmsPackage[16]; // just noticeable difference for space din99
+
+    /////////////////////////////////////////////////
     this.name=cmsPackage[0];
     this.interpolationSpace=cmsPackage[1];
     this.interpolationType=cmsPackage[2];
@@ -905,6 +954,8 @@ class class_CMS {
     //////////////////////////////////
     ////// Probe is Missing //////////
     //////////////////////////////////
+
+
   }
 
   insertCMS(cmsInfoPackage, insertIndex) {

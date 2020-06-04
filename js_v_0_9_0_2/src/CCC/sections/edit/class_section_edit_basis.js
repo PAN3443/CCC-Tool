@@ -105,6 +105,7 @@ class class_Edit_Basis_Section extends class_Section {
 
   setCMS(cmsPackage){
     this.editCMS.setCMSFromPackage(cmsPackage);
+    this.editCMS.changePathPlotSpace(this.part_Pathplot.pathplot_space);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -211,31 +212,31 @@ class class_Edit_Basis_Section extends class_Section {
               break;
             default:
               // Draw Sketch Colormap
-              if((this.editCMS.getInterpolationSpace()==="de94-ds" || this.editCMS.getInterpolationSpace()==="de2000-ds" || this.editCMS.getInterpolationType()==="spline") && this.editCMS.getIntervalLength(i)>0){
-                var sketch_SubBandWidth = Math.round(sketch_BandWidth/(this.editCMS.getIntervalLength(i)+1));
+              if((this.editCMS.getInterpolationSpace()==="de94-ds" || this.editCMS.getInterpolationSpace()==="de2000-ds" || this.editCMS.getInterpolationType()==="spline") && this.editCMS.getSupportColorsLength(i)>0){
+                var sketch_SubBandWidth = Math.round(sketch_BandWidth/(this.editCMS.getSupportColorsLength(i)+1));
                 var currentSktech_SubxPos = currentSktech_xPos;
                 var linearKey_Sub_xPos = linearKey_xPos;
 
                 // from left key to first interval
-                elementwidth = Math.round((this.editCMS.getIntervalRef(i,0) - this.editCMS.getRefPosition(i)) / (this.editCMS.getRefPosition(this.editCMS.getKeyLength()-1) - this.editCMS.getRefPosition(0)) * this.editCMS_cmsArea_width);
-                canvasData = createScaledBand(canvasData,linearKey_Sub_xPos, this.editCMS_linearCMS_y1, elementwidth, this.editCMS_linearCMS_height, this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()), this.editCMS.getIntervalColor(i,0,this.editCMS.getInterpolationSpace()), canvasObject.width);
-                canvasData = createScaledBand(canvasData,currentSktech_SubxPos, this.editCMS_sketchCMS_y1, sketch_SubBandWidth, this.editCMS_sketchCMS_height, this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()), this.editCMS.getIntervalColor(i,0,this.editCMS.getInterpolationSpace()), canvasObject.width);
+                elementwidth = Math.round((this.editCMS.getSupportColorRef(i,0) - this.editCMS.getRefPosition(i)) / (this.editCMS.getRefPosition(this.editCMS.getKeyLength()-1) - this.editCMS.getRefPosition(0)) * this.editCMS_cmsArea_width);
+                canvasData = createScaledBand(canvasData,linearKey_Sub_xPos, this.editCMS_linearCMS_y1, elementwidth, this.editCMS_linearCMS_height, this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()), this.editCMS.getSupportColor(i,0,this.editCMS.getInterpolationSpace()), canvasObject.width);
+                canvasData = createScaledBand(canvasData,currentSktech_SubxPos, this.editCMS_sketchCMS_y1, sketch_SubBandWidth, this.editCMS_sketchCMS_height, this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()), this.editCMS.getSupportColor(i,0,this.editCMS.getInterpolationSpace()), canvasObject.width);
                 currentSktech_SubxPos+=sketch_SubBandWidth;
                 // between intervals
-                for (var j = 0; j < this.editCMS.getIntervalLength(i)-1; j++) {
+                for (var j = 0; j < this.editCMS.getSupportColorsLength(i)-1; j++) {
                   linearKey_Sub_xPos += elementwidth;
-                  elementwidth = Math.round((this.editCMS.getIntervalRef(i,j+1) - this.editCMS.getIntervalRef(i,j)) / (this.editCMS.getRefPosition(this.editCMS.getKeyLength()-1) - this.editCMS.getRefPosition(0)) * this.editCMS_cmsArea_width);
-                  canvasData = createScaledBand(canvasData,linearKey_Sub_xPos, this.editCMS_linearCMS_y1, elementwidth, this.editCMS_linearCMS_height, this.editCMS.getIntervalColor(i,j,this.editCMS.getInterpolationSpace()), this.editCMS.getIntervalColor(i,j+1,this.editCMS.getInterpolationSpace()), canvasObject.width);
-                  canvasData = createScaledBand(canvasData,currentSktech_SubxPos, this.editCMS_sketchCMS_y1, sketch_SubBandWidth, this.editCMS_sketchCMS_height, this.editCMS.getIntervalColor(i,j,this.editCMS.getInterpolationSpace()), this.editCMS.getIntervalColor(i,j+1,this.editCMS.getInterpolationSpace()), canvasObject.width);
+                  elementwidth = Math.round((this.editCMS.getSupportColorRef(i,j+1) - this.editCMS.getSupportColorRef(i,j)) / (this.editCMS.getRefPosition(this.editCMS.getKeyLength()-1) - this.editCMS.getRefPosition(0)) * this.editCMS_cmsArea_width);
+                  canvasData = createScaledBand(canvasData,linearKey_Sub_xPos, this.editCMS_linearCMS_y1, elementwidth, this.editCMS_linearCMS_height, this.editCMS.getSupportColor(i,j,this.editCMS.getInterpolationSpace()), this.editCMS.getSupportColor(i,j+1,this.editCMS.getInterpolationSpace()), canvasObject.width);
+                  canvasData = createScaledBand(canvasData,currentSktech_SubxPos, this.editCMS_sketchCMS_y1, sketch_SubBandWidth, this.editCMS_sketchCMS_height, this.editCMS.getSupportColor(i,j,this.editCMS.getInterpolationSpace()), this.editCMS.getSupportColor(i,j+1,this.editCMS.getInterpolationSpace()), canvasObject.width);
                   currentSktech_SubxPos+=sketch_SubBandWidth;
                 }
                 // from last interval to last key
-                linearKey_Sub_xPos += elementwidth;//this.editCMS_cmsArea_x1+Math.round((this.editCMS.getIntervalRef(i,j) - this.editCMS.getRefPosition(0)) / (this.editCMS.getRefPosition(this.editCMS.getKeyLength()-1) - this.editCMS.getRefPosition(0)) * this.editCMS_cmsArea_width);
+                linearKey_Sub_xPos += elementwidth;//this.editCMS_cmsArea_x1+Math.round((this.editCMS.getSupportColorRef(i,j) - this.editCMS.getRefPosition(0)) / (this.editCMS.getRefPosition(this.editCMS.getKeyLength()-1) - this.editCMS.getRefPosition(0)) * this.editCMS_cmsArea_width);
                 var tmpEndPos = this.editCMS_cmsArea_x1+Math.round((this.editCMS.getRefPosition(i+1) - this.editCMS.getRefPosition(0)) / (this.editCMS.getRefPosition(this.editCMS.getKeyLength()-1) - this.editCMS.getRefPosition(0)) * this.editCMS_cmsArea_width);
                 elementwidth = (tmpEndPos-linearKey_Sub_xPos);
                 sketch_SubBandWidth = (currentSktech_xPos+sketch_BandWidth-currentSktech_SubxPos);
-                canvasData = createScaledBand(canvasData,linearKey_Sub_xPos, this.editCMS_linearCMS_y1, elementwidth, this.editCMS_linearCMS_height, this.editCMS.getIntervalColor(i,this.editCMS.getIntervalLength(i)-1,this.editCMS.getInterpolationSpace()), this.editCMS.getLeftKeyColor(i+1,this.editCMS.getInterpolationSpace()), canvasObject.width);
-                canvasData = createScaledBand(canvasData,currentSktech_SubxPos, this.editCMS_sketchCMS_y1, sketch_SubBandWidth, this.editCMS_sketchCMS_height, this.editCMS.getIntervalColor(i,this.editCMS.getIntervalLength(i)-1,this.editCMS.getInterpolationSpace()), this.editCMS.getLeftKeyColor(i+1,this.editCMS.getInterpolationSpace()), canvasObject.width);
+                canvasData = createScaledBand(canvasData,linearKey_Sub_xPos, this.editCMS_linearCMS_y1, elementwidth, this.editCMS_linearCMS_height, this.editCMS.getSupportColor(i,this.editCMS.getSupportColorsLength(i)-1,this.editCMS.getInterpolationSpace()), this.editCMS.getLeftKeyColor(i+1,this.editCMS.getInterpolationSpace()), canvasObject.width);
+                canvasData = createScaledBand(canvasData,currentSktech_SubxPos, this.editCMS_sketchCMS_y1, sketch_SubBandWidth, this.editCMS_sketchCMS_height, this.editCMS.getSupportColor(i,this.editCMS.getSupportColorsLength(i)-1,this.editCMS.getInterpolationSpace()), this.editCMS.getLeftKeyColor(i+1,this.editCMS.getInterpolationSpace()), canvasObject.width);
               }
               else {
                 canvasData = createScaledBand(canvasData,linearKey_xPos, this.editCMS_linearCMS_y1, elementwidth, this.editCMS_linearCMS_height, this.editCMS.getRightKeyColor(i,this.editCMS.getInterpolationSpace()), this.editCMS.getLeftKeyColor(i+1,this.editCMS.getInterpolationSpace()), canvasObject.width);

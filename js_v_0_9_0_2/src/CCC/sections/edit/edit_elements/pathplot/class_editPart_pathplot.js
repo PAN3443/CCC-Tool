@@ -68,6 +68,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
   showPart(){
     if(super.showPart){
       this.changePathPlotSpace(); // produce RGB Mesh
+      ref_GlobalCMS.changePathPlotSpace(this.pathplot_space);
     }
   }
 
@@ -352,7 +353,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         this.updatePathPlotSpace("lab")
         return;
     }
-
+    ref_GlobalCMS.changePathPlotSpace(this.pathplot_space);
     this.resize();
 
   }
