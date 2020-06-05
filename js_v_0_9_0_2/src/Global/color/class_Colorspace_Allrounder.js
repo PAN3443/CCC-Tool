@@ -1,3 +1,6 @@
+// global varialbe for all objects of this class
+var colorAccuracy = 1e-6;
+/////////////////////////////////////
 class class_Color {
   constructor(space, value_1, value_2, value_3) {
 
@@ -744,25 +747,27 @@ class class_Color {
 
     switch (colorInfo[0]) {
       case "RGB": case "rgb": case "Rgb":
-        return (this.val_1_rgb===colorInfo[1] && this.val_2_rgb===colorInfo[2] && this.val_3_rgb===colorInfo[3]);
+
+
+        return ( Math.abs(this.val_1_rgb-colorInfo[1])<colorAccuracy && Math.abs(this.val_2_rgb-colorInfo[2])<colorAccuracy && Math.abs(this.val_3_rgb-colorInfo[3])<colorAccuracy);
         break;
       case "HSV": case "hsv": case "Hsv":
-        return (this.val_1_hsv===colorInfo[1] && this.val_2_hsv===colorInfo[2] && this.val_3_hsv===colorInfo[3]);
+        return (Math.abs(this.val_1_hsv-colorInfo[1])<colorAccuracy && Math.abs(this.val_2_hsv-colorInfo[2])<colorAccuracy && Math.abs(this.val_3_hsv-colorInfo[3])<colorAccuracy);
         break;
       case "LAB": case "lab": case "Lab":
-        return (this.val_1_lab===colorInfo[1] && this.val_2_lab===colorInfo[2] && this.val_3_lab===colorInfo[3]);
+        return (Math.abs(this.val_1_lab-colorInfo[1])<colorAccuracy && Math.abs(this.val_2_lab-colorInfo[2])<colorAccuracy && Math.abs(this.val_3_lab-colorInfo[3])<colorAccuracy);
         break;
       case "LCH": case "lch": case "Lch":
-        return (this.val_1_lch===colorInfo[1] && this.val_2_lch===colorInfo[2] && this.val_3_lch===colorInfo[3]);
+        return (Math.abs(this.val_1_lch-colorInfo[1])<colorAccuracy && Math.abs(this.val_2_lch-colorInfo[2])<colorAccuracy && Math.abs(this.val_3_lch-colorInfo[3])<colorAccuracy);
         break;
       case "DIN99": case "din99": case "Din99":
-        return (this.val_1_din99===colorInfo[1] && this.val_2_din99===colorInfo[2] && this.val_3_din99===colorInfo[3]);
+        return (Math.abs(this.val_1_din99-colorInfo[1])<colorAccuracy && Math.abs(this.val_2_din99-colorInfo[2])<colorAccuracy && Math.abs(this.val_3_din99-colorInfo[3])<colorAccuracy);
         break;
       case "XYZ": case "xyz": case "Xyz":
-        return (this.val_1_xyz===colorInfo[1] && this.val_2_xyz===colorInfo[2] && this.val_3_xyz===colorInfo[3]);
+        return (Math.abs(this.val_1_xyz-colorInfo[1])<colorAccuracy && Math.abs(this.val_2_xyz-colorInfo[2])<colorAccuracy && Math.abs(this.val_3_xyz-colorInfo[3])<colorAccuracy);
         break;
       case "LMS": case "lms": case "Lms":
-        return (this.val_1_lms===colorInfo[1] && this.val_2_lms===colorInfo[2] && this.val_3_lms===colorInfo[3]);
+        return (Math.abs(this.val_1_lms-colorInfo[1])<colorAccuracy && Math.abs(this.val_2_lms-colorInfo[2])<colorAccuracy && Math.abs(this.val_3_lms-colorInfo[3])<colorAccuracy);
         break;
     }
     return false;

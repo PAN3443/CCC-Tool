@@ -15,7 +15,6 @@ var browserCanOffscreenCanvas = false;
 // just noticeable difference
 var jnd_lab = 2;
 var jnd_din99 = 2;
-
 ////
 var gWorkColor1 = new class_Color("rgb",0,0,0);
 var gWorkColor2 = new class_Color("rgb",0,0,0);

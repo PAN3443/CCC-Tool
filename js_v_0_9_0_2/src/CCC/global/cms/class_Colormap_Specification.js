@@ -175,6 +175,8 @@ class class_CMS {
   //********************************************************************************//
   //***************************   Work Interval Colors   *****************************//
   //********************************************************************************//
+
+  ///// PATHPLOT ///////
   changePathPlotSpace(space){
     switch (true) {
       case (space==="rgb-line"):
@@ -238,12 +240,51 @@ class class_CMS {
       return this.pathplotWorkColors[keyBandIndex][index][1];
   }
 
-  changeAutoWorkColors(bool){
-    this.autoCalcWorkColors=bool;
 
-    if(this.autoCalcWorkColors)
-      this.updateSupportColors();
+  ///// Analysis ///////
+
+  changeAnalysisWorkTye(type,intervals){
+    this.analysisWorkColorType=type;
+    this.analysisWorkColorIntervalNum=intervals;
+    for (var i = 0; i < this.keyArray.length-1; i++) {
+      this.determineAnalysisColors(i);
+    }
   }
+
+  determineAnalysisColors(bandID){
+
+    switch (this.analysisWorkColorType){
+      case "interval":
+          this.analysisWorkColors[bandID]=this.calcSpecificKeyIntervalColors(this.analysisWorkColorIntervalNum,bandID);
+      break;
+      default:
+          this.analysisWorkColors[bandID]=[];
+        return;
+    }
+  }
+
+  get_Analysis_WorkColorLength(index){
+    if(index<this.analysisWorkColors.length)
+      return this.analysisWorkColors[index].length;
+    else
+      return 0;
+  }
+
+  get_Analysis_WorkColor(keyBandIndex,index,colorspace){
+      if(this.analysisWorkColors[keyBandIndex][index][0]===colorspace)
+        return this.analysisWorkColors[keyBandIndex][index];
+
+      gWorkColor1.updateColor(this.analysisWorkColors[keyBandIndex][index][0][0],this.analysisWorkColors[keyBandIndex][index][0][1],this.analysisWorkColors[keyBandIndex][index][0][2],this.analysisWorkColors[keyBandIndex][index][0][3]);
+      return gWorkColor1.getColorInfo(colorspace);
+  }
+
+  get_Analysis_WorkColorRef(keyBandIndex,index){
+      return this.analysisWorkColors[keyBandIndex][index][1];
+  }
+
+
+  ///// EXPORT ///////
+
 
   calcExportSampling(numberIntervals){
 
@@ -345,6 +386,7 @@ class class_CMS {
 
     // even with no support colors the algorithm for pathplot and analysis may need work colors
     this.determinePathplineColors(keyID);
+    this.determineAnalysisColors(keyID);
 
   }
 
@@ -469,7 +511,6 @@ class class_CMS {
     return [c0, c1, c2, c3];
 
   }
-
 
   calcSpecificKeyIntervalColors(numIntervals, bandID){
    // with the specific interval list the user can set for each continuousBand a number of intervals
@@ -638,12 +679,16 @@ class class_CMS {
 
   setLeftKeyColor(index, color) {
     this.keyArray[index].setLeftKeyColor(color);
-    this.calcBandSupportColors(index-1);
+
+    if(index!=0)
+      this.calcBandSupportColors(index-1);
   }
 
   setRightKeyColor(index, color) {
     this.keyArray[index].setRightKeyColor(color);
-    this.calcBandSupportColors(index);
+
+    if(index!=this.keyArray.length-1)
+      this.calcBandSupportColors(index);
   }
 
   getLeftKeyColor(index, colorspace) {

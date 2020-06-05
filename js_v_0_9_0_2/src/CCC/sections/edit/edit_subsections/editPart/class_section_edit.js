@@ -1133,10 +1133,10 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
           if(tmpColor[3]>0.5)
           {
-            tmpColor.set3Value(0.25);
+            tmpColor[3]=0.25;
           }
           else{
-            tmpColor.set3Value(0.75);
+            tmpColor[3]=0.75;
           }
           this.editCMS.setRightKeyColor(selectedKey,tmpColor);
 
@@ -1147,7 +1147,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
         if(this.editCMS.getKeyType(selectedKey)==="dual key" || this.editCMS.getKeyType(selectedKey)==="twin key"){
           this.editCMS.setRightKeyColor(selectedKey,undefined);
         }
-this.updateKeyTypeButtons("left key");
+        this.updateKeyTypeButtons("left key");
         break;
       case 1:
         if(this.editCMS.getKeyType(selectedKey)==="nil key"){
@@ -1155,14 +1155,14 @@ this.updateKeyTypeButtons("left key");
 
           if(tmpColor[3]>0.5)
           {
-            tmpColor.set3Value(0.25);
+            tmpColor[3]=0.25;
           }
           else{
-            tmpColor.set3Value(0.75);
+            tmpColor[3]=0.75;
           }
           this.editCMS.setRightKeyColor(selectedKey,tmpColor);
         }
-this.updateKeyTypeButtons("right key");
+        this.updateKeyTypeButtons("right key");
         break;
       case 2:
           if(this.editCMS.getKeyType(selectedKey)==="twin key" || this.editCMS.getKeyType(selectedKey)==="left key"){
