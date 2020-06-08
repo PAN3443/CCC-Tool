@@ -5,7 +5,7 @@ class class_Color {
   constructor(space, value_1, value_2, value_3) {
 
     this.originSpace = space; // this info is important, if the user change the settings for the color conversion
-    this.autoConversion = true;
+    this.autoRGBClipping = true;
 
     this.val_1_rgb = undefined;
     this.val_2_rgb = undefined;
@@ -44,7 +44,7 @@ class class_Color {
 
   deleteReferences() {
     delete this.originSpace; // this info is important, if the user change the settings for the color conversion
-    delete this.autoConversion;
+    delete this.autoRGBClipping;
     delete this.val_1_rgb;
     delete this.val_2_rgb;
     delete this.val_3_rgb;
@@ -132,6 +132,7 @@ class class_Color {
         this.setLMS(value_1, value_2, value_3);
         break;
     }
+    this.rgbClipping();
   }
 
   ////////////////////////////////////////////////////////////////
@@ -299,6 +300,7 @@ class class_Color {
         }
         break;
     }
+    this.rgbClipping();
   }
 
   setRGB(value_1, value_2, value_3) {
@@ -308,7 +310,6 @@ class class_Color {
     this.val_2_rgb = value_2;
     this.val_3_rgb = value_3;
 
-    if (this.autoConversion) {
       this.conversion_RGB_2_HSV();
       this.conversion_RGB_2_XYZ();
       this.conversion_XYZ_2_LMS();
@@ -316,11 +317,13 @@ class class_Color {
       this.conversion_XYZ_2_LAB();
       this.conversion_LAB_2_LCH();
       this.conversion_LAB_2_DIN99();
-    }
+
+    this.rgbClipping();
   }
 
   setRGBFromHEX(hex) {
     this.setRGB(parseInt(hex.slice(1, 3), 16) / 255, parseInt(hex.slice(3, 5), 16) / 255, parseInt(hex.slice(5, 7), 16) / 255);
+    this.rgbClipping();
   }
 
   setHSV(value_1, value_2, value_3) {
@@ -330,7 +333,6 @@ class class_Color {
     this.val_2_hsv = value_2;
     this.val_3_hsv = value_3;
 
-    if (this.autoConversion) {
       this.conversion_HSV_2_RGB();
       this.conversion_RGB_2_XYZ();
       this.conversion_XYZ_2_LMS();
@@ -338,7 +340,8 @@ class class_Color {
       this.conversion_XYZ_2_LAB();
       this.conversion_LAB_2_LCH();
       this.conversion_LAB_2_DIN99();
-    }
+
+    this.rgbClipping();
   }
 
   setLAB(value_1, value_2, value_3) {
@@ -348,7 +351,6 @@ class class_Color {
     this.val_2_lab = value_2;
     this.val_3_lab = value_3;
 
-    if (this.autoConversion) {
       this.conversion_LAB_2_LCH();
       this.conversion_LAB_2_DIN99();
       this.conversion_LAB_2_XYZ();
@@ -356,7 +358,8 @@ class class_Color {
       this.conversion_XYZ_2_RGB();
       this.conversion_RGB_2_HSV();
       this.conversion_LMS_2_RGB_CB();
-    }
+
+    this.rgbClipping();
   }
 
   setLCH(value_1, value_2, value_3) {
@@ -366,7 +369,7 @@ class class_Color {
     this.val_2_lch = value_2;
     this.val_3_lch = value_3;
 
-    if (this.autoConversion) {
+
       this.conversion_LCH_2_LAB();
       this.conversion_LAB_2_DIN99();
       this.conversion_LAB_2_XYZ();
@@ -374,7 +377,8 @@ class class_Color {
       this.conversion_XYZ_2_RGB();
       this.conversion_RGB_2_HSV();
       this.conversion_LMS_2_RGB_CB();
-    }
+
+    this.rgbClipping();
   }
 
   setDIN99(value_1, value_2, value_3) {
@@ -384,7 +388,7 @@ class class_Color {
     this.val_2_din99 = value_2;
     this.val_3_din99 = value_3;
 
-    if (this.autoConversion) {
+
       this.conversion_DIN99_2_LAB();
       this.conversion_LAB_2_LCH();
       this.conversion_LAB_2_XYZ();
@@ -392,7 +396,8 @@ class class_Color {
       this.conversion_XYZ_2_RGB();
       this.conversion_RGB_2_HSV();
       this.conversion_LMS_2_RGB_CB();
-    }
+
+    this.rgbClipping();
   }
 
   setXYZ(value_1, value_2, value_3) {
@@ -402,7 +407,7 @@ class class_Color {
     this.val_2_xyz = value_2;
     this.val_3_xyz = value_3;
 
-    if (this.autoConversion) {
+
       this.conversion_XYZ_2_LMS();
       this.conversion_XYZ_2_RGB();
       this.conversion_RGB_2_HSV();
@@ -410,7 +415,8 @@ class class_Color {
       this.conversion_XYZ_2_LAB();
       this.conversion_LAB_2_LCH();
       this.conversion_LAB_2_DIN99();
-    }
+
+    this.rgbClipping();
   }
 
   setLMS(value_1, value_2, value_3) {
@@ -420,7 +426,7 @@ class class_Color {
     this.val_2_lms = value_2;
     this.val_3_lms = value_3;
 
-    if (this.autoConversion) {
+
       this.conversion_LMS_2_XYZ();
       this.conversion_XYZ_2_RGB();
       this.conversion_RGB_2_HSV();
@@ -428,7 +434,8 @@ class class_Color {
       this.conversion_XYZ_2_LAB();
       this.conversion_LAB_2_LCH();
       this.conversion_LAB_2_DIN99();
-    }
+
+    this.rgbClipping();
   }
 
   ////////////////////////////////////////////////////////////////
@@ -747,8 +754,6 @@ class class_Color {
 
     switch (colorInfo[0]) {
       case "RGB": case "rgb": case "Rgb":
-
-
         return ( Math.abs(this.val_1_rgb-colorInfo[1])<colorAccuracy && Math.abs(this.val_2_rgb-colorInfo[2])<colorAccuracy && Math.abs(this.val_3_rgb-colorInfo[3])<colorAccuracy);
         break;
       case "HSV": case "hsv": case "Hsv":
@@ -773,35 +778,69 @@ class class_Color {
     return false;
   }
 
+
+  rgbClipping(){
+    if(!this.autoRGBClipping)
+      return;
+
+    var tmpR = this.val_1_rgb;
+    var tmpG = this.val_2_rgb;
+    var tmpB = this.val_3_rgb;
+
+    if(tmpR > 1.0)
+      tmpR=1.0;
+
+    if(tmpR < 0.0)
+      tmpR=0.0;
+
+    if(tmpG > 1.0)
+      tmpG=1.0;
+
+    if(tmpG < 0.0)
+      tmpG=0.0;
+
+    if(tmpB > 1.0)
+      tmpB=1.0;
+
+    if(tmpB < 0.0)
+      tmpB=0.0;
+
+    if(tmpR != this.val_1_rgb || tmpG != this.val_2_rgb || tmpB != this.val_3_rgb)
+      this.setRGB(tmpR, tmpG, tmpB);
+  }
+
   checkRGBPossiblity() {
     switch (this.originSpace) {
+      case "RGB": case "rgb": case "Rgb":
+        if (this.val_1_rgb > 1.0 || this.val_2_rgb > 1.0 || this.val_3_rgb > 1.0 || this.val_1_rgb < 0.0 || this.val_2_rgb < 0.0 || this.val_3_rgb < 0.0)
+          return false;
+        return true;
+      case "HSV": case "hsv": case "Hsv":
+        if (this.val_1_hsv > 1.0 || this.val_2_hsv > 1.0 || this.val_3_hsv > 1.0 || this.val_1_hsv < 0.0 || this.val_2_hsv < 0.0 || this.val_3_hsv < 0.0)
+          return false;
+        return true;
       case "XYZ": case "xyz": case "Xyz":
         return this.checkRGBPossiblity_XYZ();
-        break;
       case "LMS": case "lms": case "Lms":
-        if (!this.autoConversion)
-          this.conversion_LMS_2_XYZ();
+        /*if (!this.autoConversion)
+          this.conversion_LMS_2_XYZ();*/
         return this.checkRGBPossiblity_XYZ();
-        break;
       case "LAB": case "lab": case "Lab":
-        if (!this.autoConversion)
-          this.conversion_LAB_2_XYZ();
+        /*if (!this.autoConversion)
+          this.conversion_LAB_2_XYZ();*/
         return this.checkRGBPossiblity_XYZ();
-        break;
       case "LCH": case "lch": case "Lch":
-        if (!this.autoConversion) {
+        /*if (!this.autoConversion) {
           this.conversion_LCH_2_LAB();
           this.conversion_LAB_2_XYZ();
-        }
+        }*/
         return this.checkRGBPossiblity_XYZ();
-        break;
       case "DIN99": case "din99": case "Din99":
-        if (!this.autoConversion) {
+        /*if (!this.autoConversion) {
           this.conversion_DIN99_2_LAB();
           this.conversion_LAB_2_XYZ();
-        }
+        }*/
         return this.checkRGBPossiblity_XYZ();
-        break;
       default:
         return true;
     }

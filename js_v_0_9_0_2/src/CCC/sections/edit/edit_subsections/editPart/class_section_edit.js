@@ -60,7 +60,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // Key Edit in CMS Visualization
-    this.keyModus = 0; // 0=grap and move, 1=add key, 2=remove key
+    this.keyMode = 0; // 0=grap and move, 1=add key, 2=remove key
     this.grappedKey = false;
     this.grappedBurdock = false;
     this.overKeyID = undefined;
@@ -129,9 +129,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
     this.saveCreateProcess();
     this.updateSection();
-    if(this.showPredefined){
-      this.drawPredefined();
-    }
+    this.doPagePeculiarity();
   }
 
   setCMS(cmsPackage, id) {
@@ -607,27 +605,27 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   ////////          (START ) CMS Visualization Key Edit           ////////////
   ////////////////////////////////////////////////////////////////////////////
 
-  getKeyModus(){
-    return this.keyModus;
+  getKeyMode(){
+    return this.keyMode;
   }
 
-  setKeyModus(modus){
-    document.getElementById("id_edit_AddModus").style.visibility = "hidden";
-    switch (modus) {
+  setKeyMode(Mode){
+    document.getElementById("id_edit_AddMode").style.visibility = "hidden";
+    switch (Mode) {
       case 0:
-          this.keyModus=0;
+          this.keyMode=0;
       break;
       case 1:
-          this.keyModus=1;
-          document.getElementById("id_edit_AddModus").style.visibility = "visible";
-          document.getElementById("id_edit_AddModus").innerHTML = "+";
-          document.getElementById("id_edit_AddModus").title="ADD Key Modus";
+          this.keyMode=1;
+          document.getElementById("id_edit_AddMode").style.visibility = "visible";
+          document.getElementById("id_edit_AddMode").innerHTML = "+";
+          document.getElementById("id_edit_AddMode").title="ADD Key Mode";
       break;
       case 2:
-          this.keyModus=2;
-          document.getElementById("id_edit_AddModus").style.visibility = "visible";
-          document.getElementById("id_edit_AddModus").innerHTML = "-";
-          document.getElementById("id_edit_AddModus").title="Remove Key Modus";
+          this.keyMode=2;
+          document.getElementById("id_edit_AddMode").style.visibility = "visible";
+          document.getElementById("id_edit_AddMode").innerHTML = "-";
+          document.getElementById("id_edit_AddMode").title="Remove Key Mode";
       break;
     }
   }
@@ -635,7 +633,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
   cmsVisMouseMove(mousePosX,mousePosY){
     if(this.editCMS.getKeyLength()!=0){
 
-      if(this.keyModus==1){
+      if(this.keyMode==1){
         if(this.around_LinearCMSVis_yPosition(mousePosY) && mousePosX>this.editCMS_cmsArea_x1 && mousePosX<this.editCMS_cmsArea_x1+this.editCMS_cmsArea_width){
 
           var tmpRef = (mousePosX-this.editCMS_cmsArea_x1)/this.editCMS_cmsArea_width * Math.abs(this.editCMS.getRefPosition(this.editCMS.getKeyLength()-1)-this.editCMS.getRefPosition(0))+this.editCMS.getRefPosition(0);
@@ -709,7 +707,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
 
           }
 
-          if(this.keyModus==2)
+          if(this.keyMode==2)
             this.overBurdockID=undefined;
 
           if(this.overKeyID!=undefined || this.overBurdockID!=undefined){

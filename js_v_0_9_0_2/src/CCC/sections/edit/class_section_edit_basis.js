@@ -54,13 +54,13 @@ class class_Edit_Basis_Section extends class_Section {
     // is for special updating of the section, which not need to be done with each call of updateSection()
 
     // update Name, Interpolation ....
-    /*if(this.cmsNameID != undefined)
+    if(this.cmsNameID != undefined)
     document.getElementById(this.cmsNameID).innerHTML = "Name: "+ this.editCMS.getColormapName();
     if(this.cmsInterpolationID != undefined)
     document.getElementById(this.cmsInterpolationID).innerHTML =  "Interpolation: "+this.editCMS.getInterpolationSpace()+" ("+this.editCMS.getInterpolationType()+")"
     document.getElementById(this.cmsNaNColorID).style.background = this.editCMS.getNaNColor("rgb_string");
     document.getElementById(this.cmsAboveID).style.background = this.editCMS.getAboveColor("rgb_string");
-    document.getElementById(this.cmsBelowID).style.background = this.editCMS.getBelowColor("rgb_string");*/
+    document.getElementById(this.cmsBelowID).style.background = this.editCMS.getBelowColor("rgb_string");//*/
   }
 
   updateSection(){

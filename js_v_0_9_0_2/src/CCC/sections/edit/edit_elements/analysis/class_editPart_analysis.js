@@ -110,6 +110,8 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
         tmpSketchOption.value = "sketch";
         tmpSelect.appendChild(tmpSketchOption);
         document.getElementById(this.optionRowID).appendChild(tmpSelect);
+        this.partIsReady=true;
+        this.updatePart();
       break;
       case "speedBand":
         var rowHeight = this.analysis_Height_VH/9;
@@ -118,6 +120,8 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
         document.getElementById(this.partDivID).appendChild(this.createIntRow("de94", rowHeight , this.partDivID+"_BandDS94"));
         document.getElementById(this.partDivID).appendChild(this.createIntRow("CIEDE2000", rowHeight , this.partDivID+"_BandDS2000"));
         document.getElementById(this.partDivID).appendChild(this.createIntRow("DIN99", rowHeight , this.partDivID+"_BandDIN99"));
+        this.partIsReady=true;
+        this.updatePart();
       break;
       case "locSpeed":
         document.getElementById(this.partDivID).style.flexDirection="row";
@@ -126,6 +130,8 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
         tmpInfoDiv.appendChild(this.createOptionColorDiff());
         document.getElementById(this.partDivID).appendChild(tmpInfoDiv);
         document.getElementById(this.partDivID).appendChild(this.createAnalysisCanvas(tmpWidth,this.analysis_Height_VH, this.partDivID+"_LocSpeedCanvas"));
+        this.partIsReady=true;
+        this.updatePart();
       break;
       case "globSpeed":
         document.getElementById(this.partDivID).style.flexDirection="row";
@@ -161,6 +167,8 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
 
         document.getElementById(this.partDivID).appendChild(tmpInfoDiv);
         document.getElementById(this.partDivID).appendChild(this.createAnalysisCanvas(tmpWidth,this.analysis_Height_VH, this.partDivID+"_GlobSpeedCanvas"));
+        this.partIsReady=true;
+        this.updateIntervalType();
       break;
       case "intOrder":
         document.getElementById(this.partDivID).style.flexDirection="row";
@@ -194,12 +202,13 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
         tmpP.innerHTML = "Global Order";
         tmpDiv.appendChild(tmpP);
         document.getElementById(this.partDivID).appendChild(tmpDiv);
+        this.partIsReady=true;
+        this.updateIntervalType();
       break;
       default:
         return;
     }
-    this.partIsReady=true;
-    this.updatePart();
+
   }
 
   createAnalysisCanvas(tmpWidth, tmpHeigh, canvasID){

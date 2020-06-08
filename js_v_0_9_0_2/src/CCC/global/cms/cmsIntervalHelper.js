@@ -217,10 +217,16 @@ function calcSplineIntervalBetween_C1C2(tArray, colorsArray, curvescale, interpo
             newColor= [interpolationSpace,colorVal1,colorVal2,colorVal3];
     }
 
-
     ///////////////// For later check here the RGB Possiblity and then reduce the spline scale (1=full spline, 0=straight line)
-    //if(!newColor.checkRGBPossiblity())
-    resultColors.push(newColor);
+    // switch off the rgb auto clipping from the global work color
+    // check the rgb possiblity
+    // scale spline if
+    // turn on the auto clipping from the global work color.
+
+    // do rgb clipping using the global work color
+    gWorkColor1.updateColor(newColor[0],newColor[1],newColor[2],newColor[3]);
+
+    resultColors.push(gWorkColor1.getColorInfo(newColor[0]));
 
   }
 

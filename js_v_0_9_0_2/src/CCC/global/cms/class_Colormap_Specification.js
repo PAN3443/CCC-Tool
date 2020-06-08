@@ -210,6 +210,9 @@ class class_CMS {
         var neededColors=maxInterval*hueDiff;
         this.pathplotWorkColors[bandID]=this.calcSpecificKeyIntervalColors(neededColors,bandID);
       break;
+      case (this.interpolationType==="spline"):
+        this.pathplotWorkColors[bandID]=this.supportColors[bandID];
+      break;
       case (this.interpolationSpace==="de94-ds" || this.interpolationSpace==="de2000-ds"):
         // copy the support colors, where we already used the delta interval technique
         this.pathplotWorkColors[bandID]=this.supportColors[bandID];
@@ -284,8 +287,6 @@ class class_CMS {
 
 
   ///// EXPORT ///////
-
-
   calcExportSampling(numberIntervals){
 
   }
@@ -301,17 +302,75 @@ class class_CMS {
   }
 
   updateKeySurroundingSupportColors(keyID){
-    switch (keyID) {
-      case 0:
-        this.calcBandSupportColors(keyID)
-      break;
-      case this.keyArray.length-1:
-        this.calcBandSupportColors(keyID-1);
-      break;
-      default:
-        this.calcBandSupportColors(keyID);
-        this.calcBandSupportColors(keyID-1);
+
+    // this function act like the key is total new
+    switch (this.interpolationType) {
+      case "spline":
+        // spline affect the color interpolation of his new three neighboring bands to both directions!
+        switch (keyID) {
+          case 0:
+            this.calcBandSupportColors(keyID);
+            if(keyID+1<this.keyArray.length){
+              if(this.keyArray[keyID+1].getKeyType()==="dual key"){
+                this.calcBandSupportColors(keyID+1);
+                if(keyID+2<this.keyArray.length){
+                  if(this.keyArray[keyID+2].getKeyType()==="dual key")
+                    this.calcBandSupportColors(keyID+2);
+                }
+              }
+            }
+
+          break;
+          case this.keyArray.length-1:
+            if(keyID-2>=0){
+              if(this.keyArray[keyID-1].getKeyType()==="dual key"){
+                this.calcBandSupportColors(keyID-2);
+                if(keyID-3>=0){
+                  if(this.keyArray[keyID-2].getKeyType()==="dual key")
+                    this.calcBandSupportColors(keyID-3);
+                }
+              }
+            }
+            this.calcBandSupportColors(keyID-1);
+          break;
+          default:
+            if(keyID-2>=0){
+              if(this.keyArray[keyID-1].getKeyType()==="dual key"){
+                this.calcBandSupportColors(keyID-2);
+                if(keyID-3>=0){
+                  if(this.keyArray[keyID-2].getKeyType()==="dual key")
+                    this.calcBandSupportColors(keyID-3);
+                }
+              }
+            }
+            this.calcBandSupportColors(keyID-1);
+            this.calcBandSupportColors(keyID);
+            if(keyID+1<this.keyArray.length){
+              if(this.keyArray[keyID+1].getKeyType()==="dual key"){
+                this.calcBandSupportColors(keyID+1);
+                if(keyID+2<this.keyArray.length){
+                  if(this.keyArray[keyID+2].getKeyType()==="dual key")
+                    this.calcBandSupportColors(keyID+2);
+                }
+              }
+            }
+        }
+        break;
+      default: // "linear"
+        switch (keyID) {
+          case 0:
+            this.calcBandSupportColors(keyID);
+          break;
+          case this.keyArray.length-1:
+            this.calcBandSupportColors(keyID-1);
+          break;
+          default:
+            this.calcBandSupportColors(keyID);
+            this.calcBandSupportColors(keyID-1);
+        }
+
     }
+
   }
 
   calcBandSupportColors(keyID){  // band = keyID till keyID+1
@@ -332,7 +391,6 @@ class class_CMS {
               var ref2 = this.keyArray[keyID+1].getRefPosition();
               var tmpIntervals = undefined;
               tmpIntervals = calcSplineIntervalBetween_C1C2(this.spline_tArray, this.getSplineColors(keyID), 1.0,this.interpolationSpace);
-
               if(tmpIntervals==undefined)
                 break;
 
@@ -349,7 +407,7 @@ class class_CMS {
                     intervalRef = currentPos;
                   }
                   // the ratio of the colordifference determine the new ref position
-                  this.supportColors[keyID] = [[tmpIntervals[0][i],intervalRef]];
+                  this.supportColors[keyID].push([tmpIntervals[0][i],intervalRef]);
               }// For
       break;
       case (this.interpolationSpace==="de94-ds" || this.interpolationSpace==="de2000-ds"):
@@ -495,14 +553,14 @@ class class_CMS {
     c2 = this.getLeftKeyColor(keyIndex+1, this.interpolationSpace);
 
     if (!existingC1){
-      c0 = new class_Color_RGB(0, 0, 0); // every value is zero and has no influence
+      c0 = ["rgb",0, 0, 0]; // every value is zero and has no influence
     }
     else
       c0 = this.getRightKeyColor(keyIndex - 1, this.interpolationSpace);
 
 
     if (!existingC3){
-      c3 = new class_Color_RGB(0, 0, 0); // every value is zero and has no influence
+      c3 = ["rgb",0, 0, 0]; // every value is zero and has no influence
     }
     else {
       c3 = this.getLeftKeyColor(keyIndex+2, this.interpolationSpace);
@@ -659,8 +717,30 @@ class class_CMS {
     this.analysisWorkColors.splice(index, 1);
     this.exportWorkColors.splice(index, 1);
 
-    if(index!=0)
+    if(index!=0 && index!=this.keyArray.length-1){
       this.calcBandSupportColors(index-1);
+
+      if(this.interpolationType==="spline"){
+        if(index-2>=0){
+          if(this.keyArray[index-1].getKeyType()==="dual key"){
+            this.calcBandSupportColors(index-2);
+            if(index-3>=0){
+              if(this.keyArray[index-2].getKeyType()==="dual key")
+                this.calcBandSupportColors(index-3);
+            }
+          }
+        }
+        if(index+1<this.keyArray.length){
+          if(this.keyArray[index+1].getKeyType()==="dual key"){
+            this.calcBandSupportColors(index+1);
+            if(index+2<this.keyArray.length){
+              if(this.keyArray[index+2].getKeyType()==="dual key")
+                this.calcBandSupportColors(index+2);
+            }
+          }
+        }
+      }
+    }
   }
 
   getKeyLength() {
@@ -680,15 +760,43 @@ class class_CMS {
   setLeftKeyColor(index, color) {
     this.keyArray[index].setLeftKeyColor(color);
 
-    if(index!=0)
+    if(index!=0){
       this.calcBandSupportColors(index-1);
+
+      if(this.interpolationType==="spline"){
+        if(index-2>=0){
+          if(this.keyArray[index-1].getKeyType()==="dual key"){
+            this.calcBandSupportColors(index-2);
+            if(index-3>=0){
+              if(this.keyArray[index-2].getKeyType()==="dual key")
+                this.calcBandSupportColors(index-3);
+            }
+          }
+        }
+      }
+    }
+
+
   }
 
   setRightKeyColor(index, color) {
     this.keyArray[index].setRightKeyColor(color);
 
-    if(index!=this.keyArray.length-1)
+    if(index!=this.keyArray.length-1){
       this.calcBandSupportColors(index);
+      if(this.interpolationType==="spline"){
+        if(index+1<this.keyArray.length){
+          if(this.keyArray[index+1].getKeyType()==="dual key"){
+            this.calcBandSupportColors(index+1);
+            if(index+2<this.keyArray.length){
+              if(this.keyArray[index+2].getKeyType()==="dual key")
+                this.calcBandSupportColors(index+2);
+            }
+          }
+        }
+      }
+    }
+
   }
 
   getLeftKeyColor(index, colorspace) {
@@ -750,6 +858,19 @@ class class_CMS {
       this.analysisWorkColors.push([]);
       this.exportWorkColors.push([]);
       this.calcBandSupportColors(this.keyArray.length-2);
+
+
+      if(this.interpolationType==="spline"){
+        if(this.keyArray.length-3>=0){
+          if(this.keyArray[this.keyArray.length-2].getKeyType()==="dual key"){
+            this.calcBandSupportColors(this.keyArray.length-3);
+            if(this.keyArray.length-4>=0){
+              if(this.keyArray[this.keyArray.length-3].getKeyType()==="dual key")
+                this.calcBandSupportColors(this.keyArray.length-4);
+            }
+          }
+        }
+      }
     }
   }
 
@@ -898,7 +1019,7 @@ class class_CMS {
     if (val > this.keyArray[bandID].getRefPosition() && val <= this.getSupportColorRef(bandID, 0)) {
       var leftRef = this.keyArray[bandID].getRefPosition();
       var rightRef = this.getSupportColorRef(bandID, 0);
-      var supportColor2 = this.getSupportColorColor(bandID, 0, this.interpolationSpace);
+      var supportColor2 = this.getSupportColor(bandID, 0, this.interpolationSpace);
       var tmpRatio = (val - leftRef) / (rightRef - leftRef);
       newColorValues = calcGradientLinear(color1[1], color1[2], color1[3], supportColor2[1], supportColor2[2], supportColor2[3], tmpRatio);
     } else if (val > this.getSupportColorRef(bandID, this.getSupportColorsLength(bandID) - 1) && val < this.keyArray[bandID+1].getRefPosition()) {

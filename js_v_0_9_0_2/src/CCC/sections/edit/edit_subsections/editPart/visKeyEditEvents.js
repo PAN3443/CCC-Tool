@@ -29,7 +29,7 @@ function editCMS_MouseMove(event){
 
 function editCMS_MouseDown(){
 
-  switch (editSection.getKeyModus()) {
+  switch (editSection.getKeyMode()) {
     case 0:
         editSection.cmsVisGrap();
       break;
@@ -56,7 +56,7 @@ function editCMS_MouseUp(){
 
 function editCMS_MouseEnter(){
 
-  if(editSection.getKeyModus()==1){
+  if(editSection.getKeyMode()==1){
     timer2DAnimation = setInterval(keyAdd2DAnimation, animationInterval);
   }
   else {

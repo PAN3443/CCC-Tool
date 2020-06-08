@@ -39,13 +39,13 @@
 
               <p id="id_edit_colorBlindWarning"
                 style="margin-left:0.25vw; width:2vw; text-align:center; vertical-align: middle; color:var(--general-warning-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help; margin-right:1vw;"
-                title="Colorblind Modus">&#128065;</p>
+                title="Colorblind Mode">&#128065;</p>
               <p id="id_edit_editWarning"
                 style="margin-left:0.25vw;  width:2vw; text-align:center; vertical-align: middle; color:var(--general-warning-color); font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;"
                 title="Unsaved Content">&#9888;</p>
-              <p id="id_edit_AddModus"
+              <p id="id_edit_AddMode"
                 style="margin-left:0.25vw;  width:2vw; text-align:center; vertical-align: middle; color:var(--general-warning-color); border: 0.2vh solid color:var(--general-warning-color); border-radius: 20%; font-size: 3vh; line-height:5vh; margin-top:auto; margin-bottom:auto; visibility:hidden; cursor:help;"
-                title="ADD Key Modus">+</p>
+                title="ADD Key Mode">+</p>
 
               <input onchange="editSection.changeCMSName()" type="text" id="id_edit_cms_SetName" style="max-width: 10vw; padding:0.5vh; font-size: 1.8vh; height: 3vh; line-height:3vh; margin:auto; background:none; color: var(--main-sepArea-font-color); font-family: var(--font-family-SpecialText);" name="mapname"
                 placeholder="Please enter a name for your colormap" />
@@ -86,8 +86,8 @@
               <button class="class_EditPage_EditButton" type="button" name="button" title="clear" onclick="clearColormap()">&#9746;</button>
               <button class="class_EditPage_EditButton" type="button" name="button" title="scale" onclick="openScale()">&#8596;</button>
               <button class="class_EditPage_EditButton" type="button" name="button" title="reverse" onclick="reverseCMS()">&#8644;</button>
-              <button id="id_EditPage_AddKeyButton" class="class_EditPage_EditButton" type="button" name="button" title="add Key" onclick="changeAddKeyModus()">+</button>
-              <button id="id_EditPage_RemoveKeyButton" class="class_EditPage_EditButton" type="button" name="button" title="remove Key" onclick="changeRemoveKeyModus()">-</button>
+              <button id="id_EditPage_AddKeyButton" class="class_EditPage_EditButton" type="button" name="button" title="add Key" onclick="changeAddKeyMode()">+</button>
+              <button id="id_EditPage_RemoveKeyButton" class="class_EditPage_EditButton" type="button" name="button" title="remove Key" onclick="changeRemoveKeyMode()">-</button>
               <button class="class_EditPage_EditButton" type="button" name="button" title="Equal Key Intervals" onclick="editCMS_equalKeyIntervals()">|||</button>
               <button class="class_EditPage_EditButton" type="button" name="button" title="Color-Blindness" onclick="()" style="visibility:hidden; width: 3vh; height: 3vh; margin:auto; margin-left:0.25vw;">&#128065;</button>
 
@@ -242,8 +242,8 @@
 
 <div id="id_EditPage_CMSOptionDiv_dropdown" class="class_dropDownContent" style="display:none; height: auto; width:20vw; background:var(--main-menue-background); flex-direction:column; padding-bottom:2vh; display:none;">
   <p class="class_EditDropDownMenueSection">CMS Vis Modi:</p>
-  <button class="class_EditDropDownMenueButton" title="Add Key Modus" onclick="changeAddKeyModus()" style="width: 100%;  max-width: 20vw; margin-top:0.5vh;">Add Key Modus <p style="color:var(--main-coloredFont); margin:auto; margin-right:0.25vw; font-size:1.8vh;">(ctrl + +)</p></button>
-  <button class="class_EditDropDownMenueButton" title="Remove Key Modus" onclick="changeRemoveKeyModus()" style="width: 100%; margin-top:0.5vh;">Remove Key Modus <p style="color:var(--main-coloredFont); margin:auto; margin-right:0.25vw; font-size:1.8vh;">(ctrl + -)</p></button>
+  <button class="class_EditDropDownMenueButton" title="Add Key Mode" onclick="changeAddKeyMode()" style="width: 100%;  max-width: 20vw; margin-top:0.5vh;">Add Key Mode <p style="color:var(--main-coloredFont); margin:auto; margin-right:0.25vw; font-size:1.8vh;">(ctrl + +)</p></button>
+  <button class="class_EditDropDownMenueButton" title="Remove Key Mode" onclick="changeRemoveKeyMode()" style="width: 100%; margin-top:0.5vh;">Remove Key Mode <p style="color:var(--main-coloredFont); margin:auto; margin-right:0.25vw; font-size:1.8vh;">(ctrl + -)</p></button>
   <p class="class_EditDropDownMenueSection">CMS Edit:</p>
   <button class="class_EditDropDownMenueButton" title="Scale CMS" onclick="openScale()" style="width: 100%;  max-width: 20vw; margin-top:0.5vh;">Scale CMS <p style="color:var(--main-coloredFont); margin:auto; margin-right:0.25vw; font-size:1.8vh;">(ctrl + x)</p></button>
   <button class="class_EditDropDownMenueButton" title="Clear CMS" onclick="clearColormap()" style="width: 100%;  max-width: 20vw; margin-top:0.5vh;">Clear CMS <p style="color:var(--main-coloredFont); margin:auto; margin-right:0.25vw; font-size:1.8vh;">(ctrl + c)</p></button>

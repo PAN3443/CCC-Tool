@@ -27,21 +27,21 @@ function editCMS_equalKeyIntervals(){
 
 }
 
-function changeAddKeyModus(){
-  if(editSection.getKeyModus()==1){
-    editSection.setKeyModus(0);
+function changeAddKeyMode(){
+  if(editSection.getKeyMode()==1){
+    editSection.setKeyMode(0);
   }
   else {
-    editSection.setKeyModus(1);
+    editSection.setKeyMode(1);
   }
 }
 
-function changeRemoveKeyModus(){
-  if(editSection.getKeyModus()==2){
-    editSection.setKeyModus(0);
+function changeRemoveKeyMode(){
+  if(editSection.getKeyMode()==2){
+    editSection.setKeyMode(0);
   }
   else {
-    editSection.setKeyModus(2);
+    editSection.setKeyMode(2);
   }
 }
 
