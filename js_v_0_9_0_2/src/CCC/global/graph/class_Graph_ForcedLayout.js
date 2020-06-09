@@ -65,53 +65,13 @@ class class_Graph_ForcedLayout extends class_Graph {
 
 
   setNode(index, color, refPos) {
-    var tmpColor = undefined;
-
-    switch (this.graphColorSpace) {
-      case "rgb":
-        this.nodeArray[index].deleteReferences();
-        this.nodeArray[index] = new class_ForcedGraph_Node(color.calcRGBColor(), refPos);
-        break;
-      case "hsv":
-        this.nodeArray[index].deleteReferences();
-        this.nodeArray[index] = new class_ForcedGraph_Node(color.calcHSVColor(), refPos);
-        break;
-      case "lab":
-        this.nodeArray[index].deleteReferences();
-        this.nodeArray[index] = new class_ForcedGraph_Node(color.calcLABColor(), refPos);
-        break;
-      case "din99":
-        this.nodeArray[index].deleteReferences();
-        this.nodeArray[index] = new class_ForcedGraph_Node(color.calcDIN99Color(), refPos);
-        break;
-      case "lch":
-        this.nodeArray[index].deleteReferences();
-        this.nodeArray[index] = new class_ForcedGraph_Node(color.calcLCHColor(), refPos);
-        break;
-    }
-    color.deleteReferences();
+    this.nodeArray[index].deleteReferences();
+    this.nodeArray[index] = new class_ForcedGraph_Node(color, refPos);
   }
 
 
   pushNode(color, refPos, fixed, keyID, colorID) {
-    switch (this.graphColorSpace) {
-      case "rgb":
-        this.nodeArray.push(new class_ForcedGraph_Node(color.calcRGBColor(), refPos, fixed, keyID, colorID));
-        break;
-      case "hsv":
-        this.nodeArray.push(new class_ForcedGraph_Node(color.calcHSVColor(), refPos, fixed, keyID, colorID));
-        break;
-      case "lab":
-        this.nodeArray.push(new class_ForcedGraph_Node(color.calcLABColor(), refPos, fixed, keyID, colorID));
-        break;
-      case "din99":
-        this.nodeArray.push(new class_ForcedGraph_Node(color.calcDIN99Color(), refPos, fixed, keyID, colorID));
-        break;
-      case "lch":
-        this.nodeArray.push(new class_ForcedGraph_Node(color.calcLCHColor(), refPos, fixed, keyID, colorID));
-        break;
-    }
-    color.deleteReferences();
+    this.nodeArray.push(new class_ForcedGraph_Node(color, refPos, fixed, keyID, colorID));
   }
 
   getCMSInfo(index) {
@@ -211,9 +171,9 @@ class class_Graph_ForcedLayout extends class_Graph {
 
   getNearestPoint_PointSegmentDistance(nodeID,edgeID)
   {
-    var tmp_p = this.nodeArray[nodeID].getNodeColor();
-    var tmp_s_p1 = this.nodeArray[this.edgeArray[edgeID].getNodeID1()].getNodeColor();
-    var tmp_s_p2 = this.nodeArray[this.edgeArray[edgeID].getNodeID2()].getNodeColor();
+    var tmp_p = this.getNodeColor(nodeID);
+    var tmp_s_p1 = this.getNodeColor(this.edgeArray[edgeID].getNodeID1());
+    var tmp_s_p2 = this.getNodeColor(this.edgeArray[edgeID].getNodeID2());
 
     var vec_v = vec_Diff_COLOR(tmp_s_p2,tmp_s_p1); //S.P1 - S.P0;
     var vec_w = vec_Diff_COLOR(tmp_p,tmp_s_p1); //P - S.P0;
@@ -231,7 +191,7 @@ class class_Graph_ForcedLayout extends class_Graph {
      }
 
      var tmp_b = tmp_c1 / tmp_c2;
-     var vec_Pb = vec_Add([tmp_s_p1.get1Value(),tmp_s_p1.get2Value(),tmp_s_p1.get3Value()], vecScalMulti(vec_v,tmp_b));
+     var vec_Pb = vec_Add([tmp_s_p1[1],tmp_s_p1[2],tmp_s_p1[3]], vecScalMulti(vec_v,tmp_b));
      var nearestColor = createColor(vec_Pb[0],vec_Pb[1],vec_Pb[2],this.graphColorSpace);
 
      var length_S = vecLength(vec_v);
@@ -269,10 +229,10 @@ class class_Graph_ForcedLayout extends class_Graph {
 
   getEdgeCrossProduct(eID1,eID2){
 
-    var tmp_s1p1 = this.nodeArray[this.edgeArray[eID1].getNodeID1()].getNodeColor();
-    var tmp_s1p2 = this.nodeArray[this.edgeArray[eID1].getNodeID2()].getNodeColor();
-    var tmp_s2p1 = this.nodeArray[this.edgeArray[eID2].getNodeID1()].getNodeColor();
-    var tmp_s2p2 = this.nodeArray[this.edgeArray[eID2].getNodeID2()].getNodeColor();
+    var tmp_s1p1 = this.getNodeColor(this.edgeArray[eID1].getNodeID1());
+    var tmp_s1p2 = this.getNodeColor(this.edgeArray[eID1].getNodeID2());
+    var tmp_s2p1 = this.getNodeColor(this.edgeArray[eID2].getNodeID1());
+    var tmp_s2p2 = this.getNodeColor(this.edgeArray[eID2].getNodeID2());
 
     var vec_u = vec_Diff_COLOR(tmp_s1p2,tmp_s1p1);// S1.P1 - S1.P0;
     var vec_v = vec_Diff_COLOR(tmp_s2p2,tmp_s2p1); //S2.P1 - S2.P0;
@@ -294,10 +254,10 @@ class class_Graph_ForcedLayout extends class_Graph {
 
         var small_Num = 1e-12;
 
-        var tmp_s1p1 = this.nodeArray[this.edgeArray[eID1].getNodeID1()].getNodeColor();
-        var tmp_s1p2 = this.nodeArray[this.edgeArray[eID1].getNodeID2()].getNodeColor();
-        var tmp_s2p1 = this.nodeArray[this.edgeArray[eID2].getNodeID1()].getNodeColor();
-        var tmp_s2p2 = this.nodeArray[this.edgeArray[eID2].getNodeID2()].getNodeColor();
+        var tmp_s1p1 = this.getNodeColor(this.edgeArray[eID1].getNodeID1());
+        var tmp_s1p2 = this.getNodeColor(this.edgeArray[eID1].getNodeID2());
+        var tmp_s2p1 = this.getNodeColor(this.edgeArray[eID2].getNodeID1());
+        var tmp_s2p2 = this.getNodeColor(this.edgeArray[eID2].getNodeID2());
 
         var vec_u = vec_Diff_COLOR(tmp_s1p2,tmp_s1p1);// S1.P1 - S1.P0;
         var vec_v = vec_Diff_COLOR(tmp_s2p2,tmp_s2p1); //S2.P1 - S2.P0;
@@ -369,9 +329,9 @@ class class_Graph_ForcedLayout extends class_Graph {
 
 
         var vec_NP_S1 = vecScalMulti(vec_u,tmp_sc);
-        var nearestPoint_S1 = createColor(tmp_s1p1.get1Value()+vec_NP_S1[0],tmp_s1p1.get2Value()+vec_NP_S1[1],tmp_s1p1.get3Value()+vec_NP_S1[2],this.graphColorSpace);
+        var nearestPoint_S1 = createColor(tmp_s1p1[1]+vec_NP_S1[0],tmp_s1p1[2]+vec_NP_S1[1],tmp_s1p1[3]+vec_NP_S1[2],this.graphColorSpace);
         var vec_NP_S2 = vecScalMulti(vec_v,tmp_tc);
-        var nearestPoint_S2 = createColor(tmp_s2p1.get1Value()+vec_NP_S2[0],tmp_s2p1.get2Value()+vec_NP_S2[1],tmp_s2p1.get3Value()+vec_NP_S2[2],this.graphColorSpace);
+        var nearestPoint_S2 = createColor(tmp_s2p1[1]+vec_NP_S2[0],tmp_s2p1[2]+vec_NP_S2[1],tmp_s2p1[3]+vec_NP_S2[2],this.graphColorSpace);
 
         var length_S1 = vecLength(vec_u);
         var length_S1_P1NP = vecLength(vec_Diff_COLOR(nearestPoint_S1,tmp_s1p1));

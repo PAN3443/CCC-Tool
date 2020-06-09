@@ -4,54 +4,17 @@
     this.nodeColor = color;
   }
 
-
-  changeColorType(type) {
-
-    if (this.nodeColor.getColorType() === type)
-      return;
-
-    var tmpColor = cloneColor(this.nodeColor);
-    this.nodeColor.deleteReferences();
-    switch (type) {
-      case "rgb":
-        this.nodeColor = tmpColor.calcRGBColor();
-        break;
-      case "lab":
-        this.nodeColor = tmpColor.calcLABColor();
-        break;
-      case "din99":
-        this.nodeColor = tmpColor.calcDIN99Color();
-        break;
-      case "hsv":
-        this.nodeColor = tmpColor.calcHSVColor();
-        break;
-      case "lch":
-        this.nodeColor = tmpColor.calcLCHColor();
-        break;
-      default:
-        return;
-    }
-
-    tmpColor.deleteReferences();
-    tmpColor=null;
+  getNodeLength(){
+    return this.nodeArray.length;
   }
-
-
-getNodeLength(){
-  return this.nodeArray.length;
-}
-
-
 
   deleteReferences() {
-    this.nodeColor.deleteReferences();
     delete this.nodeColor;
-
   }
 
-
-  getNodeColor() {
-    return cloneColor(this.nodeColor);
+  getNodeColor(colorspace) {
+    gWorkColor1.updateColor(this.nodeColor[0],this.nodeColor[1],this.nodeColor[2],this.nodeColor[3]);
+    return gWorkColor1.getColorInfo(colorspace);
   }
 
   setNodeColor(color) {

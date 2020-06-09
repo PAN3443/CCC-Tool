@@ -16,7 +16,7 @@ class class_Graph_ForcedGlobalSpeed extends class_Graph_ForcedLayout {
 
     var orginColors = [];
     for (var v = 0; v < this.nodeArray.length; v++) {
-      orginColors.push(this.nodeArray[v].getNodeColor());
+      orginColors.push(this.getNodeColor(v));
     }
 
     ///////////////////////////////////////////////////////////////
@@ -27,8 +27,8 @@ class class_Graph_ForcedGlobalSpeed extends class_Graph_ForcedLayout {
     var averageSpeed = this.getAvgSpeed();
     switch (this.graphColorSpace) {
       case "rgb":
-        var rgbBlack = new class_Color_RGB(0, 0, 0);
-        var rgbWhite = new class_Color_RGB(1, 1, 1);
+        var rgbBlack = ["rgb",0, 0, 0];
+        var rgbWhite = ["rgb",1, 1, 1];
         blackWhiteSpeed = calc3DEuclideanDistance(rgbBlack,rgbWhite)/ distance; //
         break;
       case "hsv":
@@ -78,8 +78,8 @@ class class_Graph_ForcedGlobalSpeed extends class_Graph_ForcedLayout {
 
         /////////////////////////////////////////////////
         //// PART 1: add orgin force
-        var color_v_Node = this.nodeArray[v].getNodeColor();
-        var vec_d = [orginColors[v].get1Value() - color_v_Node.get1Value(), orginColors[v].get2Value() - color_v_Node.get2Value(), orginColors[v].get3Value() - color_v_Node.get3Value()];
+        var color_v_Node = this.getNodeColor(v);
+        var vec_d = [orginColors[v][1] - color_v_Node[1], orginColors[v][2] - color_v_Node[2], orginColors[v][3] - color_v_Node[3]];
         this.nodeArray[v].addDisp(vecScalMulti(vec_d, (1.0 - degree))); //this.nodeArray[v].addDisp(vec_d); // direction vector = force
 
         /////////////////////////////////////////////////
@@ -94,16 +94,16 @@ class class_Graph_ForcedGlobalSpeed extends class_Graph_ForcedLayout {
           /*if(i==0)
             console.log(u,v,damping);//*/
 
-          var color_v_Node = this.nodeArray[v].getNodeColor();
-          var color_u_Node = this.nodeArray[u].getNodeColor();
+          var color_v_Node = this.getNodeColor(v);
+          var color_u_Node = this.getNodeColor(u);
           var refDis = Math.abs(this.nodeArray[u].getNodeRefPos() - this.nodeArray[v].getNodeRefPos());
 
-          var vec_d = [color_v_Node.get1Value() - color_u_Node.get1Value(), color_v_Node.get2Value() - color_u_Node.get2Value(), color_v_Node.get3Value() - color_u_Node.get3Value()];
+          var vec_d = [color_v_Node[1] - color_u_Node[1], color_v_Node[2] - color_u_Node[2], color_v_Node[3] - color_u_Node[3]];
           var vec_dL = vecLength(vec_d);
 
 
           if(vec_dL == 0) { // two eqal colors
-            var originalDirection = [orginColors[u].get1Value()-orginColors[v].get1Value(),orginColors[u].get2Value()-orginColors[v].get2Value(),orginColors[u].get3Value()-orginColors[v].get3Value()]; // try original direction
+            var originalDirection = [orginColors[u][1]-orginColors[v][1],orginColors[u][2]-orginColors[v][2],orginColors[u][3]-orginColors[v][3]]; // try original direction
             vec_dL = vecLength(originalDirection);
 
             if(vec_dL == 0)
@@ -133,10 +133,6 @@ class class_Graph_ForcedGlobalSpeed extends class_Graph_ForcedLayout {
           this.nodeArray[v].subDisp(force);
           this.nodeArray[u].addDisp(force);
 
-          color_u_Node.deleteReferences();
-          color_u_Node = null;
-          color_v_Node.deleteReferences();
-          color_v_Node = null;
         }
       }
 

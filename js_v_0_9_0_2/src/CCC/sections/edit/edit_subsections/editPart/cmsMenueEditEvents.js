@@ -13,7 +13,6 @@ function openCloseEditHeaderButtons(){
 }
 
 
-
 function editCMS_equalKeyIntervals(){
 
   document.getElementById("id_PopUp_AskCheck").onclick = function (){
@@ -115,12 +114,10 @@ function checkKeyValueChange(){
 }
 
 function exportEditCMS(){
-  var clone = cloneCMS(editSection.editCMS);
-  if(clone.getKeyLength()==0){
+  if(editSection.editCMS.getKeyLength()==0){
     openAlert("Your CMS is empty. Please create first a colormap before visiting the export section.");
-    clone.deleteReferences();
     return;
   }
-  exportSection.setCMS(clone);
+  exportSection.setCMS(editSection.editCMS.createCMSInfoPackage());
   exportSection.showSection();
 }

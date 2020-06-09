@@ -26,7 +26,7 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
 
     var orginColors = [];
     for (var v = 0; v < this.nodeArray.length; v++) {
-      orginColors.push(this.nodeArray[v].getNodeColor());
+      orginColors.push(this.getNodeColor(v));
     }
 
     var orginEdgeLength= [];
@@ -42,49 +42,35 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
     //console.log("degree",degree);
 
     for (var i = 0; i < iterations; i++) {
-
       for (var v = 0; v < this.nodeArray.length; ++v) {
         //repusleForces.push([0, 0, 0]);
         this.nodeArray[v].resetDisp();
-
         if(this.nodeArray[v].getFixStatus())
           continue;
 
         /////////////////////////////////////////////////
         //// PART 1: add orgin force
-        var color_v_Node = this.nodeArray[v].getNodeColor();
-        var vec_d = [orginColors[v].get1Value() - color_v_Node.get1Value(), orginColors[v].get2Value() - color_v_Node.get2Value(), orginColors[v].get3Value() - color_v_Node.get3Value()];
+        var color_v_Node = this.getNodeColor(v);
+        var vec_d = [orginColors[v][1] - color_v_Node[1], orginColors[v][2] - color_v_Node[2], orginColors[v][3] - color_v_Node[3]];
         this.nodeArray[v].addDisp(vecScalMulti(vec_d, (1.0 - degree))); //this.nodeArray[v].addDisp(vec_d); // direction vector = force
       }
 
     ////////////////////////////
     ///// Local Legendbased
-
-          for (var e = 0; e < this.edgeArray.length; e++) {
-
-              var edgeSpeed = this.getNodeSpeed(this.edgeArray[e].getNodeID1(), this.edgeArray[e].getNodeID2());
-
-              var vec_d = vec_Diff_COLOR(this.nodeArray[this.edgeArray[e].getNodeID1()].getNodeColor(),this.nodeArray[this.edgeArray[e].getNodeID2()].getNodeColor());
-
-              if(edgeSpeed<optiSpeed){
-
-                //console.log(3,edgeSpeed,"<",optiSpeed);
-
-                var refDis = Math.abs(this.nodeArray[this.edgeArray[e].getNodeID2()].getNodeRefPos() - this.nodeArray[this.edgeArray[e].getNodeID1()].getNodeRefPos());
-
-                var speedDif = optiSpeed-edgeSpeed;
-                var cDif_Change = ((speedDif * refDis) / 2) * degree;
-
-                var vec_dN = vecNorm(vec_d);
-
-                var force = vecScalMulti(vec_dN, cDif_Change);
-
-                this.nodeArray[this.edgeArray[e].getNodeID1()].addDisp(force);
-                this.nodeArray[this.edgeArray[e].getNodeID2()].subDisp(force);
-              }
-          }
-
-
+        for(var e = 0; e < this.edgeArray.length; e++) {
+            var edgeSpeed = this.getNodeSpeed(this.edgeArray[e].getNodeID1(), this.edgeArray[e].getNodeID2());
+            var vec_d = vec_Diff_COLOR(this.getNodeColor(this.edgeArray[e].getNodeID1()),this.getNodeColor(this.edgeArray[e].getNodeID2()));
+            if(edgeSpeed<optiSpeed){
+              //console.log(3,edgeSpeed,"<",optiSpeed);
+              var refDis = Math.abs(this.nodeArray[this.edgeArray[e].getNodeID2()].getNodeRefPos() - this.nodeArray[this.edgeArray[e].getNodeID1()].getNodeRefPos());
+              var speedDif = optiSpeed-edgeSpeed;
+              var cDif_Change = ((speedDif * refDis) / 2) * degree;
+              var vec_dN = vecNorm(vec_d);
+              var force = vecScalMulti(vec_dN, cDif_Change);
+              this.nodeArray[this.edgeArray[e].getNodeID1()].addDisp(force);
+              this.nodeArray[this.edgeArray[e].getNodeID2()].subDisp(force);
+            }
+         }
 
       /////////////////////////////////////////////////
       //// PART 5: Do Movement with temperature
@@ -116,7 +102,7 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
 
     var orginColors = [];
     for (var v = 0; v < this.nodeArray.length; v++) {
-      orginColors.push(this.nodeArray[v].getNodeColor());
+      orginColors.push(this.getNodeColor(v));
     }
 
     var orginEdgeLength= [];
@@ -144,8 +130,8 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
 
         /////////////////////////////////////////////////
         //// PART 1: add orgin force
-        var color_v_Node = this.nodeArray[v].getNodeColor();
-        var vec_d = [orginColors[v].get1Value() - color_v_Node.get1Value(), orginColors[v].get2Value() - color_v_Node.get2Value(), orginColors[v].get3Value() - color_v_Node.get3Value()];
+        var color_v_Node = this.getNodeColor(v);
+        var vec_d = [orginColors[v][1] - color_v_Node[1], orginColors[v][2] - color_v_Node[2], orginColors[v][3] - color_v_Node[3]];
         this.nodeArray[v].addDisp(vecScalMulti(vec_d, (1.0 - degree))); //this.nodeArray[v].addDisp(vec_d); // direction vector = force
 
         //////////////////////////////////////////////////////////////////////////////////
@@ -164,13 +150,13 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
             /////////////////////////////////////////////////
             var nodeStartID = v;
             var edgeIDAfter = this.searchEdgeAfter(v);
-            var startColor = this.nodeArray[nodeStartID].getNodeColor();
+            var startColor = this.getNodeColor(nodeStartID);
               var closestColor = this.getNearestPoint_PointSegmentDistance(nodeStartID,edgeIDAfter);
               var vec_d = vec_Diff_COLOR(startColor,closestColor[0]);
               if(vecLength(vec_d) == 0){
 
                 //continue;
-                var secondColor = this.nodeArray[nodeStartID+1].getNodeColor();
+                var secondColor = this.getNodeColor(nodeStartID+1);
 
                 //// Find a random orthogonal vector
                 var vec_v = vec_Diff_COLOR(startColor,secondColor);
@@ -181,8 +167,6 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
 
                 vec_d = [randomX,randomY,orthogonalZ];
                 vec_d= vecScalMulti(vec_d,impulseFactor);
-                secondColor.deleteReferences();
-                //randomPoint.deleteReferences();
 
                 if(vecLength(vec_d) == 0)
                   continue;
@@ -204,10 +188,6 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
                 this.nodeArray[this.edgeArray[edgeIDAfter].getNodeID2()].subDisp(force);
               }
 
-              closestColor[0].deleteReferences();
-
-            startColor.deleteReferences();
-
           }
           else if(this.nodeArray[v].getColorID()==0){
             /////////////////////////////////////////////////
@@ -217,7 +197,7 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
             var nodeEndID = v;
             var edgeIDBefore = this.searchEdgeBefore(v);
 
-            var endColor = this.nodeArray[nodeEndID].getNodeColor();
+            var endColor = this.getNodeColor(nodeEndID);
             var closestColor = this.getNearestPoint_PointSegmentDistance(nodeEndID,edgeIDBefore);
 
             var vec_d = vec_Diff_COLOR(endColor,closestColor[0]);
@@ -225,7 +205,7 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
 
               continue;
 
-              var penultimateColor = this.nodeArray[nodeEndID-1].getNodeColor();
+              var penultimateColor = this.getNodeColor(nodeEndID-1);
 
               //// Find a random orthogonal vector
               var vec_v = vec_Diff_COLOR(endColor,penultimateColor);
@@ -259,9 +239,6 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
               this.nodeArray[this.edgeArray[edgeIDBefore].getNodeID2()].subDisp(force);
             }
 
-            closestColor[0].deleteReferences();
-            closestColor=undefined;
-            endColor.deleteReferences();
           }
         }
       }
@@ -323,8 +300,6 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
                   // Get direction?
                 }
 
-                distanceInfo[0].deleteReferences();
-                distanceInfo[1].deleteReferences();
               }
             }
 
@@ -338,8 +313,8 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
           /*var currentEdgeLength = this.getNodeColorDifference(this.edgeArray[e].getNodeID1(), this.edgeArray[e].getNodeID2());
 
           if(currentEdgeLength-orginEdgeLength[e]<0){
-            var nodeColor1 = this.nodeArray[this.edgeArray[e].getNodeID1()].getNodeColor();
-            var nodeColor2 = this.nodeArray[this.edgeArray[e].getNodeID2()].getNodeColor();
+            var nodeColor1 = this.getNodeColor(this.edgeArray[e].getNodeID1());
+            var nodeColor2 = this.getNodeColor(this.edgeArray[e].getNodeID2());
             var vec_d = vec_Diff_COLOR(nodeColor2,nodeColor1);
 
             if(vecLength(vec_d) == 0){
@@ -372,8 +347,8 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
         var nodeStartID = 0;
         var edgeIDAfter = 1;
 
-        var startColor = this.nodeArray[0].getNodeColor();
-        var endColor = this.nodeArray[nodeEndID].getNodeColor();
+        var startColor = this.getNodeColor(0);
+        var endColor = this.getNodeColor(nodeEndID);
 
         /////////////////////////////////////////////////
         //// PART 4.1: add End Node force
@@ -386,7 +361,7 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
 
           continue;
 
-          var penultimateColor = this.nodeArray[nodeEndID-1].getNodeColor();
+          var penultimateColor = this.getNodeColor(nodeEndID-1);
 
           //// Find a random orthogonal vector
           var vec_v = vec_Diff_COLOR(endColor,penultimateColor);
@@ -419,8 +394,6 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
           this.nodeArray[this.edgeArray[edgeIDBefore].getNodeID2()].subDisp(force);
         }
 
-        closestColor[0].deleteReferences();
-        closestColor=undefined;
 
         /////////////////////////////////////////////////
         //// PART 4.2: add Start Node force
@@ -432,7 +405,7 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
 
             continue;
 
-            var secondColor = this.nodeArray[nodeStartID+1].getNodeColor();
+            var secondColor = this.getNodeColor(nodeStartID+1);
 
             //// Find a random orthogonal vector
             var vec_v = vec_Diff_COLOR(startColor,secondColor);
@@ -443,8 +416,6 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
 
             vec_d = [randomX,randomY,orthogonalZ];
             vec_d= vecScalMulti(vec_d,impulseFactor);
-            secondColor.deleteReferences();
-            //randomPoint.deleteReferences();
 
             if(vecLength(vec_d) == 0)
               continue;
@@ -466,10 +437,7 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
             this.nodeArray[this.edgeArray[edgeIDAfter].getNodeID2()].subDisp(force);
           }
 
-          closestColor[0].deleteReferences();
-
-        startColor.deleteReferences();
-        endColor.deleteReferences();*/
+          */
 
 
       /////////////////////////////////////////////////
@@ -486,7 +454,7 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
 
   }
 
-  getMinWeight(isGlobal){ // return the min Speed 
+  getMinWeight(isGlobal){ // return the min Speed
       var minSpeed = Infinity;
       //console.log("------------------------------------");
       if(isGlobal){ // check only edges, which are not neighbaurs

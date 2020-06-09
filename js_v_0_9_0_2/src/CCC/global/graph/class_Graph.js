@@ -31,16 +31,7 @@ class class_Graph {
   changeColorEdgeOptions(graphColorSpace, useSpeed, distanceType) {
     this.graphColorSpace = graphColorSpace;
     this.distanceType = distanceType;
-
-    ///////////////////////////
-    // set node color to right type
-    for (var i = 0; i < this.nodeArray.length; i++) {
-      this.nodeArray[i].changeColorType(this.graphColorSpace);
-    }
-    //this.updateEdgeColorWeights();
   }
-
-
 
   setNodeSize(size) {
     if (this.nodeArray.length > 0) {
@@ -157,7 +148,7 @@ class class_Graph {
   }
 
   getNodeColor(index) {
-    return this.nodeArray[index].getNodeColor();
+    return this.nodeArray[index].getNodeColor(this.graphColorSpace);
   }
 
 };

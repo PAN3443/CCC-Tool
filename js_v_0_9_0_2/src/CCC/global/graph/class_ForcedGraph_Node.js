@@ -76,45 +76,33 @@ getColorID(){
 
  forceMovement(rgbCorrection) {
    if (!this.fixedNode) {
-     this.nodeColor.set1Value(this.nodeColor.get1Value() + this.disp[0]);
-     this.nodeColor.set2Value(this.nodeColor.get2Value() + this.disp[1]);
-     this.nodeColor.set3Value(this.nodeColor.get3Value() + this.disp[2]);
-
-     if (!this.nodeColor.checkRGBPossiblity()) { // rgbCorrection &&
-       this.nodeColor.setColorToRGBPossiblity();
-     } //*/
+     gWorkColor1.autoRGBClipping=true;
+     gWorkColor1.updateColor(this.nodeColor[0],this.nodeColor[1]+this.disp[0],this.nodeColor[2]+this.disp[1],this.nodeColor[3]+this.disp[2]);
+     this.nodeColor=gWorkColor1.getColorInfo(this.nodeColor[0]);
    }
    this.disp = [0, 0, 0];
  }
 
  vecMove(vec){
-   this.nodeColor.set1Value(this.nodeColor.get1Value() + vec[0]);
-   this.nodeColor.set2Value(this.nodeColor.get2Value() + vec[1]);
-   this.nodeColor.set3Value(this.nodeColor.get3Value() + vec[2]);
-
-   if (!this.nodeColor.checkRGBPossiblity()) { // rgbCorrection &&
-     this.nodeColor.setColorToRGBPossiblity();
-   } //*/
+   gWorkColor1.autoRGBClipping=true;
+   gWorkColor1.updateColor(this.nodeColor[0],this.nodeColor[1]+vec[0],this.nodeColor[2]+vec[1],this.nodeColor[3]+vec[2]);
+   this.nodeColor=gWorkColor1.getColorInfo(this.nodeColor[0]);
  }
 
  calcRepulseForce(){
-   var tmpColor = createColor(this.nodeColor.get1Value(),this.nodeColor.get2Value(),this.nodeColor.get3Value(),this.nodeColor.getColorType());
-
-   tmpColor.set1Value(tmpColor.get1Value() + this.disp[0]);
-   tmpColor.set2Value(tmpColor.get2Value() + this.disp[1]);
-   tmpColor.set3Value(tmpColor.get3Value() + this.disp[2]);
-
-   if (this.nodeColor.checkRGBPossiblity()) {
+   gWorkColor1.autoRGBClipping=false;
+   gWorkColor1.updateColor(this.nodeColor[0],this.nodeColor[1],this.nodeColor[2],this.nodeColor[3]);
+   if (gWorkColor1.checkRGBPossiblity()) {
      return undefined;
    }
    else {
-
-     var clonedColor = cloneColor(tmpColor);
-     clonedColor.setColorToRGBPossiblity();
-
-     return [clonedColor.get1Value()-tmpColor.get1Value(),clonedColor.get2Value()-tmpColor.get2Value(),clonedColor.get3Value()-tmpColor.get3Value()];
+     var tmpColor = [this.nodeColor[0],this.nodeColor[1]+this.disp[0],this.nodeColor[2]+this.disp[1],this.nodeColor[3]+this.disp[2]];
+     gWorkColor1.autoRGBClipping=true;
+     gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+     var colorInfo=gWorkColor1.getColorInfo(tmpColor[0]);
+     return [colorInfo[1]-tmpColor[1],colorInfo[2]-tmpColor[2],colorInfo[3]-tmpColor[3]];
    }
-
+   gWorkColor1.autoRGBClipping=true;
  }
 
 

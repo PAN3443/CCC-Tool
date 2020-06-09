@@ -9,6 +9,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
     this.cmsAboveID = 'id_opti_cms_Below';
     this.cmsBelowID = 'id_opti_cms_Above';
     this.editCMS_Foundation = new class_CMS();
+    this.editCMS_Optimized = new class_CMS();
 
     this.somethingChanged=false;
     this.somethingOptimized=false;
@@ -91,12 +92,9 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
       this.somethingChanged=false;
       this.somethingOptimized=false;
-
-      this.editCMS_Foundation.deleteReferences();
-      this.editCMS_Foundation = cloneCMS(editSection.editCMS);
-
-      this.editCMS.deleteReferences();
-      this.editCMS = cloneCMS(editSection.editCMS);
+      var editPackage = editSection.editCMS.createCMSInfoPackage();
+      this.editCMS_Foundation.setCMSFromPackage(editPackage);
+      this.editCMS.setCMSFromPackage(editPackage);
       this.fillKeyCombobox(false);
       super.showSection();
       this.part_Pathplot.pp_3D_StartAnimation();
@@ -221,17 +219,16 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
         ///////////////////////////////////
         this.somethingChanged=true;
         document.getElementById("id_OptiPage_editWarning").style.visibility="visible";
-        this.editCMS_Foundation.deleteReferences();
-        this.editCMS_Foundation = cloneCMS(this.editCMS);
+
+        this.editCMS_Foundation.setCMSFromPackage(this.editCMS.createCMSInfoPackage());
         this.fillKeyCombobox(true);
   }
 
   reset(){
     if(this.somethingChanged){
-      this.editCMS.deleteReferences();
-      this.editCMS = cloneCMS(editSection.editCMS);
-      this.editCMS_Foundation.deleteReferences();
-      this.editCMS_Foundation = cloneCMS(editSection.editCMS);
+      var editPackage = editSection.editCMS.createCMSInfoPackage();
+      this.editCMS.setCMSFromPackage(editPackage);
+      this.editCMS_Foundation.setCMSFromPackage(editPackage);
       this.somethingChanged=false;
       document.getElementById("id_OptiPage_editWarning").style.visibility="hidden";
       this.updateSection();
@@ -244,8 +241,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
   acceptAndReplace(){
     if(this.somethingOptimized || this.somethingChanged){
-      editSection.editCMS.deleteReferences();
-      editSection.editCMS = cloneCMS(this.editCMS);
+      editSection.editCMS.setCMSFromPackage(this.editCMS.createCMSInfoPackage());
       editSection.saveCreateProcess();
     }
 
@@ -518,11 +514,9 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
     var smallestNoticeableDelta = undefined;
     switch (this.editCMS.getInterpolationSpace()) {
       case "rgb":
-        var rgbBlack = new class_Color_RGB(0, 0, 0);
-        var rgbWhite = new class_Color_RGB(1, 1, 1);
+        var rgbBlack = ["rgb",0, 0, 0];
+        var rgbWhite = ["rgb",1, 1, 1];
         blackWhiteDistance = calc3DEuclideanDistance(rgbBlack,rgbWhite);
-        rgbBlack.deleteReferences();
-        rgbWhite.deleteReferences();
         smallestNoticeableDelta = 0.05;
         break;
       case "hsv":
@@ -670,8 +664,8 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
   calcOptiCMS(){
 
-    this.editCMS.deleteReferences();
-    this.editCMS = cloneCMS(this.editCMS_Foundation);
+
+    this.editCMS.setCMSFromPackage(this.editCMS_Foundation.createCMSInfoPackage());
     this.somethingOptimized=false;
     /////////////////////////////////////////////////////////////////////////////////////
     /// because of many of the optimization algorith has negative effects to the other
@@ -1022,21 +1016,19 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
       }
     }
 
-
-
     this.optiGraph.deleteReferences();
     this.optiGraph=undefined;
   }
 
   updateOptimizationCMS(optiDegree){
 
-      var editCMS_Optimized = cloneCMS(this.editCMS);
+      this.editCMS_Optimized.setCMSFromPackage(this.editCMS.createCMSInfoPackage());
 
       for (var i = document.getElementById("id_OptiPage_Optimization_FromKey").selectedIndex; i <= document.getElementById("id_OptiPage_Optimization_TillKey").selectedIndex; i++) {
 
         if(i!=document.getElementById("id_OptiPage_Optimization_FromKey").selectedIndex || i !=document.getElementById("id_OptiPage_Optimization_TillKey").selectedIndex){
           var originalPos = this.editCMS_Foundation.getRefPosition(i);
-          var optiPos = editCMS_Optimized.getRefPosition(i);
+          var optiPos = this.editCMS_Optimized.getRefPosition(i);
 
           var dis = optiPos-originalPos;
 
@@ -1048,53 +1040,45 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
         /////////////////////////////////////////////////////////////////
         ///// Left Color
         var original_LeftColor = this.editCMS_Foundation.getLeftKeyColor(i,this.editCMS_Foundation.getInterpolationSpace());
-        var opti_LeftColor = editCMS_Optimized.getLeftKeyColor(i,this.editCMS_Foundation.getInterpolationSpace());
+        var opti_LeftColor = this.editCMS_Optimized.getLeftKeyColor(i,this.editCMS_Foundation.getInterpolationSpace());
         if(original_LeftColor!=undefined && opti_LeftColor!=undefined){
-          if(!original_LeftColor.equalTo(opti_LeftColor)){
-            var val1_dis = opti_LeftColor.get1Value()-original_LeftColor.get1Value();
-            var val2_dis = opti_LeftColor.get2Value()-original_LeftColor.get2Value();
-            var val3_dis = opti_LeftColor.get3Value()-original_LeftColor.get3Value();
+          gWorkColor1.updateColor(original_LeftColor[0],original_LeftColor[1],original_LeftColor[2],original_LeftColor[3]);
+          if(!gWorkColor1.equalTo(opti_LeftColor)){
+            var val1_dis = opti_LeftColor[1]-original_LeftColor[1];
+            var val2_dis = opti_LeftColor[2]-original_LeftColor[2];
+            var val3_dis = opti_LeftColor[3]-original_LeftColor[3];
 
-            var newVal1 = original_LeftColor.get1Value()+(val1_dis*optiDegree);
-            var newVal2 = original_LeftColor.get2Value()+(val2_dis*optiDegree);
-            var newVal3 = original_LeftColor.get3Value()+(val3_dis*optiDegree);
+            var newVal1 = original_LeftColor[1]+(val1_dis*optiDegree);
+            var newVal2 = original_LeftColor[2]+(val2_dis*optiDegree);
+            var newVal3 = original_LeftColor[3]+(val3_dis*optiDegree);
 
-            this.editCMS.setLeftKeyColor(i,createColor(newVal1,newVal2,newVal3,this.editCMS_Foundation.getInterpolationSpace()));
+            this.editCMS.setLeftKeyColor(i,[this.editCMS_Foundation.getInterpolationSpace(),newVal1,newVal2,newVal3]);
           }
-
-          original_LeftColor.deleteReferences();
-          opti_LeftColor.deleteReferences();
-          original_LeftColor=null;
-          opti_LeftColor=null;
         }
 
         /////////////////////////////////////////////////////////////////
         ///// Right Color
         var original_RightColor = this.editCMS_Foundation.getRightKeyColor(i,this.editCMS_Foundation.getInterpolationSpace());
-        var opti_RightColor = editCMS_Optimized.getRightKeyColor(i,this.editCMS_Foundation.getInterpolationSpace());
+        var opti_RightColor = this.editCMS_Optimized.getRightKeyColor(i,this.editCMS_Foundation.getInterpolationSpace());
 
         if(original_RightColor!=undefined && opti_RightColor!=undefined){
-          if(!original_RightColor.equalTo(opti_RightColor)){
-            var val1_dis = opti_RightColor.get1Value()-original_RightColor.get1Value();
-            var val2_dis = opti_RightColor.get2Value()-original_RightColor.get2Value();
-            var val3_dis = opti_RightColor.get3Value()-original_RightColor.get3Value();
+          gWorkColor1.updateColor(original_RightColor[0],original_RightColor[1],original_RightColor[2],original_RightColor[3]);
+          if(!gWorkColor1.equalTo(opti_RightColor)){
+            var val1_dis = opti_RightColor[1]-original_RightColor[1];
+            var val2_dis = opti_RightColor[2]-original_RightColor[2];
+            var val3_dis = opti_RightColor[3]-original_RightColor[3];
 
-            var newVal1 = original_RightColor.get1Value()+(val1_dis*optiDegree);
-            var newVal2 = original_RightColor.get2Value()+(val2_dis*optiDegree);
-            var newVal3 = original_RightColor.get3Value()+(val3_dis*optiDegree);
+            var newVal1 = original_RightColor[1]+(val1_dis*optiDegree);
+            var newVal2 = original_RightColor[2]+(val2_dis*optiDegree);
+            var newVal3 = original_RightColor[3]+(val3_dis*optiDegree);
 
-            this.editCMS.setRightKeyColor(i,createColor(newVal1,newVal2,newVal3,this.editCMS_Foundation.getInterpolationSpace()));
+            this.editCMS.setRightKeyColor(i,[this.editCMS_Foundation.getInterpolationSpace(),newVal1,newVal2,newVal3]);
           }
 
-          original_RightColor.deleteReferences();
-          opti_RightColor.deleteReferences();
-          original_RightColor=null;
-          opti_RightColor=null;
         }
 
       } // FOR
       this.somethingOptimized=true;
-      editCMS_Optimized.deleteReferences();
 
     //// Update Edit Page => Plots for Analysis, Visualization and Edit
 
@@ -1243,8 +1227,8 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
      var dis = ref2-ref1;
      for (var j = startKey+1; j < endKey; j++) {
        var ratio = (this.editCMS.getRefPosition(j)-ref1)/dis;
-       var newColor = calcGradientLinear(lineStartColor.get1Value(),lineStartColor.get2Value(),lineStartColor.get3Value(),endStartColor.get1Value(),endStartColor.get2Value(),endStartColor.get3Value(),ratio);
-       newLineColors.push(createColor(newColor[0],newColor[1],newColor[2],this.editCMS.getInterpolationSpace()));
+       var newColor = calcGradientLinear(lineStartColor[1],lineStartColor[2],lineStartColor[3],endStartColor[1],endStartColor[2],endStartColor[3],ratio);
+       newLineColors.push([this.editCMS.getInterpolationSpace(),newColor[0],newColor[1],newColor[2]]);
      }
      newLineColors.push(endStartColor);
    } else if (fixedStartKey || fixedEndKey) {
@@ -1285,14 +1269,12 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
          tmpColor = this.editCMS.getLeftKeyColor(endKey,this.editCMS.getInterpolationSpace());
 
          // Use insteed of three vectors a matrix
-         //var y_row = [tmpColor.get1Value(),tmpColor.get2Value(),tmpColor.get3Value()];
+         //var y_row = [tmpColor[1],tmpColor[2],tmpColor[3]];
          //vector_y.push(y_row);
-         vector_y_val1.push(tmpColor.get1Value()-fixedColor.get1Value());
-         vector_y_val2.push(tmpColor.get2Value()-fixedColor.get2Value());
-         vector_y_val3.push(tmpColor.get3Value()-fixedColor.get3Value());
+         vector_y_val1.push(tmpColor[1]-fixedColor[1]);
+         vector_y_val2.push(tmpColor[2]-fixedColor[2]);
+         vector_y_val3.push(tmpColor[3]-fixedColor[3]);
 
-         tmpColor.deleteReferences();
-         tmpColor=null;
      }
 
      // Inverse of (X^T X)
@@ -1316,13 +1298,11 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
      // get new positions
      for (var i = startKey; i <= endKey; i++) {
-       var newVal1 = fixedColor.get1Value()+(closestLine_Parameter1*this.editCMS.getRefPosition(i));
-       var newVal2 = fixedColor.get2Value()+(closestLine_Parameter2*this.editCMS.getRefPosition(i));
-       var newVal3 = fixedColor.get3Value()+(closestLine_Parameter3*this.editCMS.getRefPosition(i));
-       newLineColors.push(createColor(newVal1,newVal2,newVal3,this.editCMS.getInterpolationSpace()));
+       var newVal1 = fixedColor[1]+(closestLine_Parameter1*this.editCMS.getRefPosition(i));
+       var newVal2 = fixedColor[2]+(closestLine_Parameter2*this.editCMS.getRefPosition(i));
+       var newVal3 = fixedColor[3]+(closestLine_Parameter3*this.editCMS.getRefPosition(i));
+       newLineColors.push([this.editCMS.getInterpolationSpace(),newVal1,newVal2,newVal3]);
      }
-     fixedColor.deleteReferences();
-     fixedColor=null;
 
 
    } else {
@@ -1350,15 +1330,13 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
          tmpColor = this.editCMS.getLeftKeyColor(endKey,this.editCMS.getInterpolationSpace());
 
          // Use insteed of three vectors a matrix
-         //var y_row = [tmpColor.get1Value(),tmpColor.get2Value(),tmpColor.get3Value()];
+         //var y_row = [tmpColor[1],tmpColor[2],tmpColor[3]];
          //vector_y.push(y_row);
 
-         vector_y_val1.push(tmpColor.get1Value());
-         vector_y_val2.push(tmpColor.get2Value());
-         vector_y_val3.push(tmpColor.get3Value());
+         vector_y_val1.push(tmpColor[1]);
+         vector_y_val2.push(tmpColor[2]);
+         vector_y_val3.push(tmpColor[3]);
 
-         tmpColor.deleteReferences()
-         tmpColor=null;
 
      }
 
@@ -1389,7 +1367,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
        var newVal1 = closestLine_Parameter1[0]+(closestLine_Parameter1[1]*this.editCMS.getRefPosition(i));
        var newVal2 = closestLine_Parameter2[0]+(closestLine_Parameter2[1]*this.editCMS.getRefPosition(i));
        var newVal3 = closestLine_Parameter3[0]+(closestLine_Parameter3[1]*this.editCMS.getRefPosition(i));
-       newLineColors.push(createColor(newVal1,newVal2,newVal3,this.editCMS.getInterpolationSpace()));
+       newLineColors.push([this.editCMS.getInterpolationSpace(),newVal1,newVal2,newVal3]);
      }
 
    }
@@ -1398,10 +1376,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
    for (var i = newLineColors.length-1; i >= 0; i--) {
      if(!newLineColors[i].checkRGBPossiblity()){
        var tmpColor = newLineColors[i].calcRGBColor(); // will calculate the best next rgb colorXYZ
-       newLineColors[i].deleteReferences();
        newLineColors[i]=tmpColor.calcLABColor();
-       tmpColor.deleteReferences;
-       tmpColor = null;
      }
 
 
@@ -1410,26 +1385,24 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
            // should never happen
        break;
        case "right key":
-         this.editCMS.setRightKeyColor(startKey,cloneColor(newLineColors[i]));
+         this.editCMS.setRightKeyColor(startKey,newLineColors[i]);
        break;
 
        case "dual key":
-         this.editCMS.setLeftKeyColor(startKey+i,cloneColor(newLineColors[i]));
-         this.editCMS.setRightKeyColor(startKey+i,cloneColor(newLineColors[i]));
+         this.editCMS.setLeftKeyColor(startKey+i,newLineColors[i]);
+         this.editCMS.setRightKeyColor(startKey+i,newLineColors[i]);
        break;
        case "twin key":
          if(i==0)
-           this.editCMS.setRightKeyColor(startKey+i,cloneColor(newLineColors[i]));
+           this.editCMS.setRightKeyColor(startKey+i,newLineColors[i]);
          else
-           this.editCMS.setLeftKeyColor(startKey+i,cloneColor(newLineColors[i]));
+           this.editCMS.setLeftKeyColor(startKey+i,newLineColors[i]);
        break;
        case "left key":
          // should be alwas the endKey
-         this.editCMS.setLeftKeyColor(startKey+i,cloneColor(newLineColors[i]));
+         this.editCMS.setLeftKeyColor(startKey+i,newLineColors[i]);
        break;
      }
-     newLineColors[i].deleteReferences();
-     newLineColors[i]=null;
    }
 
 
@@ -1520,10 +1493,8 @@ calcOrderOptimumForKey(k0,k1,k2){
   switch (result[0]) {
     //case 0: break; //do nothing
     case 1:
-      this.editCMS.setRightKeyColor(k1,cloneColor(result[1]));
-      this.editCMS.setLeftKeyColor(k1,cloneColor(result[1]));
-      result[1].deleteReferences();
-      result[1]=null;
+      this.editCMS.setRightKeyColor(k1,result[1]);
+      this.editCMS.setLeftKeyColor(k1,result[1]);
     break;
   }
 }
@@ -1532,12 +1503,12 @@ calc3ColorOrderOptimum(color_K0,color_K1,color_K2){
 
 
   // orderVals = [deltaE_K0_K2,deltaE_K1_K2,deltaE_K0_K1,orderVal1,orderVal2]
-  var orderVals = getOrderValues(cloneColor(color_K0),cloneColor(color_K1),cloneColor(color_K2), this.editCMS.getInterpolationSpace());
+  var orderVals = getOrderValues(color_K0,color_K1,color_K2, this.editCMS.getInterpolationSpace());
   //console.log(orderVals);
   if(orderVals[3]<0 && orderVals[4]<0){
     // create a line between k1 and a ref color, which is defined by the ratio of the distances k0->k1 and  k1->k2
-    var intersectionPoints1 = this.getLineSphereIntersection(cloneColor(color_K1), cloneColor(color_K0), cloneColor(color_K0), orderVals[0]);
-    var intersectionPoints2 = this.getLineSphereIntersection(cloneColor(color_K1), cloneColor(color_K2), cloneColor(color_K2), orderVals[0]);
+    var intersectionPoints1 = this.getLineSphereIntersection(color_K1, color_K0, color_K0, orderVals[0]);
+    var intersectionPoints2 = this.getLineSphereIntersection(color_K1, color_K2, color_K2, orderVals[0]);
 
     if(intersectionPoints1.length!=2 || intersectionPoints1.length!=2){
       return[0]; // this should never happen! There should be always two intersection points
@@ -1546,10 +1517,10 @@ calc3ColorOrderOptimum(color_K0,color_K1,color_K2){
     var positiveOrderIntersection1 = false;
     var positiveOrderIntersection2 = false;
 
-    var tmpOrder1 = getOrderValues(cloneColor(color_K0),cloneColor(intersectionPoints1[0]),cloneColor(color_K2), this.editCMS.getInterpolationSpace());
-    var tmpOrder2 = getOrderValues(cloneColor(color_K0),cloneColor(intersectionPoints1[1]),cloneColor(color_K2), this.editCMS.getInterpolationSpace());
-    var tmpOrder3 = getOrderValues(cloneColor(color_K0),cloneColor(intersectionPoints2[0]),cloneColor(color_K2), this.editCMS.getInterpolationSpace());
-    var tmpOrder4 = getOrderValues(cloneColor(color_K0),cloneColor(intersectionPoints2[1]),cloneColor(color_K2), this.editCMS.getInterpolationSpace());
+    var tmpOrder1 = getOrderValues(color_K0,intersectionPoints1[0],color_K2, this.editCMS.getInterpolationSpace());
+    var tmpOrder2 = getOrderValues(color_K0,intersectionPoints1[1],color_K2, this.editCMS.getInterpolationSpace());
+    var tmpOrder3 = getOrderValues(color_K0,intersectionPoints2[0],color_K2, this.editCMS.getInterpolationSpace());
+    var tmpOrder4 = getOrderValues(color_K0,intersectionPoints2[1],color_K2, this.editCMS.getInterpolationSpace());
 
     var counter = 0;
     var isOrder1 = false;
@@ -1586,27 +1557,15 @@ calc3ColorOrderOptimum(color_K0,color_K1,color_K2){
       //console.log("Case 2");
 
       if(isOrder1){
-        //console.log(intersectionPoints1,0,tmpOrder1);
-        intersectionPoints1[1].deleteReferences();
-        intersectionPoints1[1]=null;
         return [1,intersectionPoints1[0]];
       } else
       if(isOrder2){
-        //console.log(intersectionPoints1,1,tmpOrder2);
-        intersectionPoints1[0].deleteReferences();
-        intersectionPoints1[0]=null;
         return [1,intersectionPoints1[1]];
       } else
       if(isOrder3){
-        //console.log(intersectionPoints2,2,tmpOrder3);
-        intersectionPoints2[1].deleteReferences();
-        intersectionPoints2[1]=null;
         return [1,intersectionPoints2[0]];
       } else
       if(isOrder4){
-        //console.log(intersectionPoints2,3,tmpOrder4);
-        intersectionPoints2[0].deleteReferences();
-        intersectionPoints2[0]=null;
         return [1,intersectionPoints2[1]];
       }
       //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1614,43 +1573,27 @@ calc3ColorOrderOptimum(color_K0,color_K1,color_K2){
       case 2:
 
       if(isOrder1&&isOrder2){
-        for (var k = intersectionPoints1.length-1; k >= 0; k--) {
-          intersectionPoints1[k].deleteReferences();
-          intersectionPoints1[k]=null;
-        }
-        for (var k = intersectionPoints2.length-1; k >= 0; k--) {
-          intersectionPoints2[k].deleteReferences();
-          intersectionPoints2[k]=null;
-        }
         return[0]; // this should never happen
       }
 
       if(isOrder3&&isOrder4){
-        for (var k = intersectionPoints1.length-1; k >= 0; k--) {
-          intersectionPoints1[k].deleteReferences();
-          intersectionPoints1[k]=null;
-        }
-        for (var k = intersectionPoints2.length-1; k >= 0; k--) {
-          intersectionPoints2[k].deleteReferences();
-          intersectionPoints2[k]=null;
-        }
         return[0]; // this should never happen
       }
 
-      var dis_K1_K0 = calc3DEuclideanDistance(cloneColor(color_K1), cloneColor(color_K0));
-      var dis_K1_K2 = calc3DEuclideanDistance(cloneColor(color_K1), cloneColor(color_K2));
+      var dis_K1_K0 = calc3DEuclideanDistance(color_K1, color_K0);
+      var dis_K1_K2 = calc3DEuclideanDistance(color_K1, color_K2);
       var dis_1_K1_Int = undefined;
       var dis_2_K1_Int = undefined;
 
       if(isOrder1)
-          dis_1_K1_Int = calc3DEuclideanDistance(cloneColor(color_K1), cloneColor(intersectionPoints1[0]));
+          dis_1_K1_Int = calc3DEuclideanDistance(color_K1, intersectionPoints1[0]);
       else
-          dis_1_K1_Int = calc3DEuclideanDistance(cloneColor(color_K1), cloneColor(intersectionPoints1[1]));
+          dis_1_K1_Int = calc3DEuclideanDistance(color_K1, intersectionPoints1[1]);
 
       if(isOrder3)
-          dis_2_K1_Int = calc3DEuclideanDistance(cloneColor(color_K1), cloneColor(intersectionPoints2[0]));
+          dis_2_K1_Int = calc3DEuclideanDistance(color_K1, intersectionPoints2[0]);
       else
-          dis_2_K1_Int = calc3DEuclideanDistance(cloneColor(color_K1), cloneColor(intersectionPoints2[1]));
+          dis_2_K1_Int = calc3DEuclideanDistance(color_K1, intersectionPoints2[1]);
 
       var isShorter1 = false;
       var isShorter2 = false;
@@ -1672,25 +1615,17 @@ calc3ColorOrderOptimum(color_K0,color_K1,color_K2){
 
         if(isShorter1){
           if(isOrder1){
-            intersectionPoints1[1].deleteReferences();
-            intersectionPoints1[1]=null;
             return [1,intersectionPoints1[0]];
           }
           else {
-            intersectionPoints1[0].deleteReferences();
-            intersectionPoints1[0]=null;
             return [1,intersectionPoints1[1]];
           }
         }
         else {
           if(isOrder3){
-            intersectionPoints2[1].deleteReferences();
-            intersectionPoints2[1]=null;
             return [1,intersectionPoints2[0]];
           }
           else {
-            intersectionPoints2[0].deleteReferences();
-            intersectionPoints2[0]=null;
             return [1,intersectionPoints2[1]];
           }
         }
@@ -1702,15 +1637,6 @@ calc3ColorOrderOptimum(color_K0,color_K1,color_K2){
       break;
       default:
 
-        for (var k = intersectionPoints1.length-1; k >= 0; k--) {
-          intersectionPoints1[k].deleteReferences();
-          intersectionPoints1[k]=null;
-        }
-        for (var k = intersectionPoints2.length-1; k >= 0; k--) {
-          intersectionPoints2[k].deleteReferences();
-          intersectionPoints2[k]=null;
-        }
-
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////// CASE 4: k1 is outsides the circles around k0 and k2, and the lines between k1 and k0/k2 have two intersection point with the ordered area.
         /////////////////////// Both are located before k0/k2 at the line.
@@ -1718,13 +1644,13 @@ calc3ColorOrderOptimum(color_K0,color_K1,color_K2){
 
         //console.log("Case 4");
 
-        var direction = [color_K2.get1Value()-color_K0.get1Value(),
-                        color_K2.get2Value()-color_K0.get2Value(),
-                        color_K2.get3Value()-color_K0.get3Value()]
+        var direction = [color_K2[1]-color_K0[1],
+                        color_K2[2]-color_K0[2],
+                        color_K2[3]-color_K0[3]]
 
-        var middle = [color_K0.get1Value()+(0.5*direction[0]),
-                      color_K0.get2Value()+(0.5*direction[1]),
-                      color_K0.get3Value()+(0.5*direction[2])];
+        var middle = [color_K0[1]+(0.5*direction[0]),
+                      color_K0[2]+(0.5*direction[1]),
+                      color_K0[3]+(0.5*direction[2])];
 
         var norm = vecNorm(direction);
 
@@ -1749,19 +1675,19 @@ calc3ColorOrderOptimum(color_K0,color_K1,color_K2){
         if(divider==0){
           return[0];
         }
-        var tmp = (norm[0]*color_K1.get1Value())+(norm[1]*color_K1.get2Value())+(norm[2]*color_K1.get3Value());
+        var tmp = (norm[0]*color_K1[1])+(norm[1]*color_K1[2])+(norm[2]*color_K1[3]);
         var r = (nA-tmp)/divider;
 
         var intersection = [
-          color_K1.get1Value()+norm[0]*r,
-          color_K1.get2Value()+norm[1]*r,
-          color_K1.get3Value()+norm[2]*r
+          color_K1[1]+norm[0]*r,
+          color_K1[2]+norm[1]*r,
+          color_K1[3]+norm[2]*r
         ];
 
         //////////////////////////////////
         /// new Postion using height of uniside triangle
         /// height of uniside triangle : h = a/2 * Math.sqrt(3);
-        var height = calc3DEuclideanDistance(cloneColor(color_K0), cloneColor(color_K2))/2 * Math.sqrt(3);
+        var height = calc3DEuclideanDistance(color_K0, color_K2)/2 * Math.sqrt(3);
 
         var direction_MI = [intersection[0]-middle[0],
                             intersection[1]-middle[1],
@@ -1775,7 +1701,7 @@ calc3ColorOrderOptimum(color_K0,color_K1,color_K2){
 
 
 
-        return [1,createColor(newPos[0],newPos[1],newPos[2],this.editCMS.getInterpolationSpace())];
+        return [1,[this.editCMS.getInterpolationSpace(),newPos[0],newPos[1],newPos[2]]];
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
@@ -1788,40 +1714,27 @@ calc3ColorOrderOptimum(color_K0,color_K1,color_K2){
     var intersectionPoints =[];
     if(orderVals[3]<0){
         // create line between i and i-1
-        intersectionPoints = this.getLineSphereIntersection(cloneColor(color_K1), cloneColor(color_K0), cloneColor(color_K0), orderVals[0]);
+        intersectionPoints = this.getLineSphereIntersection(color_K1, color_K0, color_K0, orderVals[0]);
     }
     else{ //orderVals[4]<0
         // create line between i and i+1
-        intersectionPoints = this.getLineSphereIntersection(cloneColor(color_K1), cloneColor(color_K2), cloneColor(color_K2), orderVals[0]);
+        intersectionPoints = this.getLineSphereIntersection(color_K1, color_K2, color_K2, orderVals[0]);
     }
 
-    color_K0.deleteReferences();
-    color_K2.deleteReferences();
-    color_K0=null;
-    color_K2=null;
+
 
     switch (intersectionPoints.length) {
       case 1:
-        color_K1.deleteReferences();
-        color_K1=null;
-        intersectionPoints[1].deleteReferences();
-        intersectionPoints[1]=null;
         return [1,intersectionPoints[0]];
       break;
       case 2:
         // the nearest intersection point is the right one
-        var dis1 = calc3DEuclideanDistance(cloneColor(intersectionPoints[0]), cloneColor(color_K1));
-        var dis2 = calc3DEuclideanDistance(cloneColor(intersectionPoints[1]), cloneColor(color_K1));
-        color_K1.deleteReferences();
-        color_K1=null;
+        var dis1 = calc3DEuclideanDistance(intersectionPoints[0], color_K1);
+        var dis2 = calc3DEuclideanDistance(intersectionPoints[1], color_K1);
         if(dis1<dis2){
-          intersectionPoints[1].deleteReferences();
-          intersectionPoints[1]=null;
           return [1,intersectionPoints[0]];
         }
         else {
-          intersectionPoints[0].deleteReferences();
-          intersectionPoints[0]=null;
           return [1,intersectionPoints[1]];
         }
       break;
@@ -1830,12 +1743,6 @@ calc3ColorOrderOptimum(color_K0,color_K1,color_K2){
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }else {
-    color_K0.deleteReferences();
-    color_K1.deleteReferences();
-    color_K2.deleteReferences();
-    color_K0=null;
-    color_K1=null;
-    color_K2=null;
     return [0];
   }
 
@@ -1845,9 +1752,9 @@ getLineSphereIntersection(colorL1, colorL2, colorCenter, radius){
 
     //http://www.ambrsoft.com/TrigoCalc/Sphere/SpherLineIntersection_.htm#SphereLineIntersectionEqDev
 
-    var v_a = Math.pow(colorL2.get1Value()-colorL1.get1Value(),2)+Math.pow(colorL2.get2Value()-colorL1.get2Value(),2)+Math.pow(colorL2.get3Value()-colorL1.get3Value(),2);
-    var v_b = -2*((colorL2.get1Value()-colorL1.get1Value())*(colorCenter.get1Value()-colorL1.get1Value())+(colorL2.get2Value()-colorL1.get2Value())*(colorCenter.get2Value()-colorL1.get2Value())+(colorL2.get3Value()-colorL1.get3Value())*(colorCenter.get3Value()-colorL1.get3Value()));
-    var v_c = Math.pow(colorCenter.get1Value()-colorL1.get1Value(),2)+Math.pow(colorCenter.get2Value()-colorL1.get2Value(),2)+Math.pow(colorCenter.get3Value()-colorL1.get3Value(),2)-Math.pow(radius,2);
+    var v_a = Math.pow(colorL2[1]-colorL1[1],2)+Math.pow(colorL2[2]-colorL1[2],2)+Math.pow(colorL2[3]-colorL1[3],2);
+    var v_b = -2*((colorL2[1]-colorL1[1])*(colorCenter[1]-colorL1[1])+(colorL2[2]-colorL1[2])*(colorCenter[2]-colorL1[2])+(colorL2[3]-colorL1[3])*(colorCenter[3]-colorL1[3]));
+    var v_c = Math.pow(colorCenter[1]-colorL1[1],2)+Math.pow(colorCenter[2]-colorL1[2],2)+Math.pow(colorCenter[3]-colorL1[3],2)-Math.pow(radius,2);
 
     // check the discriminante
     var v_D = Math.pow(v_b,2)-4*v_a*v_c;
@@ -1857,36 +1764,24 @@ getLineSphereIntersection(colorL1, colorL2, colorCenter, radius){
       var val_t_neg = (-1* v_b - Math.sqrt(v_D))/(2 * v_a);
       var intColor1 = this.determineIntersectionPoint(colorL1, colorL2, val_t_pos);
       var intColor2 = this.determineIntersectionPoint(colorL1, colorL2, val_t_neg);
-      colorL1.deleteReferences();
-      colorL2.deleteReferences();
-      colorL1=null;
-      colorL2=null;
       return [intColor1,intColor2];
     }
     else if(v_D==0){
       var val_t = (-1* v_b)/(2 * v_a);
       var intColor1 = this.determineIntersectionPoint(colorL1, colorL2, val_t);
-      colorL1.deleteReferences();
-      colorL2.deleteReferences();
-      colorL1=null;
-      colorL2=null;
       return [intColor1];
     }
     else {
-      colorL1.deleteReferences();
-      colorL2.deleteReferences();
-      colorL1=null;
-      colorL2=null;
       return [];
     }
 
 }
 
 determineIntersectionPoint(colorL1, colorL2, val_t){
-  var c_v1 = colorL1.get1Value() + ((colorL2.get1Value()-colorL1.get1Value())*val_t);
-  var c_v2 = colorL1.get2Value() + ((colorL2.get2Value()-colorL1.get2Value())*val_t);
-  var c_v3 = colorL1.get3Value() + ((colorL2.get3Value()-colorL1.get3Value())*val_t);
-  return createColor(c_v1,c_v2,c_v3,this.editCMS.getInterpolationSpace());
+  var c_v1 = colorL1[1] + ((colorL2[1]-colorL1[1])*val_t);
+  var c_v2 = colorL1[2] + ((colorL2[2]-colorL1[2])*val_t);
+  var c_v3 = colorL1[3] + ((colorL2[3]-colorL1[3])*val_t);
+  return [this.editCMS.getInterpolationSpace(),c_v1,c_v2,c_v3];
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -1895,7 +1790,6 @@ determineIntersectionPoint(colorL1, colorL2, val_t){
 createLegendBasedGraph(){
 
   if(this.optiGraph!=undefined){
-    this.optiGraph.deleteReferences();
     this.optiGraph=undefined;
   }
 
@@ -2002,11 +1896,9 @@ calcLegOrderOptimum(isGlobal,degree){
       var blackWhiteSpeed = undefined;
       switch (this.editCMS.getInterpolationSpace()) {
         case "rgb":
-          var rgbBlack = new class_Color_RGB(0, 0, 0);
-          var rgbWhite = new class_Color_RGB(1, 1, 1);
+          var rgbBlack =["rgb",0, 0, 0];
+          var rgbWhite = ["rgb",1, 1, 1];
           blackWhiteSpeed = calc3DEuclideanDistance(rgbBlack,rgbWhite)/ distance; //
-          rgbBlack.deleteReferences();
-          rgbWhite.deleteReferences();
           break;
         case "hsv":
           blackWhiteSpeed = 100.0 / distance;
@@ -2031,11 +1923,9 @@ calcLegOrderOptimum(isGlobal,degree){
       var blackWhiteDistance = undefined;
       switch (this.editCMS.getInterpolationSpace()) {
         case "rgb":
-          var rgbBlack = new class_Color_RGB(0, 0, 0);
-          var rgbWhite = new class_Color_RGB(1, 1, 1);
+          var rgbBlack = ["rgb",0, 0, 0];
+          var rgbWhite = ["rgb",1, 1, 1];
           blackWhiteDistance = calc3DEuclideanDistance(rgbBlack,rgbWhite); //
-          rgbBlack.deleteReferences();
-          rgbWhite.deleteReferences();
         break;
         case "hsv":
           blackWhiteDistance=1.0;
@@ -2078,7 +1968,6 @@ calcLegOrderOptimum(isGlobal,degree){
 createDisPowerGraph(){
 
     if(this.optiGraph!=undefined){
-      this.optiGraph.deleteReferences();
       this.optiGraph=undefined;
     }
 
@@ -2238,14 +2127,14 @@ calcLocalSmoothOptimum(){
           for (var i = 1; i < continuousSections_Colors[j].length-1; i++) {
 
             var vec1 = [
-              continuousSections_Colors[j][i-1].get1Value()-continuousSections_Colors[j][i].get1Value(),
-              continuousSections_Colors[j][i-1].get2Value()-continuousSections_Colors[j][i].get2Value(),
-              continuousSections_Colors[j][i-1].get3Value()-continuousSections_Colors[j][i].get3Value()
+              continuousSections_Colors[j][i-1][1]-continuousSections_Colors[j][i][1],
+              continuousSections_Colors[j][i-1][2]-continuousSections_Colors[j][i][2],
+              continuousSections_Colors[j][i-1][3]-continuousSections_Colors[j][i][3]
             ];
             var vec2 = [
-              continuousSections_Colors[j][i+1].get1Value()-continuousSections_Colors[j][i].get1Value(),
-              continuousSections_Colors[j][i+1].get2Value()-continuousSections_Colors[j][i].get2Value(),
-              continuousSections_Colors[j][i+1].get3Value()-continuousSections_Colors[j][i].get3Value()
+              continuousSections_Colors[j][i+1][1]-continuousSections_Colors[j][i][1],
+              continuousSections_Colors[j][i+1][2]-continuousSections_Colors[j][i][2],
+              continuousSections_Colors[j][i+1][3]-continuousSections_Colors[j][i][3]
             ];
 
             var angle = rad2deg (Math.acos(vec_Dot(vec1,vec2) / (vecLength(vec1) * vecLength(vec2))));
@@ -2255,19 +2144,19 @@ calcLocalSmoothOptimum(){
 
               ///// get Middle between C_0 and C_2
               var vec3 = [
-                continuousSections_Colors[j][i+1].get1Value()-continuousSections_Colors[j][i-1].get1Value(),
-                continuousSections_Colors[j][i+1].get2Value()-continuousSections_Colors[j][i-1].get2Value(),
-                continuousSections_Colors[j][i+1].get3Value()-continuousSections_Colors[j][i-1].get3Value()
+                continuousSections_Colors[j][i+1][1]-continuousSections_Colors[j][i-1][1],
+                continuousSections_Colors[j][i+1][2]-continuousSections_Colors[j][i-1][2],
+                continuousSections_Colors[j][i+1][3]-continuousSections_Colors[j][i-1][3]
               ];
 
-              var middle = [continuousSections_Colors[j][i-1].get1Value()+0.5*vec3[0],
-                continuousSections_Colors[j][i-1].get2Value()+0.5*vec3[1],
-                continuousSections_Colors[j][i-1].get3Value()+0.5*vec3[2]
+              var middle = [continuousSections_Colors[j][i-1][1]+0.5*vec3[0],
+                continuousSections_Colors[j][i-1][2]+0.5*vec3[1],
+                continuousSections_Colors[j][i-1][3]+0.5*vec3[2]
               ];
 
-              var vec4 = [continuousSections_Colors[j][i].get1Value()-middle[0],
-                continuousSections_Colors[j][i].get2Value()-middle[1],
-                continuousSections_Colors[j][i].get3Value()-middle[2]
+              var vec4 = [continuousSections_Colors[j][i][1]-middle[0],
+                continuousSections_Colors[j][i][2]-middle[1],
+                continuousSections_Colors[j][i][3]-middle[2]
               ];
 
               var foundNewPos=false;
@@ -2285,14 +2174,14 @@ calcLocalSmoothOptimum(){
 
                 //// Check Angle
                 var tmpVec1 = [
-                  continuousSections_Colors[j][i-1].get1Value()-nextColorPos[0],
-                  continuousSections_Colors[j][i-1].get2Value()-nextColorPos[1],
-                  continuousSections_Colors[j][i-1].get3Value()-nextColorPos[2]
+                  continuousSections_Colors[j][i-1][1]-nextColorPos[0],
+                  continuousSections_Colors[j][i-1][2]-nextColorPos[1],
+                  continuousSections_Colors[j][i-1][3]-nextColorPos[2]
                 ];
                 var tmpVec2 = [
-                  continuousSections_Colors[j][i+1].get1Value()-nextColorPos[0],
-                  continuousSections_Colors[j][i+1].get2Value()-nextColorPos[1],
-                  continuousSections_Colors[j][i+1].get3Value()-nextColorPos[2]
+                  continuousSections_Colors[j][i+1][1]-nextColorPos[0],
+                  continuousSections_Colors[j][i+1][2]-nextColorPos[1],
+                  continuousSections_Colors[j][i+1][3]-nextColorPos[2]
                 ];
                 var tmpAngle = rad2deg (Math.acos(vec_Dot(tmpVec1,tmpVec2) / (vecLength(tmpVec1) * vecLength(tmpVec2))));
 
@@ -2306,9 +2195,9 @@ calcLocalSmoothOptimum(){
                     ];
 
                     // save the movement information for later and add them to the current movement information
-                    continuousSections_Update[j][i][0]+=currentColorPos[0]-continuousSections_Colors[j][i].get1Value();
-                    continuousSections_Update[j][i][1]+=currentColorPos[1]-continuousSections_Colors[j][i].get2Value();
-                    continuousSections_Update[j][i][2]+=currentColorPos[2]-continuousSections_Colors[j][i].get3Value();
+                    continuousSections_Update[j][i][0]+=currentColorPos[0]-continuousSections_Colors[j][i][1];
+                    continuousSections_Update[j][i][1]+=currentColorPos[1]-continuousSections_Colors[j][i][2];
+                    continuousSections_Update[j][i][2]+=currentColorPos[2]-continuousSections_Colors[j][i][3];
 
                     foundNewPos=true;
                     break;
@@ -2335,9 +2224,9 @@ calcLocalSmoothOptimum(){
       for (var j = 0; j < continuousSections_Colors.length; j++) {
         if(continuousSections_Colors[j].length>2){ // continious section has more than two keys
           for (var i = 1; i < continuousSections_Colors[j].length-1; i++) {
-            continuousSections_Colors[j][i].set1Value(continuousSections_Colors[j][i].get1Value()+continuousSections_Update[j][i][0]);
-            continuousSections_Colors[j][i].set2Value(continuousSections_Colors[j][i].get2Value()+continuousSections_Update[j][i][1]);
-            continuousSections_Colors[j][i].set3Value(continuousSections_Colors[j][i].get3Value()+continuousSections_Update[j][i][2]);
+            continuousSections_Colors[j][i][1]=continuousSections_Colors[j][i][1]+continuousSections_Update[j][i][0];
+            continuousSections_Colors[j][i][2]=continuousSections_Colors[j][i][2]+continuousSections_Update[j][i][1];
+            continuousSections_Colors[j][i][3]=continuousSections_Colors[j][i][3]+continuousSections_Update[j][i][2];
 
             continuousSections_Update[j][i][0]=0;
             continuousSections_Update[j][i][1]=0;
@@ -2354,7 +2243,7 @@ calcLocalSmoothOptimum(){
       this.editCMS.setRightKeyColor(continuousSections[j][0],continuousSections_Colors[j][0]);
 
       for (var i = continuousSections[j][0]+1; i < continuousSections[j][1]; i++) {
-        this.editCMS.setRightKeyColor(i,cloneColor(continuousSections_Colors[j][i-continuousSections[j][0]]));
+        this.editCMS.setRightKeyColor(i,continuousSections_Colors[j][i-continuousSections[j][0]]);
         this.editCMS.setLeftKeyColor(i,continuousSections_Colors[j][i-continuousSections[j][0]]);
       }// for
       this.editCMS.setLeftKeyColor(continuousSections[j][1],continuousSections_Colors[j][continuousSections_Colors[j].length-1]);

@@ -25,7 +25,7 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
 
     var orginColors = [];
     for (var v = 0; v < this.nodeArray.length; v++) {
-      orginColors.push(this.nodeArray[v].getNodeColor());
+      orginColors.push(this.getNodeColor(v));
     }
 
     var orginEdgeLength= [];
@@ -53,8 +53,8 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
 
         /////////////////////////////////////////////////
         //// PART 1: add orgin force
-        var color_v_Node = this.nodeArray[v].getNodeColor();
-        var vec_d = [orginColors[v].get1Value() - color_v_Node.get1Value(), orginColors[v].get2Value() - color_v_Node.get2Value(), orginColors[v].get3Value() - color_v_Node.get3Value()];
+        var color_v_Node = this.getNodeColor(v);
+        var vec_d = [orginColors[v][1] - color_v_Node[1], orginColors[v][2] - color_v_Node[2], orginColors[v][3] - color_v_Node[3]];
         this.nodeArray[v].addDisp(vecScalMulti(vec_d, (1.0 - degree))); //this.nodeArray[v].addDisp(vec_d); // direction vector = force
 
         //////////////////////////////////////////////////////////////////////////////////
@@ -73,13 +73,13 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
             /////////////////////////////////////////////////
             var nodeStartID = v;
             var edgeIDAfter = this.searchEdgeAfter(v);
-            var startColor = this.nodeArray[nodeStartID].getNodeColor();
+            var startColor = this.getNodeColor(nodeStartID);
               var closestColor = this.getNearestPoint_PointSegmentDistance(nodeStartID,edgeIDAfter);
               var vec_d = vec_Diff_COLOR(startColor,closestColor[0]);
               if(vecLength(vec_d) == 0){
 
                 //continue;
-                var secondColor = this.nodeArray[nodeStartID+1].getNodeColor();
+                var secondColor = this.getNodeColor(nodeStartID+1);
 
                 //// Find a random orthogonal vector
                 var vec_v = vec_Diff_COLOR(startColor,secondColor);
@@ -90,8 +90,6 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
 
                 vec_d = [randomX,randomY,orthogonalZ];
                 vec_d= vecScalMulti(vec_d,impulseFactor);
-                secondColor.deleteReferences();
-                //randomPoint.deleteReferences();
 
                 if(vecLength(vec_d) == 0)
                   continue;
@@ -113,10 +111,6 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
                 this.nodeArray[this.edgeArray[edgeIDAfter].getNodeID2()].subDisp(force);
               }
 
-              closestColor[0].deleteReferences();
-
-            startColor.deleteReferences();
-
           }
           else if(this.nodeArray[v].getColorID()==0){
             /////////////////////////////////////////////////
@@ -125,7 +119,7 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
             var nodeEndID = v;
             var edgeIDBefore = this.searchEdgeBefore(v);
 
-            var endColor = this.nodeArray[nodeEndID].getNodeColor();
+            var endColor = this.getNodeColor(nodeEndID);
             var closestColor = this.getNearestPoint_PointSegmentDistance(nodeEndID,edgeIDBefore);
 
             var vec_d = vec_Diff_COLOR(endColor,closestColor[0]);
@@ -133,7 +127,7 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
 
               continue;
 
-              var penultimateColor = this.nodeArray[nodeEndID-1].getNodeColor();
+              var penultimateColor = this.getNodeColor(nodeEndID-1);
 
               //// Find a random orthogonal vector
               var vec_v = vec_Diff_COLOR(endColor,penultimateColor);
@@ -166,10 +160,6 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
               this.nodeArray[this.edgeArray[edgeIDBefore].getNodeID1()].subDisp(force);
               this.nodeArray[this.edgeArray[edgeIDBefore].getNodeID2()].subDisp(force);
             }
-
-            closestColor[0].deleteReferences();
-            closestColor=undefined;
-            endColor.deleteReferences();
           }
         }
       }
@@ -237,9 +227,6 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
 
                   // Get direction?
                 }
-
-                distanceInfo[0].deleteReferences();
-                distanceInfo[1].deleteReferences();
               }
             }
 
@@ -282,7 +269,7 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
 
     var orginColors = [];
     for (var v = 0; v < this.nodeArray.length; v++) {
-      orginColors.push(this.nodeArray[v].getNodeColor());
+      orginColors.push(this.getNodeColor(v));
     }
 
     var orginEdgeLength= [];
@@ -305,8 +292,8 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
 
         /////////////////////////////////////////////////
         //// PART 1: add orgin force
-        var color_v_Node = this.nodeArray[v].getNodeColor();
-        var vec_d = [orginColors[v].get1Value() - color_v_Node.get1Value(), orginColors[v].get2Value() - color_v_Node.get2Value(), orginColors[v].get3Value() - color_v_Node.get3Value()];
+        var color_v_Node = this.getNodeColor(v);
+        var vec_d = [orginColors[v][1] - color_v_Node[1], orginColors[v][2] - color_v_Node[2], orginColors[v][3] - color_v_Node[3]];
         this.nodeArray[v].addDisp(vecScalMulti(vec_d, (1.0 - degree))); //this.nodeArray[v].addDisp(vec_d); // direction vector = force
       }
 
@@ -318,7 +305,7 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
 
               var edgeSpeed = this.getNodeSpeed(this.edgeArray[e].getNodeID1(), this.edgeArray[e].getNodeID2());
 
-              var vec_d = vec_Diff_COLOR(this.nodeArray[this.edgeArray[e].getNodeID1()].getNodeColor(),this.nodeArray[this.edgeArray[e].getNodeID2()].getNodeColor());
+              var vec_d = vec_Diff_COLOR(this.getNodeColor(this.edgeArray[e].getNodeID1()),this.getNodeColor(this.edgeArray[e].getNodeID2()));
 
               if(edgeSpeed<optiSpeed){
 
@@ -415,7 +402,7 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
 
   var orginColors = [];
   for (var v = 0; v < this.nodeArray.length; v++) {
-    orginColors.push(this.nodeArray[v].getNodeColor());
+    orginColors.push(this.getNodeColor(v));
   }
 
   /////////////////////////////////////////////////////////////////
@@ -459,8 +446,8 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
     for (var v = 0; v < this.nodeArray.length; v++) {
       this.nodeArray[v].resetDisp();
 
-      var color_v_Node = this.nodeArray[v].getNodeColor();
-      var vec_d = [orginColors[v].get1Value() - color_v_Node.get1Value(), orginColors[v].get2Value() - color_v_Node.get2Value(), orginColors[v].get3Value() - color_v_Node.get3Value()];
+      var color_v_Node = this.getNodeColor(v);
+      var vec_d = [orginColors[v][1] - color_v_Node[1], orginColors[v][2] - color_v_Node[2], orginColors[v][3] - color_v_Node[3]];
       this.nodeArray[v].addDisp(vecScalMulti(vec_d, (1.0 - degree))); // direction vector = force* /
     }
 
@@ -469,10 +456,10 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
     for (var e = 0; e < this.edgeArray.length; e++) {
       var idV = this.edgeArray[e].getNodeID1();
       var idU = this.edgeArray[e].getNodeID2();
-      var color_v_Node = this.nodeArray[idV].getNodeColor();
-      var color_u_Node = this.nodeArray[idU].getNodeColor();
+      var color_v_Node = this.getNodeColor(idV);
+      var color_u_Node = this.getNodeColor(idU);
 
-      var vec_d = [color_v_Node.get1Value() - color_u_Node.get1Value(), color_v_Node.get2Value() - color_u_Node.get2Value(), color_v_Node.get3Value() - color_u_Node.get3Value()];
+      var vec_d = [color_v_Node[1] - color_u_Node[1], color_v_Node[2] - color_u_Node[2], color_v_Node[3] - color_u_Node[3]];
       var vec_dL = vecLength(vec_d);
 
       while (vec_dL == 0) {
@@ -496,10 +483,6 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
       this.nodeArray[this.edgeArray[e].getNodeID1()].addDisp(force);
       this.nodeArray[this.edgeArray[e].getNodeID2()].subDisp(force);
 
-      color_u_Node.deleteReferences();
-      color_u_Node = null;
-      color_v_Node.deleteReferences();
-      color_v_Node = null;
     }
 
     /////////////////////////////////////////////////
@@ -525,7 +508,7 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
   console.log("disPower with orgin force:", this.originForce);
   var orginColors = [];
   for (var v = 0; v < this.nodeArray.length; v++) {
-    orginColors.push(this.nodeArray[v].getNodeColor());
+    orginColors.push(this.getNodeColor(v));
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -567,10 +550,10 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
     //// PART 1: Calc Respulsive Forces (Forces between nodes)
     for (var v = 0; v < this.nodeArray.length; v++) {
       this.nodeArray[v].resetDisp(); // set disp to zero
-      var color_v_Node = this.nodeArray[v].getNodeColor();
+      var color_v_Node = this.getNodeColor(v);
 
       if (this.originForce) {
-        var vec_d = [orginColors[v].get1Value() - color_v_Node.get1Value(), orginColors[v].get2Value() - color_v_Node.get2Value(), orginColors[v].get3Value() - color_v_Node.get3Value()];
+        var vec_d = [orginColors[v][1] - color_v_Node[1], orginColors[v][2] - color_v_Node[2], orginColors[v][3] - color_v_Node[3]];
         this.nodeArray[v].addDisp(vec_d); // direction vector = force
       } //
 
@@ -578,8 +561,8 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
         if (v == u)
           continue;
 
-        var color_u_Node = this.nodeArray[u].getNodeColor();
-        var vec_d = [color_v_Node.get1Value() - color_u_Node.get1Value(), color_v_Node.get2Value() - color_u_Node.get2Value(), color_v_Node.get3Value() - color_u_Node.get3Value()]; // difference vector between the positions of the two vertices
+        var color_u_Node = this.getNodeColor(u);
+        var vec_d = [color_v_Node[1] - color_u_Node[1], color_v_Node[2] - color_u_Node[2], color_v_Node[3] - color_u_Node[3]]; // difference vector between the positions of the two vertices
         var vec_dN = vecNorm(vec_d);
         var vec_dL = vecLength(vec_d);
 
@@ -596,22 +579,16 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
         var rep_Force = vecScalMulti(vec_dN, (val_ks / vec_dL)); // function repulse force f(x) = Math.pow(val_k,2)/x
 
         this.nodeArray[v].addDisp(rep_Force);
-
-        color_u_Node.deleteReferences();
-        color_u_Node = null;
       }
-
-      color_v_Node.deleteReferences();
-      color_v_Node = null;
     }
 
     /////////////////////////////////////////////////
     //// PART 2: Calc Attractive  Forces (Forces between two the nodes of each edge)
     for (var e = 0; e < this.edgeArray.length; e++) {
-      var color_v_Node = this.nodeArray[this.edgeArray[e].getNodeID1()].getNodeColor();
-      var color_u_Node = this.nodeArray[this.edgeArray[e].getNodeID2()].getNodeColor();
+      var color_v_Node = this.getNodeColor(this.edgeArray[e].getNodeID1());
+      var color_u_Node = this.getNodeColor(this.edgeArray[e].getNodeID2());
 
-      var vec_d = [color_v_Node.get1Value() - color_u_Node.get1Value(), color_v_Node.get2Value() - color_u_Node.get2Value(), color_v_Node.get3Value() - color_u_Node.get3Value()];
+      var vec_d = [color_v_Node[1] - color_u_Node[1], color_v_Node[2] - color_u_Node[2], color_v_Node[3] - color_u_Node[3]];
 
       var vec_dN = vecNorm(vec_d);
       var vec_dLs = Math.pow(vecLength(vec_d), 2);
@@ -619,11 +596,6 @@ class class_Graph_ForcedDisPower_Speed extends class_Graph_ForcedLayout {
 
       this.nodeArray[this.edgeArray[e].getNodeID1()].subDisp(at_Force);
       this.nodeArray[this.edgeArray[e].getNodeID2()].addDisp(at_Force);
-
-      color_u_Node.deleteReferences();
-      color_u_Node = null;
-      color_v_Node.deleteReferences();
-      color_v_Node = null;
     }
 
     /////////////////////////////////////////////////

@@ -27,10 +27,7 @@ class class_CMS {
     this.analysisWorkColorType="none"; // none, interval, bandinterval
     this.analysisWorkColorIntervalNum=200;
     this.analysisWorkColors=[];
-    this.exportColorType="none"; // none, interval, bandinterval
-    this.exportColorIntervalNum=200;
     this.exportWorkColors=[];
-
 
     this.jnd_lab = 2; // just noticeable difference for space lab
     this.jnd_de94 = 2; // just noticeable difference for space lab with metric DE94
@@ -287,8 +284,96 @@ class class_CMS {
 
 
   ///// EXPORT ///////
-  calcExportSampling(numberIntervals){
+  calcExportSampling(type,numIntervals){
 
+    switch (type) {
+      case "none":
+        for (var i = 0; i < this.keyArray.length-1; i++) {
+          this.exportWorkColors[i]=[];
+        }
+      break;
+      case "interval":
+
+      var startPos = this.keyArray[0].getRefPosition();
+      var endPos = this.keyArray[this.keyArray.length-1].getRefPosition();
+
+      var intervalDistance = (endPos-startPos)/(numIntervals);
+
+      var currentIntervalPointPos = startPos;
+      var intervalPointCounter = 0;
+
+      var error = 1e12;//1e-12; // because of common known problem 0.1+0.2 will be 0.30000000000000004
+
+      for(var keyIndex=0; keyIndex<this.keyArray.length-1; keyIndex++){
+        this.exportWorkColors[keyIndex]=[];
+        var currentPos = this.keyArray[keyIndex].getRefPosition();
+        var nextPos = this.keyArray[keyIndex+1].getRefPosition();
+        this.exportWorkColors.push([]);
+
+        if(currentIntervalPointPos==currentPos){
+          currentIntervalPointPos=Math.round((currentIntervalPointPos+intervalDistance) * error) / error; //currentIntervalPointPos+=intervalDistance;
+        }
+
+        var tmpColor,tmpColor2;
+
+        switch (this.keyArray[keyIndex].getKeyType()) {
+
+            case "nil key": case "left key":
+
+            while (currentIntervalPointPos<nextPos) {
+              intervalPointCounter++;
+              if(intervalPointCounter==numIntervals) // last interval point has to hit the last key reference, but it is possible that the algorithm did not hit this value exactly and we have to stop it then and only adding the last key as interval
+              break;
+              currentIntervalPointPos=Math.round((currentIntervalPointPos+intervalDistance) * error) / error; //currentIntervalPointPos+=intervalDistance;
+            }
+          break;
+          default:
+          var ref1 = this.keyArray[keyIndex].getRefPosition();
+          var ref2 = this.keyArray[keyIndex+1].getRefPosition();
+
+          while (currentIntervalPointPos<nextPos) {
+            intervalPointCounter++;
+            if(intervalPointCounter==numIntervals) // last interval point has to hit the last key reference, but it is possible that the algorithm did not hit this value exactly and we have to stop it then and only adding the last key as interval
+            break;
+
+            var intervalColor = this.calculateColor(currentIntervalPointPos, this.interpolationSpace);
+            this.exportWorkColors[keyIndex].push([intervalColor, currentIntervalPointPos]);
+
+            currentIntervalPointPos=Math.round((currentIntervalPointPos+intervalDistance) * error) / error; //currentIntervalPointPos+=intervalDistance;
+          }
+        }
+      }//for
+
+      break;
+      case "bandinterval":
+        for (var i = 0; i < this.keyArray.length-1; i++) {
+          this.exportWorkColors[i]=this.calcSpecificKeyIntervalColors(numberIntervals,i);
+        }
+      break;
+      default:
+
+    }
+
+
+  }
+
+  get_Export_WorkColorLength(index){
+    if(index<this.exportWorkColors.length)
+      return this.exportWorkColors[index].length;
+    else
+      return 0;
+  }
+
+  get_Export_WorkColor(keyBandIndex,index,colorspace){
+      if(this.exportWorkColors[keyBandIndex][index][0]===colorspace)
+        return this.exportWorkColors[keyBandIndex][index];
+
+      gWorkColor1.updateColor(this.exportWorkColors[keyBandIndex][index][0][0],this.exportWorkColors[keyBandIndex][index][0][1],this.exportWorkColors[keyBandIndex][index][0][2],this.exportWorkColors[keyBandIndex][index][0][3]);
+      return gWorkColor1.getColorInfo(colorspace);
+  }
+
+  get_Export_WorkColorRef(keyBandIndex,index){
+      return this.exportWorkColors[keyBandIndex][index][1];
   }
 
   //********************************************************************************//
@@ -1079,8 +1164,6 @@ class class_CMS {
     tmpPack.push(this.pathplotSpace);
     tmpPack.push(this.analysisWorkColorType); // none, interval, bandinterval
     tmpPack.push(this.analysisWorkColorIntervalNum);
-    tmpPack.push(this.exportColorType); // none, interval, bandinterval
-    tmpPack.push(this.exportColorIntervalNum);
     tmpPack.push(this.jnd_lab); // just noticeable difference for space lab
     tmpPack.push(this.jnd_de94); // just noticeable difference for space lab with metric DE94
     tmpPack.push(this.jnd_de2000); // just noticeable difference for space lab with metric CIEDE2000
@@ -1096,12 +1179,10 @@ class class_CMS {
     this.pathplotSpace=cmsPackage[8];
     this.analysisWorkColorType=cmsPackage[9]; // none, interval, bandinterval
     this.analysisWorkColorIntervalNum=cmsPackage[10];
-    this.exportColorType=cmsPackage[11]; // none, interval, bandinterval
-    this.exportColorIntervalNum=cmsPackage[12];
-    this.jnd_lab=cmsPackage[13]; // just noticeable difference for space lab
-    this.jnd_de94=cmsPackage[14]; // just noticeable difference for space lab with metric DE94
-    this.jnd_de2000=cmsPackage[15]; // just noticeable difference for space lab with metric CIEDE2000
-    this.jnd_din99=cmsPackage[16]; // just noticeable difference for space din99
+    this.jnd_lab=cmsPackage[11]; // just noticeable difference for space lab
+    this.jnd_de94=cmsPackage[12]; // just noticeable difference for space lab with metric DE94
+    this.jnd_de2000=cmsPackage[13]; // just noticeable difference for space lab with metric CIEDE2000
+    this.jnd_din99=cmsPackage[17]; // just noticeable difference for space din99
 
     /////////////////////////////////////////////////
     this.name=cmsPackage[0];

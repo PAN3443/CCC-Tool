@@ -249,9 +249,9 @@ class class_Export_Section extends class_Section {
 
   fillExportTable(){
       if(this.exportOnlyKeys)
-        this.workCMS.calcExportSampling(0);
+        this.workCMS.calcExportSampling("none",0);
       else
-        this.workCMS.calcExportSampling(parseInt(document.getElementById("id_ExportIntervalNum").value)); // calcCMSIntervals(this.workCMS,0,this.workCMS.getKeyLength()-1,globalIntervalMode);
+        this.workCMS.calcExportSampling("interval",parseInt(document.getElementById("id_ExportIntervalNum").value)); // calcCMSIntervals(this.workCMS,0,this.workCMS.getKeyLength()-1,globalIntervalMode);
 
       var old_tbody = document.getElementById("id_exportTableBody");
       var new_tbody = document.createElement('tbody');
@@ -286,16 +286,16 @@ class class_Export_Section extends class_Section {
             counter++;
             new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i)+twinErrorValue, this.workCMS.getKeyType(i), this.workCMS.getRightKeyColor(i,this.exportspace)));
             counter++;
-            for(var j=0; j<this.workCMS.getIntervalLength(i); j++){
-              new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getIntervalRef(i,j), "interval", this.workCMS.getIntervalColor(i,j,this.exportspace)));
+            for(var j=0; j<this.workCMS.get_Export_WorkColorLength(i); j++){
+              new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.get_Export_WorkColorRef(i,j), "interval", this.workCMS.get_Export_WorkColor(i,j,this.exportspace)));
               counter++;
             }
             break;
           default:
             new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i), this.workCMS.getKeyType(i), this.workCMS.getRightKeyColor(i,this.exportspace)));
             counter++;
-            for(var j=0; j<this.workCMS.getIntervalLength(i); j++){
-              new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getIntervalRef(i,j), "interval", this.workCMS.getIntervalColor(i,j,this.exportspace)));
+            for(var j=0; j<this.workCMS.get_Export_WorkColorLength(i); j++){
+              new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.get_Export_WorkColorRef(i,j), "interval", this.workCMS.get_Export_WorkColor(i,j,this.exportspace)));
               counter++;
             }
           }
@@ -556,22 +556,22 @@ class class_Export_Section extends class_Section {
           }
           text = text+this.createLine(this.workCMS.getRightKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i)+twinErrorValue,this.workCMS.getOpacityVal(i,"right"),true,isMot)  ;
 
-          var numOfIntervals = this.workCMS.getIntervalLength(i);
+          var numOfIntervals = this.workCMS.get_Export_WorkColorLength(i);
 
-          for(var j=0; j<this.workCMS.getIntervalLength(i); j++){
-            text = text+this.createLine(this.workCMS.getIntervalColor(i,j,this.exportspace),this.workCMS.getIntervalRef(i,j),false,false);
+          for(var j=0; j<this.workCMS.get_Export_WorkColorLength(i); j++){
+            text = text+this.createLine(this.workCMS.get_Export_WorkColor(i,j,this.exportspace),this.workCMS.get_Export_WorkColorRef(i,j),false,false);
           }
           break;
         default:
 
           text = text+this.createLine(this.workCMS.getRightKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"right"),true,false);
 
-          //console.log(this.workCMS.getIntervalLength(),this.workCMS.getIntervalLength(i));
+          //console.log(this.workCMS.get_Export_WorkColorLength(),this.workCMS.get_Export_WorkColorLength(i));
 
-          var numOfIntervals = this.workCMS.getIntervalLength(i);
+          var numOfIntervals = this.workCMS.get_Export_WorkColorLength(i);
 
-          for(var j=0; j<this.workCMS.getIntervalLength(i); j++){
-            text = text+this.createLine(this.workCMS.getIntervalColor(i,j,this.exportspace),this.workCMS.getIntervalRef(i,j),false,false);
+          for(var j=0; j<this.workCMS.get_Export_WorkColorLength(i); j++){
+            text = text+this.createLine(this.workCMS.get_Export_WorkColor(i,j,this.exportspace),this.workCMS.get_Export_WorkColorRef(i,j),false,false);
           }
 
         }
@@ -904,7 +904,7 @@ class class_Export_Section extends class_Section {
               break;
               case "twin key":
 
-                var numOfIntervals = this.workCMS.getIntervalLength(i);
+                var numOfIntervals = this.workCMS.get_Export_WorkColorLength(i);
 
                 var isMot=false;
 
@@ -924,8 +924,8 @@ class class_Export_Section extends class_Section {
                 isMoTtext=isMoTtext+"\n\t\t\t"+isMot+",";
 
 
-                for(var j=0; j<this.workCMS.getIntervalLength(i); j++){
-                  colortext = colortext+this.createLine(this.workCMS.getIntervalColor(i,j,this.exportspace),this.workCMS.getIntervalRef(i,j),false,false)+",";
+                for(var j=0; j<this.workCMS.get_Export_WorkColorLength(i); j++){
+                  colortext = colortext+this.createLine(this.workCMS.get_Export_WorkColor(i,j,this.exportspace),this.workCMS.get_Export_WorkColorRef(i,j),false,false)+",";
                   isCMStext=isCMStext+"\n\t\t\t"+false+",";
                   isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
                 }
@@ -935,14 +935,14 @@ class class_Export_Section extends class_Section {
                 break;
               default:
 
-                var numOfIntervals = this.workCMS.getIntervalLength(i);
+                var numOfIntervals = this.workCMS.get_Export_WorkColorLength(i);
                 colortext = colortext+this.createLine(this.workCMS.getRightKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"right"),true,false)+",";
                 isCMStext=isCMStext+"\n\t\t\t"+true+",";
                 isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
 
 
-                for(var j=0; j<this.workCMS.getIntervalLength(i); j++){
-                  colortext = colortext+this.createLine(this.workCMS.getIntervalColor(i,j,this.exportspace),this.workCMS.getIntervalRef(i,j),false,false)+",";
+                for(var j=0; j<this.workCMS.get_Export_WorkColorLength(i); j++){
+                  colortext = colortext+this.createLine(this.workCMS.get_Export_WorkColor(i,j,this.exportspace),this.workCMS.get_Export_WorkColorRef(i,j),false,false)+",";
                   isCMStext=isCMStext+"\n\t\t\t"+false+",";
                   isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
                 }
