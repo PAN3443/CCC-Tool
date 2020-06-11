@@ -57,10 +57,14 @@ class class_CMS {
     delete this.keyArray;
 
     for (var i = this.supportColors.length - 1; i >= 0; i--) {
-      for (var j = this.supportColors[i].length - 1; j >= 0; j--) {
+      /*for (var j = this.supportColors[i].length - 1; j >= 0; j--) {
         this.supportColors[i][j].deleteReferences();
         this.supportColors[i][j] = null;
-      }
+      }*/
+      this.supportColors[i]=[];
+      this.pathplotWorkColors[i]=[];
+      this.analysisWorkColors[i]=[];
+      this.exportWorkColors[i]=[];
     }
     delete this.supportColors;
 
@@ -605,6 +609,11 @@ class class_CMS {
     }
 
   getSupportColorRef(keyBandIndex,index){
+    if(this.supportColors[keyBandIndex][index]==undefined){
+      console.log("keyBandIndex",keyBandIndex,this.supportColors.length);
+      console.log("index",index,this.supportColors[keyBandIndex].length);
+      return 1;
+    }
         return this.supportColors[keyBandIndex][index][1];
     }
 

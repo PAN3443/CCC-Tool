@@ -89,7 +89,7 @@ getColorID(){
    this.nodeColor=gWorkColor1.getColorInfo(this.nodeColor[0]);
  }
 
- calcRepulseForce(){
+ /*calcRepulseForce(){
    gWorkColor1.autoRGBClipping=false;
    gWorkColor1.updateColor(this.nodeColor[0],this.nodeColor[1],this.nodeColor[2],this.nodeColor[3]);
    if (gWorkColor1.checkRGBPossiblity()) {
@@ -103,7 +103,7 @@ getColorID(){
      return [colorInfo[1]-tmpColor[1],colorInfo[2]-tmpColor[2],colorInfo[3]-tmpColor[3]];
    }
    gWorkColor1.autoRGBClipping=true;
- }
+ }*/
 
 
 };

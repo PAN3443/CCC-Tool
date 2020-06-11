@@ -95,6 +95,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
       var editPackage = editSection.editCMS.createCMSInfoPackage();
       this.editCMS_Foundation.setCMSFromPackage(editPackage);
       this.editCMS.setCMSFromPackage(editPackage);
+      this.updateElements_CMS_Ref();
       this.fillKeyCombobox(false);
       super.showSection();
       this.part_Pathplot.pp_3D_StartAnimation();
@@ -1114,39 +1115,39 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
             var tmpDeltaSum = 0;
 
-            if(((this.editCMS.getInterpolationType()==="linear" &&
+            if(/*((this.editCMS.getInterpolationType()==="linear" &&
                this.editCMS.getInterpolationSpace()!="rgb" &&  // distance of intervals is the same like the distance of start and end color
                this.editCMS.getInterpolationSpace()!="hsv" &&
                this.editCMS.getInterpolationSpace()!="lab" &&
-               this.editCMS.getInterpolationSpace()!="din99") || this.editCMS.getInterpolationType()==="spline") &&
-               this.editCMS.getIntervalLength(i)>0){
+               this.editCMS.getInterpolationSpace()!="din99") || this.editCMS.getInterpolationType()==="spline") &&*/
+               this.editCMS.getSupportColorsLength(i)>0){
 
               switch (this.editCMS.getInterpolationSpace()) {
                 case "rgb":
                 case "hsv":
                 case "lab":
                 case "din99":
-                  tmpDeltaSum += calc3DEuclideanDistance(c1,this.editCMS.getIntervalColor(i,0,this.editCMS.getInterpolationSpace()));
-                  for (var j = 0; j < this.editCMS.getIntervalLength(i)-1; j++) {
-                    tmpDeltaSum += calc3DEuclideanDistance(this.editCMS.getIntervalColor(i,j,this.editCMS.getInterpolationSpace()),this.editCMS.getIntervalColor(i,j+1,this.editCMS.getInterpolationSpace()));
+                  tmpDeltaSum += calc3DEuclideanDistance(c1,this.editCMS.getSupportColor(i,0,this.editCMS.getInterpolationSpace()));
+                  for (var j = 0; j < this.editCMS.getSupportColorsLength(i)-1; j++) {
+                    tmpDeltaSum += calc3DEuclideanDistance(this.editCMS.getSupportColor(i,j,this.editCMS.getInterpolationSpace()),this.editCMS.getSupportColor(i,j+1,this.editCMS.getInterpolationSpace()));
                   }
-                  tmpDeltaSum += calc3DEuclideanDistance(this.editCMS.getIntervalColor(i,this.editCMS.getIntervalLength(i)-1,this.editCMS.getInterpolationSpace()),c2);
+                  tmpDeltaSum += calc3DEuclideanDistance(this.editCMS.getSupportColor(i,this.editCMS.getSupportColorsLength(i)-1,this.editCMS.getInterpolationSpace()),c2);
                   break;
                 case "de94":
                 case "de94-ds":
-                  tmpDeltaSum += calcDeltaDE94(c1,this.editCMS.getIntervalColor(i,0,this.editCMS.getInterpolationSpace()));
-                  for (var j = 0; j < this.editCMS.getIntervalLength(i)-1; j++) {
-                    tmpDeltaSum += calcDeltaDE94(this.editCMS.getIntervalColor(i,j,this.editCMS.getInterpolationSpace()),this.editCMS.getIntervalColor(i,j+1,this.editCMS.getInterpolationSpace()));
+                  tmpDeltaSum += calcDeltaDE94(c1,this.editCMS.getSupportColor(i,0,this.editCMS.getInterpolationSpace()));
+                  for (var j = 0; j < this.editCMS.getSupportColorsLength(i)-1; j++) {
+                    tmpDeltaSum += calcDeltaDE94(this.editCMS.getSupportColor(i,j,this.editCMS.getInterpolationSpace()),this.editCMS.getSupportColor(i,j+1,this.editCMS.getInterpolationSpace()));
                   }
-                  tmpDeltaSum += calcDeltaDE94(this.editCMS.getIntervalColor(i,this.editCMS.getIntervalLength(i)-1,this.editCMS.getInterpolationSpace()),c2);
+                  tmpDeltaSum += calcDeltaDE94(this.editCMS.getSupportColor(i,this.editCMS.getSupportColorsLength(i)-1,this.editCMS.getInterpolationSpace()),c2);
                 break;
                 case "de2000":
                 case "de2000-ds":
-                  tmpDeltaSum += calcDeltaCIEDE2000(c1,this.editCMS.getIntervalColor(i,0,this.editCMS.getInterpolationSpace()));
-                  for (var j = 0; j < this.editCMS.getIntervalLength(i)-1; j++) {
-                    tmpDeltaSum += calcDeltaCIEDE2000(this.editCMS.getIntervalColor(i,j,this.editCMS.getInterpolationSpace()),this.editCMS.getIntervalColor(i,j+1,this.editCMS.getInterpolationSpace()));
+                  tmpDeltaSum += calcDeltaCIEDE2000(c1,this.editCMS.getSupportColor(i,0,this.editCMS.getInterpolationSpace()));
+                  for (var j = 0; j < this.editCMS.getSupportColorsLength(i)-1; j++) {
+                    tmpDeltaSum += calcDeltaCIEDE2000(this.editCMS.getSupportColor(i,j,this.editCMS.getInterpolationSpace()),this.editCMS.getSupportColor(i,j+1,this.editCMS.getInterpolationSpace()));
                   }
-                  tmpDeltaSum += calcDeltaCIEDE2000(this.editCMS.getIntervalColor(i,this.editCMS.getIntervalLength(i)-1,this.editCMS.getInterpolationSpace()),c2);
+                  tmpDeltaSum += calcDeltaCIEDE2000(this.editCMS.getSupportColor(i,this.editCMS.getSupportColorsLength(i)-1,this.editCMS.getInterpolationSpace()),c2);
                 break;
                 default:
                   return;
@@ -1182,6 +1183,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
     var perfectSpeend = bandsDeltaSum/relevantDistance;
     var currentPos = r1;
+
     for (var i = 0; i < bandsDeltaArray.length; i++) {
       if(bandsDeltaArray[i]==undefined){
         currentPos+=contBandsDistances[i];
@@ -1189,6 +1191,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
       else {
         currentPos+=(bandsDeltaArray[i]/perfectSpeend);
       }
+      var testDis= this.editCMS.getRefPosition(document.getElementById("id_OptiPage_Optimization_FromKey").selectedIndex+i+1)-this.editCMS.getRefPosition(document.getElementById("id_OptiPage_Optimization_FromKey").selectedIndex+i);
       this.editCMS.setRefPosition(document.getElementById("id_OptiPage_Optimization_FromKey").selectedIndex+i+1,currentPos);
     }
   }
@@ -1374,12 +1377,6 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
    /////////////////////////////////////////////////////////////////////////////////////
    for (var i = newLineColors.length-1; i >= 0; i--) {
-     if(!newLineColors[i].checkRGBPossiblity()){
-       var tmpColor = newLineColors[i].calcRGBColor(); // will calculate the best next rgb colorXYZ
-       newLineColors[i]=tmpColor.calcLABColor();
-     }
-
-
      switch (this.editCMS.getKeyType(startKey+i)){
        case "nil key":
            // should never happen
@@ -1404,8 +1401,6 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
        break;
      }
    }
-
-
  }
 
  //////////////////////////////////////////////////////////////////////////////////////////////////

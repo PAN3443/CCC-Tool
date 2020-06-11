@@ -18,8 +18,12 @@
   }
 
   setNodeColor(color) {
+
+    gWorkColor1.autoRGBClipping=true;
+    gWorkColor1.updateColor(color[0],color[1],color[2],color[3]);
+
     this.nodeColor.deleteReferences();
-    this.nodeColor = color;
+    this.nodeColor = gWorkColor1.getColorInfo(color[0]);
   }
 
 

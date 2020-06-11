@@ -161,9 +161,6 @@ class class_Graph_ForcedLayout extends class_Graph {
     var refPos1= this.nodeArray[this.edgeArray[eID1].getNodeID1()].getNodeRefPos()+distanceInfo[2]*Math.abs(this.nodeArray[this.edgeArray[eID1].getNodeID2()].getNodeRefPos() - this.nodeArray[this.edgeArray[eID1].getNodeID1()].getNodeRefPos());
     var refPos2= this.nodeArray[this.edgeArray[eID2].getNodeID1()].getNodeRefPos()+distanceInfo[3]*Math.abs(this.nodeArray[this.edgeArray[eID2].getNodeID2()].getNodeRefPos() - this.nodeArray[this.edgeArray[eID2].getNodeID1()].getNodeRefPos());
 
-    distanceInfo[0].deleteReferences();
-    distanceInfo[1].deleteReferences();
-
     return distance / Math.abs(refPos2 - refPos1);
 
   }
@@ -180,26 +177,22 @@ class class_Graph_ForcedLayout extends class_Graph {
 
      var tmp_c1 = vec_Dot(vec_w,vec_v);
      if ( tmp_c1 <= 0 ){
-        tmp_s_p2.deleteReferences();
         return [tmp_s_p1,0.0];
      }
 
      var tmp_c2 = vec_Dot(vec_v,vec_v);
      if ( tmp_c2 <= tmp_c1 ){
-       tmp_s_p1.deleteReferences();
        return [tmp_s_p2,1.0];
      }
 
      var tmp_b = tmp_c1 / tmp_c2;
      var vec_Pb = vec_Add([tmp_s_p1[1],tmp_s_p1[2],tmp_s_p1[3]], vecScalMulti(vec_v,tmp_b));
-     var nearestColor = createColor(vec_Pb[0],vec_Pb[1],vec_Pb[2],this.graphColorSpace);
+     var nearestColor = [this.graphColorSpace,vec_Pb[0],vec_Pb[1],vec_Pb[2]];
 
      var length_S = vecLength(vec_v);
      var length_S_Pb = vecLength(vec_Diff_COLOR(nearestColor,tmp_s_p1));
      var ratioPos_S_Pb = length_S_Pb/length_S;
 
-     tmp_s_p1.deleteReferences();
-     tmp_s_p2.deleteReferences();
      return [nearestColor,ratioPos_S_Pb];
    }
 
@@ -236,11 +229,6 @@ class class_Graph_ForcedLayout extends class_Graph {
 
     var vec_u = vec_Diff_COLOR(tmp_s1p2,tmp_s1p1);// S1.P1 - S1.P0;
     var vec_v = vec_Diff_COLOR(tmp_s2p2,tmp_s2p1); //S2.P1 - S2.P0;
-
-    tmp_s1p1.deleteReferences();
-    tmp_s1p2.deleteReferences();
-    tmp_s2p1.deleteReferences();
-    tmp_s2p2.deleteReferences();
 
     return [
       vec_u[1]*vec_v[2]-vec_u[2]*vec_v[1],
@@ -329,9 +317,9 @@ class class_Graph_ForcedLayout extends class_Graph {
 
 
         var vec_NP_S1 = vecScalMulti(vec_u,tmp_sc);
-        var nearestPoint_S1 = createColor(tmp_s1p1[1]+vec_NP_S1[0],tmp_s1p1[2]+vec_NP_S1[1],tmp_s1p1[3]+vec_NP_S1[2],this.graphColorSpace);
+        var nearestPoint_S1 = [this.graphColorSpace,tmp_s1p1[1]+vec_NP_S1[0],tmp_s1p1[2]+vec_NP_S1[1],tmp_s1p1[3]+vec_NP_S1[2]];
         var vec_NP_S2 = vecScalMulti(vec_v,tmp_tc);
-        var nearestPoint_S2 = createColor(tmp_s2p1[1]+vec_NP_S2[0],tmp_s2p1[2]+vec_NP_S2[1],tmp_s2p1[3]+vec_NP_S2[2],this.graphColorSpace);
+        var nearestPoint_S2 = [this.graphColorSpace,tmp_s2p1[1]+vec_NP_S2[0],tmp_s2p1[2]+vec_NP_S2[1],tmp_s2p1[3]+vec_NP_S2[2]];
 
         var length_S1 = vecLength(vec_u);
         var length_S1_P1NP = vecLength(vec_Diff_COLOR(nearestPoint_S1,tmp_s1p1));
@@ -341,11 +329,6 @@ class class_Graph_ForcedLayout extends class_Graph {
         var length_S2_P1NP = vecLength(vec_Diff_COLOR(nearestPoint_S2,tmp_s2p1));
         var ratioPos_S2_NP = length_S2_P1NP/length_S2;
 
-
-        tmp_s1p1.deleteReferences();
-        tmp_s1p2.deleteReferences();
-        tmp_s2p1.deleteReferences();
-        tmp_s2p2.deleteReferences();
 
       return [nearestPoint_S1,nearestPoint_S2,ratioPos_S1_NP,ratioPos_S2_NP];
   }

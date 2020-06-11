@@ -137,37 +137,6 @@ class class_Graph_ForcedGlobalSpeed extends class_Graph_ForcedLayout {
       }
 
 
-
-      /////////////////////////////////////////////////
-      //  PART 3: Calc Repulse Force from the
-      /*if(this.useRepulse){
-        for (var v = 0; v < this.nodeArray.length; v++) {
-          var repulse = this.nodeArray[v].calcRepulseForce();
-          if(repulse==undefined)
-            continue;
-
-          switch (v) {
-            case 0:
-                repusleForces[1][0] += repulse[0];
-                repusleForces[1][1] += repulse[1];
-                repusleForces[1][2] += repulse[2];
-              break;
-              case this.nodeArray.length-1:
-                repusleForces[this.nodeArray.length-2][0] += repulse[0];
-                repusleForces[this.nodeArray.length-2][1] += repulse[1];
-                repusleForces[this.nodeArray.length-2][2] += repulse[2];
-              break;
-            default:
-              repusleForces[v-1][0] += repulse[0]*0.5;
-              repusleForces[v-1][1] += repulse[1]*0.5;
-              repusleForces[v-1][2] += repulse[2]*0.5;
-              repusleForces[v+1][0] += repulse[0]*0.5;
-              repusleForces[v+1][1] += repulse[1]*0.5;
-              repusleForces[v+1][2] += repulse[2]*0.5;
-          }
-        }
-      }//*/
-
       /////////////////////////////////////////////////
       //// PART 3: limit max displacement to temperaturetand prevent from displacementoutside frame
 

@@ -87,7 +87,6 @@ function calcRGBInterpolationLine(rgbResolution){
           pathplotLines.push(getRGBLineSegment(ref_GlobalCMS.get_PP_WorkColor(i,ref_GlobalCMS.get_PP_WorkColorLength(i)-1,"rgb"),ref_GlobalCMS.getLeftKeyColor(i+1,"rgb"),areaDim));
         }
       }
-
     }
 }
 

@@ -299,7 +299,6 @@ class class_Graph_ForcedLegOrder_Speed extends class_Graph_ForcedLayout {
 
                   // Get direction?
                 }
-
               }
             }
 
