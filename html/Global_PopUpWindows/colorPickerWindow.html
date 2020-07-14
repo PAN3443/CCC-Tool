@@ -3,55 +3,51 @@
 ----------------  	Colorpicker Window	  -----------------
 -----------------------------------------------
 -->
-<div style=" display:flex;">
+<div style="display:flex; background: var(--main-sepArea-bg);">
 
-  <div id="id_popupColorPicker_settingDiv" style="height: 36vh; width:8vw; overflow-x:hidden; overflow-y:hidden; display:none; background: var(--main-bg-color); ">
-
-    <h2 class="class_popupWindow_Label" style="height:3vh; line-height:3vh; font-size:2vh; padding-top:0vh; padding-bottom:0vh;"> Settings </h2>
-
+  <div style="height: 36vh; width:5vw; display:flex; flex-direction:column;">
     <!--p style="font-weight:bold; color:white; background:black; width:100%; padding-left:0.5vw;"> Select:</p-->
 
 
-    <label class="class_radio_container" style="margin-left:0.5vw;">RG+B
+    <label class="class_radio_container" style="margin-left:0.5vw; margin-top:auto"><p style="color: var(--main-sepArea-font-color);"> : RG+B</p>
       <input type="radio" checked="checked" name="popupWindow_Colorpicker_Type" id="id_popupWindow_Colorpicker_RG_B" >
       <span class="class_radio_checkmark"></span>
     </label>
-    <label class="class_radio_container" style="margin-left:0.5vw;">RB+G
+    <label class="class_radio_container" style="margin-left:0.5vw;"><p style="color: var(--main-sepArea-font-color);"> : RB+G</p>
       <input type="radio"  name="popupWindow_Colorpicker_Type" id="id_popupWindow_Colorpicker_RB_G" >
       <span class="class_radio_checkmark"></span>
     </label>
-    <label class="class_radio_container" style="margin-left:0.5vw;">GB+R
+    <label class="class_radio_container" style="margin-left:0.5vw;"><p style="color: var(--main-sepArea-font-color);"> : GB+R</p>
       <input type="radio"  name="popupWindow_Colorpicker_Type" id="id_popupWindow_Colorpicker_GB_R" >
       <span class="class_radio_checkmark"></span>
     </label>
 
-    <label class="class_radio_container" style="margin-left:0.5vw;">HS+V
+    <label class="class_radio_container" style="margin-left:0.5vw;"><p style="color: var(--main-sepArea-font-color);"> : HS+V</p>
       <input type="radio"  name="popupWindow_Colorpicker_Type" id="id_popupWindow_Colorpicker_HS_V" >
       <span class="class_radio_checkmark"></span>
     </label>
-    <label class="class_radio_container" style="margin-left:0.5vw;">HV_S
+    <label class="class_radio_container" style="margin-left:0.5vw;"><p style="color: var(--main-sepArea-font-color);"> : HV_S</p>
       <input type="radio"  name="popupWindow_Colorpicker_Type" id="id_popupWindow_Colorpicker_HV_S" >
       <span class="class_radio_checkmark"></span>
     </label>
-    <label class="class_radio_container" style="margin-left:0.5vw;">SV_H
+    <label class="class_radio_container" style="margin-left:0.5vw;"><p style="color: var(--main-sepArea-font-color);"> : SV_H</p>
       <input type="radio" name="popupWindow_Colorpicker_Type" id="id_popupWindow_Colorpicker_SV_H" >
       <span class="class_radio_checkmark"></span>
     </label>
 
-
-    <p id="id_popupColorPicker_InputLabel" style="font-weight:bold; color:white; background:black; width:100%; margin-top:1vh; padding-left:0.5vw;"> RGB:</p>
+    <hr style="color: var(--main-sepArea-font-color); width:5vw;">
 
     <div style="margin-left:0.5vw; display:flex;">
-      <p  class="class_InputPopUpWindow" id="id_popupColorPicker_InputLabel1" style="font-weight:bold; width:2vw;">R :</p>
-      <input id="id_popupWindow_Colorpicker_Input1" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center;  width:3vw">
+      <p style="color: var(--main-sepArea-font-color); width:1.75vw;" id="id_popupColorPicker_InputLabel1">R :</p>
+      <input id="id_popupWindow_Colorpicker_Input1" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center; width:3vw">
     </div>
     <div style="margin-left:0.5vw; display:flex;">
-      <p  class="class_InputPopUpWindow" id="id_popupColorPicker_InputLabel2" style="font-weight:bold; width:2vw;">G :</p>
-      <input id="id_popupWindow_Colorpicker_Input2" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center;  width:3vw">
+      <p style="color: var(--main-sepArea-font-color); width:1.75vw;" id="id_popupColorPicker_InputLabel2">G :</p>
+      <input id="id_popupWindow_Colorpicker_Input2" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center; width:3vw">
     </div>
-    <div style="margin-left:0.5vw; display:flex;">
-      <p class="class_InputPopUpWindow" id="id_popupColorPicker_InputLabel3" style="font-weight:bold; width:2vw;">B :</p>
-      <input id="id_popupWindow_Colorpicker_Input3" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center; margin-right:auto; width:3vw">
+    <div style="margin-left:0.5vw; display:flex; margin-bottom:auto;">
+      <p style="color: var(--main-sepArea-font-color); width:1.75vw;" id="id_popupColorPicker_InputLabel3">B :</p>
+      <input id="id_popupWindow_Colorpicker_Input3" class="class_InputPopUpWindow" type="number" step="any" value="0" min="0" max="255" style="text-align:center; width:3vw">
     </div>
 
 
@@ -59,12 +55,8 @@
 
   <div>
 
-    <div style="background:black; display:flex;">
-
-      <div onclick="openColorPickerSettings()" style="height:3vh; width:3vh; background: url(../../img/Buttons/gear_wheel.png); background-size:cover; background-repeat:no-repeat; background-position: center center; cursor:pointer;">
-      </div>
-
-      <h2 class="class_popupWindow_Label" style="height:3vh; line-height:3vh; font-size:2.5vh; padding-top:0vh; padding-bottom:0vh;"> Color Picker </h2>
+    <div style="display:flex;">
+      <h2 class="class_popupWindow_Label" style="margin-left:3vh; height:3vh; line-height:3vh; font-size:2.5vh; padding-top:0vh; padding-bottom:0vh;"> Color Picker </h2>
       <div id="id_popupWindow_CloseColorpicker" onclick="closeColorPicker()">X</div>
     </div>
 

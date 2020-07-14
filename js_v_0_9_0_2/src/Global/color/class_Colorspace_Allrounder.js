@@ -1,5 +1,6 @@
 // global varialbe for all objects of this class
 var colorAccuracy = 1e-6;
+var testconn=0;
 /////////////////////////////////////
 class class_Color {
   constructor(space, value_1, value_2, value_3) {
@@ -38,6 +39,8 @@ class class_Color {
     this.val_1_lms = undefined;
     this.val_2_lms = undefined;
     this.val_3_lms = undefined;
+
+    this.getInfo=false;
 
     this.updateColor(space, value_1, value_2, value_3);
   }
@@ -106,6 +109,7 @@ class class_Color {
   }
 
   updateColor(space, value_1, value_2, value_3) {
+
     this.originSpace = space;
     switch (space) {
       case "RGB": case "rgb": case "Rgb":
@@ -132,6 +136,7 @@ class class_Color {
         this.setLMS(value_1, value_2, value_3);
         break;
     }
+
     this.rgbClipping();
   }
 
@@ -306,6 +311,7 @@ class class_Color {
   setRGB(value_1, value_2, value_3) {
     this.resetColor();
     this.originSpace = "rgb";
+
     this.val_1_rgb = value_1;
     this.val_2_rgb = value_2;
     this.val_3_rgb = value_3;
@@ -599,10 +605,9 @@ class class_Color {
   }
 
   conversion_XYZ_2_LMS() {
-
-    this.val_1_lms = this.value_1 * tmLMS_Selected[0][0] + this.value_2 * tmLMS_Selected[0][1] + this.value_3 * tmLMS_Selected[0][2];
-    this.val_2_lms = this.value_1 * tmLMS_Selected[1][0] + this.value_2 * tmLMS_Selected[1][1] + this.value_3 * tmLMS_Selected[1][2];
-    this.val_3_lms = this.value_1 * tmLMS_Selected[2][0] + this.value_2 * tmLMS_Selected[2][1] + this.value_3 * tmLMS_Selected[2][2];
+    this.val_1_lms = this.val_1_xyz * tmLMS_Selected[0][0] + this.val_2_xyz * tmLMS_Selected[0][1] + this.val_3_xyz * tmLMS_Selected[0][2];
+    this.val_2_lms = this.val_1_xyz * tmLMS_Selected[1][0] + this.val_2_xyz * tmLMS_Selected[1][1] + this.val_3_xyz * tmLMS_Selected[1][2];
+    this.val_3_lms = this.val_1_xyz * tmLMS_Selected[2][0] + this.val_2_xyz * tmLMS_Selected[2][1] + this.val_3_xyz * tmLMS_Selected[2][2];
   }
 
   conversion_LMS_2_XYZ() {
@@ -780,33 +785,42 @@ class class_Color {
 
 
   rgbClipping(){
+
     if(!this.autoRGBClipping)
       return;
 
-    var tmpR = this.val_1_rgb;
-    var tmpG = this.val_2_rgb;
-    var tmpB = this.val_3_rgb;
+    // do Clipping for the case of setRGBFromHEX or setRGB has set false values
+    if (this.val_1_rgb > 1.0) {
+      this.val_1_rgb = 1.0;
+    }
+    if (this.val_2_rgb > 1.0) {
+      this.val_2_rgb = 1.0;
+    }
+    if (this.val_3_rgb > 1.0) {
+      this.val_3_rgb = 1.0;
+    }
+    if (this.val_1_rgb < 0.0) {
+      this.val_1_rgb = 0.0;
+    }
+    if (this.val_2_rgb < 0.0) {
+      this.val_2_rgb = 0.0;
+    }
+    if (this.val_3_rgb < 0.0) {
+      this.val_3_rgb = 0.0;
+    }
 
-    if(tmpR > 1.0)
-      tmpR=1.0;
+    // rgb clipping is for the case, that a XYZ-Color ( or related Colorspace) is out of the rgb order
+    if(!this.checkRGBPossiblity_XYZ()){
+      // the rgb values of this class object are already clipped. Now we only have to update the colorvalues of the XYZ related Colorspaces
+      this.conversion_RGB_2_HSV();
+      this.conversion_RGB_2_XYZ();
+      this.conversion_XYZ_2_LMS();
+      this.conversion_LMS_2_RGB_CB();
+      this.conversion_XYZ_2_LAB();
+      this.conversion_LAB_2_LCH();
+      this.conversion_LAB_2_DIN99();
+    }
 
-    if(tmpR < 0.0)
-      tmpR=0.0;
-
-    if(tmpG > 1.0)
-      tmpG=1.0;
-
-    if(tmpG < 0.0)
-      tmpG=0.0;
-
-    if(tmpB > 1.0)
-      tmpB=1.0;
-
-    if(tmpB < 0.0)
-      tmpB=0.0;
-
-    if(tmpR != this.val_1_rgb || tmpG != this.val_2_rgb || tmpB != this.val_3_rgb)
-      this.setRGB(tmpR, tmpG, tmpB);
   }
 
   checkRGBPossiblity() {

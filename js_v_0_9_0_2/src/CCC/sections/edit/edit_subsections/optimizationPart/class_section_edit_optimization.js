@@ -67,7 +67,6 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
   }
 
   showSection(){
-
     if(editSection.editCMS.getInterpolationSpace()==="hsv" || editSection.editCMS.getInterpolationSpace()==="lch"){
       openAlert("Your CMS use the HSV or LCH colorspace for interpolation. Please change the interpolation colorspace to a space, that works with cartesian coordinates.");
       return;

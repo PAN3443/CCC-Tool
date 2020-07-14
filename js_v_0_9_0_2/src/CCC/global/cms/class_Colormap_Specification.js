@@ -1191,7 +1191,7 @@ class class_CMS {
     this.jnd_lab=cmsPackage[11]; // just noticeable difference for space lab
     this.jnd_de94=cmsPackage[12]; // just noticeable difference for space lab with metric DE94
     this.jnd_de2000=cmsPackage[13]; // just noticeable difference for space lab with metric CIEDE2000
-    this.jnd_din99=cmsPackage[17]; // just noticeable difference for space din99
+    this.jnd_din99=cmsPackage[14]; // just noticeable difference for space din99
 
     /////////////////////////////////////////////////
     this.name=cmsPackage[0];

@@ -1201,18 +1201,20 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
   pp_determinMouseColor(){
 
+    gWorkColor1.autoRGBClipping=false;
+    var content = undefined;
     if(this.pathplot_space=="rgb"){
       var val1 = this.checkOutOfRange(parseInt((this.mousePosX-this.pp_canvas_xStart)/this.pp_canvas_xWidth*255)/255);
       var val2 = this.checkOutOfRange(parseInt((this.pp_canvas_yStart-this.mousePosY)/this.pp_canvas_yHeight*255)/255);
       switch (this.pp_CanvasMode) {
         case "RG":
-          return ["rgb",val2,val1,this.pp_currentColor[3]];
+          content = ["rgb",val2,val1,this.pp_currentColor[3]];
         break;
         case "RB":
-          return ["rgb",val2,this.pp_currentColor[2],val1];
+          content = ["rgb",val2,this.pp_currentColor[2],val1];
         break;
         case "BG":
-          return ["rgb",this.pp_currentColor[1],val1,val2];
+          content = ["rgb",this.pp_currentColor[1],val1,val2];
         break;
         }
     }
@@ -1232,7 +1234,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
                 var angle = atan2_360Degree(tx,ty); // values 0-1 ...
                 var hVal = parseInt(angle)/360;
                 var sVal = parseInt(dis / colorspaceRadius *100)/100;
-                return ["hsv",hVal,sVal,this.pp_currentColor[3]];
+                content = ["hsv",hVal,sVal,this.pp_currentColor[3]];
               }
             break;
             case "lab":
@@ -1240,20 +1242,16 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
               var bVal = parseInt(((colorspaceCenterY-this.mousePosY) / (this.pathplot_hueRes / 2)) * labSpaceRange);
               gWorkColor1.updateColor("lab",this.pp_currentColor[1], aVal, bVal);
               if (gWorkColor1.checkRGBPossiblity())
-                return gWorkColor1.getColorInfo("lab");
-
-              return undefined;
+                content = gWorkColor1.getColorInfo("lab");
             break;
             case "din99":
             var a99Val = parseInt((this.mousePosX / this.pathplot_hueRes) * rangeA99 + rangeA99Neg);
             var b99Val = parseInt(((this.pathplot_hueRes-this.mousePosY) / this.pathplot_hueRes) * rangeB99 + rangeB99Neg);
             if (a99Val < rangeA99Neg || a99Val > rangeA99Pos || b99Val < rangeB99Neg || b99Val > rangeB99Pos)
-              return undefined;
+              break;
             gWorkColor1.updateColor("din99",this.pp_currentColor[1], a99Val, b99Val);
             if (gWorkColor1.checkRGBPossiblity())
-              return gWorkColor1.getColorInfo("din99");
-
-            return undefined;
+              content = gWorkColor1.getColorInfo("din99");
             break;
             case "lch":
               var colorspaceRadius =  Math.round((this.pathplot_hueRes*0.95 / 2));
@@ -1266,151 +1264,111 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
                 var cVal = parseInt(dis / colorspaceRadius * 100)/100;
                 gWorkColor1.updateColor("lch",this.pp_currentColor[1], cVal,hVal);
                 if (gWorkColor1.checkRGBPossiblity())
-                  return gWorkColor1.getColorInfo("lch");
-
-                return undefined;
+                  content = gWorkColor1.getColorInfo("lch");
               }
             break;
-              default:
-                return undefined;
             }
         break;
         default:
           var relevantComponent=undefined;
           var newValue = (this.pp_canvas_yStart - this.mousePosY) / this.pp_canvas_yHeight;
           if (newValue < 0 && newValue > 1.0)
-            return undefined;
+            break;
           switch (this.pp_CanvasMode) {
             case "C1":
             switch (this.pathplot_space) {
                 case "rgb-line":
-                  return ["rgb",this.checkOutOfRange(parseInt(newValue*255)/255),this.pp_currentColor[2],this.pp_currentColor[3]];
+                  content = ["rgb",this.checkOutOfRange(parseInt(newValue*255)/255),this.pp_currentColor[2],this.pp_currentColor[3]];
                 break;
                 case "hsv":
-                  return ["hsv",this.checkOutOfRange(parseInt(newValue*360)/360),this.pp_currentColor[2],this.pp_currentColor[3]];
+                  content = ["hsv",this.checkOutOfRange(parseInt(newValue*360)/360),this.pp_currentColor[2],this.pp_currentColor[3]];
                 break;
                 case "lms":
                   gWorkColor1.updateColor("lms",parseInt(newValue*100),this.pp_currentColor[2],this.pp_currentColor[3]);
                   if (gWorkColor1.checkRGBPossiblity())
-                    return gWorkColor1.getColorInfo("lms");
-
-                  return undefined;
+                    content = gWorkColor1.getColorInfo("lms");
                 break;
                 case "lab":
                   gWorkColor1.updateColor("lab",parseInt(newValue*100),this.pp_currentColor[2],this.pp_currentColor[3]);
                   if (gWorkColor1.checkRGBPossiblity())
-                    return gWorkColor1.getColorInfo("lab");
-
-                  return undefined;
+                    content = gWorkColor1.getColorInfo("lab");
                 break;
                 case "din99":
                   gWorkColor1.updateColor("din99",parseInt(newValue*100),this.pp_currentColor[2],this.pp_currentColor[3]);
                   if (gWorkColor1.checkRGBPossiblity())
-                    return gWorkColor1.getColorInfo("din99");
-
-                  return undefined;
+                    content = gWorkColor1.getColorInfo("din99");
                 break;
                 case "lch":
                   gWorkColor1.updateColor("lch",parseInt(newValue*100)/100,this.pp_currentColor[2],this.pp_currentColor[3]);
                   if (gWorkColor1.checkRGBPossiblity())
-                    return gWorkColor1.getColorInfo("lch");
-
-                  return undefined;
+                    content = gWorkColor1.getColorInfo("lch");
                 break;
-                  default:
-                    return undefined;
                 }
             break;
             case "C2":
             switch (this.pathplot_space) {
                 case "rgb-line":
-                  return ["rgb",this.pp_currentColor[1],this.checkOutOfRange(parseInt(newValue*255)/255),this.pp_currentColor[3]];
+                  content = ["rgb",this.pp_currentColor[1],this.checkOutOfRange(parseInt(newValue*255)/255),this.pp_currentColor[3]];
                 break;
                 case "hsv":
-                  return ["hsv",this.pp_currentColor[1],this.checkOutOfRange(parseInt(newValue*100)/100),this.pp_currentColor[3]];
+                  content = ["hsv",this.pp_currentColor[1],this.checkOutOfRange(parseInt(newValue*100)/100),this.pp_currentColor[3]];
                 break;
                 case "lms":
                   gWorkColor1.updateColor("lms",this.pp_currentColor[1],parseInt(newValue*100),this.pp_currentColor[3]);
                   if (gWorkColor1.checkRGBPossiblity())
-                    return gWorkColor1.getColorInfo("lms");
-
-                  return undefined;
+                    content = gWorkColor1.getColorInfo("lms");
                 break;
                 case "lab":
                   gWorkColor1.updateColor("lab",this.pp_currentColor[1],parseInt(newValue*(labSpaceRange*2)+(labSpaceRange*-1)),this.pp_currentColor[3]);
                   if (gWorkColor1.checkRGBPossiblity())
-                    return gWorkColor1.getColorInfo("lab");
-
-                  return undefined;
+                    content = gWorkColor1.getColorInfo("lab");
                 break;
                 case "din99":
                   gWorkColor1.updateColor("din99",this.pp_currentColor[1],parseInt(newValue*(rangeA99Pos-rangeA99Neg)+(rangeA99Neg)),this.pp_currentColor[3]);
                   if (gWorkColor1.checkRGBPossiblity())
-                    return gWorkColor1.getColorInfo("din99");
-
-                  return undefined;
+                    content = gWorkColor1.getColorInfo("din99");
                 break;
                 case "lch":
                   gWorkColor1.updateColor("lch",this.pp_currentColor[1],parseInt(newValue*100)/100,this.pp_currentColor[3]);
                   if (gWorkColor1.checkRGBPossiblity())
-                    return gWorkColor1.getColorInfo("lch");
-
-                  return undefined;
+                    content = gWorkColor1.getColorInfo("lch");
                 break;
-                  default:
-                    return undefined;
                 }
             break;
             case "C3":
             switch (this.pathplot_space) {
                 case "rgb-line":
-                  return ["rgb",this.pp_currentColor[1],this.pp_currentColor[2],this.checkOutOfRange(parseInt(newValue*255)/255)];
+                  content = ["rgb",this.pp_currentColor[1],this.pp_currentColor[2],this.checkOutOfRange(parseInt(newValue*255)/255)];
                 break;
                 case "hsv":
-                  return ["hsv",this.pp_currentColor[1],this.pp_currentColor[2],this.checkOutOfRange(parseInt(newValue*100)/100)];
+                  content = ["hsv",this.pp_currentColor[1],this.pp_currentColor[2],this.checkOutOfRange(parseInt(newValue*100)/100)];
                 break;
                 case "lms":
                   gWorkColor1.updateColor("lms",this.pp_currentColor[1],this.pp_currentColor[2],parseInt(newValue*100));
                   if (gWorkColor1.checkRGBPossiblity())
-                    return gWorkColor1.getColorInfo("lms");
-
-                  return undefined;
+                    content = gWorkColor1.getColorInfo("lms");
                 break;
                 case "lab":
                   gWorkColor1.updateColor("lab",this.pp_currentColor[1],this.pp_currentColor[2],parseInt(newValue*(labSpaceRange*2)+(labSpaceRange*-1)));
                   if (gWorkColor1.checkRGBPossiblity())
-                    return gWorkColor1.getColorInfo("lab");
-
-                  return undefined;
+                    content = gWorkColor1.getColorInfo("lab");
                 break;
                 case "din99":
                   gWorkColor1.updateColor("din99",this.pp_currentColor[1],this.pp_currentColor[2],parseInt(newValue*(rangeB99Pos-rangeB99Neg)+(rangeB99Neg)));
                   if (gWorkColor1.checkRGBPossiblity())
-                    return gWorkColor1.getColorInfo("din99");
-
-                  return undefined;
+                    content = gWorkColor1.getColorInfo("din99");
                 break;
                 case "lch":
                   gWorkColor1.updateColor("lch",this.pp_currentColor[1],this.pp_currentColor[2],parseInt(newValue*360)/360);
                   if (gWorkColor1.checkRGBPossiblity())
-                    return gWorkColor1.getColorInfo("lch");
-
-                  return undefined;
+                    content = gWorkColor1.getColorInfo("lch");
                 break;
-                  default:
-                    return undefined;
                 }
             break;
-            default:
-              return undefined;
           }
-
-
-
-
         }
     }
-    return undefined;
+    return content;
   }
 
   checkOutOfRange(value){

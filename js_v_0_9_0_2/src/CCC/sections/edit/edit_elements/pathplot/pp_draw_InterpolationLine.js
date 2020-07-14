@@ -313,7 +313,7 @@ function getLineSegment_LineChart_LMS(fromColor, tillColor, xRatio, xRatio2,vWid
   tillPos.push(yPos22);
   tillPos.push(yPos23);
   ///////////////////////////////////////////////////////////////////
-
+  
   var posArray = [fromPos,tillPos];
   return posArray;
 }

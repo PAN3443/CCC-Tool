@@ -4,7 +4,7 @@
 
 
 
-var sc_label_arrayEdit = ["Undo","Redo","Save CMS","Save As New CMS","Scale CMS","Clear CMS","Export CMS","Change Interpolation Space","Change Add Key Modus","Change Remove Key Modus"];
+var sc_label_arrayEdit = ["Undo","Redo","Save CMS","Save As New CMS","Scale CMS","Clear CMS","Export CMS","Change Interpolation Space","Change Add Key Mode","Change Remove Key Mode"];
 var sc_key_arrayEdit = ["z","y","s","d","x","c","e","i","+","-"];
 var sc_keyNum_arrayEdit = [90,89,83,68,88,67,69,73,107,109];
 var sc_function_arrayEdit = [
@@ -53,10 +53,10 @@ var sc_function_arrayEdit = [
     editSection.updateSection();
     editSection.doPagePeculiarity();
   },
-  // Add Key Modus
-  function(){changeAddKeyModus();},
-  // Remove Key Modus
-  function(){changeRemoveKeyModus();}
+  // Add Key Mode
+  function(){changeAddKeyMode();},
+  // Remove Key Mode
+  function(){changeRemoveKeyMode();}
 ];
 
 var sc_label_arrayGlobal = ["Navigation Map"];
@@ -108,43 +108,6 @@ function keyDownDocumentHandler(event){
   }
 
 
-  //////////////////////////////////
-  /// Testing Page
-  /*if(document.getElementById("id_TestingPage").style.display!="none"){
-    var keynum;
-    if(window.event) { // IE
-      keynum = event.keyCode;
-    } else if(event.which){ // Netscape/Firefox/Opera
-      keynum = event.which;
-    }
-
-    switch (keynum) {
-
-      case 37:
-        // left arrow
-        if(testingModus>0)
-         switchToPreviousTest();
-      return;
-      case 38:
-          // up arrow
-          if(testingModus==2 && reportModus>0)
-            switchToPreviousReport();
-      return;
-      case 39:
-        // right arrow
-        if(testingModus==1 && reportListTestField.length>0)
-          switchToNextTest();
-        else if(testingModus==0)
-          switchToNextTest();
-      return;
-      case 40:
-        // down arrow
-        if(testingModus==2 && reportModus<3)
-          switchToNextReport();
-      return;
-    }*/
-
-    //console.log(keynum);
   }
 
 }

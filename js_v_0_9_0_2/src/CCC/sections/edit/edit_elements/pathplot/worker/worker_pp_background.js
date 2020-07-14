@@ -103,9 +103,9 @@ self.addEventListener('message', function(e) {
           var xWidth = xEnd - xStart;
           var yHeight = yStart - yEnd;
 
-          gWorkColor1 = new class_Color("rgb", 0, 0, 0);
-          gWorkColor2 = new class_Color("rgb", 0, 0, 0);
-          gWorkColor3 = new class_Color("rgb", 0, 0, 0);
+          gWorkColor1.updateColor("rgb", 0, 0, 0);
+          gWorkColor2.updateColor("rgb", 0, 0, 0);
+          gWorkColor3.updateColor("rgb", 0, 0, 0);
 
           if(e.data.fixedValue1!=undefined){
             gWorkColor1.setValue("rgb", 2, e.data.fixedValue3)
@@ -195,7 +195,7 @@ self.addEventListener('message', function(e) {
           if (e.data.fixedValue3!=undefined)
             vVal=e.data.fixedValue3;
 
-          gWorkColor1 = new class_Color("hsv", 0, 0, vVal);
+          gWorkColor1.updateColor("hsv", 0, 0, vVal);
 
           for (var x = 0; x < hueResolution; x++) {
 
@@ -252,10 +252,10 @@ self.addEventListener('message', function(e) {
           if (e.data.fixedValue1!=undefined)
             lVal=e.data.fixedValue1;
 
-          gWorkColor1 = new class_Color("lab", lVal, 0, 0);
+          gWorkColor1.autoRGBClipping=false;
+          gWorkColor1.updateColor("lab", lVal, 0, 0);
 
           for (var x = 0; x < hueResolution; x++) {
-
             for (var y = 0; y < hueResolution; y++) {
 
                 var tmpY = hueResolution-y;
@@ -283,8 +283,8 @@ self.addEventListener('message', function(e) {
                 background.data[indices[3]] = 255; //a
 
             }
-
           }
+          gWorkColor1.autoRGBClipping=true;
 
           var answerJSON = {};
           answerJSON['pp_space'] = e.data.pp_space;
@@ -305,7 +305,8 @@ self.addEventListener('message', function(e) {
           if (e.data.fixedValue1!=undefined)
             l99Val=e.data.fixedValue1;
 
-          gWorkColor1 = new class_Color("din99", l99Val, 0, 0);
+          gWorkColor1.autoRGBClipping=false;
+          gWorkColor1.updateColor("din99", l99Val, 0, 0);
           for (var x = 0; x < hueResolution; x++) {
 
             for (var y = 0; y < hueResolution; y++) {
@@ -336,6 +337,7 @@ self.addEventListener('message', function(e) {
 
             }
           }
+          gWorkColor1.autoRGBClipping=true;
 
           var answerJSON = {};
           answerJSON['pp_space'] = e.data.pp_space;
@@ -355,7 +357,8 @@ self.addEventListener('message', function(e) {
             if (e.data.fixedValue1!=undefined)
               lVal=e.data.fixedValue1;
 
-            gWorkColor1 = new class_Color("lch", lVal, 0, 0);
+            gWorkColor1.autoRGBClipping=false;
+            gWorkColor1.updateColor("lch", lVal, 0, 0);
 
             for (var x = 0; x < hueResolution; x++) {
 
@@ -398,6 +401,7 @@ self.addEventListener('message', function(e) {
               }
 
             }
+            gWorkColor1.autoRGBClipping=true;
 
           var answerJSON = {};
           answerJSON['pp_space'] = e.data.pp_space;

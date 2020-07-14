@@ -177,7 +177,7 @@ class class_Graph_ForcedLegOrder extends class_Graph_ForcedLayout {
                 var randomX = getRandomArbitrary(0.0,1.0);
                 var randomY = getRandomArbitrary(0.0,1.0);
 
-                var orthogonalZ = (-(vec_v[0]*randomX)-(vec_v[1]*randomX))/vec_v[2];
+                var orthogonalZ = getRandomArbitrary(0.0000001,1.0); // = (-(vec_v[0]*randomX)-(vec_v[1]*randomX))/vec_v[2];
 
                 vec_d = [randomX,randomY,orthogonalZ];
                 vec_d= vecScalMulti(vec_d,impulseFactor);
@@ -226,7 +226,7 @@ class class_Graph_ForcedLegOrder extends class_Graph_ForcedLayout {
               var randomX = getRandomArbitrary(0.0,1.0);
               var randomY = getRandomArbitrary(0.0,1.0);
 
-              var orthogonalZ = (-(vec_v[0]*randomX)-(vec_v[1]*randomX))/vec_v[2];
+              var orthogonalZ = getRandomArbitrary(0.0000001,1.0); // = (-(vec_v[0]*randomX)-(vec_v[1]*randomX))/vec_v[2];
 
               vec_d = [randomX,randomY,orthogonalZ];
               vec_d= vecScalMulti(vec_d,impulseFactor);
@@ -382,7 +382,7 @@ class class_Graph_ForcedLegOrder extends class_Graph_ForcedLayout {
           var randomX = getRandomArbitrary(0.0,1.0);
           var randomY = getRandomArbitrary(0.0,1.0);
 
-          var orthogonalZ = (-(vec_v[0]*randomX)-(vec_v[1]*randomX))/vec_v[2];
+          var orthogonalZ = getRandomArbitrary(0.0000001,1.0); // = (-(vec_v[0]*randomX)-(vec_v[1]*randomX))/vec_v[2];
 
           vec_d = [randomX,randomY,orthogonalZ];
           vec_d= vecScalMulti(vec_d,impulseFactor);
@@ -426,7 +426,7 @@ class class_Graph_ForcedLegOrder extends class_Graph_ForcedLayout {
             var randomX = getRandomArbitrary(0.0,1.0);
             var randomY = getRandomArbitrary(0.0,1.0);
 
-            var orthogonalZ = (-(vec_v[0]*randomX)-(vec_v[1]*randomX))/vec_v[2];
+            var orthogonalZ = getRandomArbitrary(0.0000001,1.0); // = (-(vec_v[0]*randomX)-(vec_v[1]*randomX))/vec_v[2];
 
             vec_d = [randomX,randomY,orthogonalZ];
             vec_d= vecScalMulti(vec_d,impulseFactor);

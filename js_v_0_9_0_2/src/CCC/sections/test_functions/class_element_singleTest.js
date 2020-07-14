@@ -2855,11 +2855,10 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
 
     // instantiate a loader
     var loader = new THREE.TextureLoader();
-
     // load a resource
     this.tm_bg_texture = loader.load(
     	// resource URL
-    	'img/EditPage/plotBackground.png',
+    	'../../../../img/EditPage/plotBackground.png',
 
     	// onLoad callback
     	function ( texture ) {
@@ -2876,14 +2875,13 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
 
     	// onError callback
     	function ( err ) {
-    		console.error( 'Background could not be loaded!!!!' );
+    		console.error( err, 'Background could not be loaded!!!!' );
     	}
     );
 
     this.tm_bg_texture.wrapS = THREE.RepeatWrapping;
     this.tm_bg_texture.wrapT = THREE.RepeatWrapping;
   }
-
 
   /////////////////////////////////////////////////////////////////////
 

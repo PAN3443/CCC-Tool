@@ -19,14 +19,6 @@ function initColorPicker() {
 
 function closeColorPicker() {
   document.getElementById("id_popupColorPicker").style.display = "none";
-  document.getElementById("id_popupColorPicker_settingDiv").style.display = "none";
-}
-
-function openColorPickerSettings() {
-  if (document.getElementById("id_popupColorPicker_settingDiv").style.display == "none")
-    document.getElementById("id_popupColorPicker_settingDiv").style.display = "inline-block";
-  else
-    document.getElementById("id_popupColorPicker_settingDiv").style.display = "none";
 }
 
 function openColorPicker(event) {
@@ -108,7 +100,6 @@ function openColorPicker(event) {
     document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(tmpColorInfo[2] * 100);
     document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(tmpColorInfo[3] * 100);
 
-    document.getElementById("id_popupColorPicker_InputLabel").innerHTML = "HSV";
     document.getElementById("id_popupColorPicker_InputLabel1").innerHTML = "H : ";
     document.getElementById("id_popupColorPicker_InputLabel2").innerHTML = "S : ";
     document.getElementById("id_popupColorPicker_InputLabel3").innerHTML = "V : ";
@@ -121,7 +112,6 @@ function openColorPicker(event) {
     document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(tmpColorInfo[2] * 255);
     document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(tmpColorInfo[3] * 255);
 
-    document.getElementById("id_popupColorPicker_InputLabel").innerHTML = "RGB";
     document.getElementById("id_popupColorPicker_InputLabel1").innerHTML = "R : ";
     document.getElementById("id_popupColorPicker_InputLabel2").innerHTML = "G : ";
     document.getElementById("id_popupColorPicker_InputLabel3").innerHTML = "B : ";
@@ -166,7 +156,6 @@ function changeColorpickerType(event) {
   initColorPickerVBarBackground();
   drawColorPickerVBar();
 
-
   if (document.getElementById("id_popupWindow_Colorpicker_HS_V").checked ||
     document.getElementById("id_popupWindow_Colorpicker_HV_S").checked ||
     document.getElementById("id_popupWindow_Colorpicker_SV_H").checked) {
@@ -179,7 +168,6 @@ function changeColorpickerType(event) {
     document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(tmpColorInfo[2] * 100);
     document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(tmpColorInfo[3] * 100);
 
-    document.getElementById("id_popupColorPicker_InputLabel").innerHTML = "HSV";
     document.getElementById("id_popupColorPicker_InputLabel1").innerHTML = "H : ";
     document.getElementById("id_popupColorPicker_InputLabel2").innerHTML = "S : ";
     document.getElementById("id_popupColorPicker_InputLabel3").innerHTML = "V : ";
@@ -192,7 +180,6 @@ function changeColorpickerType(event) {
     document.getElementById("id_popupWindow_Colorpicker_Input2").value = Math.round(tmpColorInfo[2] * 255);
     document.getElementById("id_popupWindow_Colorpicker_Input3").value = Math.round(tmpColorInfo[3] * 255);
 
-    document.getElementById("id_popupColorPicker_InputLabel").innerHTML = "RGB";
     document.getElementById("id_popupColorPicker_InputLabel1").innerHTML = "R : ";
     document.getElementById("id_popupColorPicker_InputLabel2").innerHTML = "G : ";
     document.getElementById("id_popupColorPicker_InputLabel3").innerHTML = "B : ";

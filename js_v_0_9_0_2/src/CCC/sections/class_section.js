@@ -22,6 +22,7 @@ class class_Section {
   }
 
   showSection(doUpdate){
+    document.getElementById("id_popupColorPicker").style.display = "none"; // close colorpicker of the current open section
     welcomeSection.hideSection();
     myDesignsSection.hideSection();
     gallerySection.hideSection();
@@ -37,7 +38,7 @@ class class_Section {
 
     if(doUpdate!=undefined && !doUpdate)
       return;
-      
+
     this.updateSection();
   }
 

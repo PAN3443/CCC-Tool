@@ -280,7 +280,7 @@ class class_MyDesigns_Section extends class_Section {
     text = text + "<ColorMaps>\n";
 
     //changeExportColorspace(2); // session save in LAB Colorspace
-    exportSection.changeTwinIssue(false);
+    exportSection.doTwinErrorSolution=false; //changeTwinIssue(false);
     exportSection.changeOutputformat(1);
     exportSection.changeExportColorspace(1); // 1=rgb with 0-1;
     for (var i = 0; i < this.myDesignsList.length; i++) {

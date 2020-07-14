@@ -37,12 +37,16 @@ getColorID(){
   }
 
   addDisp(vec) {
-
     if (Array.isArray(vec)) {
       if (vec.length == 3) {
-        this.disp[0] += vec[0];
-        this.disp[1] += vec[1];
-        this.disp[2] += vec[2];
+        if(isNaN(vec[0])||isNaN(vec[1])||isNaN(vec[2])){
+          return;
+        }
+        else {
+          this.disp[0] += vec[0];
+          this.disp[1] += vec[1];
+          this.disp[2] += vec[2];
+        }
       }
     }
   }
@@ -50,9 +54,14 @@ getColorID(){
   subDisp(vec) {
     if (Array.isArray(vec)) {
       if (vec.length == 3) {
-        this.disp[0] -= vec[0];
-        this.disp[1] -= vec[1];
-        this.disp[2] -= vec[2];
+        if(isNaN(vec[0])||isNaN(vec[1])||isNaN(vec[2])){
+          return;
+        }
+        else {
+          this.disp[0] -= vec[0];
+          this.disp[1] -= vec[1];
+          this.disp[2] -= vec[2];
+        }
       }
     }
   }
@@ -77,8 +86,10 @@ getColorID(){
  forceMovement(rgbCorrection) {
    if (!this.fixedNode) {
      gWorkColor1.autoRGBClipping=true;
+     gWorkColor1.getInfo=true;
      gWorkColor1.updateColor(this.nodeColor[0],this.nodeColor[1]+this.disp[0],this.nodeColor[2]+this.disp[1],this.nodeColor[3]+this.disp[2]);
      this.nodeColor=gWorkColor1.getColorInfo(this.nodeColor[0]);
+     gWorkColor1.getInfo=false;
    }
    this.disp = [0, 0, 0];
  }
