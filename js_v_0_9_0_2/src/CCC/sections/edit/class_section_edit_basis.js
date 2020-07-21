@@ -446,7 +446,7 @@ class class_Edit_Basis_Section extends class_Section {
       contex.stroke();
     }
     else {
-
+      gWorkColor1.autoRGBClipping=true;
       gWorkColor1.updateColor(rgbColor[0], rgbColor[1], rgbColor[2], rgbColor[3]);
 
       if(doColorblindnessSim)

@@ -78,7 +78,7 @@ class class_Key{
         this.type = "left key";
         return;
       }
-
+      gWorkColor1.autoRGBClipping=true;
       gWorkColor1.updateColor(this.cR[0],this.cR[1],this.cR[2],this.cR[3]);
       if(gWorkColor1.equalTo(this.cL)){
         this.type = "dual key";
@@ -93,7 +93,7 @@ class class_Key{
     getLeftKeyColor(colorspace) {
       if(this.cL==undefined)
         return undefined;
-
+      gWorkColor1.autoRGBClipping=true;
       gWorkColor1.updateColor(this.cL[0],this.cL[1],this.cL[2],this.cL[3]);
       return gWorkColor1.getColorInfo(colorspace);
     }
@@ -101,7 +101,7 @@ class class_Key{
     getRightKeyColor(colorspace) {
       if(this.cR==undefined)
         return undefined;
-
+      gWorkColor1.autoRGBClipping=true;
       gWorkColor1.updateColor(this.cR[0],this.cR[1],this.cR[2],this.cR[3]);
       return gWorkColor1.getColorInfo(colorspace);
     }

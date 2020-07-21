@@ -612,7 +612,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
       case "de2000":
         color1 = ref_GlobalCMS.getRightKeyColor(indexList[i],"lab");
         color2 = ref_GlobalCMS.getLeftKeyColor(indexList[i]+1,"lab");
-
+        gWorkColor1.autoRGBClipping=true;
         for(var x=0; x<currentWidth; x++){
           var index = (currentPos+x) * 4;
 
@@ -634,7 +634,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
       case "din99":
       color1 = ref_GlobalCMS.getRightKeyColor(indexList[i],"din99");
       color2 = ref_GlobalCMS.getLeftKeyColor(indexList[i]+1,"din99");
-
+      gWorkColor1.autoRGBClipping=true;
       for(var x=0; x<currentWidth; x++){
         var index = (currentPos+x) * 4;
 
@@ -1074,7 +1074,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
           document.getElementById("id_EditPage_InputFixedAxis_GlobalLocalOrder").value=maxColorDif;
         }
       }*/
-
+      gWorkColor1.autoRGBClipping=true;
       for(var x=0; x<colorArray.length; x++){
 
         for(var y=0; y<colorArray.length; y++){
@@ -1289,6 +1289,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
   var currentXPos = colormapXStart;
   var bandWidth = colormapbarwidth / (colorArray.length);
 
+  gWorkColor1.autoRGBClipping=true;
   for (var i = 0; i < colorArray.length; i++) {
     gWorkColor1.updateColor(colorArray[i][0],colorArray[i][1],colorArray[i][2],colorArray[i][3]);
     canvasCtx.fillStyle = gWorkColor1.getColorInfo("rgb_string");
@@ -1329,6 +1330,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
   if (minLocal < 0)
     maxLocal = Math.max(maxLocal, minLocal * -1);
 
+  gWorkColor1.autoRGBClipping=true;
   for (var y = 0; y < localOrder.length; y++) {
 
     var colorRef = undefined;
@@ -1407,7 +1409,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     arrayk0 = quickSort(arrayk0);
 
     // draw
-
+    gWorkColor1.autoRGBClipping=true;
     for (var i = 0; i < arrayk0.length; i++) {
 
       var xPosK0 = colormapXStart + arrayk0[i][1] * bandWidth + (bandWidth / 2);

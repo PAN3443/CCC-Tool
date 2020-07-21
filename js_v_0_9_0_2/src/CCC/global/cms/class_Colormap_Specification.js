@@ -5,9 +5,9 @@ class class_CMS {
     this.interpolationSpace = "lab";
     this.interpolationType = "linear"; // linear or spline or optimization
 
-    this.colorNaN = new class_Color("rgb", 0, 0, 0);
-    this.colorBelow = new class_Color("rgb", 0, 0, 0);
-    this.colorAbove = new class_Color("rgb", 0, 0, 0);
+    this.colorNaN = ["rgb", 0, 0, 0];
+    this.colorBelow = ["rgb", 0, 0, 0];
+    this.colorAbove = ["rgb", 0, 0, 0];
 
     this.keyArray = [];
 
@@ -43,12 +43,9 @@ class class_CMS {
     delete this.interpolationSpace;
     delete this.interpolationType;
 
-    this.colorNaN.deleteReferences();
-    this.colorNaN = null;
-    this.colorBelow.deleteReferences();
-    this.colorBelow = null;
-    this.colorAbove.deleteReferences();
-    this.colorAbove = null;
+    delete this.colorNaN;
+    delete this.colorBelow;
+    delete this.colorAbove;
 
     for (var i = this.keyArray.length - 1; i >= 0; i--) {
       this.keyArray[i].deleteReferences();
@@ -236,6 +233,7 @@ class class_CMS {
       if(this.pathplotWorkColors[keyBandIndex][index][0]===colorspace)
         return this.pathplotWorkColors[keyBandIndex][index];
 
+      gWorkColor1.autoRGBClipping=true;
       gWorkColor1.updateColor(this.pathplotWorkColors[keyBandIndex][index][0][0],this.pathplotWorkColors[keyBandIndex][index][0][1],this.pathplotWorkColors[keyBandIndex][index][0][2],this.pathplotWorkColors[keyBandIndex][index][0][3]);
       return gWorkColor1.getColorInfo(colorspace);
   }
@@ -278,6 +276,7 @@ class class_CMS {
       if(this.analysisWorkColors[keyBandIndex][index][0]===colorspace)
         return this.analysisWorkColors[keyBandIndex][index];
 
+      gWorkColor1.autoRGBClipping=true;
       gWorkColor1.updateColor(this.analysisWorkColors[keyBandIndex][index][0][0],this.analysisWorkColors[keyBandIndex][index][0][1],this.analysisWorkColors[keyBandIndex][index][0][2],this.analysisWorkColors[keyBandIndex][index][0][3]);
       return gWorkColor1.getColorInfo(colorspace);
   }
@@ -372,6 +371,7 @@ class class_CMS {
       if(this.exportWorkColors[keyBandIndex][index][0]===colorspace)
         return this.exportWorkColors[keyBandIndex][index];
 
+      gWorkColor1.autoRGBClipping=true;
       gWorkColor1.updateColor(this.exportWorkColors[keyBandIndex][index][0][0],this.exportWorkColors[keyBandIndex][index][0][1],this.exportWorkColors[keyBandIndex][index][0][2],this.exportWorkColors[keyBandIndex][index][0][3]);
       return gWorkColor1.getColorInfo(colorspace);
   }
@@ -604,14 +604,15 @@ class class_CMS {
         if(this.supportColors[keyBandIndex][index][0]===colorspace)
           return this.supportColors[keyBandIndex][index];
 
+        gWorkColor1.autoRGBClipping=true;
         gWorkColor1.updateColor(this.supportColors[keyBandIndex][index][0][0],this.supportColors[keyBandIndex][index][0][1],this.supportColors[keyBandIndex][index][0][2],this.supportColors[keyBandIndex][index][0][3]);
         return gWorkColor1.getColorInfo(colorspace);
     }
 
   getSupportColorRef(keyBandIndex,index){
     if(this.supportColors[keyBandIndex][index]==undefined){
-      console.log("keyBandIndex",keyBandIndex,this.supportColors.length);
-      console.log("index",index,this.supportColors[keyBandIndex].length);
+      /*console.log("keyBandIndex",keyBandIndex,this.supportColors.length);
+      console.log("index",index,this.supportColors[keyBandIndex].length);*/
       return 1;
     }
         return this.supportColors[keyBandIndex][index][1];
@@ -727,15 +728,21 @@ class class_CMS {
   }
 
   getNaNColor(colorspace) {
-      return this.colorNaN.getColorInfo(colorspace);
+      gWorkColor1.autoRGBClipping=true;
+      gWorkColor1.updateColor(this.colorNaN[0],this.colorNaN[1],this.colorNaN[2],this.colorNaN[3]);
+      return gWorkColor1.getColorInfo(colorspace);
   }
 
   getBelowColor(colorspace) {
-      return this.colorBelow.getColorInfo(colorspace);
+      gWorkColor1.autoRGBClipping=true;
+      gWorkColor1.updateColor(this.colorBelow[0],this.colorBelow[1],this.colorBelow[2],this.colorBelow[3]);
+      return gWorkColor1.getColorInfo(colorspace);
   }
 
   getAboveColor(colorspace) {
-      return this.colorAbove.getColorInfo(colorspace);
+      gWorkColor1.autoRGBClipping=true;
+      gWorkColor1.updateColor(this.colorAbove[0],this.colorAbove[1],this.colorAbove[2],this.colorAbove[3]);
+      return gWorkColor1.getColorInfo(colorspace);
   }
 
   getOpacityVal(index,side) {
@@ -770,19 +777,18 @@ class class_CMS {
   }
 
   setNaNColor(colorInfo) {
-
     if (colorInfo == undefined)
       return;
-
-    this.colorNaN.updateColor(colorInfo);
+    this.colorNaN=colorInfo;
 
   }
 
   setBelowColor(colorInfo) {
+
     if (colorInfo == undefined)
       return;
 
-    this.colorBelow.updateColor(colorInfo);
+    this.colorBelow=colorInfo;
   }
 
   setAboveColor(colorInfo) {
@@ -790,7 +796,7 @@ class class_CMS {
     if (colorInfo == undefined)
       return;
 
-    this.colorAbove.updateColor(colorInfo);
+    this.colorAbove=colorInfo;
   }
 
   setOpacityVal(index,val,side) {
@@ -1047,17 +1053,18 @@ class class_CMS {
   calculateColor(val, space) {
 
     if (isNaN(val)) {
-      return this.colorNaN.getColorInfo(space);
+      return this.getNaNColor(space);
     }
 
     if (val < this.keyArray[0].getRefPosition()) {
-      return this.colorBelow.getColorInfo(space);
+      return this.getBelowColor(space);
     }
 
     if (val > this.keyArray[this.keyArray.length - 1].getRefPosition()) {
-      return this.colorAbove.getColorInfo(space);
+      return this.getAboveColor(space);
     }
 
+    gWorkColor1.autoRGBClipping=true;
     for (var i = 0; i < this.keyArray.length - 1; i++) {
 
       if (val > this.keyArray[i].getRefPosition() && val < this.keyArray[i + 1].getRefPosition()) {
@@ -1093,13 +1100,14 @@ class class_CMS {
       return this.keyArray[this.keyArray.length - 1].getLeftKeyColor(space);
     }
 
-    return this.colorNaN.getColorInfo(space);
+    return this.getNaNColor(space);
   }
 
   calculateBandColor(bandID,val,space){
 
   var color1 = this.keyArray[bandID].getRightKeyColor(this.interpolationSpace);
   var color2 = this.keyArray[bandID+1].getLeftKeyColor(this.interpolationSpace);
+  gWorkColor1.autoRGBClipping=true;
 
   if (color1 == undefined) {
     if(space===this.interpolationSpace)
@@ -1154,9 +1162,9 @@ class class_CMS {
     tmpPack.push(this.interpolationSpace);
     tmpPack.push(this.interpolationType);
 
-    tmpPack.push(this.colorNaN.getColorInfo("rgb"));
-    tmpPack.push(this.colorBelow.getColorInfo("rgb"));
-    tmpPack.push(this.colorAbove.getColorInfo("rgb"));
+    tmpPack.push(this.colorNaN);
+    tmpPack.push(this.colorBelow);
+    tmpPack.push(this.colorAbove);
 
     var tmpKeysPack = [];
     for (var i = 0; i < this.getKeyLength(); i++) {
@@ -1198,9 +1206,9 @@ class class_CMS {
     this.interpolationSpace=cmsPackage[1];
     this.interpolationType=cmsPackage[2];
 
-    this.colorNaN.updateColor(cmsPackage[3]);
-    this.colorBelow.updateColor(cmsPackage[4]);
-    this.colorAbove.updateColor(cmsPackage[5]);
+    this.colorNaN=cmsPackage[3];
+    this.colorBelow=cmsPackage[4];
+    this.colorAbove=cmsPackage[5];
 
     /// Keys ///
     for (var i = 0; i < cmsPackage[6].length; i++) {
@@ -1576,12 +1584,13 @@ function createScaledBand(canvasData, xStart, yStart, bandWidth, bandHeight, col
   xStart = Math.round(xStart);
   bandWidth = Math.round(bandWidth);
   bandHeight = Math.round(bandHeight);
+  gWorkColor1.autoRGBClipping=true;
 
   if(colorInfo1==undefined || colorInfo2==undefined)
     return;
 
       if(colorInfo1[0]!=colorInfo2[0]){
-        gWorkColor1.updateColor(colorInfo2);
+        gWorkColor1.updateColor(colorInfo2[0],colorInfo2[1],colorInfo2[2],colorInfo2[3]);
         colorInfo2 = gWorkColor1.getColorInfo(colorInfo1[0]);
       }
 
@@ -1616,8 +1625,8 @@ function createConstantBand(canvasData, xStart, yStart, bandWidth, bandHeight, c
   xStart = Math.round(xStart);
   bandWidth = Math.round(bandWidth);
   bandHeight = Math.round(bandHeight);
-
-      gWorkColor1.updateColor(colorInfo1);
+      gWorkColor1.autoRGBClipping=true;
+      gWorkColor1.updateColor(colorInfo1[0],colorInfo1[1],colorInfo1[2],colorInfo1[3]);
 
       var colorInfo = gWorkColor1.getColorInfo("rgb");
       if(this.doColorblindnessSim)
@@ -1642,9 +1651,9 @@ function createScaledBandVertical(canvasData, yStart, bandWidth, bandHeight, col
   yStart = Math.round(yStart);
   bandWidth = Math.round(bandWidth);
   bandHeight = Math.round(bandHeight);
-
+  gWorkColor1.autoRGBClipping=true;
   if(colorInfo1[0]!=colorInfo2[0]){
-    gWorkColor1.updateColor(colorInfo2);
+    gWorkColor1.updateColor(colorInfo2[0],colorInfo2[1],colorInfo2[2],colorInfo2[3]);
     colorInfo2 = gWorkColor1.getColorInfo(colorInfo1[0]);
   }
 
@@ -1681,8 +1690,9 @@ function createConstantBandVertical(canvasData, yStart, bandWidth, bandHeight, c
   yStart = Math.round(yStart);
   bandWidth = Math.round(bandWidth);
   bandHeight = Math.round(bandHeight);
+  gWorkColor1.autoRGBClipping=true;
 
-      gWorkColor1.updateColor(colorInfo1);
+      gWorkColor1.updateColor(colorInfo1[0],colorInfo1[1],colorInfo1[2],colorInfo1[3]);
 
       var colorInfo = gWorkColor1.getColorInfo("rgb");
       if(this.doColorblindnessSim)

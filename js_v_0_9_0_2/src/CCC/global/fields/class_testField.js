@@ -258,7 +258,7 @@ class class_TestField {
                   simData[x][y]=0;
             break;
             case 1:
-            simData[x][y] += newVal;
+              simData[x][y] += ((255-simData[x][y])*this.noiseValues[x][y]);
               if(simData[x][y]>255)
                 simData[x][y]=255;
 
@@ -266,6 +266,14 @@ class class_TestField {
                   simData[x][y]=0;
             break;
             case 2:
+            simData[x][y] += newVal;
+              if(simData[x][y]>255)
+                simData[x][y]=255;
+
+                if(simData[x][y]<0)
+                  simData[x][y]=0;
+            break;
+            case 3:
               simData[x][y] = newVal;
             break;
           }
@@ -301,7 +309,7 @@ class class_TestField {
 
     var step = undefined;
 
-    if(this.noiseBehavior==2){
+    if(this.noiseBehavior==3){
       step = Math.round((1.0/numBars) * errorMath) / errorMath;
     }
     else {
@@ -317,7 +325,7 @@ class class_TestField {
 
       var index = undefined;
 
-      if(this.noiseBehavior==2){
+      if(this.noiseBehavior==3){
         index = Math.round((this.noiseValues[x][y])/step)-1;
       }
       else {
@@ -351,7 +359,7 @@ class class_TestField {
 
       return newRandom;*/
 
-      if(this.noiseBehavior==2){
+      if(this.noiseBehavior==3){
         return (random+1)/2;// * this.noiseMaxChange;
       }
       else{
@@ -436,89 +444,41 @@ class class_TestField {
 
   getRatioFieldValue(x,y){
 
-    var result = this.fieldValues[x][y];
+    var result = this.getFieldValue(x,y);
 
-    if(this.addNoise && this.noiseValues[x][y]!=undefined){
+    if(this.doAutoScale){
+      return (result-this.scaleRangeMin)/(this.scaleRangeDis);
+    }
+    else{
+      return (result-this.vmin)/(this.vmax-this.vmin);
+    }
 
-      var replaceDis =  this.replaceNoiseTill-this.replaceNoiseFrom;
-      var tmpValueDis = this.vmax-this.vmin;
-
-      switch (this.noiseBehavior) {
-        case 0:
-        case 1:
-
-          var amount = undefined;
-
-          if(this.noiseBehavior==0)
-            amount = result*this.noiseValues[x][y];
-          else
-            amount = this.noiseValues[x][y]*tmpValueDis;
-
-          var newVal = result + amount;
-
-          if(amount==undefined || newVal==undefined)
-            break;
-
-          var stopper = 0;
-
-          if(newVal>this.vmax)
-            newVal=this.vmax;
-
-          if(newVal<this.vmin)
-            newVal=this.vmin;
-
-          /*while(newVal>this.vmax || newVal<this.vmin){
-            amount /=2;
-            newVal = result + amount;
-            stopper++;
-            if(stopper==1000)
-              break;
-          }*/
-          result = newVal
-        break;
-        case 2:
-          result = replaceDis*this.noiseValues[x][y]+this.replaceNoiseFrom; //(this.noiseValues[x][y]*tmpValueDis)+this.vmin;
-        break;
-      }//switch
-    }//if*/
-
-    return (result-this.vmin)/(this.vmax-this.vmin);
   }
 
   getFieldValue(x,y){
 
     var result = undefined;
+    var rangeMin = this.vmin;
+    var rangeMax = this.vmax;
     if(this.doAutoScale){
       var valueRatio = (this.fieldValues[x][y]-this.vmin)/this.vdis;
       result = this.scaleRangeMin+this.scaleRangeDis*valueRatio;
+      rangeMin = this.scaleRangeMin;
+      rangeMax = this.scaleRangeMax;
     }
     else{
       result = this.fieldValues[x][y];
     }
-
+    var rangeDis = Math.abs(rangeMax-rangeMin);
 
     if(this.addNoise && this.noiseValues[x][y]!=undefined){
 
-      var replaceDis =  this.replaceNoiseTill-this.replaceNoiseFrom;
-      var tmpValueDis = this.vmax-this.vmin;
-
       switch (this.noiseBehavior) {
         case 0:
-        case 1:
+          var newVal = result+this.noiseValues[x][y]*(Math.abs(result-this.vmin)/rangeDis);
 
-          var amount = undefined;
-
-          if(this.noiseBehavior==0)
-            amount = result*this.noiseValues[x][y];
-          else
-            amount = this.noiseValues[x][y]*tmpValueDis;
-
-          var newVal = result + amount;
-
-          if(amount==undefined || newVal==undefined)
+          if(newVal==undefined)
             break;
-
-          var stopper = 0;
 
           if(newVal>this.vmax)
             newVal=this.vmax;
@@ -526,19 +486,38 @@ class class_TestField {
           if(newVal<this.vmin)
             newVal=this.vmin;
 
-          /*while(newVal>this.vmax || newVal<this.vmin){
-            amount /=2;
-            newVal = result + amount;
-            stopper++;
-            if(stopper==1000)
-              break;
-          }*/
+          result = newVal;
+          break;
+        case 1://///HERE
+          var newVal = result+this.noiseValues[x][y]*(Math.abs(this.vmax-result)/rangeDis);
 
+          if(newVal==undefined)
+            break;
+
+          if(newVal>this.vmax)
+            newVal=this.vmax;
+
+          if(newVal<this.vmin)
+            newVal=this.vmin;
+
+          result = newVal;
+          break;
+        case 2:
+          var newVal = result + this.noiseValues[x][y]*rangeDis;
+
+          if(newVal==undefined)
+            break;
+
+          if(newVal>this.vmax)
+            newVal=this.vmax;
+
+          if(newVal<this.vmin)
+            newVal=this.vmin;
 
           result = newVal
         break;
-        case 2:
-          result = replaceDis*this.noiseValues[x][y]+this.replaceNoiseFrom; //(this.noiseValues[x][y]*tmpValueDis)+this.vmin;
+        case 3:
+          result = (this.replaceNoiseTill-this.replaceNoiseFrom)*this.noiseValues[x][y]+this.replaceNoiseFrom; //(this.noiseValues[x][y]*tmpValueDis)+this.vmin;
         break;
       }//switch
     }//if*/
@@ -586,60 +565,15 @@ class class_TestField {
 
     var newArray = [];
 
+    var replaceDis =  this.replaceNoiseTill-this.replaceNoiseFrom;
+    var tmpValueDis = Math.abs(this.vmax-this.vmin);
+
     for (var y = 0; y < this.dimensionY; y++) {
       for (var x = 0; x < this.dimensionX; x++) {
-
-        var value = this.fieldValues[x][y];
-
-        if(this.addNoise && this.noiseValues[x][y]!=undefined){
-
-          var replaceDis =  this.replaceNoiseTill-this.replaceNoiseFrom;
-          var tmpValueDis = this.vmax-this.vmin;
-
-          switch (this.noiseBehavior) {
-            case 0:
-            case 1:
-
-              var amount = undefined;
-
-              if(this.noiseBehavior==0)
-                amount = value*this.noiseValues[x][y];
-              else
-                amount = this.noiseValues[x][y]*tmpValueDis;
-
-              var newVal = value + amount;
-
-              if(amount==undefined || newVal==undefined)
-                break;
-
-              var stopper = 0;
-
-              if(newVal>this.vmax)
-                newVal=this.vmax;
-
-              if(newVal<this.vmin)
-                newVal=this.vmin;
-
-              /*while(newVal>this.vmax || newVal<this.vmin){
-                amount /=2;
-                newVal = value + amount;
-                stopper++;
-                if(stopper==1000)
-                  break;
-              }*/
-
-              value = newVal
-            break;
-            case 2:
-              value = replaceDis*this.noiseValues[x][y]+this.replaceNoiseFrom; //(this.noiseValues[x][y]*tmpValueDis)+this.vmin;
-            break;
-          }//switch
-        }//if*/
-
+        var value = this.getFieldValue(x,y);
         newArray.push(new THREE.Vector3(this.xPos[x][y],this.yPos[x][y],(value-this.vmin)*scalefactor3DTest));
       }
     }
-
 
     return newArray;
   }

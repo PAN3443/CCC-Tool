@@ -2579,7 +2579,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
           document.getElementById("id_Test_NoiseScalingDiv").style.display = "flex";
         }
 
-        if (document.getElementById("id_Test_NoiseBehavior").selectedIndex == 2) {
+        if (document.getElementById("id_Test_NoiseBehavior").selectedIndex == 3) {
           document.getElementById("id_Test_NoiseMaxChangeDiv").style.display = "none";
           document.getElementById("id_Test_NoiseValueRangeDiv1").style.display = "flex";
           document.getElementById("id_Test_NoiseValueRangeDiv2").style.display = "flex";

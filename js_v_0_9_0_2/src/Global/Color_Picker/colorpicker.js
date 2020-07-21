@@ -17,76 +17,13 @@ function initColorPicker() {
   document.getElementById('id_popupWindow_Colorpicker_Input3').addEventListener("change", changeColorPickerInput);
 }
 
-function closeColorPicker() {
-  document.getElementById("id_popupColorPicker").style.display = "none";
-}
-
 function openColorPicker(event) {
 
   document.getElementById("id_popupColorPicker").style.display = "block";
   document.getElementById("id_popupColorPicker").style.position = "absolute";
   document.getElementById("id_popupColorPicker").style.zIndex = 85;
 
-  var refObj = document.getElementById(event.target.id);
-
-  var box = refObj.getBoundingClientRect();
-
-  var pickerBox = document.getElementById("id_popupColorPicker").getBoundingClientRect();
-
-  var body = document.body;
-  var docEl = document.documentElement;
-
-  var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-  var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
-
-  var clientTop = docEl.clientTop || body.clientTop || 0;
-  var clientLeft = docEl.clientLeft || body.clientLeft || 0;
-
-  var top = box.top + scrollTop - clientTop;
-  var left = box.left + scrollLeft - clientLeft;
-
-  colorpickerAffectID = event.target.id;
-
-  switch (event.target.id) {
-    case "id_edit_cms_SetNaN":
-      colorpickerColor.updateColor(editSection.getSpecialCMSColor("nan", "rgb"));
-      // below the object
-      document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
-      document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
-      break;
-    case "id_edit_cms_SetBelow":
-      colorpickerColor.updateColor(editSection.getSpecialCMSColor("below", "rgb"));
-      // below the object
-      document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
-      document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
-      break;
-    case "id_edit_cms_SetAbove":
-      colorpickerColor.updateColor(editSection.getSpecialCMSColor("above", "rgb"));
-      // below the object
-      document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
-      document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
-      break;
-    case "id_EditPage_DrawnDualKey":
-    case "id_EditPage_DrawnRightKey":
-      colorpickerColor.updateColor(editSection.editCMS.getRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, "rgb"));
-      // above the object
-      document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
-      document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
-      break;
-
-    case "id_EditPage_DrawnLeftKey":
-      colorpickerColor.updateColor(editSection.editCMS.getLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, "rgb"));
-      // above the object
-      document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
-      document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
-      break;
-
-    default:
-      return;
-
-  }
-
-
+  setColorpickerEventID(event.target.id);
 
   if (document.getElementById("id_popupWindow_Colorpicker_HS_V").checked ||
     document.getElementById("id_popupWindow_Colorpicker_HV_S").checked ||
@@ -117,13 +54,15 @@ function openColorPicker(event) {
     document.getElementById("id_popupColorPicker_InputLabel3").innerHTML = "B : ";
   }
 
-
-
   initColorpickerBackground();
   drawColorPickerCircle();
   initColorPickerVBarBackground();
   drawColorPickerVBar();
 
+}
+
+function closeColorPicker() {
+  document.getElementById("id_popupColorPicker").style.display = "none";
 }
 
 function changeColorpickerType(event) {
@@ -469,7 +408,6 @@ function initColorPickerVBarBackground() {
 
 }
 
-
 function drawColorPickerCircle() {
 
 
@@ -540,8 +478,6 @@ function drawColorPickerCircle() {
 
 }
 
-
-
 function drawColorPickerVBar() {
   var canvasVInput = document.getElementById("id_popupWindow_Colorpicker_canvasPicker2_bar");
 
@@ -589,10 +525,7 @@ function drawColorPickerVBar() {
 
 }
 
-
 function event_colorpicker_MouseMove(event) {
-
-
 
   var rect = document.getElementById(event.target.id).getBoundingClientRect();
 
@@ -604,7 +537,6 @@ function event_colorpicker_MouseMove(event) {
 
   //console.log(mousePosX,rect.width,mousePosY,rect.height);
 }
-
 
 function event_colorpicker_MouseClick(event) {
 
@@ -727,51 +659,6 @@ function event_colorpicker_MouseClick(event) {
     document.getElementById(colorpickerAffectID).style.background = colorpickerColor.getColorInfo("rgb_string");
 
 }
-
-
-function affectColorpickerChange() {
-
-  switch (colorpickerAffectID) {
-    case "id_edit_cms_SetNaN":
-      editSection.setSpecialCMSColor("nan", colorpickerColor.getColorInfo("rgb"));
-      editSection.updateMapping();
-      editSection.saveCreateProcess();
-      break;
-    case "id_edit_cms_SetBelow":
-      editSection.setSpecialCMSColor("below", colorpickerColor.getColorInfo("rgb"));
-      editSection.updateMapping();
-      editSection.saveCreateProcess();
-      break;
-    case "id_edit_cms_SetAbove":
-      editSection.setSpecialCMSColor("above", colorpickerColor.getColorInfo("rgb"));
-      editSection.updateMapping();
-      editSection.saveCreateProcess();
-      break;
-    case "id_EditPage_DrawnDualKey":
-      editSection.editCMS.setRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, colorpickerColor.getColorInfo("rgb"));
-      editSection.editCMS.setLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, colorpickerColor.getColorInfo("rgb"));
-      editSection.updateSection();
-      editSection.saveCreateProcess();
-      break;
-    case "id_EditPage_DrawnLeftKey":
-      editSection.editCMS.setLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, colorpickerColor.getColorInfo("rgb"));
-      editSection.updateSection();
-      editSection.saveCreateProcess();
-      break;
-
-    case "id_EditPage_DrawnRightKey":
-      editSection.editCMS.setRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, colorpickerColor.getColorInfo("rgb"));
-      editSection.updateSection();
-      editSection.saveCreateProcess();
-      break;
-
-    default:
-      return;
-
-  }
-
-}
-
 
 function changeColorPickerInput() {
 
