@@ -228,10 +228,13 @@
                     <div style="display:flex; width: 100%;  margin-top:0.5vh;">
                       <p style="margin:auto; margin-left:1vw; margin-right:0.25vw; width:10vw; color: var(--main-sepArea-font-color);">Noise-Behavior:</p>
                       <select id="id_Test_NoiseBehavior" onchange="testingSection.element_singleTest.updateNoise()" style="margin-left: 0.25vw; width:8vw; margin-right:auto;">
-                            <option value="0">Max-Locally-Scaled</option>
-                            <option value="1">Min-Locally-Scaled</option>
-                            <option value="2">Globally-Scaled</option>
-                            <option id="id_Test_NoiseBehaviorReplacing" value="3">Replacing</option>
+                            <option value="0">Max-Scaled</option>
+                            <option value="1">Clipped Max-Scaled</option>
+                            <option value="2">Min-Scaled</option>
+                            <option value="3">Clipped Min-Scaled</option>
+                            <option value="4">Range-Scaled</option>
+                            <option value="5">Clipped Range-Scaled</option>
+                            <option id="id_Test_NoiseBehaviorReplacing" value="6">Replacing</option>
                       </select>
                     </div>
 

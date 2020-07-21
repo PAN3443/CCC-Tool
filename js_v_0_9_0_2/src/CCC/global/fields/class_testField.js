@@ -250,30 +250,33 @@ class class_TestField {
           var newVal = 255*this.noiseValues[x][y];
           switch (this.noiseBehavior) {
             case 0:
-              simData[x][y] += (simData[x][y]*this.noiseValues[x][y]);
-              if(simData[x][y]>255)
-                simData[x][y]=255;
-
-                if(simData[x][y]<0)
-                  simData[x][y]=0;
-            break;
             case 1:
-              simData[x][y] += ((255-simData[x][y])*this.noiseValues[x][y]);
-              if(simData[x][y]>255)
-                simData[x][y]=255;
+              simData[x][y] += (simData[x][y]*this.noiseValues[x][y]);
+                if(simData[x][y]>255)
+                  simData[x][y]=255;
 
                 if(simData[x][y]<0)
                   simData[x][y]=0;
             break;
             case 2:
-            simData[x][y] += newVal;
-              if(simData[x][y]>255)
-                simData[x][y]=255;
+            case 3:
+              simData[x][y] += ((255-simData[x][y])*this.noiseValues[x][y]);
+                if(simData[x][y]>255)
+                  simData[x][y]=255;
 
                 if(simData[x][y]<0)
                   simData[x][y]=0;
             break;
-            case 3:
+            case 4:
+            case 5:
+              simData[x][y] += newVal;
+                if(simData[x][y]>255)
+                  simData[x][y]=255;
+
+                if(simData[x][y]<0)
+                  simData[x][y]=0;
+            break;
+            case 6:
               simData[x][y] = newVal;
             break;
           }
@@ -309,7 +312,7 @@ class class_TestField {
 
     var step = undefined;
 
-    if(this.noiseBehavior==3){
+    if(this.noiseBehavior==6){
       step = Math.round((1.0/numBars) * errorMath) / errorMath;
     }
     else {
@@ -325,7 +328,7 @@ class class_TestField {
 
       var index = undefined;
 
-      if(this.noiseBehavior==3){
+      if(this.noiseBehavior==6){
         index = Math.round((this.noiseValues[x][y])/step)-1;
       }
       else {
@@ -359,7 +362,7 @@ class class_TestField {
 
       return newRandom;*/
 
-      if(this.noiseBehavior==3){
+      if(this.noiseBehavior==6){
         return (random+1)/2;// * this.noiseMaxChange;
       }
       else{
@@ -475,58 +478,65 @@ class class_TestField {
 
       switch (this.noiseBehavior) {
         case 0:
+        case 1:
           var newVal = result+this.noiseValues[x][y]*(Math.abs(result-this.vmin)/rangeDis);
 
           if(newVal==undefined)
             break;
 
-          if(newVal>this.vmax)
-            newVal=this.vmax;
+          // Optional Clipping
+          if(this.noiseBehavior==1){
+            if(newVal>this.vmax)
+              newVal=this.vmax;
 
-          if(newVal<this.vmin)
-            newVal=this.vmin;
+            if(newVal<this.vmin)
+              newVal=this.vmin;
+          }
 
           result = newVal;
           break;
-        case 1://///HERE
+        case 2://///HERE
+        case 3:
           var newVal = result+this.noiseValues[x][y]*(Math.abs(this.vmax-result)/rangeDis);
 
           if(newVal==undefined)
             break;
 
-          if(newVal>this.vmax)
-            newVal=this.vmax;
+          // Optional Clipping
+          if(this.noiseBehavior==3){
+            if(newVal>this.vmax)
+              newVal=this.vmax;
 
-          if(newVal<this.vmin)
-            newVal=this.vmin;
+            if(newVal<this.vmin)
+              newVal=this.vmin;
+            }
 
           result = newVal;
           break;
-        case 2:
+        case 4:
+        case 5:
           var newVal = result + this.noiseValues[x][y]*rangeDis;
 
           if(newVal==undefined)
             break;
 
-          if(newVal>this.vmax)
-            newVal=this.vmax;
+          // Optional Clipping
+          if(this.noiseBehavior==5){
+            if(newVal>this.vmax)
+              newVal=this.vmax;
 
-          if(newVal<this.vmin)
-            newVal=this.vmin;
-
+            if(newVal<this.vmin)
+              newVal=this.vmin;
+          }
           result = newVal
         break;
-        case 3:
+        case 6:
           result = (this.replaceNoiseTill-this.replaceNoiseFrom)*this.noiseValues[x][y]+this.replaceNoiseFrom; //(this.noiseValues[x][y]*tmpValueDis)+this.vmin;
         break;
       }//switch
     }//if*/
-
     return result;
-
   }
-
-
 
   getXPos(x,y){
     return this.xPos[x][y];
