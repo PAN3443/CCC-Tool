@@ -12,23 +12,52 @@ function drawCurrentNavi(){
 
   changeNaviStatus("id_navi_Welcome","Welcome",1);
   changeNaviStatus("id_navi_Tutorial","Tutorial",1);
+  changeNaviStatus("id_navi_Options","Options",1);
+
   changeNaviStatus("id_navi_MyDesigns","MyDesigns",1);
   changeNaviStatus("id_navi_Gallery","Gallery",1);
 
   changeNaviStatus("id_navi_Edit","Edit",2);
   changeNaviStatus("id_navi_Probe","Probe",2);
+  changeNaviStatus("id_navi_CBSim","CB Simulator",2);
   changeNaviStatus("id_navi_Opti","Optimization",2);
   changeNaviStatus("id_navi_AutoGen","Auto Generator",2);
 
-  if(myDesignsSection.checkMyDesignLimit())
-    changeNaviStatus("id_navi_New","New CMS",2);
-  else
-    changeNaviStatus("id_navi_New","New CMS",1);
+  //////////////////////////////////////////////////////////////////
+  ////////// If Edit Section is Open you should only be able to go back to Edit
+  for (var i = 0; i < sectionArray.length; i++) {
+    if(sectionArray[i].isSectionOpen()){
+      // back to MyDesigns is special, because we make sure that the CMS from the Edit Page is saved.
+      if(sectionArray[i].backSection==="id_EditPage" && sectionArray[i].sectionID!="id_myDesignsPage"){
+        changeNaviStatus("id_navi_Testing","Testing",2);
+        changeNaviStatus("id_navi_Welcome","Welcome",2);
+        changeNaviStatus("id_navi_Gallery","Gallery",2);
+        changeNaviStatus("id_navi_New","New CMS",2);
+        changeNaviStatus("id_navi_MyDesigns","MyDesigns",2);
+        changeNaviStatus("id_navi_Tutorial","Tutorial",2);
+        changeNaviStatus("id_navi_AutoGen","Auto Generator",2);
+        changeNaviStatus("id_navi_Options","Options",2);
+        changeNaviStatus("id_navi_Edit","Edit",1);
+      }
+      else {
+        //// Allow only New
+        if(myDesignsSection.checkMyDesignLimit()){
+          changeNaviStatus("id_navi_New","New CMS",2);
+          changeNaviStatus("id_navi_AutoGen","Auto Generator",2);
+        }
+        else{
+          changeNaviStatus("id_navi_New","New CMS",1);
+          changeNaviStatus("id_navi_AutoGen","Auto Generator",1);
+        }
 
-  if(myDesignsSection.getMyDesignLength()>0)
-    changeNaviStatus("id_navi_Testing","Testing",1);
-  else
-    changeNaviStatus("id_navi_Testing","Testing",2);
+        if(myDesignsSection.getMyDesignLength()>0)
+          changeNaviStatus("id_navi_Testing","Testing",1);
+        else
+          changeNaviStatus("id_navi_Testing","Testing",2);
+        break;
+      }
+    }
+  }
 
   switch (true){
     case welcomeSection.isSectionOpen():
@@ -45,69 +74,42 @@ function drawCurrentNavi(){
     break;
     case autoGenSection.isSectionOpen():
       changeNaviStatus("id_navi_AutoGen","Auto Generator",0);
-
-      // Check status
-      // changeNaviStatus("id_navi_Edit","Edit",1);
     break;
     case editSection.isSectionOpen():
       changeNaviStatus("id_navi_Edit","Edit",0);
       changeNaviStatus("id_navi_Probe","Probe",1);
+      changeNaviStatus("id_navi_CBSim","CB Simulator",1);
       changeNaviStatus("id_navi_Opti","Optimization",1);
       changeNaviStatus("id_navi_Welcome","Welcome",2);
       changeNaviStatus("id_navi_Gallery","Gallery",2);
+      changeNaviStatus("id_navi_AutoGen","Auto Generator",2);
       changeNaviStatus("id_navi_New","New CMS",2);
     break;
     case probeSection.isSectionOpen():
       changeNaviStatus("id_navi_Probe","Probe",0);
-      changeNaviStatus("id_navi_Welcome","Welcome",2);
-      changeNaviStatus("id_navi_Gallery","Gallery",2);
-      changeNaviStatus("id_navi_New","New CMS",2);
-      changeNaviStatus("id_navi_MyDesigns","MyDesigns",2);
-      changeNaviStatus("id_navi_Testing","Testing",2);
-      changeNaviStatus("id_navi_Edit","Edit",1);
-      changeNaviStatus("id_navi_Tutorial","Tutorial",2);
+    break;
+    case cbSimSection.isSectionOpen():
+      changeNaviStatus("id_navi_CBSim","CB Simulator",0);
     break;
     case optiSection.isSectionOpen():
       changeNaviStatus("id_navi_Opti","Optimization",0);
-      changeNaviStatus("id_navi_Welcome","Welcome",2);
-      changeNaviStatus("id_navi_Gallery","Gallery",2);
-      changeNaviStatus("id_navi_New","New CMS",2);
-      changeNaviStatus("id_navi_MyDesigns","MyDesigns",2);
-      changeNaviStatus("id_navi_Testing","Testing",2);
-      changeNaviStatus("id_navi_Edit","Edit",1);
-      changeNaviStatus("id_navi_Tutorial","Tutorial",2);
     break;
     case testingSection.isSectionOpen():
       changeNaviStatus("id_navi_Testing","Testing",0);
-
-      if(testingSection.backSection==="id_EditPage"){
-        changeNaviStatus("id_navi_Welcome","Welcome",2);
-        changeNaviStatus("id_navi_Gallery","Gallery",2);
-        changeNaviStatus("id_navi_New","New CMS",2);
-        changeNaviStatus("id_navi_MyDesigns","MyDesigns",2);
-        changeNaviStatus("id_navi_Tutorial","Tutorial",2);
-        changeNaviStatus("id_navi_Edit","Edit",1);
-      }
-
     break;
     case exportSection.isSectionOpen():
-      changeNaviStatus("id_navi_Welcome","Welcome",2);
-      changeNaviStatus("id_navi_Tutorial","Tutorial",2);
-      changeNaviStatus("id_navi_MyDesigns","MyDesigns",2);
-      changeNaviStatus("id_navi_Gallery","Gallery",2);
-      changeNaviStatus("id_navi_Edit","Edit",2);
-      changeNaviStatus("id_navi_Probe","Probe",2);
-      changeNaviStatus("id_navi_Opti","Optimization",2);
-      changeNaviStatus("id_navi_AutoGen","Auto Generator",2);
-      changeNaviStatus("id_navi_New","New CMS",2);
-      changeNaviStatus("id_navi_Testing","Testing",2);
+      // do nothing
     break;
     case tutorialSection.isSectionOpen():
       changeNaviStatus("id_navi_Tutorial","Tutorial",0);
     break;
-    default:
-
+    case optionsSection.isSectionOpen():
+      changeNaviStatus("id_navi_Options","Options",0);
+    break;
   }
+
+
+
 }
 
 function changeNaviStatus(id,label,status){
@@ -174,16 +176,23 @@ function changeNaviStatus(id,label,status){
       document.getElementById("id_Arrow_EditToMyDesigns_4").style.fill =  tmpColor;
     break;
     case "id_navi_Probe":
+      document.getElementById("id_Arrow_EditToProbe_1").style.fill =  arrowColor;
+      document.getElementById("id_Arrow_EditToProbe_2").style.fill =  arrowColor;
+      document.getElementById("id_Arrow_EditToProbe_3").style.fill =  arrowColor;
+      document.getElementById("id_Arrow_EditToProbe_4").style.fill =  arrowColor;
       document.getElementById("id_Arrow_EditToProbe_5").style.fill =  arrowColor;
-      document.getElementById("id_Arrow_EditToProbe_5").style.fill =  arrowColor;
-      document.getElementById("id_Arrow_EditToProbe_5").style.fill =  arrowColor;
-      document.getElementById("id_Arrow_EditToProbe_5").style.fill =  arrowColor;
-      document.getElementById("id_Arrow_EditToProbe_5").style.fill =  arrowColor;
+    break;
+    case "id_navi_CBSim":
+      document.getElementById("id_Arrow_EditToCBSim_1").style.fill =  arrowColor;
+      document.getElementById("id_Arrow_EditToCBSim_2").style.fill =  arrowColor;
+      document.getElementById("id_Arrow_EditToCBSim_3").style.fill =  arrowColor;
     break;
     case "id_navi_Opti":
       document.getElementById("id_Arrow_EditToOpti_1").style.fill =  arrowColor;
       document.getElementById("id_Arrow_EditToOpti_2").style.fill =  arrowColor;
       document.getElementById("id_Arrow_EditToOpti_3").style.fill =  arrowColor;
+      document.getElementById("id_Arrow_EditToOpti_4").style.fill =  arrowColor;
+      document.getElementById("id_Arrow_EditToOpti_5").style.fill =  arrowColor;
     break;
     case "id_navi_Testing":
       document.getElementById("id_Arrow_ToTesting_1").style.fill = arrowColor;
@@ -232,6 +241,9 @@ function switchViaNavi(event){
     case "id_navi_Probe":
       probeSection.showSection();
     break;
+    case "id_navi_CBSim":
+      cbSimSection.showSection();
+    break;
     case "id_navi_Opti":
       optiSection.showSection();
     break;
@@ -243,6 +255,9 @@ function switchViaNavi(event){
     break;
     case "id_navi_Tutorial":
       tutorialSection.showSection();
+    break;
+    case "id_navi_Options":
+      optionsSection.showSection();
     break;
   }
 }

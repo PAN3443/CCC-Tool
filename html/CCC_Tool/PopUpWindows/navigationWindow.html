@@ -25,6 +25,15 @@
       </svg>
     </div>
 
+    <div style="margin-top : 5vh; margin-bottom : 5vh; width:100%; display:flex;">
+      <button id="id_navi_Options" class="class_naviButton">Options</button>
+
+      <svg style="height:5vh; width:5vw; margin:auto;" viewBox="0 0 100 100" preserveAspectRatio="none" >
+        <polygon points="0,50 50,100 50,0" style="fill:var(--main-sepArea-bg);"/>
+        <rect x="5" y="48" width="95" height="4" style="fill:var(--main-sepArea-bg);" />
+      </svg>
+    </div>
+
     <div style="margin-bottom:auto; width:100%; display:flex;">
       <button onclick="closeNaviWindow(); openImpressum();" class="class_naviButton">Contact</button>
 
@@ -101,46 +110,56 @@
 
                 <!-- SVG Edit to Probe, Edit to Optimization  -->
                 <svg style="width:40vw; height:10vh; margin-left:5vw;" viewBox="0 0 400 100" preserveAspectRatio="none">
+
+                  <!-- Edit to Sim -->
+                  <rect id="id_Arrow_EditToOpti_1" x="324" y="5" width="3" height="45" style="fill:var(--main-sepArea-bg);" />
+                  <rect id="id_Arrow_EditToOpti_2" x="289" y="48" width="38" height="4" style="fill:var(--main-sepArea-bg);" />
+                  <rect id="id_Arrow_EditToOpti_3" x="289" y="48" width="3" height="45" style="fill:var(--main-sepArea-bg);" />
+                  <polygon id="id_Arrow_EditToOpti_4" points="290,100 280,80 300,80" style="fill:var(--main-sepArea-bg);"/>
+                  <polygon id="id_Arrow_EditToOpti_5" points="325,0 335,20 315,20" style="fill:var(--main-sepArea-bg);"/>
+
                   <!-- Edit to Optimization -->
-                  <rect id="id_Arrow_EditToOpti_1" x="359" y="5" width="3" height="90" style="fill:var(--main-sepArea-bg);" />
-                  <polygon id="id_Arrow_EditToOpti_2" points="360,100 350,80 370,80" style="fill:var(--main-sepArea-bg);"/>
-                  <polygon id="id_Arrow_EditToOpti_3" points="360,0 350,20 370,20" style="fill:var(--main-sepArea-bg);"/>
+                  <rect id="id_Arrow_EditToCBSim_1" x="389" y="5" width="3" height="90" style="fill:var(--main-sepArea-bg);" />
+                  <polygon id="id_Arrow_EditToCBSim_2" points="390,100 380,80 400,80" style="fill:var(--main-sepArea-bg);"/>
+                  <polygon id="id_Arrow_EditToCBSim_3" points="390,0 380,20 400,20" style="fill:var(--main-sepArea-bg);"/>
 
                   <!-- Edit to Probe -->
-                  <rect id="id_Arrow_EditToProbe_1" x="289" y="5" width="3" height="45" style="fill:var(--main-second-sepArea-bg);" />
-                  <rect id="id_Arrow_EditToProbe_2" x="109" y="48" width="183" height="4" style="fill:var(--main-second-sepArea-bg);" />
-                  <rect id="id_Arrow_EditToProbe_3" x="109" y="48" width="3" height="45" style="fill:var(--main-second-sepArea-bg);" />
-                  <polygon id="id_Arrow_EditToProbe_4" points="110,100 100,80 120,80" style="fill:var(--main-second-sepArea-bg);"/>
-                  <polygon id="id_Arrow_EditToProbe_5" points="290,0 280,20 300,20" style="fill:var(--main-second-sepArea-bg);"/>
+                  <rect id="id_Arrow_EditToProbe_1" x="264" y="5" width="3" height="45" style="fill:var(--main-second-sepArea-bg);" />
+                  <rect id="id_Arrow_EditToProbe_2" x="44" y="48" width="223" height="4" style="fill:var(--main-second-sepArea-bg);" />
+                  <rect id="id_Arrow_EditToProbe_3" x="44" y="48" width="3" height="45" style="fill:var(--main-second-sepArea-bg);" />
+                  <polygon id="id_Arrow_EditToProbe_4" points="45,100 35,80 55,80" style="fill:var(--main-second-sepArea-bg);"/>
+                  <polygon id="id_Arrow_EditToProbe_5" points="265,0 255,20 275,20" style="fill:var(--main-second-sepArea-bg);"/>
                 </svg>
             </div>
 
             <!-- SVG MyDesigns to Testing and Edit to Testing and Edit to MyDesigns-->
             <svg style="width:25vw; height:60vh; margin-right:5vw;" viewBox="0 0 250 600" preserveAspectRatio="none">
                 <!-- SVG MyDesigns to Testing-->
-                <rect id="id_Arrow_ToTesting_1" x="5" y="23" width="205" height="4" style="fill:var(--main-sepArea-bg);" />
-                <rect id="id_Arrow_ToTesting_2" x="209" y="23" width="3" height="570" style="fill:var(--main-sepArea-bg);" />
+                <rect id="id_Arrow_ToTesting_1" x="5" y="23" width="225" height="4" style="fill:var(--main-sepArea-bg);" />
+                <rect id="id_Arrow_ToTesting_2" x="229" y="23" width="3" height="570" style="fill:var(--main-sepArea-bg);" />
                 <polygon id="id_Arrow_ToTesting_3" points="0,25 17,13 17,37" style="fill:var(--main-sepArea-bg);"/>
-                <polygon id="id_Arrow_ToTesting_4" points="210,600 200,580 220,580" style="fill:var(--main-sepArea-bg);"/>
+                <polygon id="id_Arrow_ToTesting_4" points="230,600 220,580 240,580" style="fill:var(--main-sepArea-bg);"/>
                 <!-- Edit to Testing -->
-                <rect id="id_Arrow_ToTesting_5" x="5" y="473" width="135" height="4" style="fill:var(--main-sepArea-bg);" />
-                <rect id="id_Arrow_ToTesting_6" x="139" y="473" width="3" height="120" style="fill:var(--main-sepArea-bg);" />
+                <rect id="id_Arrow_ToTesting_5" x="5" y="473" width="155" height="4" style="fill:var(--main-sepArea-bg);" />
+                <rect id="id_Arrow_ToTesting_6" x="159" y="473" width="3" height="120" style="fill:var(--main-sepArea-bg);" />
                 <polygon id="id_Arrow_ToTesting_7" points="0,475 17,463 17,487" style="fill:var(--main-sepArea-bg);"/>
-                <polygon id="id_Arrow_ToTesting_8" points="140,600 130,580 150,580" style="fill:var(--main-sepArea-bg);"/>
+                <polygon id="id_Arrow_ToTesting_8" points="160,600 150,580 170,580" style="fill:var(--main-sepArea-bg);"/>
                 <!-- Edit to MyDesigns-->
-                <rect id="id_Arrow_EditToMyDesigns_1" x="5" y="73" width="135" height="4" style="fill:var(--main-sepArea-bg);" />
-                <rect id="id_Arrow_EditToMyDesigns_2" x="0" y="423" width="140" height="4" style="fill:var(--main-sepArea-bg);" />
-                <rect id="id_Arrow_EditToMyDesigns_3" x="139" y="73" width="3" height="354" style="fill:var(--main-sepArea-bg);" />
+                <rect id="id_Arrow_EditToMyDesigns_1" x="5" y="73" width="155" height="4" style="fill:var(--main-sepArea-bg);" />
+                <rect id="id_Arrow_EditToMyDesigns_2" x="0" y="423" width="160" height="4" style="fill:var(--main-sepArea-bg);" />
+                <rect id="id_Arrow_EditToMyDesigns_3" x="159" y="73" width="3" height="354" style="fill:var(--main-sepArea-bg);" />
                 <polygon id="id_Arrow_EditToMyDesigns_4" points="0,75 17,63 17,87" style="fill:var(--main-sepArea-bg);"/>
             </svg>
 
           </div>
           <div style="display:flex; width:75vw; margin-bottom:auto;">
-            <button id="id_navi_Probe" class="class_naviButton_Deactive" style="margin-left: 5vw;"> Probe
+            <button id="id_navi_Probe" class="class_naviButton_Deactive" style="margin-left: auto;"> Probe
             </button>
-            <button id="id_navi_Opti" class="class_naviButton" style="margin-left: 10vw;"> Optimization
+            <button id="id_navi_Opti" class="class_naviButton" style="margin-left: auto;"> Optimization
             </button>
-            <button id="id_navi_Testing" class="class_naviButton" style="margin-left: 10vw; margin-right: 5vw;"> Testing
+            <button id="id_navi_CBSim" class="class_naviButton" style="margin-left: auto;"> CB Simulator
+            </button>
+            <button id="id_navi_Testing" class="class_naviButton" style="margin-left: auto; margin-right: auto;"> Testing
             </button>
           </div>
 

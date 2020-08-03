@@ -11,7 +11,9 @@
   <meta name="author" content="Pascal Nardini">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+  <link rel="shortcut icon" href="../../favicon.ico" />
+
   <!-- Place favicon.ico in the root directory -->
 
   <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -139,6 +141,9 @@
   <!--%%%%%%%%%%%%%%% MyDesigns Section %%%%%%%%%%%%%%%-->
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/sections/mydesigns/class_section_mydesigns.js"></script>
 
+  <!--%%%%%%%%%%%%%%% Options Section %%%%%%%%%%%%%%%-->
+  <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/sections/options/class_section_options.js"></script>
+
   <!--%%%%%%%%%%%%%%% Gallery Section %%%%%%%%%%%%%%%-->
   <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/sections/gallery/class_section_gallery.js"></script>
 
@@ -160,6 +165,9 @@
 
     <!--%%%%%%%%%%%%%%% Edit SubSection (Probe) %%%%%%%%%%%%%%%-->
     <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/sections/edit/edit_subsections/probePart/class_section_edit_probe.js"></script>
+
+    <!--%%%%%%%%%%%%%%% Edit SubSection (CB SIM) %%%%%%%%%%%%%%%-->
+    <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/sections/edit/edit_subsections/cbSimPart/class_section_edit_cbSim.js"></script>
 
     <!--%%%%%%%%%%%%%%% Edit SubSection (Optimization) %%%%%%%%%%%%%%%-->
     <script type="text/javascript" src="../../js_v_0_9_0_2/src/CCC/sections/edit/edit_subsections/optimizationPart/class_section_edit_optimization.js"></script>
@@ -274,8 +282,9 @@
 
   <!-- ------------- 4.Section: Edit --------------- -->
   <div id="id_EditPage" include-html="../../html/CCC_Tool/Sections/edit.html" style="width:100%; display:none;  overflow: hidden;"></div>
-  <div id="id_ProbePage" include-html="../../html/CCC_Tool/Sections/probe.html" style="width:100%; display:none;  overflow: hidden;"></div>
+  <div id="id_ProbePage" include-html="../../html/CCC_Tool/Sections/probe.html" style="width:100%; display:none;  overflow: hidden; flex-direction:column;"></div>
   <div id="id_OptimizationPage" include-html="../../html/CCC_Tool/Sections/optimization.html" style="width:100%; display:none; flex-direction:column;"></div>
+  <div id="id_CBSimPage" include-html="../../html/CCC_Tool/Sections/cb_sim.html" style="width:100%; display:none;  overflow: hidden; flex-direction:column;"></div>
 
   <!-- ------------- 5.Section: Testing --------------- -->
   <div id="id_TestingPage" include-html="../../html/CCC_Tool/Sections/testing.html" style="width:100%; height:100%; display:none; flex-direction:column;"></div>
@@ -288,6 +297,9 @@
 
   <!-- ------------- Section: Tutorial --------------- -->
   <div id="id_TutorialPage" include-html="../../html/CCC_Tool/Sections/tutorial.html" style="width:100%; height:100%; display:none; flex-direction:column;"></div>
+
+  <!-- ------------- Section: Tutorial --------------- -->
+  <div id="id_OptionsPage" include-html="../../html/CCC_Tool/Sections/options.html" style="width:100%; height:100%; display:none; flex-direction:column;"></div>
 
   <!-------------------------------------------------
   ----------     Pop Up Windows     -----------------

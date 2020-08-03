@@ -22,28 +22,46 @@ window.onload = function() {
   updateToolVersion();
 
   // init section object
+  sectionArray=[];
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Welcome Section";
   welcomeSection = new class_Welcome_Section();
+  sectionArray.push(welcomeSection);
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: MyDesigns Section";
   myDesignsSection = new class_MyDesigns_Section();
+  sectionArray.push(myDesignsSection);
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Options Section";
+  optionsSection = new class_Options_Section();
+  sectionArray.push(optionsSection);
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Gallery Section";
   gallerySection = new class_Gallery_Section();
+  sectionArray.push(gallerySection);
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: New CMS Section";
   newSection = new class_NewCMS_Section();
+  sectionArray.push(newSection);
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Auto Generator Section";
   autoGenSection = new class_AutoGen_Section();
+  sectionArray.push(autoGenSection);
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Edit Section";
   editSection = new class_Edit_Section();
+  sectionArray.push(editSection);
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Edit (Probe) Section";
   probeSection = new class_Edit_Probe_Section();
+  sectionArray.push(probeSection);
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Edit (Optimization) Section";
   optiSection = new class_Edit_Optimization_Section();
+  sectionArray.push(optiSection);
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Edit (Colorblind Simulator) Section";
+  cbSimSection = new class_Edit_CBSim_Section();
+  sectionArray.push(cbSimSection);
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Test-Function Section";
   testingSection = new class_TestFunction_Section();
+  sectionArray.push(testingSection);
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Export Section";
   exportSection = new class_Export_Section();
+  sectionArray.push(exportSection);
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Tutorial Section";
   tutorialSection = new class_Tutorials_Section();
+  sectionArray.push(tutorialSection);
 
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Events";
   document.getElementById('id_inputCMSData').addEventListener("change", myDesignsSection.readCMSFile);

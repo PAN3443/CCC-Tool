@@ -2858,7 +2858,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     // load a resource
     this.tm_bg_texture = loader.load(
     	// resource URL
-    	'../../../../img/EditPage/plotBackground.png',
+    	'../../img/EditPage/plotBackground.png',
 
     	// onLoad callback
     	function ( texture ) {
