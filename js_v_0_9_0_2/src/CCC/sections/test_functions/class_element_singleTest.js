@@ -1934,7 +1934,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     var value_T = document.getElementById("id_TestPage_NewTest_I2").value;
     var value_M = document.getElementById("id_TestPage_NewTest_I3").value;
 
-    this.draw_FunctionTypeTresh("id_TestPage_Canvas_xFktType", exp, this.current_xFktType);
+    draw_FunctionTypeTresh("id_TestPage_Canvas_xFktType", exp, this.current_xFktType);
   }
 
   /////////////////////////////////////
