@@ -68,6 +68,13 @@
   transition: width 3s, height 3s;
 }
 
+.class_slide{
+  -webkit-animation: slide 0.5s forwards;
+  -webkit-animation-delay: 2s;
+  animation: slide 0.5s forwards;
+  animation-delay: 2s;
+}
+
  .coopImg{
    max-height: 20vh;
    max-width:15vw;

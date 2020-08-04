@@ -13,12 +13,7 @@ class class_Section {
   }
 
   hideSection() {
-    /*if(this.isSectionOpen()){
-      exportSection.backSection = this.sectionID;
-      tutorialSection.backSection = this.sectionID;
-      testingSection.backSection = this.sectionID;*/
       document.getElementById(this.sectionID).style.display='none';
-    //}
   }
 
   showSection(doUpdate){
@@ -31,7 +26,6 @@ class class_Section {
         break;
       }
     }
-
 
     document.getElementById(this.sectionID).style.display='flex';
 
