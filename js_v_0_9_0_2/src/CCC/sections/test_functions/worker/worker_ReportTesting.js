@@ -273,7 +273,7 @@ function sendReportOriginalImage(){
   var maxHeightIndex = colorField[0].length - 1;
   for (var y = 0; y < colorField[0].length; y++) {
     for (var x = 0; x < colorField.length; x++) {
-      gWorkColor1.updateColor(colorField[x][y][0],colorField[x][y][1],colorField[x][y][2],colorField[x][y][3]);
+      gWorkColor1.setColorInfo(colorField[x][y]);
       var colorRGB = gWorkColor1.getColorInfo("rgb");
       var indices = getColorIndicesForCoord(x, maxHeightIndex - y, colorField.length);
       imgData.data[indices[0]] = Math.round(colorRGB[1] * 255); // r

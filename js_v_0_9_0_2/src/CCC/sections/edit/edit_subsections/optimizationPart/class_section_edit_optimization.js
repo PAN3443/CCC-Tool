@@ -1042,7 +1042,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
         var original_LeftColor = this.editCMS_Foundation.getLeftKeyColor(i,this.editCMS_Foundation.getInterpolationSpace());
         var opti_LeftColor = this.editCMS_Optimized.getLeftKeyColor(i,this.editCMS_Foundation.getInterpolationSpace());
         if(original_LeftColor!=undefined && opti_LeftColor!=undefined){
-          gWorkColor1.updateColor(original_LeftColor[0],original_LeftColor[1],original_LeftColor[2],original_LeftColor[3]);
+          gWorkColor1.setColorInfo(original_LeftColor);
           if(!gWorkColor1.equalTo(opti_LeftColor)){
             var val1_dis = opti_LeftColor[1]-original_LeftColor[1];
             var val2_dis = opti_LeftColor[2]-original_LeftColor[2];
@@ -1062,7 +1062,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
         var opti_RightColor = this.editCMS_Optimized.getRightKeyColor(i,this.editCMS_Foundation.getInterpolationSpace());
 
         if(original_RightColor!=undefined && opti_RightColor!=undefined){
-          gWorkColor1.updateColor(original_RightColor[0],original_RightColor[1],original_RightColor[2],original_RightColor[3]);
+          gWorkColor1.setColorInfo(original_RightColor);
           if(!gWorkColor1.equalTo(opti_RightColor)){
             var val1_dis = opti_RightColor[1]-original_RightColor[1];
             var val2_dis = opti_RightColor[2]-original_RightColor[2];

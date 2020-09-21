@@ -13,7 +13,7 @@ function initDropDowns(){
    dropDownEvents("id_EditPage_ChangeKeyVal", "id_EditPage_KeyValueEdit_dropdown", false,false);
    refreshKeyValueEdit();
  };
- document.getElementById("id_EditPage_KeyValueEdit_dropdown").onmouseleave =  function() {document.getElementById("id_EditPage_KeyValueEdit_dropdown").style.display="none";};
+ document.getElementById("id_EditPage_KeyValueEdit_close").onclick =  function() {document.getElementById("id_EditPage_KeyValueEdit_dropdown").style.display="none";};
  //
 
 }

@@ -225,7 +225,7 @@ function calcSplineIntervalBetween_C1C2(tArray, colorsArray, curvescale, interpo
 
     // do rgb clipping using the global work color
     gWorkColor1.autoRGBClipping=true;
-    gWorkColor1.updateColor(newColor[0],newColor[1],newColor[2],newColor[3]);
+    gWorkColor1.setColorInfo(newColor);
 
     resultColors.push(gWorkColor1.getColorInfo(newColor[0]));
 

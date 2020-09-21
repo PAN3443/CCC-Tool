@@ -211,6 +211,14 @@ class class_Color {
   ////////////////////////////////////////////////////////////////
   ///////////////////////////// Set /////////////////////////////
   ///////////////////////////////////////////////////////////////
+  setColorInfo(colorInfo){
+    if(Array.isArray(colorInfo)){
+      if(colorInfo.length==4){
+        this.updateColor(colorInfo[0],colorInfo[1],colorInfo[2],colorInfo[3]);
+      }
+    }
+  }
+
   setValue(space, index, value){
     switch (space) {
       case "RGB": case "rgb": case "Rgb":

@@ -10,7 +10,7 @@ class class_Export_Section extends class_Section {
     this.scaleExpVal2=255;
     this.scaleExpVal3=255;
     this.doTwinErrorSolution=false;
-    this.twinError = 0.00001;
+    this.twinError = 0.000001;
     this.stylePhase = false;
     this.exportOnlyKeys=false;
   }
@@ -247,6 +247,47 @@ class class_Export_Section extends class_Section {
     document.getElementById("id_PopUp_ExportWindow").style.display="none";
   }
 
+  determineTwinErrorValue(){
+    this.twinError=0.000001;
+    var twinErrorValue = this.workCMS.getRefRange()*this.twinError;
+    if(this.exportOnlyKeys)
+      this.workCMS.calcExportSampling("none",0);
+    else
+      this.workCMS.calcExportSampling("interval",parseInt(document.getElementById("id_ExportIntervalNum").value));
+
+    // Next Key could be very close to a twin/left-key. If this distance is smaller than cms-range*this.twinError,the new twin issue reference value is wrong.
+    for (var i = 0; i < this.workCMS.getKeyLength(); i++) {
+      switch (this.workCMS.getKeyType(i)) {
+        case "left key":
+            if(i!=this.workCMS.getKeyLength()-1){
+              var distanceToNextKey = this.workCMS.getRefPosition(i+1)-this.workCMS.getRefPosition(i);
+
+              if(distanceToNextKey<=twinErrorValue){
+                // update twinError
+                this.twinError=(distanceToNextKey/this.workCMS.getRefRange())*0.1;
+                twinErrorValue = this.workCMS.getRefRange()*this.twinError;
+              }
+            }
+        break;
+        case "twin key":
+            var distanceToNextKey=undefined;
+            if(this.workCMS.get_Export_WorkColorLength(i)>0){
+              distanceToNextKey = this.workCMS.get_Export_WorkColorRef(i,0)-this.workCMS.getRefPosition(i);
+            }
+            else{
+              distanceToNextKey = this.workCMS.getRefPosition(i+1)-this.workCMS.getRefPosition(i);
+            }
+            if(distanceToNextKey<=twinErrorValue){
+              // update twinError
+              this.twinError=(distanceToNextKey/this.workCMS.getRefRange())*0.1;
+              twinErrorValue = this.workCMS.getRefRange()*this.twinError;
+            }
+          break;
+        }
+      }
+  }
+
+
   fillExportTable(){
       if(this.exportOnlyKeys)
         this.workCMS.calcExportSampling("none",0);
@@ -259,27 +300,29 @@ class class_Export_Section extends class_Section {
       var counter = 1;
 
       var twinErrorValue = 0;
-      if(this.doTwinErrorSolution)
+      if(this.doTwinErrorSolution){
+        this.determineTwinErrorValue();
         twinErrorValue = this.workCMS.getRefRange()*this.twinError;
+      }
 
       for (var i = 0; i < this.workCMS.getKeyLength(); i++) {
 
         switch (this.workCMS.getKeyType(i)) {
-          case "nil key": case "left key":
-
+          case "nil key":
+            new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i), this.workCMS.getKeyType(i), this.workCMS.getLeftKeyColor(i+1,this.exportspace)));
+            counter++;
+          break;
+          case "left key":
             if(i==this.workCMS.getKeyLength()-1){
               new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i), this.workCMS.getKeyType(i), this.workCMS.getLeftKeyColor(i,this.exportspace)));
               counter++;
             }
             else{
-              if(this.workCMS.getKeyType(i)=="left key"){
               new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i), this.workCMS.getKeyType(i), this.workCMS.getLeftKeyColor(i,this.exportspace)));
               counter++;
-              }
-              new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i), this.workCMS.getKeyType(i), this.workCMS.getLeftKeyColor(i+1,this.exportspace)));
+              new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i)+twinErrorValue, this.workCMS.getKeyType(i), this.workCMS.getLeftKeyColor(i+1,this.exportspace)));
               counter++;
-          }
-
+            }
           break;
           case "twin key":
             new_tbody.appendChild(this.createExportTableRow(counter,this.workCMS.getRefPosition(i), this.workCMS.getKeyType(i), this.workCMS.getLeftKeyColor(i,this.exportspace)));
@@ -337,7 +380,7 @@ class class_Export_Section extends class_Section {
     td.appendChild(document.createTextNode(this.exportspace+"("+tmpColor[1]*this.scaleExpVal1+','+tmpColor[2]*this.scaleExpVal2+','+tmpColor[3]*this.scaleExpVal3+')'));
     tr.appendChild(td);
 
-    gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+    gWorkColor1.setColorInfo(tmpColor);
     td = document.createElement('td')
     td.className = className;
     td.style.width = "5%";
@@ -514,21 +557,23 @@ class class_Export_Section extends class_Section {
   createCMSText(){
 
     var twinErrorValue = 0;
-    if(this.doTwinErrorSolution)
+    if(this.doTwinErrorSolution){
+      this.determineTwinErrorValue();
       twinErrorValue = this.workCMS.getRefRange()*this.twinError;
+    }
 
     var text = "";
     for (var i = 0; i < this.workCMS.getKeyLength(); i++) {
 
       switch (this.workCMS.getKeyType(i)) {
-        case "nil key": case "left key":
-
+        case "nil key":
+          text = text+this.createLine(this.workCMS.getLeftKeyColor(i+1,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"right"),true,false);
+        break;
+        case "left key":
           if(i==this.workCMS.getKeyLength()-1)
             text = text+this.createLine(this.workCMS.getLeftKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"left"),true,true);
           else{
-
             var isMot=false;
-            if(this.workCMS.getKeyType(i)=="left key"){
               if(this.workCMS.getMoT(i)==false){
                 text = text+this.createLine(this.workCMS.getLeftKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"left"),true,true);
               }
@@ -536,16 +581,10 @@ class class_Export_Section extends class_Section {
                 text = text+this.createLine(this.workCMS.getLeftKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"left"),true,false);
                 isMot=true;
               }
-
-            }
-            text = text+this.createLine(this.workCMS.getLeftKeyColor(i+1,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"right"),true,isMot)  ;
-
-
-        }
-
+            text = text+this.createLine(this.workCMS.getLeftKeyColor(i+1,this.exportspace),this.workCMS.getRefPosition(i)+twinErrorValue,this.workCMS.getOpacityVal(i,"right"),true,isMot);
+          }
         break;
         case "twin key":
-
           var isMot=false;
           if(this.workCMS.getMoT(i)==false){
             text = text+this.createLine(this.workCMS.getLeftKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"left"),true,true);
@@ -804,8 +843,10 @@ class class_Export_Section extends class_Section {
       this.workCMS.calcExportSampling(parseInt(document.getElementById("id_ExportIntervalNum").value)); // calcCMSIntervals(this.workCMS,0,this.workCMS.getKeyLength()-1,globalIntervalMode);
 
       var twinErrorValue = 0;
-      if(this.doTwinErrorSolution)
+      if(this.doTwinErrorSolution){
+        this.determineTwinErrorValue();
         twinErrorValue = this.workCMS.getRefRange()*this.twinError;
+      }
 
       var jsontext = "[\n\t{\n\t\t\"ColorSpace\" : ";
 
@@ -869,7 +910,13 @@ class class_Export_Section extends class_Section {
       for (var i = 0; i < this.workCMS.getKeyLength(); i++) {
 
             switch (this.workCMS.getKeyType(i)) {
-              case "nil key": case "left key":
+              case "nil key":
+                colortext = colortext+this.createLine(this.workCMS.getLeftKeyColor(i+1,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"right"),true,isMot)+",";
+                isCMStext=isCMStext+"\n\t\t\t"+true+",";
+                isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
+              break;
+
+              case "left key":
 
                 if(i==this.workCMS.getKeyLength()-1){
                   colortext = colortext+this.createLine(this.workCMS.getLeftKeyColor(i,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"left"),true,true);
@@ -889,18 +936,12 @@ class class_Export_Section extends class_Section {
                       isMot=true;
                       isMoTtext=isMoTtext+"\n\t\t\t"+false+",";
                     }
-
                     isCMStext=isCMStext+"\n\t\t\t"+true+",";
-
-
                   }
-                  colortext = colortext+this.createLine(this.workCMS.getLeftKeyColor(i+1,this.exportspace),this.workCMS.getRefPosition(i),this.workCMS.getOpacityVal(i,"right"),true,isMot)+",";
+                  colortext = colortext+this.createLine(this.workCMS.getLeftKeyColor(i+1,this.exportspace),this.workCMS.getRefPosition(i)+twinErrorValue,this.workCMS.getOpacityVal(i,"right"),true,isMot)+",";
                   isCMStext=isCMStext+"\n\t\t\t"+true+",";
                   isMoTtext=isMoTtext+"\n\t\t\t"+isMot+",";
-
-
               }
-
               break;
               case "twin key":
 

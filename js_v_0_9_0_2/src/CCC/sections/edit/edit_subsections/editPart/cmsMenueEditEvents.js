@@ -64,18 +64,21 @@ function reverseCMS(){
 
 function refreshKeyValueEdit(){
   var selectedIndex = document.getElementById("id_EditPage_EditKey_List").selectedIndex;
-  document.getElementById("id_EditPage_KeyValueEdit_warning").innerHTML="";
+  document.getElementById("id_EditPage_KeyValueEdit_warning").innerHTML="&#10004; Input is correct.";
+  document.getElementById("id_EditPage_KeyValueEdit_warning").style.color="var(--general-check-color)";
   document.getElementById("id_EditPage_KeyValueEdit_previousVal").innerHTML="";
   document.getElementById("id_EditPage_KeyValueEdit_nextVal").innerHTML="";
 
   if(selectedIndex!=0){
     document.getElementById("id_EditPage_KeyValueEdit_previousVal").innerHTML=editSection.editCMS.getRefPosition(selectedIndex-1).toFixed(5)+" <";
+    document.getElementById("id_EditPage_KeyValueEdit_previousVal").title= editSection.editCMS.getRefPosition(selectedIndex-1)+" <";
   }
 
   document.getElementById("id_EditPage_KeyValueEdit_input").value = editSection.editCMS.getRefPosition(selectedIndex);
 
   if(selectedIndex!=editSection.editCMS.getKeyLength()-1){
     document.getElementById("id_EditPage_KeyValueEdit_nextVal").innerHTML= "< "+editSection.editCMS.getRefPosition(selectedIndex+1).toFixed(5);
+    document.getElementById("id_EditPage_KeyValueEdit_nextVal").title= "< "+editSection.editCMS.getRefPosition(selectedIndex+1);
   }
 }
 
@@ -84,7 +87,8 @@ function checkKeyValueChange(){
   var tmpVal = Number(document.getElementById("id_EditPage_KeyValueEdit_input").value);
 
   if(isNaN(tmpVal)){
-    document.getElementById("id_EditPage_KeyValueEdit_warning").innerHTML="&#9888";
+    document.getElementById("id_EditPage_KeyValueEdit_warning").innerHTML="&#9888 Warning: Input is not a number.";
+    document.getElementById("id_EditPage_KeyValueEdit_warning").style.color="var(--general-warning-color)";
     document.getElementById("id_EditPage_KeyValueEdit_warning").title="Warning: Input is not a number.";
     return;
   }
@@ -93,7 +97,8 @@ function checkKeyValueChange(){
   if(selectedIndex!=0){
     var preVal = editSection.editCMS.getRefPosition(selectedIndex-1);
     if(tmpVal<=preVal){
-      document.getElementById("id_EditPage_KeyValueEdit_warning").innerHTML="&#9888";
+      document.getElementById("id_EditPage_KeyValueEdit_warning").innerHTML="&#9888 Input has to be larger than the reference value of the previous key.";
+      document.getElementById("id_EditPage_KeyValueEdit_warning").style.color="var(--general-warning-color)";
       document.getElementById("id_EditPage_KeyValueEdit_warning").title="Warning: Input has to be larger than the reference value of the previous key.";
       return;
     }
@@ -102,7 +107,8 @@ function checkKeyValueChange(){
   if(selectedIndex!=editSection.editCMS.getKeyLength()-1){
     var nextVal = editSection.editCMS.getRefPosition(selectedIndex+1);
     if(tmpVal>=nextVal){
-      document.getElementById("id_EditPage_KeyValueEdit_warning").innerHTML="&#9888";
+      document.getElementById("id_EditPage_KeyValueEdit_warning").innerHTML="&#9888 Input has to be smaller than the reference value of the following key.";
+      document.getElementById("id_EditPage_KeyValueEdit_warning").style.color="var(--general-warning-color)";
       document.getElementById("id_EditPage_KeyValueEdit_warning").title="Warning: Input has to be smaller than the reference value of the following key.";
       return;
     }

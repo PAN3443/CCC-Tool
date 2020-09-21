@@ -234,7 +234,7 @@ class class_CMS {
         return this.pathplotWorkColors[keyBandIndex][index];
 
       gWorkColor1.autoRGBClipping=true;
-      gWorkColor1.updateColor(this.pathplotWorkColors[keyBandIndex][index][0][0],this.pathplotWorkColors[keyBandIndex][index][0][1],this.pathplotWorkColors[keyBandIndex][index][0][2],this.pathplotWorkColors[keyBandIndex][index][0][3]);
+      gWorkColor1.setColorInfo(this.pathplotWorkColors[keyBandIndex][index][0]);
       return gWorkColor1.getColorInfo(colorspace);
   }
 
@@ -242,9 +242,7 @@ class class_CMS {
       return this.pathplotWorkColors[keyBandIndex][index][1];
   }
 
-
   ///// Analysis ///////
-
   changeAnalysisWorkTye(type,intervals){
     this.analysisWorkColorType=type;
     this.analysisWorkColorIntervalNum=intervals;
@@ -277,14 +275,13 @@ class class_CMS {
         return this.analysisWorkColors[keyBandIndex][index];
 
       gWorkColor1.autoRGBClipping=true;
-      gWorkColor1.updateColor(this.analysisWorkColors[keyBandIndex][index][0][0],this.analysisWorkColors[keyBandIndex][index][0][1],this.analysisWorkColors[keyBandIndex][index][0][2],this.analysisWorkColors[keyBandIndex][index][0][3]);
+      gWorkColor1.setColorInfo(this.analysisWorkColors[keyBandIndex][index][0]);
       return gWorkColor1.getColorInfo(colorspace);
   }
 
   get_Analysis_WorkColorRef(keyBandIndex,index){
       return this.analysisWorkColors[keyBandIndex][index][1];
   }
-
 
   ///// EXPORT ///////
   calcExportSampling(type,numIntervals){
@@ -372,7 +369,7 @@ class class_CMS {
         return this.exportWorkColors[keyBandIndex][index];
 
       gWorkColor1.autoRGBClipping=true;
-      gWorkColor1.updateColor(this.exportWorkColors[keyBandIndex][index][0][0],this.exportWorkColors[keyBandIndex][index][0][1],this.exportWorkColors[keyBandIndex][index][0][2],this.exportWorkColors[keyBandIndex][index][0][3]);
+      gWorkColor1.setColorInfo(this.exportWorkColors[keyBandIndex][index][0]);
       return gWorkColor1.getColorInfo(colorspace);
   }
 
@@ -605,7 +602,7 @@ class class_CMS {
           return this.supportColors[keyBandIndex][index];
 
         gWorkColor1.autoRGBClipping=true;
-        gWorkColor1.updateColor(this.supportColors[keyBandIndex][index][0][0],this.supportColors[keyBandIndex][index][0][1],this.supportColors[keyBandIndex][index][0][2],this.supportColors[keyBandIndex][index][0][3]);
+        gWorkColor1.setColorInfo(this.supportColors[keyBandIndex][index][0]);
         return gWorkColor1.getColorInfo(colorspace);
     }
 
@@ -729,19 +726,19 @@ class class_CMS {
 
   getNaNColor(colorspace) {
       gWorkColor1.autoRGBClipping=true;
-      gWorkColor1.updateColor(this.colorNaN[0],this.colorNaN[1],this.colorNaN[2],this.colorNaN[3]);
+      gWorkColor1.setColorInfo(this.colorNaN);
       return gWorkColor1.getColorInfo(colorspace);
   }
 
   getBelowColor(colorspace) {
       gWorkColor1.autoRGBClipping=true;
-      gWorkColor1.updateColor(this.colorBelow[0],this.colorBelow[1],this.colorBelow[2],this.colorBelow[3]);
+      gWorkColor1.setColorInfo(this.colorBelow);
       return gWorkColor1.getColorInfo(colorspace);
   }
 
   getAboveColor(colorspace) {
       gWorkColor1.autoRGBClipping=true;
-      gWorkColor1.updateColor(this.colorAbove[0],this.colorAbove[1],this.colorAbove[2],this.colorAbove[3]);
+      gWorkColor1.setColorInfo(this.colorAbove);
       return gWorkColor1.getColorInfo(colorspace);
   }
 
@@ -1025,6 +1022,8 @@ class class_CMS {
     }
     this.keyArray = tmpKeyArray;
 
+    this.updateSupportColors();
+
   }
 
   setAutoRange(newStart, newEnd) {
@@ -1038,7 +1037,7 @@ class class_CMS {
       var newPos = newStart + ratio * newDistance;
       this.keyArray[i].setRefPosition(newPos);
     }
-
+    this.updateSupportColors();
   }
 
   equalKeyIntervals() {
@@ -1048,6 +1047,7 @@ class class_CMS {
         this.keyArray[i].setRefPosition(this.keyArray[0].getRefPosition() + (i * equalDis));
       }
     }
+    this.updateSupportColors();
   }
 
   calculateColor(val, space) {
@@ -1091,7 +1091,7 @@ class class_CMS {
           }
         }
 
-        gWorkColor1.updateColor(color[0],color[1],color[2],color[3]);
+        gWorkColor1.setColorInfo(color);
         return gWorkColor1.getColorInfo(space);
       }
     }
@@ -1112,7 +1112,7 @@ class class_CMS {
   if (color1 == undefined) {
     if(space===this.interpolationSpace)
       return color2;
-    gWorkColor1.updateColor(color2[0],color2[1],color2[2],color2[3]);
+    gWorkColor1.setColorInfo(color2);
     return gWorkColor1.getColorInfo(space);
   }
 
@@ -1590,7 +1590,7 @@ function createScaledBand(canvasData, xStart, yStart, bandWidth, bandHeight, col
     return;
 
       if(colorInfo1[0]!=colorInfo2[0]){
-        gWorkColor1.updateColor(colorInfo2[0],colorInfo2[1],colorInfo2[2],colorInfo2[3]);
+        gWorkColor1.setColorInfo(colorInfo2);
         colorInfo2 = gWorkColor1.getColorInfo(colorInfo1[0]);
       }
 
@@ -1626,7 +1626,7 @@ function createConstantBand(canvasData, xStart, yStart, bandWidth, bandHeight, c
   bandWidth = Math.round(bandWidth);
   bandHeight = Math.round(bandHeight);
       gWorkColor1.autoRGBClipping=true;
-      gWorkColor1.updateColor(colorInfo1[0],colorInfo1[1],colorInfo1[2],colorInfo1[3]);
+      gWorkColor1.setColorInfo(colorInfo1);
 
       var colorInfo = gWorkColor1.getColorInfo("rgb");
       if(this.doColorblindnessSim)
@@ -1653,7 +1653,7 @@ function createScaledBandVertical(canvasData, yStart, bandWidth, bandHeight, col
   bandHeight = Math.round(bandHeight);
   gWorkColor1.autoRGBClipping=true;
   if(colorInfo1[0]!=colorInfo2[0]){
-    gWorkColor1.updateColor(colorInfo2[0],colorInfo2[1],colorInfo2[2],colorInfo2[3]);
+    gWorkColor1.setColorInfo(colorInfo2);
     colorInfo2 = gWorkColor1.getColorInfo(colorInfo1[0]);
   }
 
@@ -1692,7 +1692,7 @@ function createConstantBandVertical(canvasData, yStart, bandWidth, bandHeight, c
   bandHeight = Math.round(bandHeight);
   gWorkColor1.autoRGBClipping=true;
 
-      gWorkColor1.updateColor(colorInfo1[0],colorInfo1[1],colorInfo1[2],colorInfo1[3]);
+      gWorkColor1.setColorInfo(colorInfo1);
 
       var colorInfo = gWorkColor1.getColorInfo("rgb");
       if(this.doColorblindnessSim)

@@ -1,0 +1,9 @@
+.class_transferInput{
+  height: 2.5vh;
+  color: var(--main-font-color);
+  line-height: 2.5vh;
+  font-size: 2.0vh;
+  vertical-align: middle;
+  text-align: center;
+  margin:auto;
+}

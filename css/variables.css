@@ -48,16 +48,16 @@
   ***************************************/
   --main-bg-color:rgb(255,255,255);
   --main-bg-color-alpha:rgba(255,255,255,0.85);
-  --main-second-bg-color:rgb(225,225,225);
+  --main-second-bg-color:rgb(180,180,180);
   --main-font-color:rgb(30,30,30);
   --main-border:rgb(0, 0, 0);
-  --main-font-notactive-color:rgb(120,120,120);
+  --main-font-notactive-color:rgb(80,80,80);
   --main-warning-font-color:rgb(224,108,117);
   --main-label-font-color:rgb(255,255,255);
 
   --main-coloredButton:rgb(40,40,40); /*rgb(76, 175, 80);*/
   --main-coloredFont:rgb(240,240,240);
-  --main-coloredFont-deactivated:rgb(200,200,200);
+  --main-coloredFont-deactivated:rgb(120,120,120);
   --main-hover-coloredButton-deactivated:rgb(120,120,120);
   --main-hover-coloredButton:rgb(255, 51, 0); /*rgb(76, 175, 80);*/
   --main-hover-coloredButton_Dark: rgb(255, 71, 26);

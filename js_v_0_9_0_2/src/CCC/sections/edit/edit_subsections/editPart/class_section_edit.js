@@ -425,7 +425,7 @@ class class_Edit_Section extends class_Edit_Basis_Section {
       iDiv.className = 'class_predefinedConstBands';
       iDiv.setAttribute('draggable', true);
 
-      gWorkColor1.updateColor(this.constBands[i][0],this.constBands[i][1],this.constBands[i][2],this.constBands[i][3]);
+      gWorkColor1.setColorInfo(this.constBands[i]);
       if (doColorblindnessSim) {
         iDiv.style.background = gWorkColor1.getColorInfo("rgb_cb_string");
       } else {

@@ -410,7 +410,7 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
       }
 
     var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX][this.mousePosY],"rgb");
-    gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+    gWorkColor1.setColorInfo(tmpRGB);
     document.getElementById("id_report_pixelPreview11").style.background = gWorkColor1.get_RGB_String();
 
     document.getElementById("id_report_pixelPreview00").style.visibility = "hidden";
@@ -438,17 +438,17 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
             case 0:
               // left bottom corner
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX][this.mousePosY+1],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview01").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview01").style.background = gWorkColor1.get_RGB_String();
 
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX+1][this.mousePosY+1],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview02").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview02").style.background = gWorkColor1.get_RGB_String();
 
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX+1][this.mousePosY],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview12").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview12").style.background = gWorkColor1.get_RGB_String();
 
@@ -460,17 +460,17 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
               case this.reportListTestField[selectedIndex][0].length-1:
                   // left top corner
                   var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX+1][this.mousePosY],"rgb");
-                  gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                  gWorkColor1.setColorInfo(tmpRGB);
                   document.getElementById("id_report_pixelPreview12").style.visibility = "visible";
                   document.getElementById("id_report_pixelPreview12").style.background = gWorkColor1.get_RGB_String();
 
                   var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX][this.mousePosY-1],"rgb");
-                  gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                  gWorkColor1.setColorInfo(tmpRGB);
                   document.getElementById("id_report_pixelPreview21").style.visibility = "visible";
                   document.getElementById("id_report_pixelPreview21").style.background = gWorkColor1.get_RGB_String();
 
                   var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX+1][this.mousePosY-1],"rgb");
-                  gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                  gWorkColor1.setColorInfo(tmpRGB);
                   document.getElementById("id_report_pixelPreview22").style.visibility = "visible";
                   document.getElementById("id_report_pixelPreview22").style.background = gWorkColor1.get_RGB_String();
 
@@ -481,23 +481,23 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
             default:
                 // left side
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX][this.mousePosY+1],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview01").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview01").style.background = gWorkColor1.get_RGB_String();
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX+1][this.mousePosY+1],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview02").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview02").style.background = gWorkColor1.get_RGB_String();
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX+1][this.mousePosY],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview12").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview12").style.background = gWorkColor1.get_RGB_String();
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX][this.mousePosY-1],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview21").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview21").style.background = gWorkColor1.get_RGB_String();
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX+1][this.mousePosY-1],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview22").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview22").style.background = gWorkColor1.get_RGB_String();
 
@@ -515,15 +515,15 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
               case 0:
                 //  right bottom corner
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX-1][this.mousePosY+1],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview00").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview00").style.background = gWorkColor1.get_RGB_String();
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX][this.mousePosY+1],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview01").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview01").style.background = gWorkColor1.get_RGB_String();
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX-1][this.mousePosY],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview10").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview10").style.background = gWorkColor1.get_RGB_String();
 
@@ -535,15 +535,15 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
                   //  right top corner
 
                   var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX-1][this.mousePosY],"rgb");
-                  gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                  gWorkColor1.setColorInfo(tmpRGB);
                   document.getElementById("id_report_pixelPreview10").style.visibility = "visible";
                   document.getElementById("id_report_pixelPreview10").style.background = gWorkColor1.get_RGB_String();
                   var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX-1][this.mousePosY-1],"rgb");
-                  gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                  gWorkColor1.setColorInfo(tmpRGB);
                   document.getElementById("id_report_pixelPreview20").style.visibility = "visible";
                   document.getElementById("id_report_pixelPreview20").style.background = gWorkColor1.get_RGB_String();
                   var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX][this.mousePosY-1],"rgb");
-                  gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                  gWorkColor1.setColorInfo(tmpRGB);
                   document.getElementById("id_report_pixelPreview21").style.visibility = "visible";
                   document.getElementById("id_report_pixelPreview21").style.background = gWorkColor1.get_RGB_String();
 
@@ -554,23 +554,23 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
               default:
                 // right sieht
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX-1][this.mousePosY+1],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview00").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview00").style.background = gWorkColor1.get_RGB_String();
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX][this.mousePosY+1],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview01").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview01").style.background = gWorkColor1.get_RGB_String();
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX-1][this.mousePosY],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview10").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview10").style.background = gWorkColor1.get_RGB_String();
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX-1][this.mousePosY-1],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview20").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview20").style.background = gWorkColor1.get_RGB_String();
                 var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX][this.mousePosY-1],"rgb");
-                gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+                gWorkColor1.setColorInfo(tmpRGB);
                 document.getElementById("id_report_pixelPreview21").style.visibility = "visible";
                 document.getElementById("id_report_pixelPreview21").style.background = gWorkColor1.get_RGB_String();
 
@@ -587,23 +587,23 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
         case 0:
           //  bottom side
           var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX-1][this.mousePosY+1],"rgb");
-          gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+          gWorkColor1.setColorInfo(tmpRGB);
           document.getElementById("id_report_pixelPreview00").style.visibility = "visible";
           document.getElementById("id_report_pixelPreview00").style.background = gWorkColor1.get_RGB_String();
           var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX][this.mousePosY+1],"rgb");
-          gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+          gWorkColor1.setColorInfo(tmpRGB);
           document.getElementById("id_report_pixelPreview01").style.visibility = "visible";
           document.getElementById("id_report_pixelPreview01").style.background = gWorkColor1.get_RGB_String();
           var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX+1][this.mousePosY+1],"rgb");
-          gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+          gWorkColor1.setColorInfo(tmpRGB);
           document.getElementById("id_report_pixelPreview02").style.visibility = "visible";
           document.getElementById("id_report_pixelPreview02").style.background = gWorkColor1.get_RGB_String();
           var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX-1][this.mousePosY],"rgb");
-          gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+          gWorkColor1.setColorInfo(tmpRGB);
           document.getElementById("id_report_pixelPreview10").style.visibility = "visible";
           document.getElementById("id_report_pixelPreview10").style.background = gWorkColor1.get_RGB_String();
           var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX+1][this.mousePosY],"rgb");
-          gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+          gWorkColor1.setColorInfo(tmpRGB);
           document.getElementById("id_report_pixelPreview12").style.visibility = "visible";
           document.getElementById("id_report_pixelPreview12").style.background = gWorkColor1.get_RGB_String();
 
@@ -617,23 +617,23 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
           // top side
 
           var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX-1][this.mousePosY],"rgb");
-          gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+          gWorkColor1.setColorInfo(tmpRGB);
           document.getElementById("id_report_pixelPreview10").style.visibility = "visible";
           document.getElementById("id_report_pixelPreview10").style.background = gWorkColor1.get_RGB_String();
           var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX+1][this.mousePosY],"rgb");
-          gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+          gWorkColor1.setColorInfo(tmpRGB);
           document.getElementById("id_report_pixelPreview12").style.visibility = "visible";
           document.getElementById("id_report_pixelPreview12").style.background = gWorkColor1.get_RGB_String();
           var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX-1][this.mousePosY-1],"rgb");
-          gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+          gWorkColor1.setColorInfo(tmpRGB);
           document.getElementById("id_report_pixelPreview20").style.visibility = "visible";
           document.getElementById("id_report_pixelPreview20").style.background = gWorkColor1.get_RGB_String();
           var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX][this.mousePosY-1],"rgb");
-          gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+          gWorkColor1.setColorInfo(tmpRGB);
           document.getElementById("id_report_pixelPreview21").style.visibility = "visible";
           document.getElementById("id_report_pixelPreview21").style.background = gWorkColor1.get_RGB_String();
           var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX+1][this.mousePosY-1],"rgb");
-          gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+          gWorkColor1.setColorInfo(tmpRGB);
           document.getElementById("id_report_pixelPreview22").style.visibility = "visible";
           document.getElementById("id_report_pixelPreview22").style.background = gWorkColor1.get_RGB_String();
 
@@ -646,35 +646,35 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
         default:
 
         var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX-1][this.mousePosY+1],"rgb");
-        gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+        gWorkColor1.setColorInfo(tmpRGB);
         document.getElementById("id_report_pixelPreview00").style.visibility = "visible";
         document.getElementById("id_report_pixelPreview00").style.background = gWorkColor1.get_RGB_String();
         var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX][this.mousePosY+1],"rgb");
-        gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+        gWorkColor1.setColorInfo(tmpRGB);
         document.getElementById("id_report_pixelPreview01").style.visibility = "visible";
         document.getElementById("id_report_pixelPreview01").style.background = gWorkColor1.get_RGB_String();
         var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX+1][this.mousePosY+1],"rgb");
-        gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+        gWorkColor1.setColorInfo(tmpRGB);
         document.getElementById("id_report_pixelPreview02").style.visibility = "visible";
         document.getElementById("id_report_pixelPreview02").style.background = gWorkColor1.get_RGB_String();
         var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX-1][this.mousePosY],"rgb");
-        gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+        gWorkColor1.setColorInfo(tmpRGB);
         document.getElementById("id_report_pixelPreview10").style.visibility = "visible";
         document.getElementById("id_report_pixelPreview10").style.background = gWorkColor1.get_RGB_String();
         var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX+1][this.mousePosY],"rgb");
-        gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+        gWorkColor1.setColorInfo(tmpRGB);
         document.getElementById("id_report_pixelPreview12").style.visibility = "visible";
         document.getElementById("id_report_pixelPreview12").style.background = gWorkColor1.get_RGB_String();
         var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX-1][this.mousePosY-1],"rgb");
-        gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+        gWorkColor1.setColorInfo(tmpRGB);
         document.getElementById("id_report_pixelPreview20").style.visibility = "visible";
         document.getElementById("id_report_pixelPreview20").style.background = gWorkColor1.get_RGB_String();
         var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX][this.mousePosY-1],"rgb");
-        gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+        gWorkColor1.setColorInfo(tmpRGB);
         document.getElementById("id_report_pixelPreview21").style.visibility = "visible";
         document.getElementById("id_report_pixelPreview21").style.background = gWorkColor1.get_RGB_String();
         var tmpRGB = testingSection.testingCMS.calculateColor(this.reportListTestField[selectedIndex][this.mousePosX+1][this.mousePosY-1],"rgb");
-        gWorkColor1.updateColor(tmpRGB[0],tmpRGB[1],tmpRGB[2],tmpRGB[3]);
+        gWorkColor1.setColorInfo(tmpRGB);
         document.getElementById("id_report_pixelPreview22").style.visibility = "visible";
         document.getElementById("id_report_pixelPreview22").style.background = gWorkColor1.get_RGB_String();
 
@@ -925,7 +925,7 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
       td.style.maxWidth = "1vw";
       td.style.borderLeft = "none";
       if(tableInfo[i]!=undefined){
-        gWorkColor1.updateColor(tableInfo[i][2][0],tableInfo[i][2][1],tableInfo[i][2][2],tableInfo[i][2][3]);
+        gWorkColor1.setColorInfo(tableInfo[i][2]);
         td.style.background = gWorkColor1.get_RGB_String();
         if(tableInfo[i][8]){
           td.style.borderWidth = "0.2vh";
@@ -976,7 +976,7 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
       td.style.maxWidth = "1vw";
       td.style.borderLeft = "none";
       if(tableInfo[i]!=undefined){
-        gWorkColor1.updateColor(tableInfo[i][5][0],tableInfo[i][5][1],tableInfo[i][5][2],tableInfo[i][5][3]);
+        gWorkColor1.setColorInfo(tableInfo[i][5]);
         td.style.background = gWorkColor1.get_RGB_String();
         if(tableInfo[i][9]){
           td.style.borderWidth = "0.2vh";
@@ -1014,7 +1014,7 @@ class class_Element_TestReport extends class_Testing_Element_Basis {
       td.style.maxWidth = "1vw";
       td.style.borderLeft = "none";
       if(tableInfo[i]!=undefined){
-        gWorkColor1.updateColor(tableInfo[i][7][0],tableInfo[i][7][1],tableInfo[i][7][2],tableInfo[i][7][3]);
+        gWorkColor1.setColorInfo(tableInfo[i][7]);
         td.style.background = gWorkColor1.get_RGB_String();
         if(tableInfo[i][10]){
           td.style.borderWidth = "0.2vh";

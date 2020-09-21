@@ -1081,7 +1081,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
 
             var colorRef = undefined;
             if(x==y){
-              gWorkColor1.updateColor(colorArray[x][0],colorArray[x][1],colorArray[x][2],colorArray[x][3]);
+              gWorkColor1.setColorInfo(colorArray[x]);
               colorRef = gWorkColor1.getColorInfo("rgb");
             }
             else
@@ -1291,7 +1291,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
 
   gWorkColor1.autoRGBClipping=true;
   for (var i = 0; i < colorArray.length; i++) {
-    gWorkColor1.updateColor(colorArray[i][0],colorArray[i][1],colorArray[i][2],colorArray[i][3]);
+    gWorkColor1.setColorInfo(colorArray[i]);
     canvasCtx.fillStyle = gWorkColor1.getColorInfo("rgb_string");
     canvasCtx.fillRect(currentXPos, colormapYStart, bandWidth, colormapHeight);
     /*canvasCtx.strokeStyle = "rgb(0,0,0)";
@@ -1346,7 +1346,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     var deltaHeight = arrowPlotHeight * (tmpVal / maxLocal);
     var yPos = colormapYStart - deltaHeight;
 
-    gWorkColor1.updateColor(colorRef[0],colorRef[1],colorRef[2],colorRef[3]);
+    gWorkColor1.setColorInfo(colorRef);
     canvasCtx.fillStyle = gWorkColor1.getColorInfo("rgb_string");
     canvasCtx.fillRect(currentXPos, yPos, bandWidth, deltaHeight);
 

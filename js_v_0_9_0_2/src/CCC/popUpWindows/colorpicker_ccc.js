@@ -23,33 +23,34 @@ function setColorpickerEventID(eventID){
 
   switch (eventID) {
     case "id_edit_cms_SetNaN":
-      colorpickerColor.updateColor(editSection.getSpecialCMSColor("nan", "rgb"));
+
+      colorpickerColor.setColorInfo(editSection.getSpecialCMSColor("nan", "rgb"));
       // below the object
       document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
       document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
       break;
     case "id_edit_cms_SetBelow":
-      colorpickerColor.updateColor(editSection.getSpecialCMSColor("below", "rgb"));
+      colorpickerColor.setColorInfo(editSection.getSpecialCMSColor("below", "rgb"));
       // below the object
       document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
       document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
       break;
     case "id_edit_cms_SetAbove":
-      colorpickerColor.updateColor(editSection.getSpecialCMSColor("above", "rgb"));
+      colorpickerColor.setColorInfo(editSection.getSpecialCMSColor("above", "rgb"));
       // below the object
       document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
       document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
       break;
     case "id_EditPage_DrawnDualKey":
     case "id_EditPage_DrawnRightKey":
-      colorpickerColor.updateColor(editSection.editCMS.getRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, "rgb"));
+      colorpickerColor.setColorInfo(editSection.editCMS.getRightKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, "rgb"));
       // above the object
       document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
       document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";
       break;
 
     case "id_EditPage_DrawnLeftKey":
-      colorpickerColor.updateColor(editSection.editCMS.getLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, "rgb"));
+      colorpickerColor.setColorInfo(editSection.editCMS.getLeftKeyColor(document.getElementById("id_EditPage_EditKey_List").selectedIndex, "rgb"));
       // above the object
       document.getElementById("id_popupColorPicker").style.top = (top + box.height) + "px";
       document.getElementById("id_popupColorPicker").style.left = (left - pickerBox.width) + "px";

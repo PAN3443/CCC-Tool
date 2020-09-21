@@ -65,7 +65,7 @@ function calcRGBElementPos(tmpColor,shape,areaDim,keyindex,colorSide){
   rgbPos3D.push(tmpColor[2] *255 - 128);
   rgbPos3D.push(tmpColor[3] *255 - 128);
 
-  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  gWorkColor1.setColorInfo(tmpColor);
   var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
     showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
@@ -178,7 +178,7 @@ function calcRGB_3D_ElementPos(tmpColor,shape,keyindex,colorSide){
   rgbPos3D.push(tmpColor[2] *255 - 128);
   rgbPos3D.push(tmpColor[3] *255 - 128);
 
-  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  gWorkColor1.setColorInfo(tmpColor);
   var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
     showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
@@ -207,7 +207,7 @@ function calcRGB_LineChart_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,v
   lineChartPos.push(yPos2);
   lineChartPos.push(yPos3);
 
-  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  gWorkColor1.setColorInfo(tmpColor);
   var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
     showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
@@ -319,7 +319,7 @@ function calcLMS_3D_ElementPos(tmpColor,shape,keyindex,colorSide){
   lmsPos3D.push(tmpColor[2]);
   lmsPos3D.push(tmpColor[3]);
 
-  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  gWorkColor1.setColorInfo(tmpColor);
   var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
     showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
@@ -348,7 +348,7 @@ function calcLMS_LineChart_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,v
   lineChartPos.push(yPos2);
   lineChartPos.push(yPos3);
 
-  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  gWorkColor1.setColorInfo(tmpColor);
   var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
     showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
@@ -477,7 +477,7 @@ function calcHSV_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
   hsvPos3D.push(yPos3D);
   hsvPos3D.push(zPos3D);
 
-  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  gWorkColor1.setColorInfo(tmpColor);
   var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
     showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
@@ -506,7 +506,7 @@ var heigthVArea=lineChart_yStart-Math.round(vHeight*0.1);
   lineChartPos.push(yPos3);
 
 
-  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  gWorkColor1.setColorInfo(tmpColor);
   var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
     showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
@@ -635,7 +635,7 @@ function calcLab_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
   labPos3D.push(yPos3D);
   labPos3D.push(zPos3D);
 
-  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  gWorkColor1.setColorInfo(tmpColor);
   var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
     showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
@@ -664,7 +664,7 @@ var heigthVArea=lineChart_yStart-Math.round(vHeight*0.1);
   lineChartPos.push(yPos2);
   lineChartPos.push(yPos3);
 
-  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  gWorkColor1.setColorInfo(tmpColor);
   var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
     showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
@@ -794,7 +794,7 @@ function calcDIN99_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
   labPos3D.push(yPos3D);
   labPos3D.push(zPos3D);
 
-  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  gWorkColor1.setColorInfo(tmpColor);
   var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
     showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
@@ -823,7 +823,7 @@ function calcDIN99_LineChart_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio
   lineChartPos.push(yPos2);
   lineChartPos.push(yPos3);
 
-  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  gWorkColor1.setColorInfo(tmpColor);
   var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
     showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
@@ -950,7 +950,7 @@ function calcLCH_Hue_ElementPos(tmpColor,shape,keyindex,colorSide,hueRes){
   lchPos3D.push(yPos3D);
   lchPos3D.push(zPos3D);
 
-  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  gWorkColor1.setColorInfo(tmpColor);
   var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
     showColor = gWorkColor1.getColorInfo("rgb_cb_hex");
@@ -979,7 +979,7 @@ function calcLCH_LineChart_ElementPos(tmpColor,shape,keyindex,colorSide,xRatio,v
   lineChartPos.push(yPos2);
   lineChartPos.push(yPos3);
 
-  gWorkColor1.updateColor(tmpColor[0],tmpColor[1],tmpColor[2],tmpColor[3]);
+  gWorkColor1.setColorInfo(tmpColor);
   var showColor = gWorkColor1.getColorInfo("rgb_hex");
   if(doColorblindnessSim){
     showColor = gWorkColor1.getColorInfo("rgb_cb_hex");

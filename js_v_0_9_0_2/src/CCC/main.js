@@ -22,16 +22,16 @@ window.onload = function() {
   updateToolVersion();
 
   // init section object
+  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Options Section";
   sectionArray=[];
+  optionsSection = new class_Options_Section();
+  sectionArray.push(optionsSection);
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Welcome Section";
   welcomeSection = new class_Welcome_Section();
   sectionArray.push(welcomeSection);
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: MyDesigns Section";
   myDesignsSection = new class_MyDesigns_Section();
   sectionArray.push(myDesignsSection);
-  document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Options Section";
-  optionsSection = new class_Options_Section();
-  sectionArray.push(optionsSection);
   document.getElementById("id_WelcomePage_LoadingText").innerHTML = "Initialization: Gallery Section";
   gallerySection = new class_Gallery_Section();
   sectionArray.push(gallerySection);
@@ -81,7 +81,6 @@ window.onload = function() {
   welcomeSection.updateSection();
 
 }
-
 
 window.onresize = function(event) {
 

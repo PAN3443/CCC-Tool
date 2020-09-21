@@ -6,7 +6,7 @@
 }*/
 
 function equalColorInfo(colorInfo1, colorInfo2){
-  gWorkColor1.updateColor(colorInfo1);
+  gWorkColor1.updateColor(colorInfo1[0],colorInfo1[1],colorInfo1[2],colorInfo1[3]);
   return gWorkColor1.equalTo(colorInfo2)
 }
 

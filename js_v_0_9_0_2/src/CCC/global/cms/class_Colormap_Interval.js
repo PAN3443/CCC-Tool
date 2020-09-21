@@ -19,7 +19,7 @@ class class_Interval{
 
     getColor(colorspace) {
       gWorkColor1.autoRGBClipping=true;
-      gWorkColor1.updateColor(this.iColor[0],this.iColor[1], this.iColor[2], this.iColor[3]);
+      gWorkColor1.setColorInfo(this.iColor);
       return gWorkColor1.getColorInfo(colorspace);
     }
 
