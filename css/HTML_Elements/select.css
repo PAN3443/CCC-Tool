@@ -12,6 +12,7 @@ select{
   padding-left: 0.5vw;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: var(--font-family-SpecialTextn);
 }
 
 optgroup{
@@ -23,6 +24,8 @@ optgroup{
   line-height: var(--line-height-normal);
   padding-left: 1vw;
   padding-right: 1vw;
+  font-family: var(--font-family-SpecialTextn);
+  font-weight: normal;
 }
 
  option{
@@ -32,6 +35,7 @@ optgroup{
   color: var(--input-font-color);
   padding-left: 1vw;
   padding-right: 1vw;
+  font-family: var(--font-family-SpecialTextn);
 }
 
 option:hover {

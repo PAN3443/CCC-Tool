@@ -225,23 +225,23 @@ class class_Options_Section extends class_Section {
   }
 
   setDefault() {
-    this.rgb2xyz_selected = 0;
-    this.xyz2lms_selected = 0;
+    /*this.rgb2xyz_selected = 0;
+    this.xyz2lms_selected = 0;*/
   }
 
   reset() {
-    this.rgb2xyz_tmpSelected=this.rgb2xyz_selected;
-    this.xyz2lms_tmpSelected=this.xyz2lms_selected;
+    /*this.rgb2xyz_tmpSelected=this.rgb2xyz_selected;
+    this.xyz2lms_tmpSelected=this.xyz2lms_selected;*/
   }
 
   applySettings() {
-    this.rgb2xyz_selected = this.rgb2xyz_tmpSelected;
+    /*this.rgb2xyz_selected = this.rgb2xyz_tmpSelected;
     tmLMS_Selected = this.get_xyz2lms();
     tmLMS_Selected_Inv = this.get_xyz2lms_INV();
 
     this.xyz2lms_selected = this.xyz2lms_tmpSelected;
     tmXYZ_Selected = this.get_rgb2xyz();
-    tmXYZ_Selected_Inv = this.get_rgb2xyz_INV();
+    tmXYZ_Selected_Inv = this.get_rgb2xyz_INV();*/
   }
 
   switchSettings(type, status){

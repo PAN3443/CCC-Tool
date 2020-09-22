@@ -7,235 +7,244 @@
 
   <h1 style="margin-top:2.5vh; margin-bottom:2.5vh;"> Settings </h1>
 
-  <div style="width:100vw; height: 5vh; background:var(--main-coloredButton); display:flex;">
-      <button id="id_Options_CT" class="class_coloredButton" onclick="optionsSection.switchSettings(0,0);" title="Settings Color Transformation" style=" margin:auto; height:5vh; width: 50%; font-size: 3vh;">Color Transformation</button>
-      <button id="id_Options_CDM" class="class_coloredButton" onclick="optionsSection.switchSettings(1,0);" title="Settings Color Metrics" style=" margin:auto; height:5vh; width: 50%; font-size: 3vh;">Color Difference Metrics</button>
-  </div>
-  <div id="id_Options_CT_Selects" style="width:100vw; height: 5vh; background:var(--main-coloredButton); display:flex; overflow: hidden;">
-    <div id="id_Options_CT_Subsections" class="class_slidingDiv" style="display:flex;">
-      <button id="id_Options_RGBtoXYZ" class="class_coloredButton" onclick="optionsSection.switchSettings(0,0);" title="Settings (Color Transformation): RGB to XYZ" style=" margin:auto; height:5vh; width: 25vw; min-width: 25vw; overflow: hidden; font-size: 3vh;">RGB to XYZ</button>
-      <button id="id_Options_XYZtoLMS" class="class_coloredButton" onclick="optionsSection.switchSettings(0,1);" title="Settings (Color Transformation): XYZ to LMS" style=" margin:auto; height:5vh; width: 25vw; min-width: 25vw; overflow: hidden; font-size: 3vh;">XYZ to LMS</button>
-      <button id="id_Options_XYZtoLab" class="class_coloredButton" onclick="optionsSection.switchSettings(0,2);" title="Settings (Color Transformation): XYZ to CIELab" style=" margin:auto; height:5vh; width: 25vw; min-width: 25vw; overflow: hidden; font-size: 3vh;">XYZ to CIELab</button>
-      <button id="id_Options_LABtoDIN99" class="class_coloredButton" onclick="optionsSection.switchSettings(0,3);" title="Settings (Color Transformation): CIELab to DIN99" style=" margin:auto; height:5vh; width: 25vw; min-width: 25vw; overflow: hidden; font-size: 3vh;">CIELab to DIN99</button>
-    </div>
-    <div id="id_Options_CDM_Subsections" class="class_slidingDiv" style="display:flex;">
-      <button id="id_Options_de94" class="class_coloredButton" onclick="optionsSection.switchSettings(1,0);" title="Settings (Settings Color Metrics): de94" style=" margin:auto; height:5vh; width: 50vw; min-width: 50vw; overflow: hidden; font-size: 3vh;">de94</button>
-      <button id="id_Options_de2000" class="class_coloredButton" onclick="optionsSection.switchSettings(1,1);" title="Settings (Settings Color Metrics): CIEDE2000" style=" margin:auto; height:5vh; width: 50vw; min-width: 50vw; overflow: hidden; font-size: 3vh;">CIEDE2000</button>
-    </div>
+  <div style="width:100vw; height:75vh; overflow:auto; display:flex;">
+    <img  src="../../img/CCCToolComic/notAvailableImg.png" style="max-width:50vw; height: 75vh; margin:auto;">
+    <p style="margin:auto; max-height:75vh; font-size:5vh; padding-top:2vh; padding-bottom:2vh; padding-left:2vw; padding-right:2vw; overflow-y:auto;">
+        Sorry, the section is not available at the moment.
+    </p>
   </div>
 
-  <div id="id_CT_1_Settings" style="width:100%; max-height:70vh; margin:auto; display:none; flex-direction:column;">
-          <div style="width:100%; margin-top:2vh; margin-bottom:2vh; display:flex;">
+  <div style="display:none;">
+    <div style="width:100vw; height: 5vh; background:var(--main-coloredButton); display:flex;">
+        <button id="id_Options_CT" class="class_coloredButton" onclick="optionsSection.switchSettings(0,0);" title="Settings Color Transformation" style=" margin:auto; height:5vh; width: 50%; font-size: 3vh;">Color Transformation</button>
+        <button id="id_Options_CDM" class="class_coloredButton" onclick="optionsSection.switchSettings(1,0);" title="Settings Color Metrics" style=" margin:auto; height:5vh; width: 50%; font-size: 3vh;">Color Difference Metrics</button>
+    </div>
+    <div id="id_Options_CT_Selects" style="width:100vw; height: 5vh; background:var(--main-coloredButton); display:flex; overflow: hidden;">
+      <div id="id_Options_CT_Subsections" class="class_slidingDiv" style="display:flex;">
+        <button id="id_Options_RGBtoXYZ" class="class_coloredButton" onclick="optionsSection.switchSettings(0,0);" title="Settings (Color Transformation): RGB to XYZ" style=" margin:auto; height:5vh; width: 25vw; min-width: 25vw; overflow: hidden; font-size: 3vh;">RGB to XYZ</button>
+        <button id="id_Options_XYZtoLMS" class="class_coloredButton" onclick="optionsSection.switchSettings(0,1);" title="Settings (Color Transformation): XYZ to LMS" style=" margin:auto; height:5vh; width: 25vw; min-width: 25vw; overflow: hidden; font-size: 3vh;">XYZ to LMS</button>
+        <button id="id_Options_XYZtoLab" class="class_coloredButton" onclick="optionsSection.switchSettings(0,2);" title="Settings (Color Transformation): XYZ to CIELab" style=" margin:auto; height:5vh; width: 25vw; min-width: 25vw; overflow: hidden; font-size: 3vh;">XYZ to CIELab</button>
+        <button id="id_Options_LABtoDIN99" class="class_coloredButton" onclick="optionsSection.switchSettings(0,3);" title="Settings (Color Transformation): CIELab to DIN99" style=" margin:auto; height:5vh; width: 25vw; min-width: 25vw; overflow: hidden; font-size: 3vh;">CIELab to DIN99</button>
+      </div>
+      <div id="id_Options_CDM_Subsections" class="class_slidingDiv" style="display:flex;">
+        <button id="id_Options_de94" class="class_coloredButton" onclick="optionsSection.switchSettings(1,0);" title="Settings (Settings Color Metrics): de94" style=" margin:auto; height:5vh; width: 50vw; min-width: 50vw; overflow: hidden; font-size: 3vh;">de94</button>
+        <button id="id_Options_de2000" class="class_coloredButton" onclick="optionsSection.switchSettings(1,1);" title="Settings (Settings Color Metrics): CIEDE2000" style=" margin:auto; height:5vh; width: 50vw; min-width: 50vw; overflow: hidden; font-size: 3vh;">CIEDE2000</button>
+      </div>
+    </div>
 
-           <p style="margin-left:auto; margin-right:1vw; ">Select Transformation Matrix:</p>
+    <div id="id_CT_1_Settings" style="width:100%; max-height:70vh; margin:auto; display:none; flex-direction:column;">
+            <div style="width:100%; margin-top:2vh; margin-bottom:2vh; display:flex;">
 
-           <select id="id_select_TransferMatrix" style="margin-right:auto;" onchange="optionsSection.changeTransformationMatrix()">
+             <p style="margin-left:auto; margin-right:1vw; ">Select Transformation Matrix:</p>
 
-           </select>
+             <select id="id_select_TransferMatrix" style="margin-right:auto;" onchange="optionsSection.changeTransformationMatrix()">
 
+             </select>
+
+             </div>
+
+             <div style="width:100%; margin-top:auto; background:var(--main-second-bg-color); padding-top:2vh; padding-bottom:2vh; display:flex;">
+
+                 <svg class="class_svgBrackets" style="margin-left:auto;">
+                   <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                   <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                   <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                 </svg>
+
+                 <div id="input_xyzTransferMatrixCol1" style="height:100%; display:flex; flex-direction:column;">
+                   <input type="number" id="inputTransferMatrix00" step="any"  class="class_transferInput" value="1" disabled><br>
+                   <input type="number" id="inputTransferMatrix10" step="any"  class="class_transferInput" value="0" disabled><br>
+                   <input type="number" id="inputTransferMatrix20" step="any"  class="class_transferInput" value="0" disabled><br>
+                 </div>
+                 <div id="input_xyzTransferMatrixCol2" style="height:100%; display:flex; flex-direction:column;">
+                   <input type="number" id="inputTransferMatrix01" step="any"  class="class_transferInput" value="0" disabled><br>
+                   <input type="number" id="inputTransferMatrix11" step="any"  class="class_transferInput" value="1" disabled><br>
+                   <input type="number" id="inputTransferMatrix21" step="any"  class="class_transferInput" value="0" disabled><br>
+                 </div>
+                 <div id="input_xyzTransferMatrixCol3" style="height:100%; display:flex; flex-direction:column;">
+                   <input type="number" id="inputTransferMatrix02" step="any" class="class_transferInput" value="0" disabled><br>
+                   <input type="number" id="inputTransferMatrix12" step="any" class="class_transferInput" value="0" disabled><br>
+                   <input type="number" id="inputTransferMatrix22" step="any" class="class_transferInput" value="1" disabled><br>
+                 </div>
+
+                 <svg class="class_svgBrackets">
+                   <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                   <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                   <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                 </svg>
+                 <svg class="class_svgBrackets">
+                   <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                   <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                   <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                 </svg>
+
+                 <div style="height:100%; display:flex; flex-direction:column;">
+                   <p id="id_PopUp_ColorTrans_V1_1" class="class_transferInput">R</p>
+                   <p id="id_PopUp_ColorTrans_V1_2" class="class_transferInput">G</p>
+                   <p id="id_PopUp_ColorTrans_V1_3" class="class_transferInput">B</p>
+                 </div>
+
+                 <svg class="class_svgBrackets">
+                   <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                   <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                   <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                 </svg>
+                 <p class="class_transferInput" style="margin-top:auto; margin-bottom:auto; margin-left:1vw; margin-right:1vw;"> = </p>
+                 <svg class="class_svgBrackets">
+                   <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                   <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                   <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                 </svg>
+
+                 <div style="height:100%; display:flex; flex-direction:column;">
+                   <p id="id_PopUp_ColorTrans_V2_1" class="class_transferInput">X</p>
+                   <p id="id_PopUp_ColorTrans_V2_2" class="class_transferInput">Y</p>
+                   <p id="id_PopUp_ColorTrans_V2_3" class="class_transferInput">Z</p>
+                 </div>
+                 <svg class="class_svgBrackets" style="margin-right:auto;">
+                   <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                   <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                   <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                 </svg>
+          </div>
+          <div style="width:100%; margin-bottom:auto; background:var(--main-second-bg-color); padding-top:2vh; padding-bottom:2vh; display:flex;">
+
+                  <svg class="class_svgBrackets" style="margin-left:auto;">
+                    <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                    <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                    <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                  </svg>
+
+                  <div  style="height:100%; display:flex; flex-direction:column;">
+                    <p id="inputInvTransferMatrix00"></p>
+                    <p id="inputInvTransferMatrix10"></p>
+                    <p id="inputInvTransferMatrix20"></p>
+                  </div>
+                  <div  style="height:100%; display:flex; flex-direction:column;">
+                    <p id="inputInvTransferMatrix01"></p>
+                    <p id="inputInvTransferMatrix11"></p>
+                    <p id="inputInvTransferMatrix21"></p>
+                  </div>
+                  <div  style="height:100%; display:flex; flex-direction:column;">
+                    <p id="inputInvTransferMatrix02"></p>
+                    <p id="inputInvTransferMatrix12"></p>
+                    <p id="inputInvTransferMatrix22"></p>
+                  </div>
+
+                  <svg class="class_svgBrackets">
+                    <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                    <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                    <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                  </svg>
+                  <svg class="class_svgBrackets">
+                    <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                    <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                    <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                  </svg>
+
+                  <div style="height:100%; display:flex; flex-direction:column;">
+                    <p id="id_PopUp_InvColorTrans_V1_1" class="class_transferInput">R</p>
+                    <p id="id_PopUp_InvColorTrans_V1_2" class="class_transferInput">G</p>
+                    <p id="id_PopUp_InvColorTrans_V1_3" class="class_transferInput">B</p>
+                  </div>
+
+                  <svg class="class_svgBrackets">
+                    <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                    <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                    <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                  </svg>
+                  <p class="class_transferInput" style="margin-top:auto; margin-bottom:auto; margin-left:1vw; margin-right:1vw;"> = </p>
+                  <svg class="class_svgBrackets">
+                    <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                    <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                    <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                  </svg>
+
+                  <div style="height:100%; display:flex; flex-direction:column;">
+                    <p id="id_PopUp_InvColorTrans_V2_1" class="class_transferInput">X</p>
+                    <p id="id_PopUp_InvColorTrans_V2_2" class="class_transferInput">Y</p>
+                    <p id="id_PopUp_InvColorTrans_V2_3" class="class_transferInput">Z</p>
+                  </div>
+                  <svg class="class_svgBrackets" style="margin-right:auto;">
+                    <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                    <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                    <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
+                  </svg>
            </div>
+    </div>
+    <div id="id_CT_2_Settings" style="width:100%; max-height:70vh; margin:auto; display:none; flex-direction:column;">
 
-           <div style="width:100%; margin-top:auto; background:var(--main-second-bg-color); padding-top:2vh; padding-bottom:2vh; display:flex;">
+          <div style="width:100%; display:flex;">
 
-               <svg class="class_svgBrackets" style="margin-left:auto;">
-                 <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                 <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                 <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-               </svg>
+            <div style="margin-left: auto;">
+              <div style=" margin-top:0.5vh; margin-bottom:0.5vh; display:flex;">
+              <p id="id_PopUp_TransformationValue_Label1">
+                ref_X:
+              </p>
+              <input id="id_PopUp_TransformationValue_Input1" step="any" value="1" style="margin-left: 2vw;">
+              </div>
+              <div style="margin-top:0.5vh; margin-bottom:0.5vh; display:flex;">
+              <p id="id_PopUp_TransformationValue_Label2">
+                ref_Y:
+              </p>
+              <input id="id_PopUp_TransformationValue_Input2" step="any" value="1" style="margin-left: 2vw;">
+              </div>
+              <div id="id_PopUp_TransformationValue_Div3" style="margin-top:0.5vh; margin-bottom:0.5vh; display:flex;">
 
-               <div id="input_xyzTransferMatrixCol1" style="height:100%; display:flex; flex-direction:column;">
-                 <input type="number" id="inputTransferMatrix00" step="any"  class="class_transferInput" value="1" disabled><br>
-                 <input type="number" id="inputTransferMatrix10" step="any"  class="class_transferInput" value="0" disabled><br>
-                 <input type="number" id="inputTransferMatrix20" step="any"  class="class_transferInput" value="0" disabled><br>
-               </div>
-               <div id="input_xyzTransferMatrixCol2" style="height:100%; display:flex; flex-direction:column;">
-                 <input type="number" id="inputTransferMatrix01" step="any"  class="class_transferInput" value="0" disabled><br>
-                 <input type="number" id="inputTransferMatrix11" step="any"  class="class_transferInput" value="1" disabled><br>
-                 <input type="number" id="inputTransferMatrix21" step="any"  class="class_transferInput" value="0" disabled><br>
-               </div>
-               <div id="input_xyzTransferMatrixCol3" style="height:100%; display:flex; flex-direction:column;">
-                 <input type="number" id="inputTransferMatrix02" step="any" class="class_transferInput" value="0" disabled><br>
-                 <input type="number" id="inputTransferMatrix12" step="any" class="class_transferInput" value="0" disabled><br>
-                 <input type="number" id="inputTransferMatrix22" step="any" class="class_transferInput" value="1" disabled><br>
-               </div>
+              <p id="id_PopUp_TransformationValue_Label3" >
+                ref_Z:
+              </p>
+              <input id="id_PopUp_TransformationValue_Input3" step="any" value="1" style="margin-left: 2vw;">
 
-               <svg class="class_svgBrackets">
-                 <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                 <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                 <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-               </svg>
-               <svg class="class_svgBrackets">
-                 <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                 <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                 <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-               </svg>
-
-               <div style="height:100%; display:flex; flex-direction:column;">
-                 <p id="id_PopUp_ColorTrans_V1_1" class="class_transferInput">R</p>
-                 <p id="id_PopUp_ColorTrans_V1_2" class="class_transferInput">G</p>
-                 <p id="id_PopUp_ColorTrans_V1_3" class="class_transferInput">B</p>
-               </div>
-
-               <svg class="class_svgBrackets">
-                 <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                 <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                 <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-               </svg>
-               <p class="class_transferInput" style="margin-top:auto; margin-bottom:auto; margin-left:1vw; margin-right:1vw;"> = </p>
-               <svg class="class_svgBrackets">
-                 <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                 <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                 <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-               </svg>
-
-               <div style="height:100%; display:flex; flex-direction:column;">
-                 <p id="id_PopUp_ColorTrans_V2_1" class="class_transferInput">X</p>
-                 <p id="id_PopUp_ColorTrans_V2_2" class="class_transferInput">Y</p>
-                 <p id="id_PopUp_ColorTrans_V2_3" class="class_transferInput">Z</p>
-               </div>
-               <svg class="class_svgBrackets" style="margin-right:auto;">
-                 <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                 <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                 <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-               </svg>
-        </div>
-        <div style="width:100%; margin-bottom:auto; background:var(--main-second-bg-color); padding-top:2vh; padding-bottom:2vh; display:flex;">
-
-                <svg class="class_svgBrackets" style="margin-left:auto;">
-                  <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                  <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                  <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                </svg>
-
-                <div  style="height:100%; display:flex; flex-direction:column;">
-                  <p id="inputInvTransferMatrix00"></p>
-                  <p id="inputInvTransferMatrix10"></p>
-                  <p id="inputInvTransferMatrix20"></p>
-                </div>
-                <div  style="height:100%; display:flex; flex-direction:column;">
-                  <p id="inputInvTransferMatrix01"></p>
-                  <p id="inputInvTransferMatrix11"></p>
-                  <p id="inputInvTransferMatrix21"></p>
-                </div>
-                <div  style="height:100%; display:flex; flex-direction:column;">
-                  <p id="inputInvTransferMatrix02"></p>
-                  <p id="inputInvTransferMatrix12"></p>
-                  <p id="inputInvTransferMatrix22"></p>
-                </div>
-
-                <svg class="class_svgBrackets">
-                  <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                  <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                  <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                </svg>
-                <svg class="class_svgBrackets">
-                  <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                  <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                  <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                </svg>
-
-                <div style="height:100%; display:flex; flex-direction:column;">
-                  <p id="id_PopUp_InvColorTrans_V1_1" class="class_transferInput">R</p>
-                  <p id="id_PopUp_InvColorTrans_V1_2" class="class_transferInput">G</p>
-                  <p id="id_PopUp_InvColorTrans_V1_3" class="class_transferInput">B</p>
-                </div>
-
-                <svg class="class_svgBrackets">
-                  <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                  <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                  <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                </svg>
-                <p class="class_transferInput" style="margin-top:auto; margin-bottom:auto; margin-left:1vw; margin-right:1vw;"> = </p>
-                <svg class="class_svgBrackets">
-                  <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                  <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                  <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                </svg>
-
-                <div style="height:100%; display:flex; flex-direction:column;">
-                  <p id="id_PopUp_InvColorTrans_V2_1" class="class_transferInput">X</p>
-                  <p id="id_PopUp_InvColorTrans_V2_2" class="class_transferInput">Y</p>
-                  <p id="id_PopUp_InvColorTrans_V2_3" class="class_transferInput">Z</p>
-                </div>
-                <svg class="class_svgBrackets" style="margin-right:auto;">
-                  <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                  <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                  <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color);stroke-width:0.2vw" />
-                </svg>
-         </div>
-  </div>
-  <div id="id_CT_2_Settings" style="width:100%; max-height:70vh; margin:auto; display:none; flex-direction:column;">
-
-        <div style="width:100%; display:flex;">
-
-          <div style="margin-left: auto;">
-            <div style=" margin-top:0.5vh; margin-bottom:0.5vh; display:flex;">
-            <p id="id_PopUp_TransformationValue_Label1">
-              ref_X:
-            </p>
-            <input id="id_PopUp_TransformationValue_Input1" step="any" value="1" style="margin-left: 2vw;">
+              </div>
             </div>
-            <div style="margin-top:0.5vh; margin-bottom:0.5vh; display:flex;">
-            <p id="id_PopUp_TransformationValue_Label2">
-              ref_Y:
-            </p>
-            <input id="id_PopUp_TransformationValue_Input2" step="any" value="1" style="margin-left: 2vw;">
-            </div>
-            <div id="id_PopUp_TransformationValue_Div3" style="margin-top:0.5vh; margin-bottom:0.5vh; display:flex;">
 
-            <p id="id_PopUp_TransformationValue_Label3" >
-              ref_Z:
-            </p>
-            <input id="id_PopUp_TransformationValue_Input3" step="any" value="1" style="margin-left: 2vw;">
+            <button class="class_generalbutton " onclick="retrieveColorSettings()" title="Retrieve" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left: 3vw; margin-right: auto; margin-top:auto; margin-bottom:auto;">Retrieve</button>
 
-            </div>
           </div>
 
-          <button class="class_generalbutton " onclick="retrieveColorSettings()" title="Retrieve" style="width:10vw; height:6vh; line-height:6vh; font-size:3vh; margin-left: 3vw; margin-right: auto; margin-top:auto; margin-bottom:auto;">Retrieve</button>
+          <p id="id_PopUp_TransformationValue_Warning" style="text-align:center; width:100%; color:red;"></p>
 
-        </div>
+    </div>
 
-        <p id="id_PopUp_TransformationValue_Warning" style="text-align:center; width:100%; color:red;"></p>
-
+    <div id="id_CDM_Settings" style="width:100%; max-height:70vh; margin:auto; display:none; flex-direction:column;">
+      <div style="margin-bottom:0.5vh; display:flex;">
+      <p id="id_PopUp_Metric_Label1">
+        k_L:
+      </p>
+      <input id="id_PopUp_Metric_Input1" step="any" value="1" style="margin-left: 2vw;">
       </div>
-
-  <div id="id_CDM_Settings" style="width:100%; max-height:70vh; margin:auto; display:none; flex-direction:column;">
-    <div style="margin-bottom:0.5vh; display:flex;">
-    <p id="id_PopUp_Metric_Label1">
-      k_L:
-    </p>
-    <input id="id_PopUp_Metric_Input1" step="any" value="1" style="margin-left: 2vw;">
-    </div>
-    <div style="margin-top:0.5vh; margin-bottom:0.5vh; display:flex;">
-    <p id="id_PopUp_Metric_Label2">
-      k_C:
-    </p>
-    <input id="id_PopUp_Metric_Input2" step="any" value="1" style="margin-left: 2vw;">
-    </div>
-    <div style="margin-top:0.5vh; margin-bottom:0.5vh; display:flex;">
-    <p id="id_PopUp_Metric_Label3" >
-      k_H:
-    </p>
-    <input id="id_PopUp_Metric_Input3" step="any" value="1" style="margin-left: 2vw;">
-    </div>
-    <div id="id_PopUp_Metric_Div4" style="margin-top:0.5vh; margin-bottom:0.5vh; display:flex;">
-    <p id="id_PopUp_Metric_Label4" >
-      k_1:
-    </p>
-    <input id="id_PopUp_Metric_Input4" step="any" value="1" style="margin-left: 2vw;">
-    </div>
-    <div id="id_PopUp_Metric_Div5" style="margin-top:0.5vh; display:flex;">
-    <p id="id_PopUp_Metric_Label5" >
-      k_2:
-    </p>
-    <input id="id_PopUp_Metric_Input5" step="any" value="1" style="margin-left: 2vw;">
+      <div style="margin-top:0.5vh; margin-bottom:0.5vh; display:flex;">
+      <p id="id_PopUp_Metric_Label2">
+        k_C:
+      </p>
+      <input id="id_PopUp_Metric_Input2" step="any" value="1" style="margin-left: 2vw;">
+      </div>
+      <div style="margin-top:0.5vh; margin-bottom:0.5vh; display:flex;">
+      <p id="id_PopUp_Metric_Label3" >
+        k_H:
+      </p>
+      <input id="id_PopUp_Metric_Input3" step="any" value="1" style="margin-left: 2vw;">
+      </div>
+      <div id="id_PopUp_Metric_Div4" style="margin-top:0.5vh; margin-bottom:0.5vh; display:flex;">
+      <p id="id_PopUp_Metric_Label4" >
+        k_1:
+      </p>
+      <input id="id_PopUp_Metric_Input4" step="any" value="1" style="margin-left: 2vw;">
+      </div>
+      <div id="id_PopUp_Metric_Div5" style="margin-top:0.5vh; display:flex;">
+      <p id="id_PopUp_Metric_Label5" >
+        k_2:
+      </p>
+      <input id="id_PopUp_Metric_Input5" step="any" value="1" style="margin-left: 2vw;">
+      </div>
     </div>
   </div>
 </div>
 
 <div style="width:100vw; height: 5vh; background:var(--main-coloredButton); display:flex;">
     <button class="class_coloredButton" onclick="optionsSection.backToSection();" title="Back to previouse section" style=" margin:auto; margin-left:1vw; height:5vh; width: 19vw; font-size: 3vh;">Back</button>
-    <button class="class_coloredButton" onclick="optionsSection.default();" title="Back to previouse section" style=" margin:auto; height:5vh; width: 19vw; font-size: 3vh;">Default</button>
+    <button class="class_coloredButton" onclick="optionsSection.setDefault();" title="Back to previouse section" style=" margin:auto; height:5vh; width: 19vw; font-size: 3vh;">Default</button>
     <button class="class_coloredButton" onclick="optionsSection.reset();" title="Back to previouse section" style=" margin:auto; height:5vh; width: 19vw; font-size: 3vh;">Reset</button>
     <button class="class_coloredButton" onclick="optionsSection.applySettings();" title="Back to previouse section" style=" margin:auto; height:5vh; width: 19vw; font-size: 3vh;">Apply</button>
 </div>
