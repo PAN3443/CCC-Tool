@@ -31,7 +31,7 @@ function enterCCC(){
   changeDivStatus(true,"id_CCC_Info_Div");
   changeDivStatus(false,"id_CCBC_Info_Div");
   changeDivStatus(false,"id_CCRC_Info_Div");
-  changeDivStatus(false,"id_Wiki_Info_Div");
+  changeDivStatus(false,"id_Impressum_Info_Div");
   var int1 = Math.round(particles.length/3);
   var int2 = int1*2;
   for (var i = 0; i < int1; i++) {
@@ -52,7 +52,7 @@ function enterCCBC(){
   changeDivStatus(false,"id_CCC_Info_Div");
   changeDivStatus(true,"id_CCBC_Info_Div");
   changeDivStatus(false,"id_CCRC_Info_Div");
-  changeDivStatus(false,"id_Wiki_Info_Div");
+  changeDivStatus(false,"id_Impressum_Info_Div");
   var int1 = Math.round(particles.length/4);
   var int2 = int1*2;
   var int3 = int1*3;
@@ -75,7 +75,7 @@ function enterCCRC(){
   changeDivStatus(false,"id_CCC_Info_Div");
   changeDivStatus(false,"id_CCBC_Info_Div");
   changeDivStatus(true,"id_CCRC_Info_Div");
-  changeDivStatus(false,"id_Wiki_Info_Div");
+  changeDivStatus(false,"id_Impressum_Info_Div");
   var int1 = Math.round(particles.length/4);
   var int2 = int1*2;
   var int3 = int1*3;
@@ -98,7 +98,7 @@ function leaveButton(){
   changeDivStatus(false,"id_CCC_Info_Div");
   changeDivStatus(false,"id_CCBC_Info_Div");
   changeDivStatus(false,"id_CCRC_Info_Div");
-  changeDivStatus(false,"id_Wiki_Info_Div");
+  changeDivStatus(false,"id_Impressum_Info_Div");
   for (var i = 0; i < particles.length; i++) {
     particles[i].setRandom_Velocity();
     particles[i].setRandomSaturation(stdStaturationMin,stdStaturationMax);
@@ -112,7 +112,7 @@ function enterWiki(){
   changeDivStatus(false,"id_CCC_Info_Div");
   changeDivStatus(false,"id_CCBC_Info_Div");
   changeDivStatus(false,"id_CCRC_Info_Div");
-  changeDivStatus(true,"id_Wiki_Info_Div");
+  changeDivStatus(true,"id_Impressum_Info_Div");
   var int1 = Math.round(particles.length/3);
   var dotParticle = Math.round(int1/10);
   var int2 = int1*2;
