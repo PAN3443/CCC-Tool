@@ -257,8 +257,6 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
           tmpCol.appendChild(this.createTripleLayerCanvasDiv(this.pathPlot_Height_VH*0.33,this.pathPlot_Width_VW*0.5,false,this.partDivID+"_PP_C3"));
           document.getElementById(this.partDivID).appendChild(tmpCol);
       }
-      document.getElementById(this.partDivID+"_PP_Hue_l1").style.display="none";
-      document.getElementById(this.partDivID+"_PP_Hue_l2").style.display="none";
     }
     this.partIsReady=true;
     this.pp_3D_Resize();
