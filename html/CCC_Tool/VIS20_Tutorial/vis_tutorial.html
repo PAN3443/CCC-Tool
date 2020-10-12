@@ -1,0 +1,187 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>VIS2020 Tutorial</title>
+  <meta name="keywords"
+    content="coloroptimizer,color,visualization,colorbrewer,ccctool,ccc-tool,ccc,tool,colormap,colortable, color map, color table, continuous, continuous colormap, analysis colormap, analyse colormap, create colormap, export colormap, download colormap">
+  <meta name="description" content="Determine a colormap for visualization with the CCC toolbox">
+  <meta name="author" content="Pascal Nardini">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="../../../apple-touch-icon.png">
+  <link rel="shortcut icon" href="../../../favicon.ico" />
+
+  <!-- Place favicon.ico in the root directory -->
+
+  <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%	STYLE	%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+
+  <style>
+    @font-face{
+     font-family: 'CCCSectionLabelFont';
+     src: url('../../../fonts/Orbitron/static/Orbitron-Bold.ttf');
+    }
+    @font-face{
+     font-family: 'CCCLableFont';
+     src: url('../../../fonts/Orbitron/static/Orbitron-Black.ttf');
+    }
+    @font-face{
+     font-family: 'CCCButtonFont';
+     src: url('../../../fonts/Orbitron/static/Orbitron-SemiBold.ttf');
+    }
+    @font-face{
+     font-family: 'CCCSpecialText';
+     src: url('../../../fonts/Orbitron/static/Orbitron-Medium.ttf');
+    }
+    @font-face{
+     font-family: 'CCCTextFont';
+     src: url('../../../fonts/Ubuntu/Ubuntu-Medium.ttf');
+    }
+    @font-face{
+     font-family: 'CCCFigCaption';
+     src: url('../../../fonts/Ubuntu/Ubuntu-Light.ttf');
+    }
+  </style>
+
+    <link rel="stylesheet" href="../../../css/variables.css">
+    <link rel="stylesheet" href="../../../css/general.css">
+    <link rel="stylesheet" href="../../../css/startPage.css">
+    <link rel="stylesheet" href="../../../css/HTML_Elements/buttons.css">
+    <link rel="stylesheet" href="../../../css/popUpWindow.css">
+
+    <link rel="stylesheet" href="../../../css/firework.css">
+
+    <script type="text/javascript" src="./vis_tutorial.js"></script>
+
+</head>
+
+<!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%	HTML	%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<body style="height:auto; width:100vw; background:var(--main-bg-color); overflow:hidden; display: flex; flex-direction: column; position: relative;">
+
+
+    <!--div id="id_page_0" class="class_slidingDiv_LT" style="left:0vw; top:0vh; width:100vw; height:100vh; position:absolute; display: flex; background: rgb(255,255,255);">
+        <button class="class_coloredButton " onclick="nextPage()" style="height:5vh; width: 10vw; margin:auto; ">Start</button>
+    </div>
+
+    <div id="id_page_1" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; background: rgb(220,220,220);">
+        <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 10vw; margin:auto; ">Back</button>
+        <button class="class_coloredButton " onclick="nextPage()" style="height:5vh; width: 10vw; margin:auto; ">Next</button>
+    </div>
+
+    <div id="id_page_2" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; background: rgb(150,150,150);">
+        <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 10vw; margin:auto; ">Back</button>
+        <button class="class_coloredButton " onclick="nextPage()" style="height:5vh; width: 10vw; margin:auto; ">Next</button>
+    </div>
+
+    <div id="id_page_3" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; background: rgb(75,75,75);">
+        <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 10vw; margin:auto; ">Back</button>
+        <button class="class_coloredButton " onclick="nextPage()" style="height:5vh; width: 10vw; margin:auto; ">Next</button>
+    </div>
+
+    <div id="id_page_4" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; background: rgb(0,0,0);">
+        <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 10vw; margin:auto; ">Back</button>
+    </div-->
+
+    <div style=" background:var(--main-coloredButton); width:100vw; height:5vh; position: relative;">
+
+    </div>
+
+    <div style="width:100vw; display: flex;">
+        <div id="id_page_0" class="class_slidingDiv_LT" style="background:var(--main-coloredButton); left:0vw; top:0vh; width:100vw; height:100vh; position:absolute; display: flex; flex-direction: column;">
+            <p id="id_header_ccctoolLabel" style="color:var(--main-sepArea-font-color); font-size: 16vh; line-height: 18vh; margin: auto; margin-top: 10vh; margin-bottom: 0vh;  font-weight: bold; vertical-align:middle; text-align: center; font-family: var(--font-family-cccLabel);" >Welcome</p>
+            <p id="id_header_ccctoolLabel" style="color:var(--main-sepArea-font-color); font-size: 8vh; line-height: 10vh; margin: auto;  margin-top: 0vh; font-weight: bold; vertical-align:middle; text-align: center; font-family: var(--font-family-cccLabel);" >to the VIS2020 Tutorial</p>
+            <button class="class_coloredButton " onclick="nextPage()" style="height:5vh; width: 100vw; margin:auto; margin-bottom: 0vh;">Start</button>
+        </div>
+        
+        <div id="id_page_1" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
+    
+            <h1 style="margin:auto; margin-top:10vh;">Test Data</h1>
+    
+            <div style="width:100%; margin-top:auto; display:flex; background:var(--main-coloredButton);">
+                <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 33vw; margin:auto; ">Back</button>
+                <button class="class_coloredButton " onclick="nextPage()" style="height:5vh; width: 34vw; margin:auto; ">Paraview</button>
+                <button class="class_coloredButton " onclick="goToPage(4)" style="height:5vh; width: 33vw; margin:auto; ">Test-Section</button>
+            </div>
+            
+        </div>
+        
+        <div id="id_page_2" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
+    
+            <h1 style="margin:auto; margin-top:10vh;">Paraview Option</h1>
+    
+            <p style="margin:auto;">
+                - Paraview Software
+                - Data download
+                - Data Tutorial (State, , Caluclation from Kelvon to Temperature)
+                - DKRZ Erwaehung
+            </p>
+    
+            <div style="width:100%; margin-top:auto; display:flex; background:var(--main-coloredButton);">
+                <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 50vw; margin:auto; ">Back</button>
+                <button class="class_coloredButton " onclick="nextPage()" style="height:5vh; width: 50vw; margin:auto; ">Next</button>
+            </div>
+            
+        </div>
+    
+        <div id="id_page_3" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
+    
+            <h1 style="margin:auto; margin-top:10vh; ">Paraview Colormap Tutorial</h1>
+    
+            <div style="width:100%; margin-top:auto; display:flex; background:var(--main-coloredButton);">
+                <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 50vw; margin:auto; ">Back</button>
+                <button class="class_coloredButton " onclick="nextPage()" style="height:5vh; width: 50vw; margin:auto; ">Next</button>
+            </div>
+            
+        </div>
+    
+        <div id="id_page_4" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
+    
+            <h1 style="margin:auto; margin-top:10vh; ">Testing Section Option</h1>
+    
+            <div style="width:100%; margin-top:auto; display:flex; background:var(--main-coloredButton);">
+                <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 50vw; margin:auto; ">Back</button>
+                <button class="class_coloredButton " onclick="nextPage()" style="height:5vh; width: 50vw; margin:auto; ">Next</button>
+            </div>
+            
+        </div>
+    
+        <div id="id_page_5" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
+    
+            <h1 style="margin:auto; margin-top:10vh;">1. Task: Start with the CMS</h1>
+    
+            <div style="width:100%; margin-top:auto; display:flex; background:var(--main-coloredButton);">
+                <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 50vw; margin:auto; ">Back</button>
+                <button class="class_coloredButton " onclick="nextPage()" style="height:5vh; width: 50vw; margin:auto; ">Next</button>
+            </div>
+            
+        </div>
+            
+        <div id="id_page_6" class="class_slidingDiv_LT" style="background:var(--main-coloredButton); left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
+            <div  style="width:100vw; height:100vh; position: relative;">
+                <div style="position: absolute; left: 0; top: 0; z-index: 0; width:100%; height:100%; overflow: hidden;">
+                    <div class="pyro">
+                        <div class="before"></div>
+                        <div class="after"></div>
+                    </div>
+                </div>
+                <div style="position: absolute; left: 0; top: 0; z-index: 1; width:100%; height:100%; overflow: hidden; display:flex; flex-direction: column;">
+                    <p id="id_header_ccctoolLabel" style="color:var(--main-sepArea-font-color); font-size: 16vh; line-height: 18vh; margin: auto; margin-bottom: 0vh;  font-weight: bold; vertical-align:middle; text-align: center; font-family: var(--font-family-cccLabel);" >Congratulation</p>
+                    <p id="id_header_ccctoolLabel" style="color:var(--main-sepArea-font-color); font-size: 8vh; line-height: 10vh; margin: auto;  margin-top: 0vh; font-weight: bold; vertical-align:middle; text-align: center; font-family: var(--font-family-cccLabel);" >you have finished the VIS2020 Tutorial</p>
+                    <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 100vw; margin:auto; margin-bottom: 0vh; ">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+</html>

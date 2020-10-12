@@ -61,11 +61,16 @@
     background-position: 50% 50%;
 }
 
-
-.class_slidingDiv{
+.class_slidingDiv_WH{
   overflow: hidden;
   -webkit-transition: width 3s, height 3s; /* For Safari 3.1 to 6.0 */
   transition: width 3s, height 3s;
+}
+
+.class_slidingDiv_LT{
+  overflow: hidden;
+  -webkit-transition: left 3s, top 3s; /* For Safari 3.1 to 6.0 */
+  transition: left 3s, top 3s;
 }
 
 .class_slide{
