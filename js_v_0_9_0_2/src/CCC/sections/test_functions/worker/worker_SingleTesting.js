@@ -64,7 +64,7 @@ var  sim_AdaptiveColorblindness = [
 
 // real world data
 var imgData_medical = [];
-var imgData_scientificFlowSim = [];
+var imgData_scientific = [];
 var imgData_photographs = [];
 
 // CMS
@@ -152,11 +152,11 @@ self.addEventListener('message', function(e) {
           }
           imgData_medical[e.data.index]=e.data.imgData;
         break;
-        case "scientificFlowSim":
-          while (imgData_scientificFlowSim.length<=e.data.index) {
-            imgData_scientificFlowSim.push(undefined);
+        case "scientific":
+          while (imgData_scientific.length<=e.data.index) {
+            imgData_scientific.push(undefined);
           }
-          imgData_scientificFlowSim[e.data.index]=e.data.imgData;
+          imgData_scientific[e.data.index]=e.data.imgData;
         break;
         case "photographs":
           while (imgData_photographs.length<=e.data.index) {

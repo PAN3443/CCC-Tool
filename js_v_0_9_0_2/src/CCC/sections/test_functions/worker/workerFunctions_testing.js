@@ -688,15 +688,15 @@ function calc_Single_RealDataField() {
 
       testField.setField(realWorldDataTestField(imgData_medical[testoptions]));
       break;
-    case "scientificFlowSim":
+    case "scientific":
 
-      if (imgData_scientificFlowSim.length <= testoptions)
+      if (imgData_scientific.length <= testoptions)
         return;
 
-      if (imgData_scientificFlowSim[testoptions] == undefined)
+      if (imgData_scientific[testoptions] == undefined)
         return;
 
-      testField.setField(realWorldDataTestField(imgData_scientificFlowSim[testoptions]));
+      testField.setField(realWorldDataTestField(imgData_scientific[testoptions]));
       break;
     case "photographs":
 

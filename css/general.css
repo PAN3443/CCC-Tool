@@ -81,8 +81,8 @@
 }
 
  .coopImg{
-   max-height: 20vh;
-   max-width:15vw;
+   max-height: 18vh;
+   max-width: 15vw;
    /*height: 8vh;*/
    /*max-width: 10%;*/
    /*max-height:10vh;*/
@@ -95,7 +95,8 @@
 
  .coopImg img{
    max-width:100%;
-    height:auto;
+   height: 100%;
+   max-height:100%;
    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
    margin: auto;
  }

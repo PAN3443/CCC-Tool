@@ -1,6 +1,6 @@
 var currentPos=0;
 var pageProcess=[];
-var numPages =7;
+var numPages =11;
 
 window.onload = function() {
     currentPos=0;

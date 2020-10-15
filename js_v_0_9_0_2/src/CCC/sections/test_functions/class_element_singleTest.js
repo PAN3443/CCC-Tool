@@ -60,8 +60,8 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     this.worker_testInteractive = new Worker("../../"+version_JS_FolderName+"/src/CCC/sections/test_functions/worker/worker_SingleTesting.js"); //, { type: "module" });
     this.worker_testInteractive.postMessage({'message':'init'});
     this.worker_testInteractive.addEventListener('message', workerEvent_DrawTestfunction, false);
-    for (var i = 0; i < this.medicalFiles.length; i++) {
-          var url = "../../resource/realWorldData/medicalData/"+this.medicalFiles[i];
+    for (var i = 0; i < this.rw_medical_Files.length; i++) {
+          var url = "../../resource/realWorldData/medical/"+this.rw_medical_Files[i];
           var img = new Image();
           img.setAttribute('crossOrigin', 'anonymous');
           img.onload = (function(index) {
@@ -77,15 +77,15 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
         img.src = url;
     }
 
-    for (var i = 0; i < this.scientificFlowSimFiles.length; i++) {
-          var url = "../../resource/realWorldData/scientificFlowSimulation/"+this.scientificFlowSimFiles[i];
+    for (var i = 0; i < this.rw_scientific_Files.length; i++) {
+          var url = "../../resource/realWorldData/scientific/"+this.rw_scientific_Files[i];
           var img = new Image();
           img.setAttribute('crossOrigin', 'anonymous');
           img.onload = (function(index) {
           return function () {
             var workerJSON = {};
             workerJSON['message'] = "pushRealWorldData";
-            workerJSON['type'] = "scientificFlowSim";
+            workerJSON['type'] = "scientific";
             workerJSON['index'] = index;
             workerJSON['imgData'] = loadImgData(this);
             testingSection.element_singleTest.worker_testInteractive.postMessage(workerJSON);
@@ -94,8 +94,8 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
         img.src = url;
     }
 
-    for (var i = 0; i < this.photographsFiles.length; i++) {
-          var url = "../../resource/realWorldData/photographs/"+this.photographsFiles[i];
+    for (var i = 0; i < this.rw_photography_Files.length; i++) {
+          var url = "../../resource/realWorldData/photographs/"+this.rw_photography_Files[i];
           var img = new Image();
           img.setAttribute('crossOrigin', 'anonymous');
           img.onload = (function(index) {
@@ -392,7 +392,7 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
         this.selectRealWorldType(0);
         break;
       case 12:
-        this.selectedRealWorldType = "scientificFlowSim";
+        this.selectedRealWorldType = "scientific";
         this.selectRealWorldType(0);
         break;
       case 13:
@@ -2445,27 +2445,27 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     switch (this.selectedRealWorldType) {
       case "medical":
 
-            for (var i = 0; i < this.medicalData.length; i++) {
+            for (var i = 0; i < this.rw_medical_Data.length; i++) {
               var option = document.createElement("option");
-              option.innerHTML = this.medicalLabels[i];
+              option.innerHTML = this.rw_medical_Labels[i];
               document.getElementById("id_TestPage_FctSelection").add(option);
             }
 
         break;
-      case "scientificFlowSim":
+      case "scientific":
 
-            for (var i = 0; i < this.scientificFlowSimData.length; i++) {
+            for (var i = 0; i < this.rw_scientific_Data.length; i++) {
               var option = document.createElement("option");
-              option.innerHTML = this.scientificFlowSimLabels[i];
+              option.innerHTML = this.rw_scientific_Label[i];
               document.getElementById("id_TestPage_FctSelection").add(option);
             }
 
         break;
         case "photographs":
 
-          for (var i = 0; i < this.photographsData.length; i++) {
+          for (var i = 0; i < this.rw_photography_Data.length; i++) {
             var option = document.createElement("option");
-            option.innerHTML = this.photographsLabels[i];
+            option.innerHTML = this.rw_photography_Label[i];
             document.getElementById("id_TestPage_FctSelection").add(option);
           }
 
@@ -2496,20 +2496,20 @@ class class_Element_SingleTest extends class_Testing_Element_Basis {
     switch (this.selectedRealWorldType) {
       case "medical":
 
-          if(this.medicalAcknowlegments[selectedID]!=undefined)
-            index=this.medicalAcknowlegments[selectedID];
+          if(this.rw_medical_Acknowlegments[selectedID]!=undefined)
+            index=this.rw_medical_Acknowlegments[selectedID];
 
         break;
-      case "scientificFlowSim":
+      case "scientific":
 
-           if(this.scientificFlowSimAcknowlegments[selectedID]!=undefined)
-            index=this.scientificFlowSimAcknowlegments[selectedID];
+           if(this.rw_scientific_Acknowlegments[selectedID]!=undefined)
+            index=this.rw_scientific_Acknowlegments[selectedID];
 
         break;
         case "photographs":
 
-           if(this.photographsAcknowlegments[selectedID]!=undefined)
-            index=this.photographsAcknowlegments[selectedID];
+           if(this.rw_photography_Acknowlegments[selectedID]!=undefined)
+            index=this.rw_photography_Acknowlegments[selectedID];
 
           break;
       default:

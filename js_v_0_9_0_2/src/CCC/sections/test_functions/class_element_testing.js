@@ -46,27 +46,28 @@ class class_Testing_Element_Basis {
 
     ////////////////////////////////////////////////////////////////////////////
     // Real World Data
-    this.medicalLabels = ["CT Head","MR Brain","Thermography","Mammography",];
-    this.medicalFiles = ["cthead-8bit061.png","mrbrain-8bit038.png","thermography.png","M0279.LEFT_MLO.2017-05-04.00.png",];
-    this.medicalData = new Array(this.medicalFiles.length);
-    this.medicalAcknowlegments = [0,0,1,1];
+    this.rw_medical_Labels = ["CT Head","MR Brain","Thermography","Mammography",];
+    this.rw_medical_Files = ["cthead-8bit061.png","mrbrain-8bit038.png","thermography.png","M0279.LEFT_MLO.2017-05-04.00.png",];
+    this.rw_medical_Data = new Array(this.rw_medical_Files.length);
+    this.rw_medical_Acknowlegments = [0,0,1,1];
 
-    this.scientificFlowSimLabels = ["Karman Street","FTLE","Asteroid V02 SciVis Contest 18"];
-    this.scientificFlowSimFiles = ["karmanStreet.png","ftle_new.png","asteroid_v02.png"];
-    this.scientificFlowSimData = new Array(this.scientificFlowSimFiles.length);
-    this.scientificFlowSimAcknowlegments = [undefined,undefined,4];
+    this.rw_scientific_Label = ["Karman Street","FTLE","Asteroid V02 SciVis Contest 18", "Temperature_World"];
+    this.rw_scientific_Files = ["karmanStreet.png","ftle_new.png","asteroid_v02.png", "nwp_R2B09_T_2M_greyscaled_500p_2.png"];
+    this.rw_scientific_Data = new Array(this.rw_scientific_Files.length);
+    this.rw_scientific_Acknowlegments = [undefined,undefined,4,6];
 
-    this.photographsLabels = ["ThermalPedestrain","Flir_ADAS","Lenna"];
-    this.photographsFiles = ["img_00029.png","FLIR_02674.png","lena_grey.png"];
-    this.photographsData = new Array(this.photographsFiles.length);
-    this.photographsAcknowlegments = [2,3,5];
+    this.rw_photography_Label = ["ThermalPedestrain","Flir_ADAS","Lenna"];
+    this.rw_photography_Files = ["img_00029.png","FLIR_02674.png","lena_grey.png"];
+    this.rw_photography_Data = new Array(this.rw_photography_Files.length);
+    this.rw_photography_Acknowlegments = [2,3,5];
 
     this.acknowlegments = ["The Stanford volume data archive",
     "DMR - Database For Mastology Research",
     "FLIR Thermal Dataset for Algorithm Training",
     "OTCBVS Benchmark Dataset Collection",
     "SciVis Contest 2018",
-    "Playboy"
+    "Playboy",
+    "DRKZ"
     ];
 
     this.acknowlegmentsURL = ["https://graphics.stanford.edu/data/voldata/",
@@ -74,7 +75,8 @@ class class_Testing_Element_Basis {
     "https://www.flir.co.uk/oem/adas/adas-dataset-form/",
     "http://vcipl-okstate.org/pbvs/bench/",
     "https://sciviscontest2018.org/",
-    "https://www.playboy.com/"
+    "https://www.playboy.com/",
+    "https://www.dkrz.de/dkrz-partner-for-climate-research?set_language=en&cl=en"
     ];
 
     this.acknowlegmentsAdditional = [undefined,
@@ -82,7 +84,8 @@ class class_Testing_Element_Basis {
     "The FLIR starter thermal dataset is intended for the training of convolutional neural networks.",
     "This image comes from OSU Thermal Pedestrian Database. The topic of interest is the person detection in thermal imagery.",
     "This data set comes from the SciVis contest 2018 and includes the simulation data of asteroid impacts in deep ocean water.",
-    "Lenna is a test image often used in the computer science of image processing. The image is popular because of its different areas of multifarious detail degree."
+    "Lenna is a test image often used in the computer science of image processing. The image is popular because of its different areas of multifarious detail degree.",
+    "This images based on a timestep of the temperature at a height of 2m simulated with the icosahedral ICON model at a global resolution of 5km."
     ];
   }
 

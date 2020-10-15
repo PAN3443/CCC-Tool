@@ -348,7 +348,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
       case "medical":
           document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 11;
         break;
-      case "scientificFlowSim":
+      case "scientific":
           document.getElementById("id_TestPage_SelectNewTestType").selectedIndex = 12;
         break;
       case "photographs":
@@ -1074,7 +1074,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpDivRow.className = "class_Test_SelectorRow";
     tmpTestDiv.appendChild(tmpDivRow);
 
-    for (var i = 0; i < this.medicalLabels.length; i++) {
+    for (var i = 0; i < this.rw_medical_Labels.length; i++) {
 
       var tmpSelection = document.createElement('div');
       tmpSelection.className = "class_Test_Selector";
@@ -1086,19 +1086,19 @@ class class_Element_Collection extends class_Testing_Element_Basis {
       ///////////////////////////////////////////////////////////
       //// For Worker add canvas or canvasID
       this.worker_testCollection_RealWorldData.postMessage(this.inform_Worker_PushTestingType("RealData", undefined));
-      this.inform_Worker_LoadRealWorldIMG("../../resource/realWorldData/medicalData/" + this.medicalFiles[i], this.realWorldCanvasIndex);
+      this.inform_Worker_LoadRealWorldIMG("../../resource/realWorldData/medical/" + this.rw_medical_Files[i], this.realWorldCanvasIndex);
       this.realWorldCanvasIndex++;
       this.worker_testCollection_RealWorldData.postMessage(this.inform_Worker_PushTestingCanvas(tmpCanvas.id));
       ///////////////////////////////////////////////////////////
 
       var tmpTestLabel = document.createElement('p');
-      var labelText = this.medicalLabels[i];
+      var labelText = this.rw_medical_Labels[i];
 
       tmpTestLabel.innerHTML = labelText;
       tmpSelection.appendChild(tmpTestLabel);
 
-      if (this.medicalAcknowlegments[i] != undefined)
-        tmpSelection.appendChild(this.createAchnowledgments(this.medicalAcknowlegments[i]));
+      if (this.rw_medical_Acknowlegments[i] != undefined)
+        tmpSelection.appendChild(this.createAchnowledgments(this.rw_medical_Acknowlegments[i]));
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
@@ -1121,24 +1121,24 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpTestDiv.style.marginLeft = "5vw";
 
     var tmpDivLabel = document.createElement('h2');
-    tmpDivLabel.innerHTML = "3.2 Scientific Flow Simulation:";
+    tmpDivLabel.innerHTML = "3.2 Scientific Simulation:";
     tmpTestDiv.appendChild(tmpDivLabel);
 
     var tmpDivRow = document.createElement('div');
     tmpDivRow.className = "class_Test_SelectorRow";
     tmpTestDiv.appendChild(tmpDivRow);
 
-    for (var i = 0; i < this.scientificFlowSimLabels.length; i++) {
+    for (var i = 0; i < this.rw_scientific_Label.length; i++) {
 
       var tmpSelection = document.createElement('div');
       tmpSelection.className = "class_Test_Selector";
 
       var tmpCanvas = document.createElement('canvas');
-      tmpCanvas.id = "rw_scientificFlowSim_canvas_" + i;
+      tmpCanvas.id = "rw_scientific_canvas_" + i;
       tmpSelection.appendChild(tmpCanvas);
 
       var tmpTestLabel = document.createElement('p');
-      var labelText = this.scientificFlowSimLabels[i];
+      var labelText = this.rw_scientific_Label[i];
 
       tmpTestLabel.innerHTML = labelText;
       tmpSelection.appendChild(tmpTestLabel);
@@ -1146,18 +1146,18 @@ class class_Element_Collection extends class_Testing_Element_Basis {
       ///////////////////////////////////////////////////////////
       //// For Worker add canvas or canvasID
       this.worker_testCollection_RealWorldData.postMessage(this.inform_Worker_PushTestingType("RealData", undefined));
-      this.inform_Worker_LoadRealWorldIMG("../../resource/realWorldData/scientificFlowSimulation/" + this.scientificFlowSimFiles[i], this.realWorldCanvasIndex);
+      this.inform_Worker_LoadRealWorldIMG("../../resource/realWorldData/scientific/" + this.rw_scientific_Files[i], this.realWorldCanvasIndex);
       this.realWorldCanvasIndex++;
       this.worker_testCollection_RealWorldData.postMessage(this.inform_Worker_PushTestingCanvas(tmpCanvas.id));
       ///////////////////////////////////////////////////////////
 
-      if (this.scientificFlowSimAcknowlegments[i] != undefined)
-        tmpSelection.appendChild(this.createAchnowledgments(this.scientificFlowSimAcknowlegments[i]));
+      if (this.rw_scientific_Acknowlegments[i] != undefined)
+        tmpSelection.appendChild(this.createAchnowledgments(this.rw_scientific_Acknowlegments[i]));
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
           testingSection.element_singleTest.showElement();
-          testingSection.element_testCollection.openRealWorldTest("scientificFlowSim", tmpID);
+          testingSection.element_testCollection.openRealWorldTest("scientific", tmpID);
         };
       })(i);
 
@@ -1182,7 +1182,7 @@ class class_Element_Collection extends class_Testing_Element_Basis {
     tmpDivRow.className = "class_Test_SelectorRow";
     tmpTestDiv.appendChild(tmpDivRow);
 
-    for (var i = 0; i < this.photographsLabels.length; i++) {
+    for (var i = 0; i < this.rw_photography_Label.length; i++) {
 
       var tmpSelection = document.createElement('div');
       tmpSelection.className = "class_Test_Selector";
@@ -1194,19 +1194,19 @@ class class_Element_Collection extends class_Testing_Element_Basis {
       ///////////////////////////////////////////////////////////
       //// For Worker add canvas or canvasID
       this.worker_testCollection_RealWorldData.postMessage(this.inform_Worker_PushTestingType("RealData", undefined));
-      this.inform_Worker_LoadRealWorldIMG("../../resource/realWorldData/photographs/" + this.photographsFiles[i], this.realWorldCanvasIndex);
+      this.inform_Worker_LoadRealWorldIMG("../../resource/realWorldData/photographs/" + this.rw_photography_Files[i], this.realWorldCanvasIndex);
       this.realWorldCanvasIndex++
       this.worker_testCollection_RealWorldData.postMessage(this.inform_Worker_PushTestingCanvas(tmpCanvas.id));
       ///////////////////////////////////////////////////////////
 
       var tmpTestLabel = document.createElement('p');
-      var labelText = this.photographsLabels[i];
+      var labelText = this.rw_photography_Label[i];
 
       tmpTestLabel.innerHTML = labelText;
       tmpSelection.appendChild(tmpTestLabel);
 
-      if (this.photographsAcknowlegments[i] != undefined)
-        tmpSelection.appendChild(this.createAchnowledgments(this.photographsAcknowlegments[i]));
+      if (this.rw_photography_Acknowlegments[i] != undefined)
+        tmpSelection.appendChild(this.createAchnowledgments(this.rw_photography_Acknowlegments[i]));
 
       tmpSelection.onclick = (function(tmpID) {
         return function() {
