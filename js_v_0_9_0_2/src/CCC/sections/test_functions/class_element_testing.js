@@ -51,10 +51,10 @@ class class_Testing_Element_Basis {
     this.rw_medical_Data = new Array(this.rw_medical_Files.length);
     this.rw_medical_Acknowlegments = [0,0,1,1];
 
-    this.rw_scientific_Label = ["Karman Street","FTLE","Asteroid V02 SciVis Contest 18", "Temperature_World"];
-    this.rw_scientific_Files = ["karmanStreet.png","ftle_new.png","asteroid_v02.png", "nwp_R2B09_T_2M_greyscaled_500p_2.png"];
+    this.rw_scientific_Label = ["Karman Street","FTLE","Asteroid V02 SciVis Contest 18", "Temperature North Pole", "Temperature Africa"];
+    this.rw_scientific_Files = ["karmanStreet.png","ftle_new.png","asteroid_v02.png", "northPole_500p.png", "africa_500p.png"];
     this.rw_scientific_Data = new Array(this.rw_scientific_Files.length);
-    this.rw_scientific_Acknowlegments = [undefined,undefined,4,6];
+    this.rw_scientific_Acknowlegments = [undefined,undefined,4,6,6];
 
     this.rw_photography_Label = ["ThermalPedestrain","Flir_ADAS","Lenna"];
     this.rw_photography_Files = ["img_00029.png","FLIR_02674.png","lena_grey.png"];

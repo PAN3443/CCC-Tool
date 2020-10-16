@@ -17,7 +17,7 @@ function prevPage() {
     if(isNaN(previousePage))
         return;
     stylePages(previousePage);
-} 
+}
 
 function goToPage(pageID){
     pageProcess.push(currentPos);
@@ -31,7 +31,7 @@ function stylePages(pageID){
 
     ////// Style Pages /////////
     /*for (let index = 0; index < numPages; index++) {
-        
+
         switch (true) {
             case (index==currentPos):
                 document.getElementById("id_page_"+index).style.left="0vw";
@@ -59,3 +59,8 @@ function stylePages(pageID){
 
 }
 
+function openBigImg (src,title){
+  document.getElementById("id_PopUp_BigImg").style.display = "flex";
+  document.getElementById("id_bigImg").src = src;
+  document.getElementById("id_bigImg").title = title;
+}
