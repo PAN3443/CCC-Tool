@@ -56,7 +56,26 @@ function stylePages(pageID){
         document.getElementById("id_page_"+currentPos).style.left="-100vw";
 
     currentPos=pageID;
+    checkScrollStatus();
 
+}
+
+
+function checkScrollStatus(){
+    var element =  document.getElementById('id_page_'+currentPos+'_div');
+    if (typeof(element) != 'undefined' && element != null)
+    {
+        var isOverflowing = element.clientHeight < element.scrollHeight; 
+        if(element.scrollTop==0 && isOverflowing){
+            document.getElementById('id_ScrollSign_Left').style.display="block";
+            document.getElementById('id_ScrollSign_Right').style.display="block";
+        }
+        else{
+            document.getElementById('id_ScrollSign_Left').style.display="none";
+            document.getElementById('id_ScrollSign_Right').style.display="none";
+        }
+
+    }
 }
 
 function openBigImg (src,title){
@@ -64,3 +83,6 @@ function openBigImg (src,title){
   document.getElementById("id_bigImg").src = src;
   document.getElementById("id_bigImg").title = title;
 }
+
+
+//<div id="id_page_1_div" style="margin-top: auto; width: 100%; height:75vh; overflow-y: auto; display: flex;"></div>

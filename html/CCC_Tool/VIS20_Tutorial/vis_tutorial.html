@@ -83,51 +83,48 @@
 
         <div id="id_page_1" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
-            <h1 style="margin:auto; margin-top:5vh;">Test Data</h1>
+            <div id="id_page_1_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
+                <h1 style="margin:auto; margin-top:5vh;">Test Data</h1>
 
-            <div style="margin-top: auto; width: 100%; height:75vh; overflow-y: auto; display: flex;">
+                <div  style="margin-top: auto; width: 100%; height:75vh; overflow-y: auto; display: flex;">
+                    <div style="width:60vh; max-width: 40vw; height:100%; margin: auto; margin-right:10vw; auto; display: flex; flex-direction: column;">
+                        <p style="margin: auto; white-space: normal;">
+                            In this tutorial we want to create a specific colormap for temperature data that are made available by the German Climate Computing Center
+                            (<a href="https://www.dkrz.de/about-en" target="_blank">DKRZ</a>).
+                            The data include one timestep of the temperature at a height of 2m simulated with the icosahedral
+                            ICON model at a global resolution of 5km.
+                            We remapped the data from the unstructured model grid to aa regular grid with 4000-2000
+                            grid points for easier use with different tools.
+                            At our data the simulated 2m-temperature varies between about -63&#8451; and 52&#8451;.
+                            egionally, however, small temperature variations of the order of 0.1&#8451; might be critical for the analysis
+                            as, e.g., in the neighborhood of the freezing point at 0&#8451;.
+                        </p>
 
-                <div style="width:60vh; max-width: 40vw; height:100%; margin: auto; margin-right:10vw; auto; display: flex; flex-direction: column;">
-                    <p style="margin: auto; white-space: normal;">
-                        In this tutorial we want to create a specific colormap for temperature data that are made available by the German Climate Computing Center
-                        (<a href="https://www.dkrz.de/about-en" target="_blank">DKRZ</a>).
-                        The data include one timestep of the temperature at a height of 2m simulated with the icosahedral
-                        ICON model at a global resolution of 5km.
-                        We remapped the data from the unstructured model grid to aa regular grid with 4000-2000
-                        grid points for easier use with different tools.
-                        At our data the simulated 2m-temperature varies between about -63&#8451; and 52&#8451;.
-                        egionally, however, small temperature variations of the order of 0.1&#8451; might be critical for the analysis
-                        as, e.g., in the neighborhood of the freezing point at 0&#8451;.
+                        <p style="margin: auto; margin-top: 0vh; white-space: normal;">
+                            We didn't implemented rendering features in the CCC-Tool so far.
+                            Therefore you can use the <strong>Testing</strong> section of the tool. 
+                            We uploaded two data sections (North Pole and Africa) via white/balck images into the real world data of the testing section.
+                            Click on the button "Test-Section" to get more information.
+                            
+                            Alternative: You can also use the software <strong>Paraview</strong> during this tutorial to create visualizations with the original data.
+                            To get more introduction click on "Paraview".
                     </p>
 
                     <p style="margin: auto; margin-top: 0vh; white-space: normal;">
-                        We didn't implemented rendering features in the CCC-Tool so far.
-                        Therefore you can use the software <strong>Paraview</strong> to create visualizations with your colormaps during this tutorial.
-                        Click on the button "Paraview" to get more instroductions.
-                        Alternative: If you can't or don't want to use Paraview, you can use the "Testfunction" section of the CCC-Tool.
-                        To get more information click on "Test-Section".
-                   </p>
+                        <strong>Info:</strong> Click on images to open them in fullscreen mode, click again with the mouse to close the fullscreen image. Click on logo images to open the link of the company in a new tab.
+                    </p>
 
-                   <p style="margin: auto; margin-top: 0vh; white-space: normal;">
-                       <strong>Info:</strong> Click on images to open them in fullscreen mode, click again with the mouse to close the fullscreen image. Click on logo images to open the link of the company in a new tab.
-                  </p>
+                    </div>
 
+
+                    <div style="margin: auto; margin-left:0vw; height:100%; display: flex; flex-direction: column;">
+                        <img title="Screenshot Temperature Data" style="margin: auto; max-height: 50vh; cursor:pointer;" src="../../../img/Tutorial_VIS2020/example_result_tutorial_VIS2020.png" onclick="openBigImg('../../../img/Tutorial_VIS2020/example_result_tutorial_VIS2020.png','Screenshot Temperature Data')" >
+                        <a href="https://www.dkrz.de/about-en" target="_blank" class="coopImg" style="margin:auto; margin-top: 0vh; height: 20vh; width: auto; max-height: 20vh; max-width: 100%;">
+                            <img title="German Climate Computing Center" src="../../../img/Logos/DKRZ.png" >
+                        </a>
+                    </div>
                 </div>
-
-
-                <div style="margin: auto; margin-left:0vw; height:100%; display: flex; flex-direction: column;">
-                    <img title="Screenshot Temperature Data" style="margin: auto; max-height: 50vh; cursor:pointer;" src="../../../img/Tutorial_VIS2020/example_result_tutorial_VIS2020.png" onclick="openBigImg('../../../img/Tutorial_VIS2020/example_result_tutorial_VIS2020.png','Screenshot Temperature Data')" >
-                    <a href="https://www.dkrz.de/about-en" target="_blank" class="coopImg" style="margin:auto; margin-top: 0vh; height: 20vh; width: auto; max-height: 20vh; max-width: 100%;">
-                        <img title="German Climate Computing Center" src="../../../img/Logos/DKRZ.png" >
-                    </a>
-                </div>
-
-
             </div>
-
-
-
-
 
             <div style="width:100%; margin-top:auto; display:flex; background:var(--main-coloredButton);">
                 <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 33vw; margin:auto; ">Back</button>
@@ -139,48 +136,50 @@
 
         <div id="id_page_2" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
-            <h1 style="margin:auto; margin-top:5vh;">Paraview Option</h1>
+            <div id="id_page_2_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
+                <h1 style="margin:auto; margin-top:5vh;">Paraview Option</h1>
 
-            <div style="margin-top: auto; width: 100%; height:75vh; max-height:75vh; overflow-y: auto; display: flex; flex-direction: column;">
-                <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
-                    <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
-                        ParaView is an open-source, multi-platform data analysis and visualization application.
-                        For this option you need an installed version of this software.
-                        If you don't have one, you can get the installation file <a href="https://www.paraview.org/download/" target="_blank">here</a>.
-                        Depending on the internet speed the download will take about 3 Minutes.
-                    </p>
+                <div id="id_page_2_div" onscroll="checkScrollStatus()" style="margin-top: auto; width: 100%; height:75vh; max-height:75vh; display: flex; flex-direction: column;">
+                    <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
+                        <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
+                            ParaView is an open-source, multi-platform data analysis and visualization application.
+                            For this option you need an installed version of this software.
+                            If you don't have one, you can get the installation file <a href="https://www.paraview.org/download/" target="_blank">here</a>.
+                            Depending on the internet speed the download will take about 3 Minutes.
+                        </p>
 
-                    <div style="margin:auto; margin-left: 0vh; display:flex; width: 20vw;">
-                        <a href="https://www.paraview.org/" target="_blank" class="coopImg" style="margin:auto;">
-                            <img title="Paraview" src="../../../img/Tutorial_VIS2020/paraview_Logo.jpg" >
-                        </a>
+                        <div style="margin:auto; margin-left: 0vh; display:flex; width: 20vw;">
+                            <a href="https://www.paraview.org/" target="_blank" class="coopImg" style="margin:auto;">
+                                <img title="Paraview" src="../../../img/Tutorial_VIS2020/paraview_Logo.jpg" >
+                            </a>
+                        </div>
+
                     </div>
 
-                </div>
+                    <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
+                        <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
+                            Click on the folder image on the left side to download a .zip file with the temperature data.
+                            Unpack the archive file to a at a storage location of your choice.
+                            The unpacked folder inlcude a NetCDF file (.nc) with the temperature data and a paraview state file (.pvsm).
+                        </p>
 
-                <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
-                    <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
-                        Click on the folder image on the left side to download a .zip file with the temperature data.
-                        Unpack the archive file to a at a storage location of your choice.
-                        The unpacked folder inlcude a NetCDF file (.nc) with the temperature data and a paraview state file (.pvsm).
-                    </p>
-
-                    <div style="margin:auto; margin-left: 0vh; display:flex; width: 20vw;">
-                        <a href="../../../resource/Tutorial_VIS2020/TemperatureData.zip" target="_blank" class="coopImg" style="margin:auto;">
-                            <img title="Download Data" src="../../../img/Tutorial_VIS2020/folderImg.png" style="height: 18vh;">
-                        </a>
+                        <div style="margin:auto; margin-left: 0vh; display:flex; width: 20vw;">
+                            <a href="../../../resource/Tutorial_VIS2020/TemperatureData.zip" target="_blank" class="coopImg" style="margin:auto;">
+                                <img title="Download Data" src="../../../img/Tutorial_VIS2020/folderImg.png" style="height: 18vh;">
+                            </a>
+                        </div>
                     </div>
-                </div>
 
-                <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
-                    <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
-                        Open Paraview and drag and drop the .pvsm file into it. The pop up window "Load State Options" will be displayed.
-                        Select the option "Search files under specific directory" for "Load State Data File Options".
-                        Set the data directory to the unpacked folder with the NetCDF file and accept with "OK".
-                    </p>
+                    <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
+                        <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
+                            Open Paraview and drag and drop the .pvsm file into it. The pop up window "Load State Options" will be displayed.
+                            Select the option "Search files under specific directory" for "Load State Data File Options".
+                            Set the data directory to the unpacked folder with the NetCDF file and accept with "OK".
+                        </p>
 
-                    <div style="margin:auto; margin-left: 0vh; display:flex; width: 20vw;">
-                        <img title="Open Paraview State File" src="../../../img/Tutorial_VIS2020/openState.png" onclick="openBigImg('../../../img/Tutorial_VIS2020/openState.png','Open Paraview State File')" style="margin:auto; cursor: pointer;">
+                        <div style="margin:auto; margin-left: 0vh; display:flex; width: 20vw;">
+                            <img title="Open Paraview State File" src="../../../img/Tutorial_VIS2020/openState.png" onclick="openBigImg('../../../img/Tutorial_VIS2020/openState.png','Open Paraview State File')" style="margin:auto; cursor: pointer;">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -194,7 +193,9 @@
 
         <div id="id_page_3" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
-            <h1 style="margin:auto; margin-top:5vh;">Paraview Colormap Tutorial</h1>
+            <div id="id_page_3_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
+                <h1 style="margin:auto; margin-top:5vh;">Paraview Colormap Tutorial</h1>
+            </div>
 
             <div style="width:100%; margin-top:auto; display:flex; background:var(--main-coloredButton);">
                 <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 50vw; margin:auto; ">Back</button>
@@ -205,38 +206,40 @@
 
         <div id="id_page_4" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
-            <h1 style="margin:auto; margin-top:5vh;">Testing Section Option</h1>
+            <div id="id_page_4_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
+                <h1 style="margin:auto; margin-top:5vh;">Testing Section Option</h1>
 
-            <div style="margin-top: auto; width: 100%; height:75vh; max-height:75vh; overflow-y: auto; display: flex; flex-direction: column;">
-
-              <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
-                  <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
-                      Was ist die Testsection .....
-                  </p>
-
-                  <div style="margin:auto; margin-left: 0vh; display:flex; width: 20vw;">
-                      <img title="3D Rendering Test-Function" src="../../../img/Tutorial_VIS2020/testFunction_3D.png" onclick="openBigImg('../../../img/Tutorial_VIS2020/testFunction_3D.png','3D Rendering Test-Function')" style="margin:auto; cursor: pointer;">
-                  </div>
-
-              </div>
-              <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
-                    <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
-                        Where is the data.
-                    </p>
-
-                    <div style="margin:auto; margin-left: 0vh; display:flex; width: 20vw;">
-                        <img title="Test-Function Collection" src="../../../img/Tutorial_VIS2020/testFunction_Collection_Screenshot.png" onclick="openBigImg('../../../img/Tutorial_VIS2020/testFunction_Collection_Screenshot.png','Test-Function Collection')" style="margin:auto; cursor: pointer;">
-                    </div>
-
-                </div>
+                <div style="margin-top: auto; width: 100%; height:75vh; max-height:75vh; display: flex; flex-direction: column;">
 
                 <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
                     <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
-                        Add Noise, Fullscreen, 3D rendering as Hightmap
+                        Was ist die Testsection .....
                     </p>
 
                     <div style="margin:auto; margin-left: 0vh; display:flex; width: 20vw;">
-                        <img title="Test-Function Interactive" src="../../../img/Tutorial_VIS2020/testFunction_Interactive_Screenshot.png" onclick="openBigImg('../../../img/Tutorial_VIS2020/testFunction_Interactive_Screenshot.png','Test-Function Interactive')" style="margin:auto; cursor: pointer;">
+                        <img title="3D Rendering Test-Function" src="../../../img/Tutorial_VIS2020/testFunction_3D.png" onclick="openBigImg('../../../img/Tutorial_VIS2020/testFunction_3D.png','3D Rendering Test-Function')" style="margin:auto; cursor: pointer;">
+                    </div>
+
+                </div>
+                <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
+                        <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
+                            Where is the data.
+                        </p>
+
+                        <div style="margin:auto; margin-left: 0vh; display:flex; width: 20vw;">
+                            <img title="Test-Function Collection" src="../../../img/Tutorial_VIS2020/testFunction_Collection_Screenshot.png" onclick="openBigImg('../../../img/Tutorial_VIS2020/testFunction_Collection_Screenshot.png','Test-Function Collection')" style="margin:auto; cursor: pointer;">
+                        </div>
+
+                    </div>
+
+                    <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
+                        <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
+                            Add Noise, Fullscreen, 3D rendering as Hightmap
+                        </p>
+
+                        <div style="margin:auto; margin-left: 0vh; display:flex; width: 20vw;">
+                            <img title="Test-Function Interactive" src="../../../img/Tutorial_VIS2020/testFunction_Interactive_Screenshot.png" onclick="openBigImg('../../../img/Tutorial_VIS2020/testFunction_Interactive_Screenshot.png','Test-Function Interactive')" style="margin:auto; cursor: pointer;">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -250,11 +253,13 @@
 
         <div id="id_page_5" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
-            <h1 style="margin:auto; margin-top:5vh;">1. Task: Start with the CMS</h1>
+            <div id="id_page_5_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
+                <h1 style="margin:auto; margin-top:5vh;">1. Task: Start with the CMS</h1>
 
-            <p style="margin:auto;">
-                Create a standart divergent colormap with 5 keys. From dark blue to white (middle) to red.
-            </p>
+                <p style="margin:auto;">
+                    Create a standart divergent colormap with 5 keys. From dark blue to white (middle) to red.
+                </p>
+            </div>
 
             <div style="width:100%; margin-top:auto; display:flex; background:var(--main-coloredButton);">
                 <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 50vw; margin:auto; ">Back</button>
@@ -265,11 +270,13 @@
 
         <div id="id_page_6" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
-            <h1 style="margin:auto; margin-top:5vh;">2. Task: Rescale your CMS</h1>
+            <div id="id_page_6_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
+                <h1 style="margin:auto; margin-top:5vh;">2. Task: Rescale your CMS</h1>
 
-            <p style="margin:auto;">
-
-            </p>
+                <p style="margin:auto;">
+    
+                </p>
+            </div>
 
             <div style="width:100%; margin-top:auto; display:flex; background:var(--main-coloredButton);">
                 <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 50vw; margin:auto; ">Back</button>
@@ -280,11 +287,13 @@
 
         <div id="id_page_7" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
-            <h1 style="margin:auto; margin-top:5vh;">3. Task: Discontinuouse Transition</h1>
+            <div id="id_page_7_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
+                <h1 style="margin:auto; margin-top:5vh;">3. Task: Discontinuouse Transition</h1>
 
-            <p style="margin:auto;">
+                <p style="margin:auto;">
 
-            </p>
+                </p>
+            </div>
 
             <div style="width:100%; margin-top:auto; display:flex; background:var(--main-coloredButton);">
                 <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 50vw; margin:auto; ">Back</button>
@@ -295,11 +304,13 @@
 
         <div id="id_page_8" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
-            <h1 style="margin:auto; margin-top:5vh;">4. Task: Detailed Positive Range</h1>
+            <div id="id_page_8_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
+                <h1 style="margin:auto; margin-top:5vh;">4. Task: Detailed Positive Range</h1>
 
-            <p style="margin:auto;">
+                <p style="margin:auto;">
 
-            </p>
+                </p>
+            </div>
 
             <div style="width:100%; margin-top:auto; display:flex; background:var(--main-coloredButton);">
                 <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 50vw; margin:auto; ">Back</button>
@@ -310,11 +321,13 @@
 
         <div id="id_page_9" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
-            <h1 style="margin:auto; margin-top:5vh;">5. Task: Export</h1>
+            <div id="id_page_9_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
+                <h1 style="margin:auto; margin-top:5vh;">5. Task: Export</h1>
 
-            <p style="margin:auto;">
+                <p style="margin:auto;">
 
-            </p>
+                </p>
+            </div>
 
             <div style="width:100%; margin-top:auto; display:flex; background:var(--main-coloredButton);">
                 <button class="class_coloredButton " onclick="prevPage()" style="height:5vh; width: 50vw; margin:auto; ">Back</button>
@@ -339,6 +352,17 @@
             </div>
         </div>
     </div>
+
+    <!-- Scrollable Signs -->
+    <svg id="id_ScrollSign_Left" style="height:5vh; width:5vw;" viewBox="0 0 50 50" preserveAspectRatio="none" style="position: fixed; z-index:101; top:90vh; left:0vw; display:none;">
+        <polygon points="25,50 2,20 48,20" style="fill:var(--main-second-sepArea-bg);"/>
+        <polygon points="25,30 2,0 48,0" style="fill:var(--main-sepArea-bg);"/>
+    </svg>
+
+    <svg id="id_ScrollSign_Right" style="height:5vh; width:5vw;" viewBox="0 0 50 50" preserveAspectRatio="none" style="position: fixed; z-index:101; top:90vh; left:95vw; display:none;">
+        <polygon points="25,50 2,20 48,20" style="fill:var(--main-second-sepArea-bg);"/>
+        <polygon points="25,30 2,0 48,0" style="fill:var(--main-sepArea-bg);"/>
+    </svg>
 
     <!-- POP Up Window -->
     <div id="id_PopUp_BigImg" include-html="../../html/Global/PopUpWindows/colorblindnessWindow.html" style=" width:100%; height:100%; background: rgba(0,0,0,0.75); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
