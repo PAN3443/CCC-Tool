@@ -67,7 +67,7 @@ class class_Testing_Element_Basis {
     "OTCBVS Benchmark Dataset Collection",
     "SciVis Contest 2018",
     "Playboy",
-    "DRKZ"
+    "DRKZ and MPI-M"
     ];
 
     this.acknowlegmentsURL = ["https://graphics.stanford.edu/data/voldata/",

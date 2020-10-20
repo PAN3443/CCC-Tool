@@ -1,0 +1,18 @@
+ul {
+    list-style-position: inside;
+  }
+
+ul ::marker {
+    color: var(--general-active-color);
+}
+
+ul li{
+   font-family: var(--font-family-text);
+   font-size: var(--font-size-normal);
+   line-height: var(--line-height-normal);
+   color:var(--main-font-color);
+   vertical-align:middle;
+   margin:0vw;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}

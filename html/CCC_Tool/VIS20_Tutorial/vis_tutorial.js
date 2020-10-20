@@ -56,7 +56,15 @@ function stylePages(pageID){
         document.getElementById("id_page_"+currentPos).style.left="-100vw";
 
     currentPos=pageID;
-    checkScrollStatus();
+
+    var element =  document.getElementById('id_page_'+currentPos+'_div');
+    if (typeof(element) != 'undefined' && element != null)
+    {
+        element.scrollTop=0;
+        checkScrollStatus();
+    }
+
+    
 
 }
 
