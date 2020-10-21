@@ -32,7 +32,7 @@ function stylePages(pageID){
     ///// Stop videos at current page 
     switch (currentPos) {
         case 0:
-            document.getElementById("id_vis2020_TutVideo1").src="";
+            pauseIframe("id_vis2020_TutVideo1");
         break;
     }
 
@@ -55,9 +55,9 @@ function stylePages(pageID){
 
     ///// Start videos at new page 
     switch (currentPos) {
-        case 0:
+        /*case 0:
             document.getElementById("id_vis2020_TutVideo1").src="https://www.youtube.com/embed/UBpY6PNZ2c0?autoplay=1";
-        break;
+        break;*/
         case 6:
             document.getElementById("id_vis20tut_process").style.width="20%";
         break;
@@ -103,6 +103,11 @@ function openBigImg (src,title){
   document.getElementById("id_PopUp_BigImg").style.display = "flex";
   document.getElementById("id_bigImg").src = src;
   document.getElementById("id_bigImg").title = title;
+}
+
+function pauseIframe(id){
+    var iframeSrc = document.getElementById(id).src;
+    document.getElementById(id).src = iframeSrc;
 }
 
 

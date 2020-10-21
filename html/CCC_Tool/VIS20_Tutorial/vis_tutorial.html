@@ -87,7 +87,7 @@
             <p id="id_header_ccctoolLabel" style="color:var(--main-sepArea-font-color); font-size: 12vh; line-height: 14vh; margin: auto; margin-top: 5vh; margin-bottom: 0vh;  font-weight: bold; vertical-align:middle; text-align: center; font-family: var(--font-family-cccLabel);" >Welcome</p>
             <p id="id_header_ccctoolLabel" style="color:var(--main-sepArea-font-color); font-size: 6vh; line-height: 8vh; margin: auto;  margin-top: 0vh; font-weight: bold; vertical-align:middle; text-align: center; font-family: var(--font-family-cccLabel);" >to the VIS2020 Tutorial</p>
             
-            <iframe id="id_vis2020_TutVideo1" style="height:60vh; width: 100vw; border: 0.2vh solid black; margin:auto;" src="https://www.youtube.com/embed/UBpY6PNZ2c0?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe id="id_vis2020_TutVideo1" style="height:60vh; width: 60vw; border: 0.2vh solid black; margin:auto;" src="https://www.youtube.com/embed/UBpY6PNZ2c0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
             <div style="width:100%; margin-top:auto; display:flex; background:var(--main-coloredButton);">
                 <button class="class_coloredButton " onclick="nextPage()" style="height:5vh; width: 50vw; margin:auto; margin-bottom: 0vh;">Start</button>
@@ -391,7 +391,7 @@
                         <li>Use a uniform colorspace for interpolation (Lab/DIN99)</li>
                         <li>Colorgradient from blue to white to red</li>
                         <li>Use the Pathplot to modify the lightness process from dark to bright (white) to dark</li>
-                        <li>Use at least 5 keys in your colormap</li>
+                        <li>Use at least 5 keys in your colormap and extent the color range of the colormap.</li>
                         <li>Save your colormap</li>
                         <li>(Optional: Dublicate your colormap with "ctrl"+"d")</li>
                     </ul>
@@ -555,9 +555,9 @@
     <div id="id_PopUp_Task1Help" include-html="../../html/Global/PopUpWindows/colorblindnessWindow.html" style=" width:100%; height:100%; background: rgba(0,0,0,0.75); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
         <div style="min-height: 10vh; min-width: 10vw; background:var(--main-bg-color); margin:auto; display:flex; flex-direction: column;">
         
+            <iframe id="id_vis2020_TutVideo2" style="height:60vh; width: 60vw; border: 0.2vh solid black; margin:auto;" src="https://www.youtube.com/embed/udSLvl3ve2M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-
-            <button class="class_coloredButton " onclick="document.getElementById('id_PopUp_Task1Help').style.display='none';" style="height:5vh; min-width: 30vw; width: 100%; margin:auto; margin-bottom: 0vw; ">Close</button>
+            <button class="class_coloredButton " onclick="document.getElementById('id_PopUp_Task1Help').style.display='none'; pauseIframe('id_vis2020_TutVideo2');" style="height:5vh; min-width: 30vw; width: 100%; margin:auto; margin-bottom: 0vw; ">Close</button>
         </div>
     </div>
 
