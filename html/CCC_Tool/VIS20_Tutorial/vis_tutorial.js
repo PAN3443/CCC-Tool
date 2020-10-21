@@ -29,23 +29,12 @@ function stylePages(pageID){
     if(pageID==currentPos)
         return;
 
-    ////// Style Pages /////////
-    /*for (let index = 0; index < numPages; index++) {
-
-        switch (true) {
-            case (index==currentPos):
-                document.getElementById("id_page_"+index).style.left="0vw";
-            break;
-            case (index<currentPos):
-                document.getElementById("id_page_"+index).style.left="-100vw";
-            break;
-            default:
-                document.getElementById("id_page_"+index).style.left="100vw";
-        }
-
+    ///// Stop videos at current page 
+    switch (currentPos) {
+        case 0:
+            document.getElementById("id_vis2020_TutVideo1").src="";
+        break;
     }
-
-    console.log(document.getElementById("id_page_"+pageID).style.left);*/
 
     ////// Do Sliding /////////
     document.getElementById("id_page_"+pageID).style.left="0vw";
@@ -62,6 +51,30 @@ function stylePages(pageID){
     {
         element.scrollTop=0;
         checkScrollStatus();
+    }
+
+    ///// Start videos at new page 
+    switch (currentPos) {
+        case 0:
+            document.getElementById("id_vis2020_TutVideo1").src="https://www.youtube.com/embed/UBpY6PNZ2c0?autoplay=1";
+        break;
+        case 6:
+            document.getElementById("id_vis20tut_process").style.width="20%";
+        break;
+        case 7:
+            document.getElementById("id_vis20tut_process").style.width="40%";
+        break;
+        case 8:
+            document.getElementById("id_vis20tut_process").style.width="60%";
+        break;
+        case 9:
+            document.getElementById("id_vis20tut_process").style.width="80%";
+        break;
+        case 10:
+            document.getElementById("id_vis20tut_process").style.width="100%";
+        break;
+        default:
+            document.getElementById("id_vis20tut_process").style.width="0%";
     }
 
     
