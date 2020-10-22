@@ -15,15 +15,15 @@ window.onload = function() {
 
 
 function openCCCTool(){
-  window.open("html/CCC_Tool/cccTool.html","_self");
+  window.open("html_v_0_9_0_3/CCC_Tool/cccTool.html","_self");
 }
 
 function openCCBCTool(){
-  //window.open("html/ToolVariations/cccTool.html","_self");
+  //window.open("html_v_0_9_0_3/ToolVariations/cccTool.html","_self");
 }
 
 function openCCRCTool(){
-  //window.open("html/ToolVariations/cccTool.html","_self");
+  //window.open("html_v_0_9_0_3/ToolVariations/cccTool.html","_self");
 }
 
 function enterCCC(){

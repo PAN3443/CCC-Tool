@@ -87,7 +87,7 @@ class class_TestFunction_Section extends class_Section {
     this.element_testReport.worker_testreport.postMessage(cmsJSON);
     this.testingCMS.drawCMS_Horizontal("id_TestPage_CMS_VIS_ColormapLinear", 1000, 1);
     this.updateSection();
-    this.element_testCollection.showElement();
+    //this.element_testCollection.showElement();
   }
 
   setCMS(cmsInfoPackage) {

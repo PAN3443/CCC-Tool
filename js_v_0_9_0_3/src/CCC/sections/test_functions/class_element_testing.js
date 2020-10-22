@@ -119,9 +119,9 @@ class class_Testing_Element_Basis {
     if(tmpDiv==null || tmpDiv==undefined)
       return;*/
 
-    testingSection.element_singleTest.hideElement()
-    testingSection.element_testCollection.hideElement()
-    testingSection.element_testReport.hideElement()
+    testingSection.element_singleTest.hideElement();
+    testingSection.element_testCollection.hideElement();
+    testingSection.element_testReport.hideElement();
     document.getElementById(this.partDivID).style.width = "100vw";
     document.getElementById(this.buttonID).style.background = "var(--main-active-coloredButton)";
   }

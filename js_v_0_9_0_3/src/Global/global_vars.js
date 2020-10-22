@@ -1,6 +1,6 @@
 // Animation
-var version_JS_FolderName = "js_v_0_9_0_2";
-var tool_version = "0.9.0.2";
+var version_JS_FolderName = "js_v_0_9_0_3";
+var tool_version = "0.9.0.3";
 var tool_copyRight = "2020";
 var doColorblindnessSim = false;
 var timer2DAnimation;

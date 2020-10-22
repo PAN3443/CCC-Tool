@@ -49,14 +49,14 @@
     }
   </style>
 
-    <link rel="stylesheet" href="../../../css/variables.css">
-    <link rel="stylesheet" href="../../../css/general.css">
-    <link rel="stylesheet" href="../../../css/startPage.css">
-    <link rel="stylesheet" href="../../../css/HTML_Elements/buttons.css">
-    <link rel="stylesheet" href="../../../css/HTML_Elements/list.css">
-    <link rel="stylesheet" href="../../../css/popUpWindow.css">
+    <link rel="stylesheet" href="../../../css_v_0_9_0_3/variables.css">
+    <link rel="stylesheet" href="../../../css_v_0_9_0_3/general.css">
+    <link rel="stylesheet" href="../../../css_v_0_9_0_3/startPage.css">
+    <link rel="stylesheet" href="../../../css_v_0_9_0_3/HTML_Elements/buttons.css">
+    <link rel="stylesheet" href="../../../css_v_0_9_0_3/HTML_Elements/list.css">
+    <link rel="stylesheet" href="../../../css_v_0_9_0_3/popUpWindow.css">
 
-    <link rel="stylesheet" href="../../../css/turorialVIS2020.css">
+    <link rel="stylesheet" href="../../../css_v_0_9_0_3/turorialVIS2020.css">
 
     <script type="text/javascript" src="./vis_tutorial.js"></script>
 
@@ -98,34 +98,36 @@
         <div id="id_page_1" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
             <div id="id_page_1_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
-                <h1 style="margin:auto; margin-top:5vh;">Test Data</h1>
+                <h1 style=" margin-top:5vh;">Test Data</h1>
 
                 <div  style="margin-top: auto; width: 100%; height:75vh; overflow-y: auto; display: flex;">
                     <div style="width:60vh; max-width: 40vw; height:100%; margin: auto; margin-right:10vw; auto; display: flex; flex-direction: column;">
                         <p style="margin: auto; white-space: normal;">
                             In this tutorial we want to create a specific colormap for temperature data that are made available by the German Climate Computing Center
                             (<a href="https://www.dkrz.de/about-en" target="_blank">DKRZ</a>) and the Max Planck Institute for Meteorology (<a href="https://mpimet.mpg.de/en/homepage" target="_blank">MPI-M</a>).
-                            The data include one timestep of the temperature at a height of 2m simulated with the icosahedral
+                            The data include one timestep of the temperature at the height of 2m simulated with the icosahedral
                             ICON model at a global resolution of 5km.
                             We remapped the data from the unstructured model grid to aa regular grid with 4000-2000
                             grid points for easier use with different tools.
-                            At our data the simulated 2m-temperature varies between around -63&#8451; and 52&#8451;.
-                            egionally, however, small temperature variations of the order of 0.1&#8451; might be critical for the analysis
+                            At our data, the simulated 2m-temperature varies between around -63&#8451; and 52&#8451;.
+                            Regionally, however, small temperature variations of the order of 0.1&#8451; might be critical for the analysis
                             as, e.g., in the neighborhood of the freezing point at 0&#8451;.
                         </p>
 
                         <p style="margin: auto; margin-top: 0vh; white-space: normal;">
-                            We didn't implemented rendering features in the CCC-Tool so far.
+                            We didn't implement rendering features in the CCC-Tool so far.
                             Therefore you can use the <strong>Testing</strong> section of the tool. 
-                            We uploaded two data sections (North Pole and Africa) via white/balck images into the real world data of the testing section.
+                            We uploaded two data sections (North Pole and Africa) via white/black images into the real world data of the testing section.
                             Click on the button "Test-Section" to get more information.
                             
                             Alternative: You can also use the software <strong>Paraview</strong> during this tutorial to create visualizations with the original data.
-                            To get more introduction click on "Paraview".
+                            To get more introduction, click on "Paraview".
                     </p>
 
                     <p style="margin: auto; margin-top: 0vh; white-space: normal;">
-                        <strong>Info:</strong> Click on images to open them in fullscreen mode, click again with the mouse to close the fullscreen image. Click on logo images to open the link of the company in a new tab.
+                        <strong>Info:</strong> 
+                        Click on images to open them in fullscreen mode; click again with the mouse to close the fullscreen image. 
+                        Click on logo images to open the link of the company in a new tab.
                     </p>
 
                     </div>
@@ -151,15 +153,15 @@
         <div id="id_page_2" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
             <div id="id_page_2_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
-                <h1 style="margin:auto; margin-top:5vh;">Paraview Option</h1>
+                <h1 style=" margin-top:5vh;">Paraview Option</h1>
 
                 <div style="margin-top: auto; width: 100%; height:75vh; max-height:75vh; display: flex; flex-direction: column;">
                     <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
                         <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
                             ParaView is an open-source, multi-platform data analysis and visualization application.
-                            For this option you need an installed version of this software.
+                            For this option, you need an installed version of this software.
                             If you don't have one, you can get the installation file <a href="https://www.paraview.org/download/" target="_blank">here</a>.
-                            Depending on the internet speed the download will take about 3 Minutes.
+                            Depending on the internet speed, the download will take about 3 Minutes.
                         </p>
 
                         <div class="tutorial_ImgBox">
@@ -174,7 +176,7 @@
                         <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
                             Click on the folder image on the left side to download a .zip file with the temperature data.
                             Unpack the archive file at a storage location of your choice.
-                            The unpacked folder inlcude a NetCDF file (.nc) with the temperature data and a paraview state file (.pvsm).
+                            The unpacked folder include a NetCDF file (.nc) with the temperature data and a Paraview state file (.pvsm).
                         </p>
 
                         <div class="tutorial_ImgBox">
@@ -186,9 +188,9 @@
 
                     <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
                         <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
-                            Open Paraview and drag and drop the .pvsm file into it. The pop up window "Load State Options" will be displayed.
+                            Open Paraview and drag and drop the .pvsm file into it. The popup window "Load State Options" will be displayed.
                             Select the option "Search files under specific directory" for "Load State Data File Options".
-                            Set the data directory to the unpacked folder with the NetCDF file and accept with "OK".
+                            Set the data directory to the unpacked folder with the NetCDF file and accept it with "OK".
                         </p>
 
                         <div class="tutorial_ImgBox">
@@ -199,7 +201,7 @@
 
                     <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
                         <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
-                            After the import of the state file you can see in the pipeline browser next to the original "nwp_RB209_reg4k__T_2M_vis.nc" the "Calculator 1". 
+                            After importing the state file, you can see in the pipeline browser next to the original "nwp_RB209_reg4k__T_2M_vis.nc" the "Calculator 1". 
                             Here we used the calculator feature to convert the Kelvin temperatures into centigrade. 
                             Click on the "closed eye" in the pipeline browser to show the element in the render window. 
                         </p>
@@ -213,9 +215,9 @@
                     <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
                         <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
                             The state file also set the option "Representation" from the default "Surface" to "Points". 
-                            In Figure 2. you can see that the point rendering on the left side shows the correct colors of the colormapping.
-                            In contrast the shader at the surface option (right side) influence the colors with lighting/shadows.
-                            <strong>Tip:</strong> You can rotate the rendering with the left mouse key. Here the surface rendering give you a better imagination of the current location (see right img).  
+                            In Figure 2, you can see that the point rendering on the left side shows the correct colors of the colormapping.
+                            In contrast, the shader at the surface option (right side) influence the colors with lighting/shadows.
+                            <strong>Tip:</strong> You can rotate the rendering with the left mouse key. Here the surface rendering gives you a better image of the current location (Figure 3).  
                         </p>
 
                         <div class="tutorial_ImgBox">
@@ -236,14 +238,14 @@
         <div id="id_page_3" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
             <div id="id_page_3_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
-                <h1 style="margin:auto; margin-top:5vh;">Paraview Colormap Tutorial</h1>
+                <h1 style=" margin-top:5vh;">Paraview Colormap Tutorial</h1>
 
                 <div style="margin-top: auto; width: 100%; height:75vh; max-height:75vh; display: flex; flex-direction: column;">
 
                     <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
                         <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
-                            Here a short tutorial how to import colormaps from the CCC-Tool into Paraview. 
-                            Activate the "Handle Twin Issue" option during the export in the CCC-Tool because Paraview cannot handle our notation of disontinouse transition points.
+                            Here a short tutorial on how to import colormaps from the CCC-Tool into Paraview. 
+                            Activate the "Handle Twin Issue" option during the export in the CCC-Tool because Paraview cannot handle our notation of discontinuous transition points.
                             If you forget this option, artifacts can occur in the colormapping.
                             Select for the export format "XML" or "JSON". 
                         </p>
@@ -256,9 +258,9 @@
                     </div>
                     <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
                         <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
-                           In Paraview open the colormapping editor (Figure 2. Step 1.). 
+                           In Paraview, open the colormap editor (Figure 2, Step 1). 
                            Here you can edit colors, the colormap range, and the colorspace for interpolation.
-                           With the "Choose present" option you can open a window to apply predefined or imported colormaps (Figure 2. Step 2.).
+                           With the "Choose present" option you can open a window to apply predefined or imported colormaps (Figure 2, Step 2).
                         </p>
 
                         <div class="tutorial_ImgBox">
@@ -270,10 +272,10 @@
 
                     <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
                         <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
-                            Click at the "Import" button at the "Choose presen" window (Figure 3. Step 1.) and select the exported CCC-Tool file. 
+                            Click at the "Import" button at the "Choose present" window (Figure 3. Step 1.) and select the exported CCC-Tool file. 
                             Exported colormaps from the CCC-Tool are always labeled with "ccc-tool_colormap_" + the colormap name.
-                            After the import select "All" at the top (Figure 3. Step 2.) and scroll to the bottom. 
-                            There you can find, and select your colormap. At least click on "Apply".
+                            After the import, select "All" at the top (Figure 3. Step 2.) and scroll to the bottom. 
+                            There you can find and select your colormap. At least click on "Apply".
                         </p>
 
                         <div class="tutorial_ImgBox">
@@ -294,15 +296,15 @@
         <div id="id_page_4" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
             <div id="id_page_4_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
-                <h1 style="margin:auto; margin-top:5vh;">Testing Section Option</h1>
+                <h1 style=" margin-top:5vh;">Testing Section Option</h1>
 
                 <div style="margin-top: auto; width: 100%; height:75vh; max-height:75vh; display: flex; flex-direction: column;">
 
                     <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
                         <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
                             We implemented this section to enable the testing of local and global attributes of scalar fields. 
-                            Therefore we offer different self-developed test-functions, predefined test-functions from other fields in the computer science and real world data. 
-                            We added two for this tutorial interesting data sections via Black/White images to this testing section. Both with a resolution of 500p.
+                            Therefore, we offer different self-developed test-functions and predefined test-functions from other computer science and real-world data fields. 
+                            We added two interesting data-sections via Black/White images to this testing section. Both with a resolution of 500p.
                         </p>
 
                         <div class="tutorial_ImgBox">
@@ -314,8 +316,8 @@
                     <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
                         <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
                             You can reach the Testing section from the MyDesigns section or the Edit section (see Fig. 2).
-                            If you come from the MyDesigns section the combo box at the top of the Testing section will be filled with the colormaps from the MyDesings section. 
-                            Save every coming task of this tutorial as own colormap ('ctrl'+'d') and with this way you can easily switch between colormaps and compare them.
+                            If you come from the MyDesigns section, the combo box at the top of the Testing section will be filled with the colormaps from the MyDesings section. 
+                            Save every coming task of this tutorial as own colormap ('ctrl'+'d') and with this way, you can easily switch between colormaps and compare them.
                             If you come from the Edit section, the Testing section will only show you the current state of the colormap in the Edit section. 
                         </p>
 
@@ -327,8 +329,8 @@
                     </div>
                     <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
                         <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
-                            If you have opened the Testing section you will see the collection page. 
-                            This page give an overview about all testing functions of the CCC-Tool. 
+                            If you have opened the Testing section, you will see the collection page. 
+                            This page gives an overview of all testing functions of the CCC-Tool. 
                             Scroll down until you reach "3. Real World Data". 
                             The last two items of "3.2 Scientific Simulation" are the two data sections from the temperature field.
                         </p>
@@ -342,8 +344,8 @@
 
                     <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
                         <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
-                            Select an item at the collection page and the "Interactive Testing" page with your selected test-function will be displayed. 
-                            Here you can change options, add noise, save screenshots, compare the colormap with a grey scaled colormapping and so on.
+                            Select an item on the collection page, and the "Interactive Testing" page with your selected test-function will be displayed. 
+                            Here you can change options, add noise, save screenshots, compare the colormap with a grey scaled colormapping, and so on.
                         </p>
 
                         <div class="tutorial_ImgBox">
@@ -354,9 +356,9 @@
 
                     <div style="margin: auto; margin-top:5vh; margin-bottom: 0vh; auto; display: flex;">
                         <p style="width:60vh; max-width: 40vw; margin: auto; margin-right:5vw; white-space: normal;">
-                            For a better imagination, the "Interactive Testing" page also offer a 3D hightmap rendering of the test-function. 
-                            Switch the radio button from "Pixel-Image" to "Triangle-Grid". At the top of the colormapping some button will appear. 
-                            There you can switch to the 3D rendering, or show/hide the bounding-box/xyz-axis.  
+                            For a better imagination, the "Interactive Testing" page also offers a 3D heightmap rendering of the test-function. 
+                            Switch the radio button from "Pixel-Image" to "Triangle-Grid". At the top of the colormapping, some button will appear. 
+                            There you can switch to the 3D rendering or show/hide the bounding-box/xyz-axis.  
                         </p>
 
                         <div class="tutorial_ImgBox">
@@ -377,15 +379,15 @@
         <div id="id_page_5" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
             <div id="id_page_5_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh; display: flex; flex-direction: column;">
-                <h1 style="margin:auto; margin-top:5vh;">Task 1: Start with the CMS</h1>
+                <h1 style=" margin-top:5vh;">Task 1: Start with the CMS</h1>
 
-                <p style="width: 50vw; margin: auto; white-space: normal;">
-                    We want to create a specific colormap for our temperature field. For that, we start with a common colormap for temperatures, a cool/warm colormap. 
+                <p style="width: 50vw; margin: auto; margin-top: 5vh; margin-bottom: 0vh; white-space: normal;">
+                    We want to create a specific colormap for our temperature field. For that, we start with a standard colormap for temperatures, a cool/warm colormap. 
                     So the first task of our tutorial is to create such a divergent colormap with the following requirements:
                 </p>
 
 
-                <div style="width: 50vw; margin: auto; margin-top: 2vh; display:flex;">
+                <div style="width: 50vw; margin: auto; margin-top: 5vh; margin-bottom: 0vh; display:flex;">
                     <ul style="margin: auto; margin-left: 0vw; width: 35vw;">
                         <li>Set a suitable label</li>
                         <li>Use a uniform colorspace for interpolation (Lab/DIN99)</li>
@@ -415,26 +417,28 @@
         <div id="id_page_6" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
             <div id="id_page_6_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh; display: flex; flex-direction: column;">
-                <h1 style="margin:auto; margin-top:5vh;">Task 2: Rescale your CMS</h1>
+                <h1 style=" margin-top:5vh;">Task 2: Rescale your CMS</h1>
 
-                <p style="width: 50vw; margin: auto; white-space: normal;">
+                <p style="width: 50vw; margin: auto; margin-top: 5vh; margin-bottom: 0vh; white-space: normal;">
                     The temperature in the data file has a range from -62.971665039062486&#8451; to 52.18778930664064&#8451;. 
                     The default range in the CCC-Tool editor is from 0 to 1. 
-                    For the creation of a specific colormap we won't work with rational numbers.
+                    For the creation of a specific colormap, we won't work with rational numbers.
                 </p>
 
 
-                <div style="width: 50vw; margin: auto; margin-top: 2vh; display:flex;">
+                <div style="width: 50vw; margin: auto; margin-top: 5vh; margin-bottom: 0vh; display:flex;">
                     <ul style="margin: auto; margin-left: 0vw; width: 35vw;">
                         <li>Rescale your colormap to the range [-63&#8451;,53&#8451;]</li>
                         <li>Move the white key to 0&#8451;</li>
+                        <li>Save your colormap</li>
+                        <li>(Optional: Dublicate your colormap with "ctrl"+"d")</li>
                     </ul>
                     <div title="Help Me!!!" onclick="document.getElementById('id_PopUp_Task2Help').style.display='flex';" class="tutorial_Help_Button">?</div>
                 </div>
 
-                <p style="width: 50vw; margin: auto; white-space: normal;">
-                    PS: If a visualization software only support colormaps with a range [0,1] you can still use the real values during the creation process in the CCC-Tool editor.
-                    Just scale the colormap to the range [0,1] befor you export the colormap. 
+                <p style="width: 50vw; margin: auto; margin-top: 5vh; white-space: normal;">
+                    PS: If a visualization software only supports colormaps with a range [0,1] you can still use real values during the CCC-Tool editor's creation process.
+                    Just scale the colormap to the range [0,1] before you export the colormap. 
                 </p>
             </div>
 
@@ -447,22 +451,34 @@
 
         <div id="id_page_7" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
-            <div id="id_page_7_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
-                <h1 style="margin:auto; margin-top:5vh;">Task 3: Discontinuouse Transition</h1>
+            <div id="id_page_7_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh; display: flex; flex-direction: column;">
+                <h1 style=" margin-top:5vh;">Task 3: Discontinuouse Transition</h1>
 
-                <p style="margin:auto;">
-
+                <p style="width: 50vw; margin: auto; margin-top: 5vh; margin-bottom: 0vh; white-space: normal;">
+                    For the colormapping of our temperature field, it is very important that we can distinguish between negative and positive values. 
+                    With our colormap's current state, it is not possible to determine the exact border, where this passage from negative and positive values is (compare Figure 1 and 2).
                 </p>
+
+
+                <div style="width: 50vw; margin: auto; margin-top: 5vh; margin-bottom: 0vh; display:flex;">
+                    <ul style="margin: auto; margin-left: 0vw; width: 35vw;">
+                        <li>Create a discontinuouse transition point at 0&#8451;</li>
+                        <li>Set distinguishable and reasonable key colors for this discontinuouse transition.</li>
+                        <li>Save your colormap</li>
+                        <li>(Optional: Dublicate your colormap with "ctrl"+"d")</li>
+                    </ul>
+                    <div title="Help Me!!!" onclick="document.getElementById('id_PopUp_Task3Help').style.display='flex';" class="tutorial_Help_Button">?</div>
+                </div>
 
                 <div style="width: 50vw; height:30vh; margin:auto; display: flex;">
                     <div class="tutorial_ImgBox" style="width: 15vw; margin:auto;">
                         <img title="Before task 3." src="../../../img/Tutorial_VIS2020/task3_Before.png" onclick="openBigImg('../../../img/Tutorial_VIS2020/task3_Before.png','Example for the first task.')" style="margin-right:auto; height: 15vw; max-width: 15vw;">
-                        <p style="width: 100%;" ><strong>Fig. 1:</strong> Example for the first task.</p>
+                        <p style="width: 100%;" ><strong>Fig. 1: The North Pole data section with the current state of our colormap.</strong> .</p>
                     </div>
 
                     <div class="tutorial_ImgBox" style="width:15vw; margin:auto;">
                         <img title="After task 3." src="../../../img/Tutorial_VIS2020/task3_After.png" onclick="openBigImg('../../../img/Tutorial_VIS2020/task3_After.png','Example for the first task.')" style="margin-right:auto; height: 15vw; max-width: 15vw;">
-                        <p style="width: 100%;" ><strong>Fig. 2:</strong> Example for the first task.</p>
+                        <p style="width: 100%;" ><strong>Fig. 2:</strong> The North Pole data section after "Task 3". The colormap includes a discontinuous transition at 0, which enables us to distinguish between negative and positive areas.</p>
                     </div>
                 </div>
             </div>
@@ -476,22 +492,25 @@
 
         <div id="id_page_8" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
-            <div id="id_page_8_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
-                <h1 style="margin:auto; margin-top:5vh;">Task 4: Detailed Positive Range</h1>
+            <div id="id_page_8_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh; display: flex; flex-direction: column;">
+                <h1 style=" margin-top:5vh;">Task 4: Detailed Positive Range</h1>
 
-                <p style="margin:auto;">
-                    10, Cyan
-                    15, cyan-green
-                    20, full green
-                    25, brighter green
-                    30, yellow green
-                    35 bege
-                    37,5 bright orange
-                    40 orange
-                    42 darker orange
-                    45 red
-                    53 dark red
+                <p style="width: 50vw; margin: auto; margin-top: 5vh; margin-bottom: 0vh; white-space: normal;">
+                    For the colormapping of our temperature field, we want to increase the richness of detail for the positive values. 
+                    We need to have more distinguishable sections at the positive range because we can better classify habitats/biotope.
+                    Therefore we want to add more colors to our positive range, and we also want to use some color semantics for easy and intuitive classification. 
                 </p>
+
+                <div style="width: 50vw; margin: auto; margin-top: 5vh; margin-bottom: 0vh; display:flex;">
+                    <ul style="margin: auto; margin-left: 0vw; width: 35vw;">
+                        <li>Think about temperatures, which are useful to know/recognize e.g. {10&#8451;,  20&#8451;,  30&#8451;,  40&#8451;, 45&#8451;}. You can add more during the process of task 4. </li>
+                        <li>Think about semantics for your selected values and connect them with a color. For example at 40 degrees at 40 degrees I think of a desert and a bright beige color.</li>
+                        <li>Put your thoughts into practice and update your colormap. Check your steps and switch to the testing section and apply your colormap on the Africa data section.</li>
+                        <li>Save your colormap</li>
+                        <li>(Optional: Dublicate your colormap with "ctrl"+"d")</li>
+                    </ul>
+                    <div title="Help Me!!!" onclick="document.getElementById('id_PopUp_Task4Help').style.display='flex';" class="tutorial_Help_Button">?</div>
+                </div>
             </div>
 
             <div style="width:100%; margin-top:auto; display:flex; background:var(--main-coloredButton);">
@@ -504,11 +523,29 @@
         <div id="id_page_9" class="class_slidingDiv_LT" style="left:100vw; top:5vh; width:100vw; height:95vh; position:absolute; display: flex; flex-direction: column;">
 
             <div id="id_page_9_div" onscroll="checkScrollStatus()" style="overflow-y: auto; height: 92vh;">
-                <h1 style="margin:auto; margin-top:5vh;">Task 5: Export</h1>
+                <h1 style=" margin-top:5vh;">Task 5: Export</h1>
 
-                <p style="margin:auto;">
-
+                <p style="width: 50vw; margin: auto; margin-top: 5vh; margin-bottom: 0vh; white-space: normal;">
+                    Now we have finished our specified cool/warm colormap, and we want to export it. 
+                    Maybe sometimes you need a break during the creation process, or you want to save your work. 
+                    Then the export of the full session could be helpful. 
+                    If you only want to save a single colormap or export the final colormap, you can use the export page. 
+                    If your visualization software does not support your chosen interpolation space, you can export the colormap with additional interval colors. 
+                    With enough interval colors, you can keep the colorspace's attributes and interpolate in a common color space like RGB.  
                 </p>
+
+                <div style="width: 50vw; margin: auto; margin-top: 5vh; display:flex;">
+                    <ul style="margin: auto; margin-left: 0vw; width: 35vw;">
+                        <li>Export the full session to save your work.</li>
+                        <li>Export the colormap from task 4 with 100 intervals and with activated "Twin Issue"</li>
+                    </ul>
+                    <div title="Help Me!!!" onclick="document.getElementById('id_PopUp_Task5Help').style.display='flex';" class="tutorial_Help_Button">?</div>
+                </div>
+
+                <div class="tutorial_ImgBox" style="width: auto; max-width: 50vw; height:30vh; margin:auto; margin-top: 5vh;">
+                    <img title="Export Section of the CCC-Tool." src="../../../img/Tutorial_VIS2020/task5.png" onclick="openBigImg('../../../img/Tutorial_VIS2020/task5.png','Export Section of the CCC-Tool.')" style="margin:auto; height: 30vh; max-width: 50vw;">
+                    <p style="width: 100%;" ><strong>Fig. 1:</strong> Export Section of the CCC-Tool.</p>
+                </div>
             </div>
 
             <div style="width:100%; margin-top:auto; display:flex; background:var(--main-coloredButton);">
@@ -547,12 +584,12 @@
     </svg>
 
     <!-- POP Up Window -->
-    <div id="id_PopUp_BigImg" include-html="../../html/Global/PopUpWindows/colorblindnessWindow.html" style=" width:100%; height:100%; background: rgba(0,0,0,0.75); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+    <div id="id_PopUp_BigImg" include-html="../../html_v_0_9_0_3/Global/PopUpWindows/colorblindnessWindow.html" style=" width:100%; height:100%; background: rgba(0,0,0,0.75); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
         <img id="id_bigImg" title="..." src="" onclick="document.getElementById('id_PopUp_BigImg').style.display='none';" style="margin:auto; width:100vw; max-height:100vh; cursor:pointer; object-fit: contain; -o-object-fit: contain;">
     </div>
 
     <!-- POP Up Window :: Help Task 1 -->
-    <div id="id_PopUp_Task1Help" include-html="../../html/Global/PopUpWindows/colorblindnessWindow.html" style=" width:100%; height:100%; background: rgba(0,0,0,0.75); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+    <div id="id_PopUp_Task1Help" include-html="../../html_v_0_9_0_3/Global/PopUpWindows/colorblindnessWindow.html" style=" width:100%; height:100%; background: rgba(0,0,0,0.75); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
         <div style="min-height: 10vh; min-width: 10vw; background:var(--main-bg-color); margin:auto; display:flex; flex-direction: column;">
         
             <iframe id="id_vis2020_TutVideo2" style="height:60vh; width: 60vw; border: 0.2vh solid black; margin:auto;" src="https://www.youtube.com/embed/udSLvl3ve2M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -562,39 +599,39 @@
     </div>
 
     <!-- POP Up Window :: Help Task 2 -->
-    <div id="id_PopUp_Task2Help" include-html="../../html/Global/PopUpWindows/colorblindnessWindow.html" style=" width:100%; height:100%; background: rgba(0,0,0,0.75); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+    <div id="id_PopUp_Task2Help" include-html="../../html_v_0_9_0_3/Global/PopUpWindows/colorblindnessWindow.html" style=" width:100%; height:100%; background: rgba(0,0,0,0.75); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
         <div style="min-height: 10vh; min-width: 10vw; background:var(--main-bg-color); margin:auto; display:flex; flex-direction: column;">
         
-            <button class="class_coloredButton " onclick="document.getElementById('id_PopUp_Task2Help').style.display='none';" style="height:5vh; min-width: 30vw; width: 100%; margin:auto; margin-bottom: 0vw; ">Close</button>
+            <iframe id="id_vis2020_TutVideo3" style="height:60vh; width: 60vw; border: 0.2vh solid black; margin:auto;" src="https://www.youtube.com/embed/UsS6Vz-LldI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            <button class="class_coloredButton " onclick="document.getElementById('id_PopUp_Task2Help').style.display='none'; pauseIframe('id_vis2020_TutVideo3');" style="height:5vh; min-width: 30vw; width: 100%; margin:auto; margin-bottom: 0vw; ">Close</button>
         </div>
-    </div>
+    </div> 
 
     <!-- POP Up Window :: Help Task 3 -->
-    <div id="id_PopUp_Task3Help" include-html="../../html/Global/PopUpWindows/colorblindnessWindow.html" style=" width:100%; height:100%; background: rgba(0,0,0,0.75); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+    <div id="id_PopUp_Task3Help" include-html="../../html_v_0_9_0_3/Global/PopUpWindows/colorblindnessWindow.html" style=" width:100%; height:100%; background: rgba(0,0,0,0.75); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
         <div style="min-height: 10vh; min-width: 10vw; background:var(--main-bg-color); margin:auto; display:flex; flex-direction: column;">
-        
-            <button class="class_coloredButton " onclick="document.getElementById('id_PopUp_Task3Help').style.display='none';" style="height:5vh; min-width: 30vw; width: 100%; margin:auto; margin-bottom: 0vw; ">Close</button>
+            <iframe id="id_vis2020_TutVideo4" style="height:60vh; width: 60vw; border: 0.2vh solid black; margin:auto;" src="https://www.youtube.com/embed/EAm8dogUG3Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            <button class="class_coloredButton " onclick="document.getElementById('id_PopUp_Task3Help').style.display='none'; pauseIframe('id_vis2020_TutVideo4');" style="height:5vh; min-width: 30vw; width: 100%; margin:auto; margin-bottom: 0vw; ">Close</button>
         </div>
     </div>
 
     <!-- POP Up Window :: Help Task 4 -->
-    <div id="id_PopUp_Task4Help" include-html="../../html/Global/PopUpWindows/colorblindnessWindow.html" style=" width:100%; height:100%; background: rgba(0,0,0,0.75); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+    <div id="id_PopUp_Task4Help" include-html="../../html_v_0_9_0_3/Global/PopUpWindows/colorblindnessWindow.html" style=" width:100%; height:100%; background: rgba(0,0,0,0.75); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
         <div style="min-height: 10vh; min-width: 10vw; background:var(--main-bg-color); margin:auto; display:flex; flex-direction: column;">
-        
-            <button class="class_coloredButton " onclick="document.getElementById('id_PopUp_Task4Help').style.display='none';" style="height:5vh; min-width: 30vw; width: 100%; margin:auto; margin-bottom: 0vw; ">Close</button>
+            <iframe id="id_vis2020_TutVideo5" style="height:60vh; width: 60vw; border: 0.2vh solid black; margin:auto;" src="https://www.youtube.com/embed/fYFu9yAGKGI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <button class="class_coloredButton " onclick="document.getElementById('id_PopUp_Task4Help').style.display='none'; pauseIframe('id_vis2020_TutVideo5');" style="height:5vh; min-width: 30vw; width: 100%; margin:auto; margin-bottom: 0vw; ">Close</button>
         </div>
     </div>
 
     <!-- POP Up Window :: Help Task 5 -->
-    <div id="id_PopUp_Task5Help" include-html="../../html/Global/PopUpWindows/colorblindnessWindow.html" style=" width:100%; height:100%; background: rgba(0,0,0,0.75); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
+    <div id="id_PopUp_Task5Help" include-html="../../html_v_0_9_0_3/Global/PopUpWindows/colorblindnessWindow.html" style=" width:100%; height:100%; background: rgba(0,0,0,0.75); position: fixed; z-index:102; top:0px; left:0px; bottom:0px; display:none;">
         <div style="min-height: 10vh; min-width: 10vw; background:var(--main-bg-color); margin:auto; display:flex; flex-direction: column;">
-        
-            <button class="class_coloredButton " onclick="document.getElementById('id_PopUp_Task5Help').style.display='none';" style="height:5vh; min-width: 30vw; width: 100%; margin:auto; margin-bottom: 0vw; ">Close</button>
+            <iframe id="id_vis2020_TutVideo6" style="height:60vh; width: 60vw; border: 0.2vh solid black; margin:auto;" src="https://www.youtube.com/embed/06WoJsVSpFc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <button class="class_coloredButton " onclick="document.getElementById('id_PopUp_Task5Help').style.display='none'; pauseIframe('id_vis2020_TutVideo6');" style="height:5vh; min-width: 30vw; width: 100%; margin:auto; margin-bottom: 0vw; ">Close</button>
         </div>
     </div>
-
-
-
 
 
 </body>
