@@ -1,56 +1,3 @@
-
-function extraSamplingCMS(){
-  // calc intervals
-  /*switch (cms.getInterpolationType()) {
-    case "linear":
-        var currentPathplotSpace = undefined;
-
-        switch (true) {
-          case editSection.isSectionOpen():
-              currentPathplotSpace = editSection.part_Pathplot.pathplot_space;
-          break;
-          case optiSection.isSectionOpen():
-              currentPathplotSpace = optiSection.part_Pathplot.pathplot_space;
-          break;
-          default:
-            return;
-        }
-
-        if(cms.getInterpolationSpace()!==currentPathplotSpace || cms.getInterpolationSpace()==="hsv" || cms.getInterpolationSpace()==="lch")
-          cms.calcNeededIntervalsColors(true,"delta",undefined); // calc intervals
-        else
-          cms.clearIntervalColors();
-
-        cms.replaceExportIntervalWithDeltaInterval();
-
-    break;
-    case "spline":
-        cms.calcNeededIntervalsColors(false,undefined,undefined); // calc intervals
-        if(cms.getInterpolationSpace()==="hsv" || cms.getInterpolationSpace()==="lch"){
-          var maxInterval = 90;
-          var numList = [];
-          var continuousSections = cms.searchForContinuousSections(0,cms.getKeyLength()-1);
-          for (var i = 0; i < cms.getKeyLength()-1; i++) {
-            numList.push(0);
-          }
-
-          for (var i = 0; i < continuousSections.length; i++) {
-            for (var j = continuousSections[i][0]; j < continuousSections[i][1]; j++) {
-              var tmpColor1 = cms.getRightKeyColor(j, cms.getInterpolationSpace());
-              var tmpColor2 = cms.getLeftKeyColor(j+1, cms.getInterpolationSpace());
-              var hueDiff = Math.abs(tmpColor1[1]-tmpColor2[1]);
-              numList[j]=maxInterval*hueDiff;
-            }
-          }
-          cms.calcSpecificKeyIntervalColors_Export(numList);
-        }
-        else {
-          cms.replaceExportIntervalWithDeltaInterval();
-        }
-    break;
-  }*/
-}
-
 function calcRGBInterpolationLine(rgbResolution){
   pathplotLines=[];
   pathplotLinesDashed=[];
@@ -313,7 +260,7 @@ function getLineSegment_LineChart_LMS(fromColor, tillColor, xRatio, xRatio2,vWid
   tillPos.push(yPos22);
   tillPos.push(yPos23);
   ///////////////////////////////////////////////////////////////////
-  
+
   var posArray = [fromPos,tillPos];
   return posArray;
 }

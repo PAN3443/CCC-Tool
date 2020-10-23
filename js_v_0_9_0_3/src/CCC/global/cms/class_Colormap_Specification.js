@@ -271,12 +271,13 @@ class class_CMS {
   }
 
   get_Analysis_WorkColor(keyBandIndex,index,colorspace){
-      if(this.analysisWorkColors[keyBandIndex][index][0]===colorspace)
-        return this.analysisWorkColors[keyBandIndex][index];
 
-      gWorkColor1.autoRGBClipping=true;
-      gWorkColor1.setColorInfo(this.analysisWorkColors[keyBandIndex][index][0]);
-      return gWorkColor1.getColorInfo(colorspace);
+        if(this.analysisWorkColors[keyBandIndex][index][0]===colorspace)
+          return this.analysisWorkColors[keyBandIndex][index];
+
+        gWorkColor1.autoRGBClipping=true;
+        gWorkColor1.setColorInfo(this.analysisWorkColors[keyBandIndex][index][0]);
+        return gWorkColor1.getColorInfo(colorspace);
   }
 
   get_Analysis_WorkColorRef(keyBandIndex,index){
@@ -1602,9 +1603,11 @@ function createScaledBand(canvasData, xStart, yStart, bandWidth, bandHeight, col
         var val3 = colorInfo1[3] + (colorInfo2[3] - colorInfo1[3]) * tmpRatio;
         gWorkColor1.updateColor(colorInfo1[0],val1,val2,val3);
 
-        var colorInfo = gWorkColor1.getColorInfo("rgb");
-        if(this.doColorblindnessSim)
+        var colorInfo = undefined;
+        if(doColorblindnessSim)
           colorInfo = gWorkColor1.getColorInfo("rgb_cb");
+        else
+          colorInfo = gWorkColor1.getColorInfo("rgb");
 
         for (var y = 0; y < bandHeight; y++) {
           var index = (x + (y+yStart) * canvasWidth) * 4;
@@ -1628,9 +1631,11 @@ function createConstantBand(canvasData, xStart, yStart, bandWidth, bandHeight, c
       gWorkColor1.autoRGBClipping=true;
       gWorkColor1.setColorInfo(colorInfo1);
 
-      var colorInfo = gWorkColor1.getColorInfo("rgb");
-      if(this.doColorblindnessSim)
+      var colorInfo = undefined;
+      if(doColorblindnessSim)
         colorInfo = gWorkColor1.getColorInfo("rgb_cb");
+      else
+        colorInfo = gWorkColor1.getColorInfo("rgb");
 
       for (var x = xStart; x <= xStart + bandWidth; x++) {
 
@@ -1669,9 +1674,11 @@ function createScaledBandVertical(canvasData, yStart, bandWidth, bandHeight, col
         var val3 = colorInfo1[3] + (colorInfo2[3] - colorInfo1[3]) * tmpRatio;
         gWorkColor1.updateColor(colorInfo1[0],val1,val2,val3);
 
-        var colorInfo = gWorkColor1.getColorInfo("rgb");
-        if(this.doColorblindnessSim)
+        var colorInfo = undefined;
+        if(doColorblindnessSim)
           colorInfo = gWorkColor1.getColorInfo("rgb_cb");
+        else
+          colorInfo = gWorkColor1.getColorInfo("rgb");
 
         for (var x = 0; x < bandWidth; x++) {
           var index = (x + (yStart-(yStart-y)) * canvasWidth) * 4;
@@ -1694,9 +1701,11 @@ function createConstantBandVertical(canvasData, yStart, bandWidth, bandHeight, c
 
       gWorkColor1.setColorInfo(colorInfo1);
 
-      var colorInfo = gWorkColor1.getColorInfo("rgb");
-      if(this.doColorblindnessSim)
+      var colorInfo = undefined;
+      if(doColorblindnessSim)
         colorInfo = gWorkColor1.getColorInfo("rgb_cb");
+      else
+        colorInfo = gWorkColor1.getColorInfo("rgb");
 
       for (var y = yStart; y >= yStart - bandHeight; y--) {
 

@@ -20,3 +20,13 @@ function getRandomColor(space){
 
   return gWorkColor1.getColorInfo(space);
 }
+
+function convertToColorblind(color){
+  if(doColorblindnessSim){
+    gWorkColor1.setColorInfo(color);
+    var tmpColor = gWorkColor1.getColorInfo("rgb_cb");
+    gWorkColor1.setColorInfo(tmpColor);
+    return gWorkColor1.getColorInfo(color[0]);
+  }
+  return color;
+}

@@ -626,52 +626,53 @@ class class_Color {
   }
 
   conversion_LMS_2_RGB_CB() {
-    var newL = this.val_1_lms * sim_AdaptiveColorblindness[0][0] + this.val_2_lms * sim_AdaptiveColorblindness[0][1] + this.val_3_lms * sim_AdaptiveColorblindness[0][2];
-    var newM = this.val_1_lms * sim_AdaptiveColorblindness[1][0] + this.val_2_lms * sim_AdaptiveColorblindness[1][1] + this.val_3_lms * sim_AdaptiveColorblindness[1][2];
-    var newS = this.val_1_lms * sim_AdaptiveColorblindness[2][0] + this.val_2_lms * sim_AdaptiveColorblindness[2][1] + this.val_3_lms * sim_AdaptiveColorblindness[2][2];
 
-    var var_X = newL * tmLMS_Selected_Inv[0][0] + newM * tmLMS_Selected_Inv[0][1] + newS * tmLMS_Selected_Inv[0][2];
-    var var_Y = newL * tmLMS_Selected_Inv[1][0] + newM * tmLMS_Selected_Inv[1][1] + newS * tmLMS_Selected_Inv[1][2];
-    var var_Z = newL * tmLMS_Selected_Inv[2][0] + newM * tmLMS_Selected_Inv[2][1] + newS * tmLMS_Selected_Inv[2][2];
+      var newL = this.val_1_lms * sim_AdaptiveColorblindness[0][0] + this.val_2_lms * sim_AdaptiveColorblindness[0][1] + this.val_3_lms * sim_AdaptiveColorblindness[0][2];
+      var newM = this.val_1_lms * sim_AdaptiveColorblindness[1][0] + this.val_2_lms * sim_AdaptiveColorblindness[1][1] + this.val_3_lms * sim_AdaptiveColorblindness[1][2];
+      var newS = this.val_1_lms * sim_AdaptiveColorblindness[2][0] + this.val_2_lms * sim_AdaptiveColorblindness[2][1] + this.val_3_lms * sim_AdaptiveColorblindness[2][2];
 
-    var var_R = var_X * tmXYZ_Selected_Inv[0][0] + var_Y * tmXYZ_Selected_Inv[0][1] + var_Z * tmXYZ_Selected_Inv[0][2];
-    var var_G = var_X * tmXYZ_Selected_Inv[1][0] + var_Y * tmXYZ_Selected_Inv[1][1] + var_Z * tmXYZ_Selected_Inv[1][2];
-    var var_B = var_X * tmXYZ_Selected_Inv[2][0] + var_Y * tmXYZ_Selected_Inv[2][1] + var_Z * tmXYZ_Selected_Inv[2][2];
+      var tmp_X = (newL * tmLMS_Selected_Inv[0][0] + newM * tmLMS_Selected_Inv[0][1] + newS * tmLMS_Selected_Inv[0][2])/100;
+      var tmp_Y = (newL * tmLMS_Selected_Inv[1][0] + newM * tmLMS_Selected_Inv[1][1] + newS * tmLMS_Selected_Inv[1][2])/100;
+      var tmp_Z = (newL * tmLMS_Selected_Inv[2][0] + newM * tmLMS_Selected_Inv[2][1] + newS * tmLMS_Selected_Inv[2][2])/100;
 
-    //apply standard gamma correction
-    if (var_R > 0.0031308) var_R = 1.055 * Math.pow(var_R, (1.0 / 2.4)) - 0.055;
-    else var_R = 12.92 * var_R;
-    if (var_G > 0.0031308) var_G = 1.055 * Math.pow(var_G, (1.0 / 2.4)) - 0.055;
-    else var_G = 12.92 * var_G;
-    if (var_B > 0.0031308) var_B = 1.055 * Math.pow(var_B, (1.0 / 2.4)) - 0.055;
-    else var_B = 12.92 * var_B;
+      var var_R = tmp_X * tmXYZ_Selected_Inv[0][0] + tmp_Y * tmXYZ_Selected_Inv[0][1] + tmp_Z * tmXYZ_Selected_Inv[0][2];
+      var var_G = tmp_X * tmXYZ_Selected_Inv[1][0] + tmp_Y * tmXYZ_Selected_Inv[1][1] + tmp_Z * tmXYZ_Selected_Inv[1][2];
+      var var_B = tmp_X * tmXYZ_Selected_Inv[2][0] + tmp_Y * tmXYZ_Selected_Inv[2][1] + tmp_Z * tmXYZ_Selected_Inv[2][2];
 
-    // RGB - Clipping
-    if (var_R > 1.0 || var_G > 1.0 || var_B > 1.0 || var_R < 0.0 || var_G < 0.0 || var_B < 0.0) {
-      // Wrong RGB -Values
-      if (var_R > 1.0) {
-        var_R = 1.0;
-      }
-      if (var_G > 1.0) {
-        var_G = 1.0;
-      }
-      if (var_B > 1.0) {
-        var_B = 1.0;
-      }
-      if (var_R < 0.0) {
-        var_R = 0.0;
-      }
-      if (var_G < 0.0) {
-        var_G = 0.0;
-      }
-      if (var_B < 0.0) {
-        var_B = 0.0;
-      }
-    }
+      //apply standard gamma correction
+      if (var_R > 0.0031308) var_R = 1.055 * Math.pow(var_R, (1.0 / 2.4)) - 0.055;
+      else var_R = 12.92 * var_R;
+      if (var_G > 0.0031308) var_G = 1.055 * Math.pow(var_G, (1.0 / 2.4)) - 0.055;
+      else var_G = 12.92 * var_G;
+      if (var_B > 0.0031308) var_B = 1.055 * Math.pow(var_B, (1.0 / 2.4)) - 0.055;
+      else var_B = 12.92 * var_B;
 
-    this.val_1_rgb_cb = var_R;
-    this.val_2_rgb_cb = var_G;
-    this.val_3_rgb_cb = var_B;
+      // RGB - Clipping
+
+        // Wrong RGB -Values
+        if (var_R > 1.0) {
+          var_R = 1.0;
+        }
+        if (var_G > 1.0) {
+          var_G = 1.0;
+        }
+        if (var_B > 1.0) {
+          var_B = 1.0;
+        }
+        if (var_R < 0.0) {
+          var_R = 0.0;
+        }
+        if (var_G < 0.0) {
+          var_G = 0.0;
+        }
+        if (var_B < 0.0) {
+          var_B = 0.0;
+        }
+
+      this.val_1_rgb_cb = var_R;
+      this.val_2_rgb_cb = var_G;
+      this.val_3_rgb_cb = var_B;
+
   }
 
   conversion_LAB_2_XYZ() {

@@ -88,6 +88,7 @@ window.onresize = function(event) {
     checkLandscapeWindow();
     editSection.resize();
     optiSection.resize();
+    cbSimSection.resize();
     probeSection.resize();
     testingSection.resize();
 

@@ -16,7 +16,6 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
     this.optiGraph=undefined;
 
-
     /// Part: Pathplot
     this.part_Pathplot.partDivID="id_OptiPage_PathplotContainer";
     this.part_Pathplot.pathPlot_CoordID="id_OptiPage_PathplotCoord";

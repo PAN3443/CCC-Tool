@@ -95,11 +95,17 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
         tmpSelect.id= this.partDivID+"_IntPlotType";
         tmpSelect.style.width= "15vw";
         tmpSelect.onchange = function(){
-          if(editSection.isSectionOpen())
-            editSection.part_Analysis.updatePart();
-
-          if(optiSection.isSectionOpen())
-            optiSection.part_Analysis.updatePart();
+          switch (true) {
+            case editSection.isSectionOpen():
+              editSection.part_Analysis.updatePart();
+            break;
+            case optiSection.isSectionOpen():
+                optiSection.part_Analysis.updatePart();
+            break;
+            case cbSimSection.isSectionOpen():
+                cbSimSection.part_Analysis.updatePart();
+            break;
+          }
         };
         var tmpLinearOption = document.createElement('option');
         tmpLinearOption.innerHTML = "Linear Plot";
@@ -154,11 +160,17 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
         tmpSelect.style.width= "18vw";
         tmpSelect.style.maxWidth= "18vw";
         tmpSelect.onchange = function(){
-          if(editSection.isSectionOpen())
-            editSection.part_Analysis.updatePart();
-
-          if(optiSection.isSectionOpen())
-            optiSection.part_Analysis.updatePart();
+          switch (true) {
+            case editSection.isSectionOpen():
+              editSection.part_Analysis.updatePart();
+            break;
+            case optiSection.isSectionOpen():
+                optiSection.part_Analysis.updatePart();
+            break;
+            case cbSimSection.isSectionOpen():
+                cbSimSection.part_Analysis.updatePart();
+            break;
+          }
         };
         tmpRow.appendChild(tmpSelect);
         tmpInfoDiv.appendChild(tmpRow);
@@ -251,11 +263,17 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     tmpSelect.style.width= "18vw";
     tmpSelect.style.maxWidth= "18vw";
     tmpSelect.onchange = function(){
-      if(editSection.isSectionOpen())
-        editSection.part_Analysis.updateIntervalType();
-
-      if(optiSection.isSectionOpen())
-        optiSection.part_Analysis.updateIntervalType();
+        switch (true) {
+          case editSection.isSectionOpen():
+            editSection.part_Analysis.updateIntervalType();
+          break;
+          case optiSection.isSectionOpen():
+              optiSection.part_Analysis.updateIntervalType();
+          break;
+          case cbSimSection.isSectionOpen():
+              cbSimSection.part_Analysis.updateIntervalType();
+          break;
+        }
     };
     var tmpOnlyKeysOption = document.createElement('option');
     tmpOnlyKeysOption.innerHTML = "Only Key Colors";
@@ -288,11 +306,17 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     tmpInput.style.width= "18vw";
     tmpInput.style.maxWidth= "18vw";
     tmpInput.onchange = function(){
-      if(editSection.isSectionOpen())
-        editSection.part_Analysis.updateIntervalType();
-
-      if(optiSection.isSectionOpen())
-        optiSection.part_Analysis.updateIntervalType();
+      switch (true) {
+          case editSection.isSectionOpen():
+            editSection.part_Analysis.updateIntervalType();
+          break;
+          case optiSection.isSectionOpen():
+              optiSection.part_Analysis.updateIntervalType();
+          break;
+          case cbSimSection.isSectionOpen():
+              cbSimSection.part_Analysis.updateIntervalType();
+          break;
+        }
     };
     tmpRow.appendChild(tmpInput);
     tmpDiv.appendChild(tmpRow);
@@ -388,11 +412,17 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
     tmpSelect.style.width= "18vw";
     tmpSelect.style.maxWidth= "18vw";
     tmpSelect.onchange = function(){
-      if(editSection.isSectionOpen())
-        editSection.part_Analysis.updatePart();
-
-      if(optiSection.isSectionOpen())
-        optiSection.part_Analysis.updatePart();
+        switch (true) {
+          case editSection.isSectionOpen():
+            editSection.part_Analysis.updatePart();
+          break;
+          case optiSection.isSectionOpen():
+              optiSection.part_Analysis.updatePart();
+          break;
+          case cbSimSection.isSectionOpen():
+              cbSimSection.part_Analysis.updatePart();
+          break;
+        }
     };
     var tmpLabOption = document.createElement('option');
     tmpLabOption.innerHTML = "Euclidean Distance (Lab)";
@@ -511,8 +541,8 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
           numberOfScaledBands++;
           indexList.push(i);
 
-          var c1 = ref_GlobalCMS.getRightKeyColor(i,ref_GlobalCMS.getInterpolationSpace());
-          var c2 = ref_GlobalCMS.getLeftKeyColor(i+1,ref_GlobalCMS.getInterpolationSpace());
+          var c1 = convertToColorblind(ref_GlobalCMS.getRightKeyColor(i,ref_GlobalCMS.getInterpolationSpace()));
+          var c2 = convertToColorblind(ref_GlobalCMS.getLeftKeyColor(i+1,ref_GlobalCMS.getInterpolationSpace()));
 
           var dis = ref_GlobalCMS.getRefPosition(i+1)-ref_GlobalCMS.getRefPosition(i);
 
@@ -529,27 +559,27 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
               case "hsv":
               case "lab":
               case "din99":
-                deltaSum += calc3DEuclideanDistance(c1,ref_GlobalCMS.get_Analysis_WorkColor(i,0,ref_GlobalCMS.getInterpolationSpace()));// /(ref_GlobalCMS.get_Analysis_WorkColorRef(i,0)-ref_GlobalCMS.getRefPosition(i)));
+                deltaSum += calc3DEuclideanDistance(c1,convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,0,ref_GlobalCMS.getInterpolationSpace())));
                 for (var j = 0; j < ref_GlobalCMS.get_Analysis_WorkColorLength(i); j++) {
-                  deltaSum += calc3DEuclideanDistance(ref_GlobalCMS.get_Analysis_WorkColor(i,j,ref_GlobalCMS.getInterpolationSpace()),ref_GlobalCMS.get_Analysis_WorkColor(i,j+1,ref_GlobalCMS.getInterpolationSpace()));// /(ref_GlobalCMS.get_Analysis_WorkColorRef(i,j+1)-ref_GlobalCMS.get_Analysis_WorkColorRef(i,j)));
+                  deltaSum += calc3DEuclideanDistance(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,j,ref_GlobalCMS.getInterpolationSpace())),convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,j+1,ref_GlobalCMS.getInterpolationSpace())));
                 }
-                deltaSum += calc3DEuclideanDistance(ref_GlobalCMS.get_Analysis_WorkColor(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i),ref_GlobalCMS.getInterpolationSpace()),c2);// /(ref_GlobalCMS.getRefPosition(i+1)-ref_GlobalCMS.get_Analysis_WorkColorRef(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i))));
+                deltaSum += calc3DEuclideanDistance(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i),ref_GlobalCMS.getInterpolationSpace())),c2);
                 break;
               case "de94":
               case "de94-ds":
-                deltaSum += calcDeltaDE94(c1,ref_GlobalCMS.get_Analysis_WorkColor(i,0,ref_GlobalCMS.getInterpolationSpace()));// /(ref_GlobalCMS.get_Analysis_WorkColorRef(i,0)-ref_GlobalCMS.getRefPosition(i)));
+                deltaSum += calcDeltaDE94(c1,convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,0,ref_GlobalCMS.getInterpolationSpace())));
                 for (var j = 0; j < ref_GlobalCMS.get_Analysis_WorkColorLength(i); j++) {
-                  deltaSum += calcDeltaDE94(ref_GlobalCMS.get_Analysis_WorkColor(i,j,ref_GlobalCMS.getInterpolationSpace()),ref_GlobalCMS.get_Analysis_WorkColor(i,j+1,ref_GlobalCMS.getInterpolationSpace()));// /(ref_GlobalCMS.get_Analysis_WorkColorRef(i,j+1)-ref_GlobalCMS.get_Analysis_WorkColorRef(i,j)));
+                  deltaSum += calcDeltaDE94(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,j,ref_GlobalCMS.getInterpolationSpace())),convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,j+1,ref_GlobalCMS.getInterpolationSpace())));
                 }
-                deltaSum += calcDeltaDE94(ref_GlobalCMS.get_Analysis_WorkColor(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i),ref_GlobalCMS.getInterpolationSpace()),c2);// /(ref_GlobalCMS.getRefPosition(i+1)-ref_GlobalCMS.get_Analysis_WorkColorRef(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i))));
+                deltaSum += calcDeltaDE94(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i),ref_GlobalCMS.getInterpolationSpace())),c2);
               break;
               case "de2000":
               case "de2000-ds":
-                deltaSum += calcDeltaCIEDE2000(c1,ref_GlobalCMS.get_Analysis_WorkColor(i,0,ref_GlobalCMS.getInterpolationSpace()));// /(ref_GlobalCMS.get_Analysis_WorkColorRef(i,0)-ref_GlobalCMS.getRefPosition(i)));
+                deltaSum += calcDeltaCIEDE2000(c1,convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,0,ref_GlobalCMS.getInterpolationSpace())));
                 for (var j = 0; j < ref_GlobalCMS.get_Analysis_WorkColorLength(i); j++) {
-                  deltaSum += calcDeltaCIEDE2000(ref_GlobalCMS.get_Analysis_WorkColor(i,j,ref_GlobalCMS.getInterpolationSpace()),ref_GlobalCMS.get_Analysis_WorkColor(i,j+1,ref_GlobalCMS.getInterpolationSpace()));// /(ref_GlobalCMS.get_Analysis_WorkColorRef(i,j+1)-ref_GlobalCMS.get_Analysis_WorkColorRef(i,j)));
+                  deltaSum += calcDeltaCIEDE2000(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,j,ref_GlobalCMS.getInterpolationSpace())),convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,j+1,ref_GlobalCMS.getInterpolationSpace())));// /(ref_GlobalCMS.get_Analysis_WorkColorRef(i,j+1)-ref_GlobalCMS.get_Analysis_WorkColorRef(i,j)));
                 }
-                deltaSum += calcDeltaCIEDE2000(ref_GlobalCMS.get_Analysis_WorkColor(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i),ref_GlobalCMS.getInterpolationSpace()),c2);// /(ref_GlobalCMS.getRefPosition(i+1)-ref_GlobalCMS.get_Analysis_WorkColorRef(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i))));
+                deltaSum += calcDeltaCIEDE2000(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i),ref_GlobalCMS.getInterpolationSpace())),c2);// /(ref_GlobalCMS.getRefPosition(i+1)-ref_GlobalCMS.get_Analysis_WorkColorRef(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i))));
               break;
               default:
                 return;
@@ -587,7 +617,13 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
 
   var restWidth = canvasPlot.width-(numberOfScaledBands-1)*borderWidth;
   /////////////////////////////////////////////////////////////////////////////
-  // Calc Speed
+  // Calc Speed and draw Bands
+
+  var getRGBInfo = "rgb";
+
+  if(doColorblindnessSim)
+    getRGBInfo = "rgb_cb";
+
   for (var i = 0; i < arraySpeed.length; i++) {
 
     var tr = document.createElement('tr');
@@ -623,7 +659,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
           var bValue = color1[3] + (color2[3] - color1[3]) * tmpRatio;
 
           gWorkColor1.updateColor("lab",lValue,aValue,bValue);
-          var rgbColorInfo = gWorkColor1.getColorInfo("rgb");
+          var rgbColorInfo = gWorkColor1.getColorInfo(getRGBInfo);
 
           canvasData.data[index + 0] = Math.round(rgbColorInfo[1] * 255); // r
           canvasData.data[index + 1] = Math.round(rgbColorInfo[2] * 255); // g
@@ -645,7 +681,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
         var b99Value = color1[3] + (color2[3] - color1[3]) * tmpRatio;
 
         gWorkColor1.updateColor("din99",l99Value,a99Value,b99Value);
-        var rgbColorInfo = gWorkColor1.getColorInfo("rgb");
+        var rgbColorInfo = gWorkColor1.getColorInfo(getRGBInfo);
 
         canvasData.data[index + 0] = Math.round(rgbColorInfo[1] * 255); // r
         canvasData.data[index + 1] = Math.round(rgbColorInfo[2] * 255); // g
@@ -700,7 +736,7 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
       var getRGBInfo = "rgb_string";
 
       if(doColorblindnessSim)
-        getRGBInfo = "rgb_string_cb";
+        getRGBInfo = "rgb_cb_string";
 
         var tmpID = document.getElementById(this.partDivID+"_UseMetric").selectedIndex;
         var useMetric = document.getElementById(this.partDivID+"_UseMetric").options[tmpID].value;
@@ -722,85 +758,92 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
               case "lab":
               case "din99":
               var dis = ref_GlobalCMS.get_Analysis_WorkColorRef(i,0)-ref_GlobalCMS.getRefPosition(i);
-              speeds[i].push(calc3DEuclideanDistance(ref_GlobalCMS.getRightKeyColor(i,useMetric),ref_GlobalCMS.get_Analysis_WorkColor(i,0,useMetric))/dis);
+              speeds[i].push(calc3DEuclideanDistance(convertToColorblind(ref_GlobalCMS.getRightKeyColor(i,useMetric)),convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,0,useMetric)))/dis);
               for (var j = 0; j < ref_GlobalCMS.get_Analysis_WorkColorLength(i)-1; j++) {
                 dis = ref_GlobalCMS.get_Analysis_WorkColorRef(i,j+1)-ref_GlobalCMS.get_Analysis_WorkColorRef(i,j);
-                speeds[i].push(calc3DEuclideanDistance(ref_GlobalCMS.get_Analysis_WorkColor(i,j,useMetric),ref_GlobalCMS.get_Analysis_WorkColor(i,j+1,useMetric))/dis);
+                speeds[i].push(calc3DEuclideanDistance(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,j,useMetric)),convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,j+1,useMetric)))/dis);
               }
               dis=ref_GlobalCMS.getRefPosition(i+1)-ref_GlobalCMS.get_Analysis_WorkColorRef(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i)-1);
-              speeds[i].push(calc3DEuclideanDistance(ref_GlobalCMS.get_Analysis_WorkColor(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i)-1,useMetric),ref_GlobalCMS.getLeftKeyColor(i+1,useMetric))/dis);
+              speeds[i].push(calc3DEuclideanDistance(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i)-1,useMetric)),convertToColorblind(ref_GlobalCMS.getLeftKeyColor(i+1,useMetric)))/dis);
               break;
               case "de94":
               var dis = ref_GlobalCMS.get_Analysis_WorkColorRef(i,0)-ref_GlobalCMS.getRefPosition(i);
-              speeds[i].push(calcDeltaDE94(ref_GlobalCMS.getRightKeyColor(i,"lab"),ref_GlobalCMS.get_Analysis_WorkColor(i,0,"lab"))/dis);
+              speeds[i].push(calcDeltaDE94(convertToColorblind(ref_GlobalCMS.getRightKeyColor(i,"lab")),convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,0,"lab")))/dis);
               for (var j = 0; j < ref_GlobalCMS.get_Analysis_WorkColorLength(i)-1; j++) {
                 dis = ref_GlobalCMS.get_Analysis_WorkColorRef(i,j+1)-ref_GlobalCMS.get_Analysis_WorkColorRef(i,j);
-                speeds[i].push(calcDeltaDE94(ref_GlobalCMS.get_Analysis_WorkColor(i,j,"lab"),ref_GlobalCMS.get_Analysis_WorkColor(i,j+1,"lab"))/dis);
+                speeds[i].push(calcDeltaDE94(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,j,"lab")),convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,j+1,"lab")))/dis);
               }
               dis=ref_GlobalCMS.getRefPosition(i+1)-ref_GlobalCMS.get_Analysis_WorkColorRef(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i)-1);
-              speeds[i].push(calcDeltaDE94(ref_GlobalCMS.get_Analysis_WorkColor(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i)-1,"lab"),ref_GlobalCMS.getLeftKeyColor(i+1,"lab"))/dis);
+              speeds[i].push(calcDeltaDE94(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i)-1,"lab")),convertToColorblind(ref_GlobalCMS.getLeftKeyColor(i+1,"lab")))/dis);
               break;
               case "de2000":
               var dis = ref_GlobalCMS.get_Analysis_WorkColorRef(i,0)-ref_GlobalCMS.getRefPosition(i);
-              speeds[i].push(calcDeltaCIEDE2000(ref_GlobalCMS.getRightKeyColor(i,"lab"),ref_GlobalCMS.get_Analysis_WorkColor(i,0,"lab"))/dis);
+              speeds[i].push(calcDeltaCIEDE2000(convertToColorblind(ref_GlobalCMS.getRightKeyColor(i,"lab")),convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,0,"lab")))/dis);
               for (var j = 0; j < ref_GlobalCMS.get_Analysis_WorkColorLength(i)-1; j++) {
                 dis = ref_GlobalCMS.get_Analysis_WorkColorRef(i,j+1)-ref_GlobalCMS.get_Analysis_WorkColorRef(i,j);
-                speeds[i].push(calcDeltaCIEDE2000(ref_GlobalCMS.get_Analysis_WorkColor(i,j,"lab"),ref_GlobalCMS.get_Analysis_WorkColor(i,j+1,"lab"))/dis);
+                speeds[i].push(calcDeltaCIEDE2000(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,j,"lab")),convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,j+1,"lab")))/dis);
               }
               dis=ref_GlobalCMS.getRefPosition(i+1)-ref_GlobalCMS.get_Analysis_WorkColorRef(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i)-1);
-              speeds[i].push(calcDeltaCIEDE2000(ref_GlobalCMS.get_Analysis_WorkColor(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i)-1,"lab"),ref_GlobalCMS.getLeftKeyColor(i+1,"lab"))/dis);
+              speeds[i].push(calcDeltaCIEDE2000(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,ref_GlobalCMS.get_Analysis_WorkColorLength(i)-1,"lab")),convertToColorblind(ref_GlobalCMS.getLeftKeyColor(i+1,"lab")))/dis);
               break;
               default:
                 return;
             }
           }
           else {
+
+            var tmpUseMetric = "lab";
+            if(useMetric=="din99")
+              tmpUseMetric = "din99";
+            var c1 = convertToColorblind(ref_GlobalCMS.getRightKeyColor(i,tmpUseMetric));
+            var c2 = convertToColorblind(ref_GlobalCMS.getLeftKeyColor(i+1,tmpUseMetric));
+
             var dis = ref_GlobalCMS.getRefPosition(i+1)-ref_GlobalCMS.getRefPosition(i);
             switch (useMetric) {
             case "lab":
             case "din99":
               if(ref_GlobalCMS.getSupportColorsLength(i)>0){
                 var dis = ref_GlobalCMS.getSupportColorRef(i,0)-ref_GlobalCMS.getRefPosition(i);
-                speeds[i].push(calc3DEuclideanDistance(ref_GlobalCMS.getRightKeyColor(i,useMetric),ref_GlobalCMS.getSupportColor(i,0,useMetric))/dis);
+                speeds[i].push(calc3DEuclideanDistance(c1,convertToColorblind(ref_GlobalCMS.getSupportColor(i,0,useMetric)))/dis);
                 for (var j = 0; j < ref_GlobalCMS.getSupportColorsLength(i)-1; j++) {
                   dis = ref_GlobalCMS.getSupportColorRef(i,j+1)-ref_GlobalCMS.getSupportColorRef(i,j);
-                  speeds[i].push(calc3DEuclideanDistance(ref_GlobalCMS.getSupportColor(i,j,useMetric),ref_GlobalCMS.getSupportColor(i,j+1,useMetric))/dis);
+                  speeds[i].push(calc3DEuclideanDistance(convertToColorblind(ref_GlobalCMS.getSupportColor(i,j,useMetric)),convertToColorblind(ref_GlobalCMS.getSupportColor(i,j+1,useMetric)))/dis);
                 }
                 dis=ref_GlobalCMS.getRefPosition(i+1)-ref_GlobalCMS.getSupportColorRef(i,ref_GlobalCMS.getSupportColorsLength(i)-1);
-                speeds[i].push(calc3DEuclideanDistance(ref_GlobalCMS.getSupportColor(i,ref_GlobalCMS.getSupportColorsLength(i)-1,useMetric),ref_GlobalCMS.getLeftKeyColor(i+1,useMetric))/dis);
+                speeds[i].push(calc3DEuclideanDistance(convertToColorblind(ref_GlobalCMS.getSupportColor(i,ref_GlobalCMS.getSupportColorsLength(i)-1,useMetric)),c2)/dis);
               }
               else{
-                speeds[i].push(calc3DEuclideanDistance(ref_GlobalCMS.getRightKeyColor(i,useMetric),ref_GlobalCMS.getLeftKeyColor(i+1,useMetric))/dis);
+                speeds[i].push(calc3DEuclideanDistance(c1,c2)/dis);
               }
             break;
             case "de94":
               if(ref_GlobalCMS.getSupportColorsLength(i)>0){
                 var dis = ref_GlobalCMS.getSupportColorRef(i,0)-ref_GlobalCMS.getRefPosition(i);
-                speeds[i].push(calcDeltaDE94(ref_GlobalCMS.getRightKeyColor(i,"lab"),ref_GlobalCMS.getSupportColor(i,0,"lab"))/dis);
+                speeds[i].push(calcDeltaDE94(c1,convertToColorblind(ref_GlobalCMS.getSupportColor(i,0,"lab")))/dis);
                 for (var j = 0; j < ref_GlobalCMS.getSupportColorsLength(i)-1; j++) {
                   dis = ref_GlobalCMS.getSupportColorRef(i,j+1)-ref_GlobalCMS.getSupportColorRef(i,j);
-                  speeds[i].push(calcDeltaDE94(ref_GlobalCMS.getSupportColor(i,j,"lab"),ref_GlobalCMS.getSupportColor(i,j+1,"lab"))/dis);
+                  speeds[i].push(calcDeltaDE94(convertToColorblind(ref_GlobalCMS.getSupportColor(i,j,"lab")),convertToColorblind(ref_GlobalCMS.getSupportColor(i,j+1,"lab")))/dis);
                 }
                 dis=ref_GlobalCMS.getRefPosition(i+1)-ref_GlobalCMS.getSupportColorRef(i,ref_GlobalCMS.getSupportColorsLength(i)-1);
-                speeds[i].push(calcDeltaDE94(ref_GlobalCMS.getSupportColor(i,ref_GlobalCMS.getSupportColorsLength(i)-1,"lab"),ref_GlobalCMS.getLeftKeyColor(i+1,"lab"))/dis);
+                speeds[i].push(calcDeltaDE94(convertToColorblind(ref_GlobalCMS.getSupportColor(i,ref_GlobalCMS.getSupportColorsLength(i)-1,"lab")),c2)/dis);
               }
               else{
-                speeds[i].push(calcDeltaDE94(ref_GlobalCMS.getRightKeyColor(i,"lab"),ref_GlobalCMS.getLeftKeyColor(i+1,"lab"))/dis);
+                speeds[i].push(calcDeltaDE94(c1,c2)/dis);
               }
             break;
             case "de2000":
               if(ref_GlobalCMS.getSupportColorsLength(i)>0){
                 var dis = ref_GlobalCMS.getSupportColorRef(i,0)-ref_GlobalCMS.getRefPosition(i);
-                speeds[i].push(calcDeltaCIEDE2000(ref_GlobalCMS.getRightKeyColor(i,"lab"),ref_GlobalCMS.getSupportColor(i,0,"lab"))/dis);
+                speeds[i].push(calcDeltaCIEDE2000(c1,convertToColorblind(ref_GlobalCMS.getSupportColor(i,0,"lab")))/dis);
                 for (var j = 0; j < ref_GlobalCMS.getSupportColorsLength(i)-1; j++) {
                   dis = ref_GlobalCMS.getSupportColorRef(i,j+1)-ref_GlobalCMS.getSupportColorRef(i,j);
-                  speeds[i].push(calcDeltaCIEDE2000(ref_GlobalCMS.getSupportColor(i,j,"lab"),ref_GlobalCMS.getSupportColor(i,j+1,"lab"))/dis);
+                  speeds[i].push(calcDeltaCIEDE2000(convertToColorblind(ref_GlobalCMS.getSupportColor(i,j,"lab")),convertToColorblind(ref_GlobalCMS.getSupportColor(i,j+1,"lab")))/dis);
                 }
                 dis=ref_GlobalCMS.getRefPosition(i+1)-ref_GlobalCMS.getSupportColorRef(i,ref_GlobalCMS.getSupportColorsLength(i)-1);
-                speeds[i].push(calcDeltaCIEDE2000(ref_GlobalCMS.getSupportColor(i,ref_GlobalCMS.getSupportColorsLength(i)-1,"lab"),ref_GlobalCMS.getLeftKeyColor(i+1,"lab"))/dis);
+                speeds[i].push(calcDeltaCIEDE2000(convertToColorblind(ref_GlobalCMS.getSupportColor(i,ref_GlobalCMS.getSupportColorsLength(i)-1,"lab")),c2)/dis);
               }
               else{
-                speeds[i].push(calcDeltaCIEDE2000(ref_GlobalCMS.getRightKeyColor(i,"lab"),ref_GlobalCMS.getLeftKeyColor(i+1,"lab"))/dis);
+                speeds[i].push(calcDeltaCIEDE2000(c1,c2)/dis);
               }
             break;
             default:
@@ -978,15 +1021,17 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
       // fill arrays with key and interval information
 
       for (var i = continuousSections[selectedIndex][0]; i < continuousSections[selectedIndex][1]; i++) {
-          colorArray.push(ref_GlobalCMS.getRightKeyColor(i,neededSpace));
+
+          colorArray.push(convertToColorblind(ref_GlobalCMS.getRightKeyColor(i,neededSpace)));
+
           refArray.push(ref_GlobalCMS.getRefPosition(i));
           for (var j = 0; j < ref_GlobalCMS.get_Analysis_WorkColorLength(i); j++) {
-            colorArray.push(ref_GlobalCMS.get_Analysis_WorkColor(i,j,neededSpace));
+            colorArray.push(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i,j,neededSpace)));
             refArray.push(ref_GlobalCMS.get_Analysis_WorkColorRef(i,j));
           }
       }
 
-      colorArray.push(ref_GlobalCMS.getLeftKeyColor(continuousSections[selectedIndex][1],neededSpace));
+      colorArray.push(convertToColorblind(ref_GlobalCMS.getLeftKeyColor(continuousSections[selectedIndex][1],neededSpace)));
       refArray.push(ref_GlobalCMS.getRefPosition(continuousSections[selectedIndex][1]));
 
       var min = Infinity;
@@ -1252,34 +1297,36 @@ class class_Edit_Part_Analysis extends class_Edit_Part_Basis {
   var colorArray = [];
   var tmpIndex = document.getElementById(this.partDivID+"_UsedColors").selectedIndex;
 
-  for (var i = 0; i < ref_GlobalCMS.getKeyLength(); i++) {
-        switch (ref_GlobalCMS.getKeyType(i)) {
-          case "nil key":
-            continue;
-            break;
-          case "left key":
-            colorArray.push(ref_GlobalCMS.getLeftKeyColor(i, ref_GlobalCMS.getInterpolationSpace()));
-            break;
-          case "twin key":
-            colorArray.push(ref_GlobalCMS.getLeftKeyColor(i, ref_GlobalCMS.getInterpolationSpace()));
-            colorArray.push(ref_GlobalCMS.getRightKeyColor(i, ref_GlobalCMS.getInterpolationSpace()));
-            for (var j = 0; j < ref_GlobalCMS.get_Analysis_WorkColorLength(i) - 1; j++) {
-              colorArray.push(ref_GlobalCMS.get_Analysis_WorkColor(i, j, ref_GlobalCMS.getInterpolationSpace()));
-            }
-            break;
-          case "right key":
-            colorArray.push(ref_GlobalCMS.getRightKeyColor(i, ref_GlobalCMS.getInterpolationSpace()));
-            for (var j = 0; j < ref_GlobalCMS.get_Analysis_WorkColorLength(i) - 1; j++) {
-              colorArray.push(ref_GlobalCMS.get_Analysis_WorkColor(i, j, ref_GlobalCMS.getInterpolationSpace()));
-            }
-            break;
-          default:
-            colorArray.push(ref_GlobalCMS.getRightKeyColor(i, ref_GlobalCMS.getInterpolationSpace()));
-            for (var j = 0; j < ref_GlobalCMS.get_Analysis_WorkColorLength(i) - 1; j++) {
-              colorArray.push(ref_GlobalCMS.get_Analysis_WorkColor(i, j, ref_GlobalCMS.getInterpolationSpace()));
-            }
+    for (var i = 0; i < ref_GlobalCMS.getKeyLength(); i++) {
+          switch (ref_GlobalCMS.getKeyType(i)) {
+            case "nil key":
+              continue;
+              break;
+            case "left key":
+              colorArray.push(convertToColorblind(ref_GlobalCMS.getLeftKeyColor(i, ref_GlobalCMS.getInterpolationSpace())));
+              break;
+            case "twin key":
+              colorArray.push(convertToColorblind(ref_GlobalCMS.getLeftKeyColor(i, ref_GlobalCMS.getInterpolationSpace())));
+              colorArray.push(convertToColorblind(ref_GlobalCMS.getRightKeyColor(i, ref_GlobalCMS.getInterpolationSpace())));
+              for (var j = 0; j < ref_GlobalCMS.get_Analysis_WorkColorLength(i) - 1; j++) {
+                colorArray.push(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i, j, ref_GlobalCMS.getInterpolationSpace())));
+              }
+              break;
+            case "right key":
+              colorArray.push(convertToColorblind(ref_GlobalCMS.getRightKeyColor(i, ref_GlobalCMS.getInterpolationSpace())));
+              for (var j = 0; j < ref_GlobalCMS.get_Analysis_WorkColorLength(i) - 1; j++) {
+                colorArray.push(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i, j, ref_GlobalCMS.getInterpolationSpace())));
+              }
+              break;
+            default:
+              colorArray.push(convertToColorblind(ref_GlobalCMS.getRightKeyColor(i, ref_GlobalCMS.getInterpolationSpace())));
+              for (var j = 0; j < ref_GlobalCMS.get_Analysis_WorkColorLength(i) - 1; j++) {
+                colorArray.push(convertToColorblind(ref_GlobalCMS.get_Analysis_WorkColor(i, j, ref_GlobalCMS.getInterpolationSpace())));
+              }
+          }
         }
-      }
+
+
 
 
   //////////////////////////////////////////////////////////////////////

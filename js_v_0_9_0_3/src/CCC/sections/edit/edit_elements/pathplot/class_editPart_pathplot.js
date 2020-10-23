@@ -62,6 +62,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       this.pathplot_worker_background.addEventListener('message', workerEvent_Draw_PP_Background, false);
     }
 
+    this.updateTransformationMatrices();
     this.pp_3D_init();
   }
 
@@ -263,6 +264,20 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
     this.updatePart(true,true,true);
   }
 
+  updateTransformationMatrices(){
+    if (doWorker && window.Worker){
+      var workerJSON = {};
+      workerJSON['message'] = "setTM";
+      workerJSON['tmXYZ_Selected'] = tmXYZ_Selected;
+      workerJSON['tmXYZ_Selected_Inv'] = tmXYZ_Selected_Inv;
+      workerJSON['tmLMS_Selected'] = tmLMS_Selected;
+      workerJSON['tmLMS_Selected_Inv'] = tmLMS_Selected_Inv;
+      workerJSON['sim_AdaptiveColorblindness'] = sim_AdaptiveColorblindness;
+      workerJSON['doColorblindnessSim'] = doColorblindnessSim;
+      this.pathplot_worker_background.postMessage(workerJSON);
+    }
+  }
+
   updatePathPlotSpace(space){
 
     this.pathplot_space=space;
@@ -274,6 +289,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       /*case optiSection.isSectionOpen():
         tmpID="id_OptiPage_SelectPathplotType";
       break;*/
+      case cbSimSection.isSectionOpen():
+        tmpID="id_cbSim_SelectPathplotType";
+      break;
       default:
           return;
     }
@@ -324,6 +342,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
         this.pathplot_space=document.getElementById("id_OptiPage_SelectOptiSpace").options[document.getElementById("id_OptiPage_SelectOptiSpace").selectedIndex].value;
         if(this.pathplot_space==="de94-ds"||this.pathplot_space==="de2000-ds")
         this.pathplot_space="lab";
+      break;
+      case cbSimSection.isSectionOpen():
+        this.pathplot_space=document.getElementById("id_cbSim_SelectPathplotType").options[document.getElementById("id_cbSim_SelectPathplotType").selectedIndex].value;
       break;
       default:
           return;
@@ -500,9 +521,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       drawRGBBackground(document.getElementById(this.partDivID+"_PP_RG_l0").getContext("2d"),document.getElementById(this.partDivID+"_PP_RB_l0").getContext("2d"),document.getElementById(this.partDivID+"_PP_BG_l0").getContext("2d"),fixedColor);
     }
 
-
-
   }
+
+
 
   pp_rgb_interpolationLine() {
 
@@ -1021,6 +1042,23 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
               break;
           }
         break;
+        case "id_CBSimPage":
+          switch (this.mouseGrappedColorSide) {
+            case 0:
+            // left color
+              cbSimSection.editCMS.setLeftKeyColor(this.mouseGrappedKeyID, this.pp_currentColor);
+              break;
+            case 1:
+              // right color
+              cbSimSection.editCMS.setRightKeyColor(this.mouseGrappedKeyID, this.pp_currentColor);
+              break;
+            case 2:
+              // both colors
+              cbSimSection.editCMS.setLeftKeyColor(this.mouseGrappedKeyID, this.pp_currentColor);
+              cbSimSection.editCMS.setRightKeyColor(this.mouseGrappedKeyID, this.pp_currentColor);
+              break;
+          }
+        break;
       }
 
     } ///// END: else => (mouseGrappedKeyID!=-1)
@@ -1477,6 +1515,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
       case optiSection.isSectionOpen():
         document.getElementById("id_OptiPage_PathplotScreenshot").href=pathplotImgData;
       break;
+      case cbSimSection.isSectionOpen():
+        document.getElementById("id_cbSim_PathplotScreenshot").href=pathplotImgData;
+      break;
     }
 
   }
@@ -1523,11 +1564,9 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
   	this.pp_camera = new THREE.PerspectiveCamera(75,drawWidth /drawHeight, 0.1, 10000);//new THREE.Orthographicthis.pp_camera( 0.5 * drawWidth * 2 / - 2, 0.5 * drawWidth * 2 / 2, drawWidth / 2, drawWidth / - 2, 150, 1000 ); //new THREE.Perspectivethis.pp_camera(75,drawWidth /drawHeight, 0.1, 1000);
     this.pp_renderer.setSize(drawWidth,drawHeight);//(window.innerWidth, window.innerHeight);
 
-
     this.pp_camera.position.x = 0;
     this.pp_camera.position.y = 0;
   	this.pp_camera.position.z = this.pp_camera_minRadius+(this.pp_camera_maxRadius-this.pp_camera_minRadius)/2;
-
 
     this.pp_scene.add( this.pp_colorspaceGroup );
     this.pp_scene.add( this.pp_LineGroup );
@@ -1542,18 +1581,29 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
   }
 
   pp_3D_Animation(){
-    if(editSection.isSectionOpen()){
-      if(editSection.part_Pathplot.pp_doAnimation){
-        editSection.part_Pathplot.pp_animationID = requestAnimationFrame(editSection.part_Pathplot.pp_3D_Animation);
-        editSection.part_Pathplot.pp_3D_Render();
-      }
+
+    switch (true) {
+      case editSection.isSectionOpen():
+        if(editSection.part_Pathplot.pp_doAnimation){
+          editSection.part_Pathplot.pp_animationID = requestAnimationFrame(editSection.part_Pathplot.pp_3D_Animation);
+          editSection.part_Pathplot.pp_3D_Render();
+        }
+      break;
+      case optiSection.isSectionOpen():
+        if(optiSection.part_Pathplot.pp_doAnimation){
+          optiSection.part_Pathplot.pp_animationID = requestAnimationFrame(optiSection.part_Pathplot.pp_3D_Animation);
+          optiSection.part_Pathplot.pp_3D_Render();
+        }
+      break;
+      case cbSimSection.isSectionOpen():
+        if(cbSimSection.part_Pathplot.pp_doAnimation){
+          cbSimSection.part_Pathplot.pp_animationID = requestAnimationFrame(cbSimSection.part_Pathplot.pp_3D_Animation);
+          cbSimSection.part_Pathplot.pp_3D_Render();
+        }
+      break;
     }
-    else if(optiSection.isSectionOpen()){
-      if(optiSection.part_Pathplot.pp_doAnimation){
-        optiSection.part_Pathplot.pp_animationID = requestAnimationFrame(optiSection.part_Pathplot.pp_3D_Animation);
-        optiSection.part_Pathplot.pp_3D_Render();
-      }
-    }
+
+
   }
 
   pp_3D_StartAnimation(){

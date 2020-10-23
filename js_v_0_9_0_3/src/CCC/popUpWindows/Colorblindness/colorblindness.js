@@ -319,8 +319,6 @@ function updateEditPage_ColorBlindness() {
 
         degreeOFColorblindness = parseFloat(document.getElementById("range_DegreeProtanopia").value) / 100;
 
-
-
         //// Calc Protanopia
         //
         //  [ 0 a b ][l]    [a*m+b*s]

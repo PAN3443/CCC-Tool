@@ -73,11 +73,10 @@ class class_Options_Section extends class_Section {
     tmLMS_Selected_Inv = this.get_xyz2lms_INV();
     tmXYZ_Selected = this.get_rgb2xyz();
     tmXYZ_Selected_Inv = this.get_rgb2xyz_INV();
-
   }
 
   updateSection() {
-    console.log(this.settingType,this.settingStatus);
+    
     document.getElementById("id_CT_1_Settings").style.display = "none";
     document.getElementById("id_CT_2_Settings").style.display = "none";
     document.getElementById("id_CDM_Settings").style.display = "none";

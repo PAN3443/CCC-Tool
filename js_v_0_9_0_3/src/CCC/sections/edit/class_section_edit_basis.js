@@ -39,6 +39,11 @@ class class_Edit_Basis_Section extends class_Section {
     }
   }
 
+  updateTransformationMatrices(){
+    this.part_Pathplot.updateTransformationMatrices();
+    this.part_Pathplot.updatePathPlotSpace(this.part_Pathplot.pathplot_space);
+  }
+
   showSection(){
     super.showSection();
     this.resize();
@@ -101,6 +106,12 @@ class class_Edit_Basis_Section extends class_Section {
                   this.editCMS.setBelowColor(color);
                   break;
     }
+  }
+
+  saveCreateProcess(){
+        ///////////////////////////////////
+        this.somethingChanged=true;
+        document.getElementById("id_cbSim_editWarning").style.visibility="visible";
   }
 
   setCMS(cmsPackage){
