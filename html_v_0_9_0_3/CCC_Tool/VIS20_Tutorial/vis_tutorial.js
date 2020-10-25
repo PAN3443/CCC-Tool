@@ -1,16 +1,16 @@
-var currentPos=0;
+var vis2020_currentPos=0;
 var pageProcess=[];
-var numPages =11;
+//var numPages =11;
 
 window.onload = function() {
-    currentPos=0;
+    vis2020_currentPos=0;
     pageProcess=[];
 }
 
 function nextPage(){
-    console.log("Next", currentPos+1);
-    pageProcess.push(currentPos);
-    stylePages(currentPos+1);
+    console.log("Next", vis2020_currentPos,"+",1);
+    pageProcess.push(vis2020_currentPos);
+    stylePages(vis2020_currentPos+1);
 }
 
 function prevPage() {
@@ -22,17 +22,17 @@ function prevPage() {
 
 function goToPage(pageID){
     console.log("Go To",pageID);
-    pageProcess.push(currentPos);
+    pageProcess.push(vis2020_currentPos);
     stylePages(pageID);
 }
 
 function stylePages(pageID){
 
-    if(pageID==currentPos)
+    if(pageID==vis2020_currentPos)
         return;
 
     ///// Stop videos at current page 
-    switch (currentPos) {
+    switch (vis2020_currentPos) {
         case 0:
             pauseIframe("id_vis2020_TutVideo1");
         break;
@@ -41,19 +41,19 @@ function stylePages(pageID){
     ////// Do Sliding /////////
     document.getElementById("id_page_"+pageID).style.left="0vw";
 
-    if(pageID<currentPos)
-        document.getElementById("id_page_"+currentPos).style.left="100vw";
+    if(pageID<vis2020_currentPos)
+        document.getElementById("id_page_"+vis2020_currentPos).style.left="100vw";
     else
-        document.getElementById("id_page_"+currentPos).style.left="-100vw";
+        document.getElementById("id_page_"+vis2020_currentPos).style.left="-100vw";
 
-    console.log("Old Pos", currentPos);
-    currentPos=pageID;
+    console.log("Old Pos", vis2020_currentPos);
+    vis2020_currentPos=pageID;
 
-    console.log("Current Pos", currentPos);
+    console.log("Current Pos", vis2020_currentPos);
     console.log(pageProcess);
     console.log("---------");
 
-    var element =  document.getElementById('id_page_'+currentPos+'_div');
+    var element =  document.getElementById('id_page_'+vis2020_currentPos+'_div');
     if (typeof(element) != 'undefined' && element != null)
     {
         element.scrollTop=0;
@@ -61,7 +61,7 @@ function stylePages(pageID){
     }
 
     ///// Start videos at new page 
-    switch (currentPos) {
+    switch (vis2020_currentPos) {
         /*case 0:
             document.getElementById("id_vis2020_TutVideo1").src="https://www.youtube.com/embed/UBpY6PNZ2c0?autoplay=1";
         break;*/
@@ -90,7 +90,7 @@ function stylePages(pageID){
 
 
 function checkScrollStatus(){
-    var element =  document.getElementById('id_page_'+currentPos+'_div');
+    var element =  document.getElementById('id_page_'+vis2020_currentPos+'_div');
     if (typeof(element) != 'undefined' && element != null)
     {
         var isOverflowing = element.clientHeight < element.scrollHeight; 
