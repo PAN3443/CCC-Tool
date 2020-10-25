@@ -7,6 +7,7 @@ class class_Edit_Part_Basis{
   }
 
   updatePart(){
+
     if(this.partDivID==undefined)
       return false;
 
@@ -16,7 +17,6 @@ class class_Edit_Part_Basis{
 
     /*if(tmpDiv.style.display==="none")
       return false;*/
-
     return this.partIsReady;
   }
 

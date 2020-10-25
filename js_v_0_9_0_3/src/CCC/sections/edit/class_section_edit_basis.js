@@ -45,6 +45,7 @@ class class_Edit_Basis_Section extends class_Section {
   }
 
   showSection(){
+    ref_GlobalCMS = this.editCMS;
     super.showSection();
     this.resize();
     this.doPagePeculiarity();

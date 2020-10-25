@@ -635,7 +635,6 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
   pp_drawOthers(calcBackground, drawInterpolationLine, initLineChart) {
 
-
     if (initLineChart)
       this.pp_init_LineChart();
 
@@ -1005,8 +1004,7 @@ class class_Edit_Part_Pathplot extends class_Edit_Part_Basis {
 
       this.pp_currentColor = newColor;
 
-      this.update_CoordID()
-
+      this.update_CoordID();
       switch (this.parentID) {
         case "id_EditPage":
           switch (this.mouseGrappedColorSide) {
