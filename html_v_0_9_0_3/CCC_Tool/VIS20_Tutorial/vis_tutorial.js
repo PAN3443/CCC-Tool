@@ -26,6 +26,9 @@ function goToPage(pageID){
 
 function stylePages(pageID){
 
+    console.log(pageID,pageProcess);
+    
+
     if(pageID==currentPos)
         return;
 
@@ -110,5 +113,3 @@ function pauseIframe(id){
     document.getElementById(id).src = iframeSrc;
 }
 
-
-//<div id="id_page_1_div" style="margin-top: auto; width: 100%; height:75vh; overflow-y: auto; display: flex;"></div>
