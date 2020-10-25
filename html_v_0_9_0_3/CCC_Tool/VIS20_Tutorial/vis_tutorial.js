@@ -4,6 +4,7 @@ var pageProcess=[];
 
 window.onload = function() {
     vis2020_currentPos=0;
+    console.log("WindLoad",vis2020_currentPos);
     pageProcess=[];
 }
 
