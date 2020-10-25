@@ -134,6 +134,31 @@ class class_Edit_CBSim_Section extends class_Edit_Basis_Section {
       [0, 0, 1]
     ];
 
+
+    document.getElementById("id_cbSim_TransferMatrix00").innerHTML = "1";
+    document.getElementById("id_cbSim_TransferMatrix01").innerHTML = "0";
+    document.getElementById("id_cbSim_TransferMatrix02").innerHTML = "0";
+
+    document.getElementById("id_cbSim_TransferMatrix10").innerHTML = "0";
+    document.getElementById("id_cbSim_TransferMatrix11").innerHTML = "1";
+    document.getElementById("id_cbSim_TransferMatrix12").innerHTML = "0";
+
+    document.getElementById("id_cbSim_TransferMatrix20").innerHTML = "0";
+    document.getElementById("id_cbSim_TransferMatrix21").innerHTML = "0";
+    document.getElementById("id_cbSim_TransferMatrix22").innerHTML = "1";
+
+    document.getElementById("id_cbSim_TransferMatrix00").title = "1";
+    document.getElementById("id_cbSim_TransferMatrix01").title = "0";
+    document.getElementById("id_cbSim_TransferMatrix02").title = "0";
+
+    document.getElementById("id_cbSim_TransferMatrix10").title = "0";
+    document.getElementById("id_cbSim_TransferMatrix11").title = "1";
+    document.getElementById("id_cbSim_TransferMatrix12").title = "0";
+
+    document.getElementById("id_cbSim_TransferMatrix20").title = "0";
+    document.getElementById("id_cbSim_TransferMatrix21").title = "0";
+    document.getElementById("id_cbSim_TransferMatrix22").title = "1";
+
     switch (type) {
       case "Protanomaly":
         var degree = document.getElementById("id_cbSim_Protanomaly_InputDegree").value;
@@ -171,25 +196,9 @@ class class_Edit_CBSim_Section extends class_Edit_Basis_Section {
           document.getElementById("id_cbSim_TransferMatrix01").innerHTML = degreeOFColorblindness + "*" + a.toFixed(5);
           document.getElementById("id_cbSim_TransferMatrix02").innerHTML = degreeOFColorblindness + "*" + b.toFixed(5);
 
-          document.getElementById("id_cbSim_TransferMatrix10").innerHTML = "0";
-          document.getElementById("id_cbSim_TransferMatrix11").innerHTML = "1";
-          document.getElementById("id_cbSim_TransferMatrix12").innerHTML = "0";
-
-          document.getElementById("id_cbSim_TransferMatrix20").innerHTML = "0";
-          document.getElementById("id_cbSim_TransferMatrix21").innerHTML = "0";
-          document.getElementById("id_cbSim_TransferMatrix22").innerHTML = "1";
-
           document.getElementById("id_cbSim_TransferMatrix00").title = "1-" + degreeOFColorblindness;
           document.getElementById("id_cbSim_TransferMatrix01").title = degreeOFColorblindness + "*" + a.toFixed(5);
           document.getElementById("id_cbSim_TransferMatrix02").title = degreeOFColorblindness + "*" + b.toFixed(5);
-
-          document.getElementById("id_cbSim_TransferMatrix10").title = "0";
-          document.getElementById("id_cbSim_TransferMatrix11").title = "1";
-          document.getElementById("id_cbSim_TransferMatrix12").title = "0";
-
-          document.getElementById("id_cbSim_TransferMatrix20").title = "0";
-          document.getElementById("id_cbSim_TransferMatrix21").title = "0";
-          document.getElementById("id_cbSim_TransferMatrix22").title = "1";
 
       break;
       case "Deuteranomaly":
@@ -226,29 +235,14 @@ class class_Edit_CBSim_Section extends class_Edit_Basis_Section {
             [0, 0, 1]
           ];
 
-          document.getElementById("id_cbSim_TransferMatrix00").innerHTML = "1";
-          document.getElementById("id_cbSim_TransferMatrix01").innerHTML = "0";
-          document.getElementById("id_cbSim_TransferMatrix02").innerHTML = "0";
-
           document.getElementById("id_cbSim_TransferMatrix10").innerHTML = degreeOFColorblindness + "*" + a.toFixed(5);
           document.getElementById("id_cbSim_TransferMatrix11").innerHTML = "1-" + degreeOFColorblindness;
           document.getElementById("id_cbSim_TransferMatrix12").innerHTML = degreeOFColorblindness + "*" + b.toFixed(5);
-
-          document.getElementById("id_cbSim_TransferMatrix20").innerHTML = "0";
-          document.getElementById("id_cbSim_TransferMatrix21").innerHTML = "0";
-          document.getElementById("id_cbSim_TransferMatrix22").innerHTML = "1";
-
-          document.getElementById("id_cbSim_TransferMatrix00").title = "1";
-          document.getElementById("id_cbSim_TransferMatrix01").title = "0";
-          document.getElementById("id_cbSim_TransferMatrix02").title = "0";
 
           document.getElementById("id_cbSim_TransferMatrix10").title = degreeOFColorblindness + "*" + a.toFixed(5);
           document.getElementById("id_cbSim_TransferMatrix11").title = "1-" + degreeOFColorblindness;
           document.getElementById("id_cbSim_TransferMatrix12").title = degreeOFColorblindness + "*" + b.toFixed(5);
 
-          document.getElementById("id_cbSim_TransferMatrix20").title = "0";
-          document.getElementById("id_cbSim_TransferMatrix21").title = "0";
-          document.getElementById("id_cbSim_TransferMatrix22").title = "1";
 
       break;
       case "Tritanomaly":
@@ -285,25 +279,9 @@ class class_Edit_CBSim_Section extends class_Edit_Basis_Section {
             [a * degreeOFColorblindness, b * degreeOFColorblindness, 1 - degreeOFColorblindness]
           ];
 
-          document.getElementById("id_cbSim_TransferMatrix00").innerHTML = "1";
-          document.getElementById("id_cbSim_TransferMatrix01").innerHTML = "0";
-          document.getElementById("id_cbSim_TransferMatrix02").innerHTML = "0";
-
-          document.getElementById("id_cbSim_TransferMatrix10").innerHTML = "0";
-          document.getElementById("id_cbSim_TransferMatrix11").innerHTML = "1";
-          document.getElementById("id_cbSim_TransferMatrix12").innerHTML = "0";
-
           document.getElementById("id_cbSim_TransferMatrix20").innerHTML = degreeOFColorblindness + "*" + a.toFixed(5);
           document.getElementById("id_cbSim_TransferMatrix21").innerHTML = degreeOFColorblindness + "*" + b.toFixed(5);
           document.getElementById("id_cbSim_TransferMatrix22").innerHTML = "1-" + degreeOFColorblindness;
-
-          document.getElementById("id_cbSim_TransferMatrix00").title = "1";
-          document.getElementById("id_cbSim_TransferMatrix01").title = "0";
-          document.getElementById("id_cbSim_TransferMatrix02").title = "0";
-
-          document.getElementById("id_cbSim_TransferMatrix10").title = "0";
-          document.getElementById("id_cbSim_TransferMatrix11").title = "1";
-          document.getElementById("id_cbSim_TransferMatrix12").title = "0";
 
           document.getElementById("id_cbSim_TransferMatrix20").title = degreeOFColorblindness + "*" + a.toFixed(5);
           document.getElementById("id_cbSim_TransferMatrix21").title = degreeOFColorblindness + "*" + b.toFixed(5);
