@@ -13,11 +13,15 @@
     <div style="width: 25vw; background: var(--main-sepArea-bg); border-right: 0.2vw solid var(--main-sepArea-border); box-sizing: border-box; display:flex; flex-direction:column;">
       <h1 style="height:10vh; line-height:5vh; margin-top:2vh; font-size:3.5vh; font-weight: bold; color:var(--main-sepArea-font-color); vertical-align:middle;">Color-Blindness <br> Simulator</h1>
 
-      <select id="id_cbSim_SelectCBType" onchange="cbSimSection.changeCBType()" style="width: 100%; max-width: 100%; font-size: 2vh; height: 3vh; line-height:3vh; margin-top:3vh; margin-left:0vw; font-family: var(--font-family-SpecialText);">
-            <option value="Anomalous Trichomacy" style="font-family: var(--font-family-SpecialText);">Anomalous Trichomacy (Dichromatism)</option>
-            <option disabled value="Monochromatic" style="font-family: var(--font-family-SpecialText);">Achromatopsia (Monochromatism)</option>
-            <option disabled value="Custom"  style="font-family: var(--font-family-SpecialText);" selected>Custom</option>
-      </select>
+      <div style="display: flex; width: 100%; margin-top:3vh; ">
+        <p style="color:var(--main-sepArea-font-color); margin: auto; font-size: 2vh; height: 3vh; line-height:3vh; font-family: var(--font-family-SpecialText); max-width: 30%;"> Type:</p>
+        <select id="id_cbSim_SelectCBType" onchange="cbSimSection.changeCBType()" style="width: 70%; max-width: 70%; font-size: 2vh; height: 3vh; line-height:3vh; font-family: var(--font-family-SpecialText);">
+          <option value="Anomalous Trichomacy" style="font-family: var(--font-family-SpecialText);">Anomalous Trichomacy (Dichromatism)</option>
+          <option disabled value="Monochromatic" style="font-family: var(--font-family-SpecialText);">Achromatopsia (Monochromatism)</option>
+          <option disabled value="Custom"  style="font-family: var(--font-family-SpecialText);" selected>Custom</option>
+        </select>
+      </div>
+      
 
       <div style="background: var(--main-second-sepArea-bg);margin-top:3vh; padding-top:3vh; padding-bottom:3vh; max-height:60vh; overflow-y:auto;">
         <div id="id_cbSim_Anomalous_Trichomacy" style="width:100%; display:none; flex-direction:column;">
@@ -50,8 +54,8 @@
         </div>
       </div>
 
-
-
+      <button class="class_coloredButton_Dark" onclick="document.getElementById('id_PopUp_ColorBlindnessWindow').style.display='flex';" title="Show Transfer Matrix" style=" height:5vh; max-width: 23vw; margin:auto;">Show Transfer Matrix</button>
+      
     </div>
 
     <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -148,3 +152,6 @@
   </div>
 
 </div>
+
+
+

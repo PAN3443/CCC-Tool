@@ -4,7 +4,83 @@
 -----------------------------------------------
 -->
 
-<div style=" height:auto; background:var(--main-bg-color); width:60vw; border: 0.2vh solid black; margin:auto;">
+
+  <div style="max-width: 80vw; background:var(--main-bg-color); margin:auto; display:flex; flex-direction: column;">
+    
+    <h2 class="class_popupWindow_Label"> Color-Blindness Transfer-Matrix </h2>
+
+    <div style="width:100%; margin:auto; display:flex; padding: 2vh;">  
+    <svg class="class_svgBrackets" style="height: 15vh; width: 2vw; margin-left:auto;">
+      <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+      <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+      <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+    </svg>
+
+    <div style="height:100%; display:flex; flex-direction:column;">
+      <p id="id_cbSim_TransferMatrix00" style="line-height:5vh; max-width: 15vw; font-size: 2.5vh; margin-right:1vw;">1</p>
+      <p id="id_cbSim_TransferMatrix10" style="line-height:5vh; max-width: 15vw; font-size: 2.5vh; margin-right:1vw;">0</p>
+      <p id="id_cbSim_TransferMatrix20" style="line-height:5vh; max-width: 15vw; font-size: 2.5vh; margin-right:1vw;">0</p>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column;">
+      <p id="id_cbSim_TransferMatrix01" style="line-height:5vh; max-width: 15vw; font-size: 2.5vh; margin-right:1vw;">0</p>
+      <p id="id_cbSim_TransferMatrix11" style="line-height:5vh; max-width: 15vw; font-size: 2.5vh; margin-right:1vw;">1</p>
+      <p id="id_cbSim_TransferMatrix21" style="line-height:5vh; max-width: 15vw; font-size: 2.5vh; margin-right:1vw;">0</p>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column;">
+      <p id="id_cbSim_TransferMatrix02" style="line-height:5vh; max-width: 15vw; font-size: 2.5vh; ">0</p>
+      <p id="id_cbSim_TransferMatrix12" style="line-height:5vh; max-width: 15vw; font-size: 2.5vh; ">0</p>
+      <p id="id_cbSim_TransferMatrix22" style="line-height:5vh; max-width: 15vw; font-size: 2.5vh; ">1</p>
+    </div>
+
+    <svg class="class_svgBrackets" style="height: 15vh; width: 2vw;">
+      <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+      <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+      <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+    </svg>
+    <svg class="class_svgBrackets" style="height: 15vh; width: 2vw;">
+      <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+      <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+      <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+    </svg>
+
+    <div style="height:100%; display:flex; flex-direction:column;">
+      <p  style="line-height:5vh; font-size: 2.5vh;">L</p>
+      <p  style="line-height:5vh; font-size: 2.5vh;">M</p>
+      <p  style="line-height:5vh; font-size: 2.5vh;">S</p>
+    </div>
+
+    <svg class="class_svgBrackets" style="height: 15vh; width: 2vw;">
+      <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+      <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+      <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+    </svg>
+    <p style="line-height:5vh; font-size: 2.5vh; margin-top:auto; margin-bottom:auto;"> = </p>
+    <svg class="class_svgBrackets" style="height: 15vh; width: 2vw;">
+      <line x1="10%" y1="0%" x2="10%" y2="100%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+      <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+      <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+    </svg>
+
+    <div style="height:100%; display:flex; flex-direction:column;">
+      <p style="line-height:5vh; font-size: 2.5vh;">L'</p>
+      <p style="line-height:5vh; font-size: 2.5vh;">M'</p>
+      <p style="line-height:5vh; font-size: 2.5vh;">S'</p>
+    </div>
+    <svg class="class_svgBrackets" style="height: 15vh; width: 2vw; margin-right:auto;">
+      <line x1="90%" y1="0%" x2="90%" y2="100%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+      <line x1="10%" y1="0%" x2="90%" y2="0%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+      <line x1="10%" y1="100%" x2="90%" y2="100%" style="stroke:var(--main-font-color); stroke-width:0.2vw" />
+    </svg> 
+  </div>
+
+  <hr style="color:var(--main-font-color); width: 100%; margin-top: 1vh; margin-bottom: 1vh;">
+  <p style=" text-align:left; width:80%; margin-left:10%; margin-top:1vh; margin-bottom:1vh;"> Info: The transfer matrix values for color blindness simulation depending on the selected transfer-matrix for the RGB to XYZ conversion and the selected transfer-matrix for XYZ to LMS conversion (see Color Transformation Settings). </p>
+
+  <button class="class_coloredButton " onclick="document.getElementById('id_PopUp_ColorBlindnessWindow').style.display='none';" style="height:5vh; min-width: 30vw; width: 100%; margin:auto; margin-bottom: 0vw; ">Close</button>
+  </div>
+
+
+<!--div style=" height:auto; background:var(--main-bg-color); width:60vw; border: 0.2vh solid black; margin:auto;">
 
   <h2 class="class_popupWindow_Label"> Color-Blindness Settings </h2>
 
@@ -74,7 +150,7 @@
       </div>
 
 
-      <!--div id="Monochromatic_View_Div" style="width:100%; display:none;">
+      <div id="Monochromatic_View_Div" style="width:100%; display:none;">
             <div style="display:flex;">
                 <input id="id_radio_Achromatopsia" style="margin-left:auto;" type="radio" name="selectColorblindness" value="0">
                 <p style=" text-align:left; height:30px; line-height:30px; font-size:18px; vertical-align:middle; margin-left:5%; margin-right:auto; width:50%;"> Achromatopsia </p>
@@ -86,7 +162,7 @@
             </div>
 
 
-       </div-->
+       </div>
 
 
       <div style="width: 100%; padding-bottom:2vh;">
@@ -174,4 +250,4 @@
         <button class="class_coloredButton" onclick="closeColorBlindnessSettings()" title="accept" style=" width: 60%; margin:auto;">Accept</button>
       </div>
 
-</div>
+</div-->
