@@ -2,14 +2,7 @@ var vis2020_currentPos=0;
 var pageProcess=[];
 //var numPages =11;
 
-window.onload = function() {
-    vis2020_currentPos=0;
-    console.log("WindLoad",vis2020_currentPos);
-    pageProcess=[];
-}
-
 function nextPage(){
-    console.log("Next", vis2020_currentPos,"+",1);
     pageProcess.push(vis2020_currentPos);
     stylePages(vis2020_currentPos+1);
 }
@@ -22,7 +15,6 @@ function prevPage() {
 }
 
 function goToPage(pageID){
-    console.log("Go To",pageID);
     pageProcess.push(vis2020_currentPos);
     stylePages(pageID);
 }
@@ -47,12 +39,7 @@ function stylePages(pageID){
     else
         document.getElementById("id_page_"+vis2020_currentPos).style.left="-100vw";
 
-    console.log("Old Pos", vis2020_currentPos);
     vis2020_currentPos=pageID;
-
-    console.log("Current Pos", vis2020_currentPos);
-    console.log(pageProcess);
-    console.log("---------");
 
     var element =  document.getElementById('id_page_'+vis2020_currentPos+'_div');
     if (typeof(element) != 'undefined' && element != null)
