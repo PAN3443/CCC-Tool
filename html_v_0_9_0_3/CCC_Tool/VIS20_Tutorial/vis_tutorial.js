@@ -8,6 +8,7 @@ window.onload = function() {
 }
 
 function nextPage(){
+    console.log("Next", currentPos+1);
     pageProcess.push(currentPos);
     stylePages(currentPos+1);
 }
@@ -20,14 +21,12 @@ function prevPage() {
 }
 
 function goToPage(pageID){
+    console.log("Go To",pageID);
     pageProcess.push(currentPos);
     stylePages(pageID);
 }
 
 function stylePages(pageID){
-
-    console.log(pageID,pageProcess);
-    
 
     if(pageID==currentPos)
         return;
@@ -47,7 +46,12 @@ function stylePages(pageID){
     else
         document.getElementById("id_page_"+currentPos).style.left="-100vw";
 
+    console.log("Old Pos", currentPos);
     currentPos=pageID;
+
+    console.log("Current Pos", currentPos);
+    console.log(pageProcess);
+    console.log("---------");
 
     var element =  document.getElementById('id_page_'+currentPos+'_div');
     if (typeof(element) != 'undefined' && element != null)
