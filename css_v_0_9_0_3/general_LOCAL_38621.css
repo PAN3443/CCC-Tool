@@ -1,0 +1,318 @@
+/************************************************************
+                  Text
+************************************************************/
+
+html {
+  color: #222;
+  font-size: 1em;
+  line-height: 1.4;
+  font-family: sans-serif; /* 1 */
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+/**
+  * Remove default margin.
+  */
+
+body {
+  margin: 0;
+}
+
+a:link {
+  font-family: var(--font-family-text);
+  color: var(--link-color);
+}
+
+/* visited link */
+a:visited {
+  color: var(--link-color-visited);
+}
+
+/* mouse over link */
+a:hover {
+  color: var(--link-color-hover);
+}
+
+/* selected link */
+a:active {
+  color: var(--link-color-active);
+}
+
+.class_dropDownContent {
+  /*padding-top: 1vh;
+  padding-bottom: 1vh;
+  padding-left: 1vw;
+  padding-right: 1vw;*/
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 5;
+}
+
+.class_img_container {
+  background-image: url("");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.class_slidingDiv_WH {
+  overflow: hidden;
+  -webkit-transition: width 3s, height 3s; /* For Safari 3.1 to 6.0 */
+  transition: width 3s, height 3s;
+}
+
+.class_slidingDiv_LT {
+  overflow: hidden;
+  -webkit-transition: left 3s, top 3s; /* For Safari 3.1 to 6.0 */
+  transition: left 3s, top 3s;
+}
+
+.class_slide {
+  -webkit-animation: slide 0.5s forwards;
+  -webkit-animation-delay: 2s;
+  animation: slide 0.5s forwards;
+  animation-delay: 2s;
+}
+
+<<<<<<< Updated upstream
+ .coopImg{
+   height: 18vh;
+   width: 15vw;
+   /*height: 8vh;*/
+   /*max-width: 10%;*/
+   /*max-height:10vh;*/
+   margin-top:auto;
+   margin-bottom:auto;
+   margin-left:auto;/*2vw;*/
+   display: flex;
+ }
+
+ .coopImg img{
+   width:100%;
+   height: 100%;
+   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+   margin: auto;
+   -o-object-fit: contain;
+   object-fit: contain;
+   cursor: pointer;
+ }
+
+ .coopImg:hover img{
+   transform: scale(0.95);
+ }
+
+
+ hr{
+   color: var(--main-font-color);
+ }
+
+ /*.standardText{*/
+ li,p{
+   font-family: var(--font-family-text);
+   font-size: var(--font-size-normal);
+   line-height: var(--line-height-normal);
+   color:var(--main-font-color);
+   vertical-align:middle;
+   margin:0vw;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: pre-line;
+   /*font-family:courier;*/
+ }
+
+ h1{
+   width:100%;
+   text-align: center;
+   font-family: var(--font-family-section);
+   font-size: var(--font-size-h1);
+   line-height: var(--line-height-h1);
+   color:var(--main-font-color);
+   vertical-align:middle;
+   margin:0vw;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   font-weight:bold;
+ }
+
+ h2{
+   font-family: var(--font-family-section);
+   font-size: var(--font-size-h2);
+   line-height: var(--line-height-h2);
+   color:var(--main-font-color);
+   vertical-align:middle;
+   margin:0vw;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   font-weight:bold;
+ }
+
+
+ /*********************************************************************************
+=======
+.coopImg {
+  max-height: 18vh;
+  max-width: 15vw;
+  /*height: 8vh;*/
+  /*max-width: 10%;*/
+  /*max-height:10vh;*/
+  cursor: pointer;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto; /*2vw;*/
+  display: flex;
+}
+
+.coopImg img {
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+  margin: auto;
+}
+
+.coopImg:hover img {
+  transform: scale(0.95);
+}
+
+hr {
+  color: var(--main-font-color);
+}
+
+/*.standardText{*/
+li,
+p {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-normal);
+  line-height: var(--line-height-normal);
+  color: var(--main-font-color);
+  vertical-align: middle;
+  margin: 0vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /*white-space: pre-line;*/
+  /*font-family:courier;*/
+}
+
+h1 {
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-family-section);
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-h1);
+  color: var(--main-font-color);
+  vertical-align: middle;
+  margin: 0vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+}
+
+h2 {
+  font-family: var(--font-family-section);
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-h2);
+  color: var(--main-font-color);
+  vertical-align: middle;
+  margin: 0vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+}
+
+/*********************************************************************************
+>>>>>>> Stashed changes
+ ************* Scroll bar
+ ****************************************************************************/
+/* width */
+::-webkit-scrollbar {
+  width: 1vw;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-track-bg);
+  box-shadow: inset 0 0 0.25vw var(--scrollbar-track-shadow);
+  /*border-radius: 0.5vw;*/
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thump-bg);
+  margin-left: 0.25vw;
+  width: 0.5vw;
+  border-radius: 0.25vw;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thump-bg-hover);
+}
+
+/**************************************************************************/
+
+/*.row{
+     width: 100%;
+     display: flex;
+  }*/
+
+.class_OptionDiv {
+  background: var(--main-sepArea-bg);
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  border: 0.2vh solid var(--main-sepArea-border);
+  /*box-shadow: 0 0.25vh 0.25vh 0 rgba(0, 0, 0, 0.2), 0 0.15vh 0.15vh 0 rgba(0, 0, 0, 0.25);*/
+}
+
+.class_OptionDiv p {
+  color: var(--main-sepArea-font-color);
+}
+
+.class_OptionDiv h1 {
+  color: var(--main-sepArea-font-color);
+}
+
+.class_OptionDiv h2 {
+  color: var(--main-sepArea-font-color);
+}
+
+.class_OptionDiv label {
+  color: var(--main-sepArea-font-color);
+}
+
+.class_OptionDiv a:link {
+  color: var(--main-sepArea-link-color);
+}
+
+/* visited link */
+.class_OptionDiv a:visited {
+  color: var(--main-sepArea-link-color-visited);
+}
+
+/* mouse over link */
+.class_OptionDiv a:hover {
+  color: var(--main-sepArea-link-color-hover);
+}
+
+/* selected link */
+.class_OptionDiv a:active {
+  color: var(--main-sepArea-link-color-active);
+}
+
+.class_figureCaption {
+  width: 100%;
+  font-family: var(--font-family-figCaption);
+  font-size: var(--font-size-normal);
+  line-height: var(--line-height-normal);
+  color: var(--main-font-color);
+  vertical-align: middle;
+  text-align: center;
+  margin: 0vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-line;
+}
