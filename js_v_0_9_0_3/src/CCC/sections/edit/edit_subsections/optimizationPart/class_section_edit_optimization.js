@@ -30,10 +30,7 @@ function onSliderInputSmoothMax() {
   document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMin").max = value;
 
   //document.getElementById("id_OptiPage_LocalSmooth_Min_Div").style.visibility ="hidden";
-  drawMaxAngle(
-    "id_OptiPage_LocalSmooth_MaxAngleCanvas",
-    degree360ToRad(degree)
-  );
+  drawMaxAngle();
 }
 
 function drawMinAngle() {
@@ -57,55 +54,65 @@ function drawMinAngle() {
       : Math.round(canvas.height * 0.45);
 
   // full circe background
-  context.fillStyle = getComputedStyle(
-    document.documentElement
-  ).getPropertyValue("--main-second-bg-color");
-  context.beginPath();
-  context.arc(middle_X, middle_Y, radius, 0, 2 * Math.PI);
-  context.closePath();
-  context.fill();
+  smooth_drawCircle(
+    context,
+    middle_X,
+    middle_Y,
+    radius,
+    2 * Math.PI,
+    false,
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--main-second-bg-color"
+    )
+  );
 
-  context.strokeStyle = getComputedStyle(
-    document.documentElement
-  ).getPropertyValue("--main-sepArea-border");
-
-  context.fillStyle = getComputedStyle(
-    document.documentElement
-  ).getPropertyValue("--general-check-color");
-  context.beginPath();
-  context.moveTo(middle_X, middle_Y);
-  context.arc(middle_X, middle_Y, radius, 0, Math.PI);
-  context.lineTo(middle_X, middle_Y);
-  context.closePath();
-  context.fill();
-  context.stroke();
+  smooth_drawCircle(
+    context,
+    middle_X,
+    middle_Y,
+    radius,
+    Math.PI,
+    true,
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--general-check-color"
+    )
+  );
 
   var angleHalf = angle / 2;
-  context.fillStyle = getComputedStyle(
-    document.documentElement
-  ).getPropertyValue("--general-warning-color");
-  context.beginPath();
-  context.moveTo(middle_X, middle_Y);
-  context.arc(middle_X, middle_Y, radius, 0, Math.PI - angleHalf);
-  context.lineTo(middle_X, middle_Y);
-  context.closePath();
-  context.fill();
-  context.stroke();
+  smooth_drawCircle(
+    context,
+    middle_X,
+    middle_Y,
+    radius,
+    Math.PI - angleHalf,
+    true,
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--general-warning-color"
+    )
+  );
 
-  context.fillStyle = getComputedStyle(
-    document.documentElement
-  ).getPropertyValue("--general-check-color");
-  context.beginPath();
-  context.moveTo(middle_X, middle_Y);
-  context.arc(middle_X, middle_Y, radius, 0, angleHalf);
-  context.lineTo(middle_X, middle_Y);
-  context.closePath();
-  context.fill();
-  context.stroke();
+  smooth_drawCircle(
+    context,
+    middle_X,
+    middle_Y,
+    radius,
+    angleHalf,
+    true,
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--general-check-color"
+    )
+  );
 }
 
 function drawMaxAngle(id, angle) {
-  const canvas = document.getElementById(id);
+  var angle =
+    Math.PI -
+    document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").value *
+      Math.PI;
+
+  const canvas = document.getElementById(
+    "id_OptiPage_LocalSmooth_MaxAngleCanvas"
+  );
   canvas.width = 250;
   canvas.height = 250;
 
@@ -119,17 +126,165 @@ function drawMaxAngle(id, angle) {
       : Math.round(canvas.height * 0.45);
 
   // full circe background
-  context.fillStyle = getComputedStyle(
-    document.documentElement
-  ).getPropertyValue("--main-second-bg-color");
-  context.beginPath();
-  context.arc(middle_X, middle_Y, radius, 0, 2 * Math.PI);
-  context.closePath();
-  context.fill();
+  // full circe background
+  smooth_drawCircle(
+    context,
+    middle_X,
+    middle_Y,
+    radius,
+    2 * Math.PI,
+    false,
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--main-second-bg-color"
+    )
+  );
 
-  context.fillStyle = getComputedStyle(
-    document.documentElement
-  ).getPropertyValue("--general-active-color");
+  smooth_drawCircle(
+    context,
+    middle_X,
+    middle_Y,
+    radius,
+    Math.PI,
+    true,
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--general-warning-color"
+    )
+  );
+
+  var angleHalf = angle / 2;
+  smooth_drawCircle(
+    context,
+    middle_X,
+    middle_Y,
+    radius,
+    Math.PI - angleHalf,
+    true,
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--general-check-color"
+    )
+  );
+
+  smooth_drawCircle(
+    context,
+    middle_X,
+    middle_Y,
+    radius,
+    angleHalf,
+    true,
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--general-warning-color"
+    )
+  );
+}
+
+function drawMergeAngle(id, angle) {
+  var angle =
+    Math.PI -
+    document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").value *
+      Math.PI;
+
+  const canvas = document.getElementById(
+    "id_OptiPage_LocalSmooth_MaxAngleCanvas"
+  );
+  canvas.width = 250;
+  canvas.height = 250;
+
+  const context = canvas.getContext("2d");
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  const middle_X = Math.round(canvas.width / 2);
+  const middle_Y = Math.round(canvas.height / 2);
+  const radius =
+    Math.round(canvas.width * 0.45) <= Math.round(canvas.height * 0.45)
+      ? Math.round(canvas.width * 0.45)
+      : Math.round(canvas.height * 0.45);
+
+  // full circe background
+  // full circe background
+  smooth_drawCircle(
+    context,
+    middle_X,
+    middle_Y,
+    radius,
+    2 * Math.PI,
+    false,
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--main-second-bg-color"
+    )
+  );
+
+  smooth_drawCircle(
+    context,
+    middle_X,
+    middle_Y,
+    radius,
+    Math.PI,
+    true,
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--general-warning-color"
+    )
+  );
+
+  var angleHalf = angle / 2;
+  smooth_drawCircle(
+    context,
+    middle_X,
+    middle_Y,
+    radius,
+    Math.PI - angleHalf,
+    true,
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--general-check-color"
+    )
+  );
+
+  smooth_drawCircle(
+    context,
+    middle_X,
+    middle_Y,
+    radius,
+    angleHalf,
+    true,
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--general-warning-color"
+    )
+  );
+
+  var angleHalf = angle / 2;
+  smooth_drawCircle(
+    context,
+    middle_X,
+    middle_Y,
+    radius,
+    Math.PI - angleHalf,
+    true,
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--general-warning-color"
+    )
+  );
+
+  smooth_drawCircle(
+    context,
+    middle_X,
+    middle_Y,
+    radius,
+    angleHalf,
+    true,
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--general-check-color"
+    )
+  );
+}
+
+function smooth_drawCircle(
+  context,
+  middle_X,
+  middle_Y,
+  radius,
+  angle,
+  doStroke,
+  fillColor
+) {
+  context.fillStyle = fillColor;
   context.strokeStyle = getComputedStyle(
     document.documentElement
   ).getPropertyValue("--main-sepArea-border");
@@ -139,7 +294,7 @@ function drawMaxAngle(id, angle) {
   context.lineTo(middle_X, middle_Y);
   context.closePath();
   context.fill();
-  context.stroke();
+  if (doStroke) context.stroke();
 }
 
 class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
@@ -577,6 +732,10 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
           "id_OptiPage_SelectAnalysisType"
         ).selectedIndex = 3;
         this.part_Analysis.stylePart();
+
+        drawMinAngle();
+        drawMaxAngle();
+        drawMergeAngle();
         break;
       default:
         return;

@@ -77,88 +77,12 @@ a:active {
   animation-delay: 2s;
 }
 
-<<<<<<< Updated upstream
- .coopImg{
-   height: 18vh;
-   width: 15vw;
-   /*height: 8vh;*/
-   /*max-width: 10%;*/
-   /*max-height:10vh;*/
-   margin-top:auto;
-   margin-bottom:auto;
-   margin-left:auto;/*2vw;*/
-   display: flex;
- }
-
- .coopImg img{
-   width:100%;
-   height: 100%;
-   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-   margin: auto;
-   -o-object-fit: contain;
-   object-fit: contain;
-   cursor: pointer;
- }
-
- .coopImg:hover img{
-   transform: scale(0.95);
- }
-
-
- hr{
-   color: var(--main-font-color);
- }
-
- /*.standardText{*/
- li,p{
-   font-family: var(--font-family-text);
-   font-size: var(--font-size-normal);
-   line-height: var(--line-height-normal);
-   color:var(--main-font-color);
-   vertical-align:middle;
-   margin:0vw;
-   overflow: hidden;
-   text-overflow: ellipsis;
-   white-space: pre-line;
-   /*font-family:courier;*/
- }
-
- h1{
-   width:100%;
-   text-align: center;
-   font-family: var(--font-family-section);
-   font-size: var(--font-size-h1);
-   line-height: var(--line-height-h1);
-   color:var(--main-font-color);
-   vertical-align:middle;
-   margin:0vw;
-   overflow: hidden;
-   text-overflow: ellipsis;
-   font-weight:bold;
- }
-
- h2{
-   font-family: var(--font-family-section);
-   font-size: var(--font-size-h2);
-   line-height: var(--line-height-h2);
-   color:var(--main-font-color);
-   vertical-align:middle;
-   margin:0vw;
-   overflow: hidden;
-   text-overflow: ellipsis;
-   font-weight:bold;
- }
-
-
- /*********************************************************************************
-=======
 .coopImg {
-  max-height: 18vh;
-  max-width: 15vw;
+  height: 18vh;
+  width: 15vw;
   /*height: 8vh;*/
   /*max-width: 10%;*/
   /*max-height:10vh;*/
-  cursor: pointer;
   margin-top: auto;
   margin-bottom: auto;
   margin-left: auto; /*2vw;*/
@@ -166,11 +90,13 @@ a:active {
 }
 
 .coopImg img {
-  max-width: 100%;
+  width: 100%;
   height: 100%;
-  max-height: 100%;
   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
   margin: auto;
+  -o-object-fit: contain;
+  object-fit: contain;
+  cursor: pointer;
 }
 
 .coopImg:hover img {
@@ -223,7 +149,6 @@ h2 {
 }
 
 /*********************************************************************************
->>>>>>> Stashed changes
  ************* Scroll bar
  ****************************************************************************/
 /* width */
