@@ -14,6 +14,7 @@ function onSliderInputSmoothMin() {
 
   //document.getElementById("id_OptiPage_LocalSmooth_Max_Div").style.visibility ="hidden";
   drawMinAngle();
+  drawMergeAngle();
 }
 
 function onSliderInputSmoothMax() {
@@ -31,6 +32,7 @@ function onSliderInputSmoothMax() {
 
   //document.getElementById("id_OptiPage_LocalSmooth_Min_Div").style.visibility ="hidden";
   drawMaxAngle();
+  drawMergeAngle();
 }
 
 function drawMinAngle() {
@@ -104,7 +106,7 @@ function drawMinAngle() {
   );
 }
 
-function drawMaxAngle(id, angle) {
+function drawMaxAngle() {
   var angle =
     Math.PI -
     document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").value *
@@ -177,17 +179,31 @@ function drawMaxAngle(id, angle) {
   );
 }
 
-function drawMergeAngle(id, angle) {
-  var angle =
-    Math.PI -
-    document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").value *
-      Math.PI;
+function drawMergeAngle() {
+  var angleMinHalf =
+    (Math.PI -
+      document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMin").value *
+        Math.PI) /
+    2;
+
+  var angleMaxHalf =
+    (Math.PI -
+      document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").value *
+        Math.PI) /
+    2;
 
   const canvas = document.getElementById(
-    "id_OptiPage_LocalSmooth_MaxAngleCanvas"
+    "id_OptiPage_LocalSmooth_MergeAngleCanvas"
   );
   canvas.width = 250;
   canvas.height = 250;
+
+  var cNA = getComputedStyle(document.documentElement).getPropertyValue(
+    "--general-warning-color"
+  ); // color Not Allowed
+  var cA = getComputedStyle(document.documentElement).getPropertyValue(
+    "--general-check-color"
+  ); // color Allowed
 
   const context = canvas.getContext("2d");
   context.clearRect(0, 0, canvas.width, canvas.height);
@@ -212,29 +228,16 @@ function drawMergeAngle(id, angle) {
     )
   );
 
-  smooth_drawCircle(
-    context,
-    middle_X,
-    middle_Y,
-    radius,
-    Math.PI,
-    true,
-    getComputedStyle(document.documentElement).getPropertyValue(
-      "--general-warning-color"
-    )
-  );
+  smooth_drawCircle(context, middle_X, middle_Y, radius, Math.PI, true, cNA);
 
-  var angleHalf = angle / 2;
   smooth_drawCircle(
     context,
     middle_X,
     middle_Y,
     radius,
-    Math.PI - angleHalf,
+    Math.PI - angleMaxHalf,
     true,
-    getComputedStyle(document.documentElement).getPropertyValue(
-      "--general-check-color"
-    )
+    cA
   );
 
   smooth_drawCircle(
@@ -242,24 +245,9 @@ function drawMergeAngle(id, angle) {
     middle_X,
     middle_Y,
     radius,
-    angleHalf,
+    Math.PI - angleMinHalf,
     true,
-    getComputedStyle(document.documentElement).getPropertyValue(
-      "--general-warning-color"
-    )
-  );
-
-  var angleHalf = angle / 2;
-  smooth_drawCircle(
-    context,
-    middle_X,
-    middle_Y,
-    radius,
-    Math.PI - angleHalf,
-    true,
-    getComputedStyle(document.documentElement).getPropertyValue(
-      "--general-warning-color"
-    )
+    cNA
   );
 
   smooth_drawCircle(
@@ -267,11 +255,19 @@ function drawMergeAngle(id, angle) {
     middle_X,
     middle_Y,
     radius,
-    angleHalf,
+    angleMinHalf,
     true,
-    getComputedStyle(document.documentElement).getPropertyValue(
-      "--general-check-color"
-    )
+    cA
+  );
+
+  smooth_drawCircle(
+    context,
+    middle_X,
+    middle_Y,
+    radius,
+    angleMaxHalf,
+    true,
+    cNA
   );
 }
 
@@ -3373,88 +3369,93 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
               )
             );
 
-            if (angle < idealAngleMin) {
-              foundBadAngle = true;
+            switch (true) {
+              case angle < idealAngleMin:
+                foundBadAngle = true;
 
-              ///// get Middle between C_0 and C_2
-              var vec3 = [
-                continuousSections_Colors[j][i + 1][1] -
-                  continuousSections_Colors[j][i - 1][1],
-                continuousSections_Colors[j][i + 1][2] -
-                  continuousSections_Colors[j][i - 1][2],
-                continuousSections_Colors[j][i + 1][3] -
-                  continuousSections_Colors[j][i - 1][3],
-              ];
-
-              var middle = [
-                continuousSections_Colors[j][i - 1][1] + 0.5 * vec3[0],
-                continuousSections_Colors[j][i - 1][2] + 0.5 * vec3[1],
-                continuousSections_Colors[j][i - 1][3] + 0.5 * vec3[2],
-              ];
-
-              var vec4 = [
-                continuousSections_Colors[j][i][1] - middle[0],
-                continuousSections_Colors[j][i][2] - middle[1],
-                continuousSections_Colors[j][i][3] - middle[2],
-              ];
-
-              var foundNewPos = false;
-              var currentPos = 0.0;
-              var currentStep = 0.1;
-              var minStep = 0.001;
-
-              while (!foundNewPos) {
-                var nextpos = currentPos + currentStep;
-                var nextColorPos = [
-                  middle[0] + nextpos * vec4[0],
-                  middle[1] + nextpos * vec4[1],
-                  middle[2] + nextpos * vec4[2],
+                ///// get Middle between C_0 and C_2
+                var vec3 = [
+                  continuousSections_Colors[j][i + 1][1] -
+                    continuousSections_Colors[j][i - 1][1],
+                  continuousSections_Colors[j][i + 1][2] -
+                    continuousSections_Colors[j][i - 1][2],
+                  continuousSections_Colors[j][i + 1][3] -
+                    continuousSections_Colors[j][i - 1][3],
                 ];
 
-                //// Check Angle
-                var tmpVec1 = [
-                  continuousSections_Colors[j][i - 1][1] - nextColorPos[0],
-                  continuousSections_Colors[j][i - 1][2] - nextColorPos[1],
-                  continuousSections_Colors[j][i - 1][3] - nextColorPos[2],
+                var middle = [
+                  continuousSections_Colors[j][i - 1][1] + 0.5 * vec3[0],
+                  continuousSections_Colors[j][i - 1][2] + 0.5 * vec3[1],
+                  continuousSections_Colors[j][i - 1][3] + 0.5 * vec3[2],
                 ];
-                var tmpVec2 = [
-                  continuousSections_Colors[j][i + 1][1] - nextColorPos[0],
-                  continuousSections_Colors[j][i + 1][2] - nextColorPos[1],
-                  continuousSections_Colors[j][i + 1][3] - nextColorPos[2],
+
+                var vec4 = [
+                  continuousSections_Colors[j][i][1] - middle[0],
+                  continuousSections_Colors[j][i][2] - middle[1],
+                  continuousSections_Colors[j][i][3] - middle[2],
                 ];
-                var tmpAngle = rad2deg(
-                  Math.acos(
-                    vec_Dot(tmpVec1, tmpVec2) /
-                      (vecLength(tmpVec1) * vecLength(tmpVec2))
-                  )
-                );
 
-                if (tmpAngle < idealAngleMin) {
-                  var newStep = currentStep * 0.5;
-                  if (newStep <= minStep) {
-                    var currentColorPos = [
-                      middle[0] + currentPos * vec4[0],
-                      middle[1] + currentPos * vec4[1],
-                      middle[2] + currentPos * vec4[2],
-                    ];
+                var foundNewPos = false;
+                var currentPos = 0.0;
+                var currentStep = 0.1;
+                var minStep = 0.001;
 
-                    // save the movement information for later and add them to the current movement information
-                    continuousSections_Update[j][i][0] +=
-                      currentColorPos[0] - continuousSections_Colors[j][i][1];
-                    continuousSections_Update[j][i][1] +=
-                      currentColorPos[1] - continuousSections_Colors[j][i][2];
-                    continuousSections_Update[j][i][2] +=
-                      currentColorPos[2] - continuousSections_Colors[j][i][3];
+                while (!foundNewPos) {
+                  var nextpos = currentPos + currentStep;
+                  var nextColorPos = [
+                    middle[0] + nextpos * vec4[0],
+                    middle[1] + nextpos * vec4[1],
+                    middle[2] + nextpos * vec4[2],
+                  ];
 
-                    foundNewPos = true;
-                    break;
+                  //// Check Angle
+                  var tmpVec1 = [
+                    continuousSections_Colors[j][i - 1][1] - nextColorPos[0],
+                    continuousSections_Colors[j][i - 1][2] - nextColorPos[1],
+                    continuousSections_Colors[j][i - 1][3] - nextColorPos[2],
+                  ];
+                  var tmpVec2 = [
+                    continuousSections_Colors[j][i + 1][1] - nextColorPos[0],
+                    continuousSections_Colors[j][i + 1][2] - nextColorPos[1],
+                    continuousSections_Colors[j][i + 1][3] - nextColorPos[2],
+                  ];
+                  var tmpAngle = rad2deg(
+                    Math.acos(
+                      vec_Dot(tmpVec1, tmpVec2) /
+                        (vecLength(tmpVec1) * vecLength(tmpVec2))
+                    )
+                  );
+
+                  if (tmpAngle < idealAngleMin) {
+                    var newStep = currentStep * 0.5;
+                    if (newStep <= minStep) {
+                      var currentColorPos = [
+                        middle[0] + currentPos * vec4[0],
+                        middle[1] + currentPos * vec4[1],
+                        middle[2] + currentPos * vec4[2],
+                      ];
+
+                      // save the movement information for later and add them to the current movement information
+                      continuousSections_Update[j][i][0] +=
+                        currentColorPos[0] - continuousSections_Colors[j][i][1];
+                      continuousSections_Update[j][i][1] +=
+                        currentColorPos[1] - continuousSections_Colors[j][i][2];
+                      continuousSections_Update[j][i][2] +=
+                        currentColorPos[2] - continuousSections_Colors[j][i][3];
+
+                      foundNewPos = true;
+                      break;
+                    } else {
+                      currentStep = newStep;
+                    }
                   } else {
-                    currentStep = newStep;
+                    currentPos += currentStep;
                   }
-                } else {
-                  currentPos += currentStep;
                 }
-              }
+                break;
+
+              case angle > idealAngleMax:
+                break;
             }
           } // for
         } // if
