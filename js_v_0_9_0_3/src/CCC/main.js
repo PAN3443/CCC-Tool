@@ -106,43 +106,6 @@ window.onload = function () {
   document.getElementById("id_WelcomePage_LoadingText").innerHTML =
     "Loading Finished";
   welcomeSection.updateSection();
-
-  ////////////////////////////////////////
-  var oldAngle = undefined;
-  var newAngle = undefined;
-  var p1 = [0, 0, 0];
-  var p2 = [4, 4, 0];
-  var p3 = [6, 0, 0];
-  var m = [3, 0, 0];
-  var p2ToM = [m[0] - p2[0], m[1] - p2[1], m[2] - p2[2]];
-  console.log("p2ToM", p2ToM);
-  newAngle = testAngle(p1, p2, p3);
-  console.log(newAngle, newAngle - oldAngle);
-  oldAngle = newAngle;
-
-  p1 = [-1, 0, 0];
-  p2 = [4 + p2ToM[0] * 0.33, 4 + p2ToM[1] * 0.33, 0];
-  console.log("p2", p2);
-  p3 = [7, 0, 0];
-  newAngle = testAngle(p1, p2, p3);
-  console.log(newAngle, newAngle - oldAngle);
-  oldAngle = newAngle;
-
-  p1 = [-2, 0, 0];
-  p2 = [4 + p2ToM[0] * 0.66, 4 + p2ToM[1] * 0.66, 0];
-  console.log("p2", p2);
-  p3 = [8, 0, 0];
-  newAngle = testAngle(p1, p2, p3);
-  console.log(newAngle, newAngle - oldAngle);
-  oldAngle = newAngle;
-
-  p1 = [-3, 0, 0];
-  p2 = [4 + p2ToM[0], 4 + p2ToM[1], 0];
-  console.log("p2", p2);
-  p3 = [9, 0, 0];
-  newAngle = testAngle(p1, p2, p3);
-  console.log(newAngle, newAngle - oldAngle);
-  oldAngle = newAngle;
 };
 
 function testAngle(p1, p2, p3) {

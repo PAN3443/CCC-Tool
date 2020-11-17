@@ -1,26 +1,26 @@
 :root {
-  --font-size-small: 1.3vh;
-  --line-height-small: 1.5vh;
+  --font-size-small:1.3vh;
+  --line-height-small:1.5vh;
 
-  --font-size-normal: 1.8vh;
-  --line-height-normal: 2.2vh;
+  --font-size-normal:1.8vh;
+  --line-height-normal:2.2vh;
 
-  --font-size-h2: 3vh;
-  --line-height-h2: 5vh;
+  --font-size-h2:3vh;
+  --line-height-h2:5vh;
 
-  --font-size-h1: 6vh;
-  --line-height-h1: 8vh;
+  --font-size-h1:6vh;
+  --line-height-h1:8vh;
 
-  --button-font-size: 2vh;
-  --button-height: 3vh;
-  --button-border-radius: 0.75vh;
+  --button-font-size:2vh;
+  --button-height:3vh;
+  --button-border-radius:0.75vh;
 
-  --font-family-text: "CCCTextFont";
-  --font-family-button: "CCCButtonFont";
-  --font-family-section: "CCCSectionLabelFont";
-  --font-family-cccLabel: "CCCLableFont";
-  --font-family-figCaption: "CCCFigCaption";
-  --font-family-SpecialText: "CCCSpecialText";
+  --font-family-text:"CCCTextFont";
+  --font-family-button:"CCCButtonFont";
+  --font-family-section:"CCCSectionLabelFont";
+  --font-family-cccLabel:"CCCLableFont";
+  --font-family-figCaption:"CCCFigCaption";
+  --font-family-SpecialText:"CCCSpecialText";
 
   /**************************************
   /**************************************
@@ -34,111 +34,103 @@
   --main-activebutton-bg:var(--general-active-color);
   --main-activebutton-bg-hover:var(--main-button-bg-hover);*/
 
-  --general-active-color: rgb(128, 23, 23);
-  --general-hover-color: red;
-  --general-warning-color: rgb(255, 153, 153); /*red;*/
-  --general-lowWarning-color: rgb(255, 69, 0);
-  --general-check-color: rgb(204, 255, 204); /*rgb(124, 252, 0);*/
+  --general-active-color:rgb(128, 23, 23);
+  --general-hover-color:red;
+  --general-warning-color:rgb(255, 153, 153); /*red;*/
+  --general-lowWarning-color:rgb(255, 69, 0);
+  --general-check-color:rgb(204, 255, 204); /*rgb(124, 252, 0);*/
 
   /**************************************
   **** Pop Up Windows
   ***************************************/
-  --main-popUpWindow-bg-color: rgba(255, 255, 255, 0.85);
+  --main-popUpWindow-bg-color:rgba(255, 255, 255, 0.85);
 
   /**************************************
   **** General
   ***************************************/
-  --main-bg-color: rgb(255, 255, 255);
-  --main-bg-color-alpha: rgba(255, 255, 255, 0.85);
-  --main-second-bg-color: rgb(180, 180, 180);
-  --main-font-color: rgb(30, 30, 30);
-  --main-border: rgb(0, 0, 0);
-  --main-font-notactive-color: rgb(80, 80, 80);
-  --main-warning-font-color: rgb(224, 108, 117);
-  --main-label-font-color: rgb(255, 255, 255);
+  --main-bg-color:rgb(255, 255, 255);
+  --main-bg-color-alpha:rgba(255, 255, 255, 0.85);
+  --main-second-bg-color:rgb(180, 180, 180);
+  --main-font-color:rgb(30, 30, 30);
+  --main-border:rgb(0, 0, 0);
+  --main-font-notactive-color:rgb(80, 80, 80);
+  --main-warning-font-color:rgb(224, 108, 117);
+  --main-label-font-color:rgb(255, 255, 255);
 
-  --main-coloredButton: rgb(40, 40, 40); /*rgb(76, 175, 80);*/
-  --main-coloredFont: rgb(240, 240, 240);
-  --main-coloredFont-deactivated: rgb(120, 120, 120);
-  --main-hover-coloredButton-deactivated: rgb(120, 120, 120);
-  --main-hover-coloredButton: rgb(255, 51, 0); /*rgb(76, 175, 80);*/
-  --main-hover-coloredButton_Dark: rgb(255, 71, 26);
-  --main-active-coloredButton: rgb(128, 23, 23); /*rgb(26, 97, 29);*/
-  --main-active-coloredButton_Dark: rgb(224, 82, 82); /*rgb(26, 97, 29);*/
-  --main-coloredButton_Dark: rgb(240, 240, 240);
+  --main-coloredButton:rgb(40, 40, 40); /*rgb(76, 175, 80);*/
+  --main-coloredFont:rgb(240, 240, 240);
+  --main-coloredFont-deactivated:rgb(120, 120, 120);
+  --main-hover-coloredButton-deactivated:rgb(120, 120, 120);
+  --main-hover-coloredButton:rgb(255, 51, 0); /*rgb(76, 175, 80);*/
+  --main-hover-coloredButton_Dark:rgb(255, 71, 26);
+  --main-active-coloredButton:rgb(128, 23, 23); /*rgb(26, 97, 29);*/
+  --main-active-coloredButton_Dark:rgb(224, 82, 82); /*rgb(26, 97, 29);*/
+  --main-coloredButton_Dark:rgb(240, 240, 240);
 
-  --main-menue-background: rgb(60, 60, 60);
-  --main-menue-section: rgb(20, 20, 20);
-  --main-menue-font: rgb(240, 240, 240);
-  --main-menue-active: rgb(224, 82, 82);
+  --main-menue-background:rgb(60, 60, 60);
+  --main-menue-section:rgb(20, 20, 20);
+  --main-menue-font:rgb(240, 240, 240);
+  --main-menue-active:rgb(224, 82, 82);
   /**** Link Colors ****/
-  --link-color: rgb(0, 102, 204);
-  --link-color-visited: rgb(128, 0, 128);
-  --link-color-hover: rgb(0, 152, 254);
-  --link-color-active: rgb(0, 152, 254);
+  --link-color:rgb(0, 102, 204);
+  --link-color-visited:rgb(128, 0, 128);
+  --link-color-hover:rgb(0, 152, 254);
+  --link-color-active:rgb(0, 152, 254);
 
   /****** Gallery MyDesigns Objects *****/
-  --cms-obj-font-color: rgb(255, 255, 255);
+  --cms-obj-font-color:rgb(255, 255, 255);
 
   /**** Sep Area ****/
-  --main-sepArea-bg: rgb(30, 30, 30);
-  --main-sepArea-bg-alpha: rgba(30, 30, 30, 0.98);
-  --main-sepArea-border: rgb(0, 0, 0);
-  --main-second-sepArea-bg: rgb(80, 80, 80);
-  --main-sepArea-font-color: rgb(240, 240, 240);
-  --main-Button-sepArea-font-color: rgb(255, 255, 255);
-  --main-Button-sepArea-font-hover: rgb(153, 204, 255);
-  --main-Button-sepArea-bg-color: none;
-  --main-Button-sepArea-bg-color-hover: none;
-  --main-sepArea-link-color: var(--link-color);
-  --main-sepArea-link-color-visited: var(--link-color-visited);
-  --main-sepArea-link-color-hover: var(--link-color-hover);
-  --main-sepArea-link-color-active: var(--link-color-active);
+  --main-sepArea-bg:rgb(30, 30, 30);
+  --main-sepArea-bg-alpha:rgba(30, 30, 30, 0.98);
+  --main-sepArea-border:rgb(0, 0, 0);
+  --main-second-sepArea-bg:rgb(80, 80, 80);
+  --main-sepArea-font-color:rgb(240, 240, 240);
+  --main-Button-sepArea-font-color:rgb(255, 255, 255);
+  --main-Button-sepArea-font-hover:rgb(153, 204, 255);
+  --main-Button-sepArea-bg-color:none;
+  --main-Button-sepArea-bg-color-hover:none;
+  --main-sepArea-link-color:var(--link-color);
+  --main-sepArea-link-color-visited:var(--link-color-visited);
+  --main-sepArea-link-color-hover:var(--link-color-hover);
+  --main-sepArea-link-color-active:var(--link-color-active);
 
   /***** Scrollbar *****/
-  --scrollbar-track-bg: var(--main-bg-color);
-  --scrollbar-track-shadow: rgb(37, 40, 47);
-  --scrollbar-thump-bg: rgb(97, 100, 107);
-  --scrollbar-thump-bg-hover: var(--general-hover-color);
+  --scrollbar-track-bg:var(--main-bg-color);
+  --scrollbar-track-shadow:rgb(37, 40, 47);
+  --scrollbar-thump-bg:rgb(97, 100, 107);
+  --scrollbar-thump-bg-hover:var(--general-hover-color);
 
   /**** Table *****/
-  --main-table-bg1-color: var(--main-bg-color);
-  --main-table-bg2-color: var(--main-second-bg-color);
-  --main-table-border-color: var(--main-sepArea-bg);
-  --main-table-font-color: var(--main-font-color);
+  --main-table-bg1-color:var(--main-bg-color);
+  --main-table-bg2-color:var(--main-second-bg-color);
+  --main-table-border-color:var(--main-sepArea-bg);
+  --main-table-font-color:var(--main-font-color);
 
   /**** Input *****/
-  --input-bg-color: rgb(255, 255, 255);
-  --input-font-color: rgb(0, 0, 0);
-  --input-placeholder-font-color: rgb(
-    80,
-    80,
-    80
-  ); /*brighter than normal font color and darker than background color*/
-  --input-disabled-bg-color: rgb(220, 220, 220);
-  --input-disabled-font-color: rgb(160, 160, 160);
+  --input-bg-color:rgb(255, 255, 255);
+  --input-font-color:rgb(0, 0, 0);
+  --input-placeholder-font-color:rgb(80, 80, 80); /*brighter than normal font color and darker than background color*/
+  --input-disabled-bg-color:rgb(220, 220, 220);
+  --input-disabled-font-color:rgb(160, 160, 160);
 
-  --radio-bg-color: rgb(180, 180, 180);
-  --radio-disabled-bg-color: rgb(
-    220,
-    220,
-    220
-  ); /* darker than main-sepArea-bg*/
-  --radio-bg-color-hover: var(--general-hover-color);
-  --radio-disabled-bg-color-hover: var(--general-warning-color);
+  --radio-bg-color:rgb(180, 180, 180);
+  --radio-disabled-bg-color:rgb(220, 220, 220); /* darker than main-sepArea-bg*/
+  --radio-bg-color-hover:var(--general-hover-color);
+  --radio-disabled-bg-color-hover:var(--general-warning-color);
 
-  --range-bg-color: var(--main-border);
-  --range-track-color: var(--main-border);
-  --range-lower-color: var(--general-active-color);
-  --range-upper-color: var(--main-sepArea-bg);
-  --range-slider-thumb-color: rgb(217, 220, 227);
-  --range-slider-thumb-border-color: rgb(32, 36, 43);
-  --range-slider-thumb-color-hover: var(--general-hover-color);
+  --range-bg-color:var(--main-border);
+  --range-track-color:var(--main-border);
+  --range-lower-color:var(--general-active-color);
+  --range-upper-color:var(--main-sepArea-bg);
+  --range-slider-thumb-color:rgb(217, 220, 227);
+  --range-slider-thumb-border-color:rgb(32, 36, 43);
+  --range-slider-thumb-color-hover:var(--general-hover-color);
 
   /***** Tab Row ******/
-  --tabrow-bg-color: var(--main-sepArea-bg);
-  --tabrow-font-color: rgb(255, 255, 255);
-  --tabrow-active-color: rgb(255, 255, 255);
-  --tabrow-active-font-color: var(--main-sepArea-bg);
-  --tabrow-active-bg-color: var(--main-second-sepArea-bg);
+  --tabrow-bg-color:var(--main-sepArea-bg);
+  --tabrow-font-color:rgb(255, 255, 255);
+  --tabrow-active-color:rgb(255, 255, 255);
+  --tabrow-active-font-color:var(--main-sepArea-bg);
+  --tabrow-active-bg-color:var(--main-second-sepArea-bg);
 }
