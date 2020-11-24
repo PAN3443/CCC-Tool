@@ -357,12 +357,19 @@
           </div>
 
           <div id="id_OptiPage_SmoothOpti_Local_Options" style="width: 100%">
-            <div style="display: flex">
-              <label class="class_checkbox_container" style="margin-left: 1vw; color: var(--main-sepArea-font-color); margin-right: auto; margin-top: 1vh; margin-bottom: 1vh">
-                : Alternative Algorithm
-                <input type="checkbox" id="id_OptiPage_AlternativeSmooth" onchange="optiSection.updateOptiPageStyle()" />
-                <span class="class_checkbox_checkmark"></span>
-              </label>
+            <div style="margin-left: 1vw; margin-right: auto; margin-top: 1vh; margin-bottom: 1vh">
+              <div style="display: flex; margin-top: 0.25vh; margin-bottom: 0.25">
+                <input type="radio" id="id_smooth_orig" name="SmoothnessMethod" value="orig" style="margin: 0vh" onchange="optiSection.updateOptiPageStyle()" checked />
+                <p style="margin-left: 0.25vw; margin-right: auto; width: 15vw; color: var(--main-sepArea-font-color)">Original (Min: C2 to M, Max: C2 away from M)</p>
+              </div>
+              <div style="display: flex; margin-top: 0.25vh; margin-bottom: 0.25">
+                <input type="radio" id="id_smooth_alt1" name="SmoothnessMethod" value="alternative1" style="margin: 0vh" onchange="optiSection.updateOptiPageStyle()" />
+                <p style="margin-left: 0.25vw; margin-right: auto; width: 15vw; color: var(--main-sepArea-font-color)">Alternative (Min: C2 to M, Max: C1,C3 to M)</p>
+              </div>
+              <div style="display: flex; margin-top: 0.25vh; margin-bottom: 0.25">
+                <input type="radio" id="id_smooth_alt2" name="SmoothnessMethod" value="alternative2" style="margin: 0vh" onchange="optiSection.updateOptiPageStyle()" />
+                <p style="margin-left: 0.25vw; margin-right: auto; width: 15vw; color: var(--main-sepArea-font-color)">Alternative (Min: C2 to M & C1,C3 away from M, Max: C2 away from M & C1,C3 to M)</p>
+              </div>
             </div>
 
             <div style="width: 100%; display: flex">
@@ -421,7 +428,7 @@
                 <canvas id="id_OptiPage_LocalSmooth_MinAngleCanvas" style="width: 5vw; max-width: 10vh; height: 5vw; max-height: 10vh; background: var(--main-bg-color); border: 0.2vh solid var(--main-sepArea-border)"> </canvas>
                 <p style="width: 100%; color: var(--main-sepArea-font-color); text-align: center">Min-Angle</p>
               </div>
-              <p style="margin: auto; margin-left: 0vh; color: var(--main-sepArea-font-color); font-size: 2.5vh; line-height: 3vh">&cup;</p>
+              <p style="margin: auto; margin-left: 0vh; color: var(--main-sepArea-font-color); font-size: 2.5vh; line-height: 3vh">&#8898;</p>
               <div style="margin: auto; margin-left: 0vh">
                 <canvas id="id_OptiPage_LocalSmooth_MaxAngleCanvas" style="width: 5vw; max-width: 10vh; height: 5vw; max-height: 10vh; background: var(--main-bg-color); border: 0.2vh solid var(--main-sepArea-border)"> </canvas>
                 <p style="width: 100%; color: var(--main-sepArea-font-color); text-align: center">Max-Angle</p>

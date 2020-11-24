@@ -2022,10 +2022,244 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
   ////////////////////////////////////////////////////////////////////////////
 
   calcLocalSmoothOptimum() {
-    if (document.getElementById("id_OptiPage_AlternativeSmooth").checked) {
-      this.calcLocalSmoothOptimum_Alternative();
-      return;
+    document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").min = document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMin").value;
+    switch (true) {
+      case document.getElementById("id_smooth_orig").checked:
+        var value = document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").value;
+        if (value < 0.05) {
+          document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").value = 0.05;
+          document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMin").max = 0.05;
+        }
+        document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").min = 0.05;
+        drawMinAngle();
+        drawMaxAngle();
+        drawMergeAngle();
+        this.calcLocalSmoothOptimum_Original();
+        break;
+      case document.getElementById("id_smooth_alt1").checked:
+        this.calcLocalSmoothOptimum_Alternative1();
+        break;
+      case document.getElementById("id_smooth_alt2").checked:
+        this.calcLocalSmoothOptimum_Alternative2();
+        break;
     }
+  }
+
+  calcLocalSmoothOptimum_Original() {
+    var continuousSections = this.editCMS.searchForContinuousSections(document.getElementById("id_OptiPage_Optimization_FromKey").selectedIndex, document.getElementById("id_OptiPage_Optimization_TillKey").selectedIndex);
+
+    var continuousSections_Colors = [];
+    var continuousSections_Update = [];
+    var idealAngleMin = parseInt(180 * document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMin").value);
+    var idealAngleMax = parseInt(180 * document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").value);
+
+    for (var j = 0; j < continuousSections.length; j++) {
+      var tmpArray = [];
+      var tmpArray2 = [];
+      tmpArray.push(this.editCMS.getRightKeyColor(continuousSections[j][0], this.editCMS.getInterpolationSpace()));
+      tmpArray2.push([0, 0, 0]);
+      for (var i = continuousSections[j][0] + 1; i <= continuousSections[j][1]; i++) {
+        tmpArray.push(this.editCMS.getLeftKeyColor(i, this.editCMS.getInterpolationSpace()));
+        tmpArray2.push([0, 0, 0]);
+      } // for
+      continuousSections_Update.push(tmpArray2);
+      continuousSections_Colors.push(tmpArray);
+    }
+
+    var counter = 0;
+    var interations = parseInt(document.getElementById("id_OptiPage_SmoothOpti_Local_Iterations").value);
+
+    if (isNaN(interations)) {
+      document.getElementById("id_OptiPage_SmoothOpti_Local_Iterations").value = 20;
+      interations = 20;
+    }
+
+    var maxLoops = interations;
+    var foundBadAngle = true;
+
+    while (foundBadAngle && counter < maxLoops) {
+      foundBadAngle = false;
+      counter++;
+
+      for (var j = 0; j < continuousSections_Colors.length; j++) {
+        if (continuousSections_Colors[j].length > 2) {
+          // continious section has more than two keys
+
+          for (var i = 1; i < continuousSections_Colors[j].length - 1; i++) {
+            var vec1 = [
+              continuousSections_Colors[j][i - 1][1] - continuousSections_Colors[j][i][1],
+              continuousSections_Colors[j][i - 1][2] - continuousSections_Colors[j][i][2],
+              continuousSections_Colors[j][i - 1][3] - continuousSections_Colors[j][i][3],
+            ];
+            var vec2 = [
+              continuousSections_Colors[j][i + 1][1] - continuousSections_Colors[j][i][1],
+              continuousSections_Colors[j][i + 1][2] - continuousSections_Colors[j][i][2],
+              continuousSections_Colors[j][i + 1][3] - continuousSections_Colors[j][i][3],
+            ];
+
+            var angle = rad2deg(Math.acos(vec_Dot(vec1, vec2) / (vecLength(vec1) * vecLength(vec2))));
+
+            //////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////
+            switch (true) {
+              case angle > idealAngleMax:
+                //foundBadAngle = true;
+                foundBadAngle = true;
+
+                // from previouse color C1 to middle M
+                var vec_C1M = [
+                  0.5 * (continuousSections_Colors[j][i + 1][1] - continuousSections_Colors[j][i - 1][1]),
+                  0.5 * (continuousSections_Colors[j][i + 1][2] - continuousSections_Colors[j][i - 1][2]),
+                  0.5 * (continuousSections_Colors[j][i + 1][3] - continuousSections_Colors[j][i - 1][3]),
+                ];
+
+                // middle between C1 and C3
+                var point_M = [continuousSections_Colors[j][i - 1][1] + vec_C1M[0], continuousSections_Colors[j][i - 1][2] + vec_C1M[1], continuousSections_Colors[j][i - 1][3] + vec_C1M[2]];
+
+                // from current color (i) C2 to middle M
+                var vec_C2M = [point_M[0] - continuousSections_Colors[j][i][1], point_M[1] - continuousSections_Colors[j][i][2], point_M[2] - continuousSections_Colors[j][i][3]];
+                vec_C2M = vecScalMulti(vecNorm(vec_C2M), -1);
+
+                var c1_Pos = [continuousSections_Colors[j][i - 1][1], continuousSections_Colors[j][i - 1][2], continuousSections_Colors[j][i - 1][3]];
+                var c3_Pos = [continuousSections_Colors[j][i + 1][1], continuousSections_Colors[j][i + 1][2], continuousSections_Colors[j][i + 1][3]];
+
+                var foundNewPos = false;
+                var currentPos = 0.0;
+                var currentStep = 1.0; // start with bigger steps. If the angle is very small we have to go back
+                var minStep = 0.001;
+                var maxStep = 500; // we normalized the vector so we can set the maximal step to depending on the dimension of the colorspace, I set 500 because the colorspaces are all smaller
+                while (!foundNewPos) {
+                  var nextpos = currentPos + currentStep;
+                  var newPos_C2 = [continuousSections_Colors[j][i][1] + nextpos * vec_C2M[0], continuousSections_Colors[j][i][2] + nextpos * vec_C2M[1], continuousSections_Colors[j][i][3] + nextpos * vec_C2M[2]];
+
+                  //// Check Angle
+
+                  var tmpVec1 = vec_Diff(newPos_C2, c1_Pos);
+                  var tmpVec2 = vec_Diff(newPos_C2, c3_Pos);
+                  var tmpAngle = rad2deg(Math.acos(vec_Dot(tmpVec1, tmpVec2) / (vecLength(tmpVec1) * vecLength(tmpVec2))));
+
+                  switch (true) {
+                    case tmpAngle == idealAngleMax:
+                      // update both colors
+                      continuousSections_Update[j][i][0] += newPos_C2[0] - continuousSections_Colors[j][i][1];
+                      continuousSections_Update[j][i][1] += newPos_C2[1] - continuousSections_Colors[j][i][2];
+                      continuousSections_Update[j][i][2] += newPos_C2[2] - continuousSections_Colors[j][i][3];
+                      foundNewPos = true;
+                      break;
+                    case tmpAngle < idealAngleMax:
+                      var newStep = currentStep * 0.5;
+                      if (newStep <= minStep) {
+                        // save the movement information for later and add them to the current movement information
+                        continuousSections_Update[j][i][0] += newPos_C2[0] - continuousSections_Colors[j][i][1];
+                        continuousSections_Update[j][i][1] += newPos_C2[1] - continuousSections_Colors[j][i][2];
+                        continuousSections_Update[j][i][2] += newPos_C2[2] - continuousSections_Colors[j][i][3];
+                        foundNewPos = true;
+                        break;
+                      } else {
+                        currentStep = newStep;
+                      }
+
+                      break;
+                    default:
+                      currentPos += currentStep;
+                      var newStep = currentStep * 2;
+                      if (newStep > maxStep) {
+                        // this will only happen
+                        continuousSections_Update[j][i][0] += newPos_C2[0] - continuousSections_Colors[j][i][1];
+                        continuousSections_Update[j][i][1] += newPos_C2[1] - continuousSections_Colors[j][i][2];
+                        continuousSections_Update[j][i][2] += newPos_C2[2] - continuousSections_Colors[j][i][3];
+                        foundNewPos = true;
+                      } else {
+                        currentStep = newStep;
+                      }
+                      break;
+                  }
+                }
+                break;
+              case angle < idealAngleMin:
+                foundBadAngle = true;
+
+                ///// get Middle between C_0 and C_2
+                var vec3 = [
+                  continuousSections_Colors[j][i + 1][1] - continuousSections_Colors[j][i - 1][1],
+                  continuousSections_Colors[j][i + 1][2] - continuousSections_Colors[j][i - 1][2],
+                  continuousSections_Colors[j][i + 1][3] - continuousSections_Colors[j][i - 1][3],
+                ];
+
+                var middle = [continuousSections_Colors[j][i - 1][1] + 0.5 * vec3[0], continuousSections_Colors[j][i - 1][2] + 0.5 * vec3[1], continuousSections_Colors[j][i - 1][3] + 0.5 * vec3[2]];
+
+                var vec4 = [continuousSections_Colors[j][i][1] - middle[0], continuousSections_Colors[j][i][2] - middle[1], continuousSections_Colors[j][i][3] - middle[2]];
+
+                var foundNewPos = false;
+                var currentPos = 0.0;
+                var currentStep = 0.1;
+                var minStep = 0.001;
+
+                while (!foundNewPos) {
+                  var nextpos = currentPos + currentStep;
+                  var nextColorPos = [middle[0] + nextpos * vec4[0], middle[1] + nextpos * vec4[1], middle[2] + nextpos * vec4[2]];
+
+                  //// Check Angle
+                  var tmpVec1 = [continuousSections_Colors[j][i - 1][1] - nextColorPos[0], continuousSections_Colors[j][i - 1][2] - nextColorPos[1], continuousSections_Colors[j][i - 1][3] - nextColorPos[2]];
+                  var tmpVec2 = [continuousSections_Colors[j][i + 1][1] - nextColorPos[0], continuousSections_Colors[j][i + 1][2] - nextColorPos[1], continuousSections_Colors[j][i + 1][3] - nextColorPos[2]];
+                  var tmpAngle = rad2deg(Math.acos(vec_Dot(tmpVec1, tmpVec2) / (vecLength(tmpVec1) * vecLength(tmpVec2))));
+
+                  if (tmpAngle < idealAngleMin) {
+                    var newStep = currentStep * 0.5;
+                    if (newStep <= minStep) {
+                      var currentColorPos = [middle[0] + currentPos * vec4[0], middle[1] + currentPos * vec4[1], middle[2] + currentPos * vec4[2]];
+
+                      // save the movement information for later and add them to the current movement information
+                      continuousSections_Update[j][i][0] += currentColorPos[0] - continuousSections_Colors[j][i][1];
+                      continuousSections_Update[j][i][1] += currentColorPos[1] - continuousSections_Colors[j][i][2];
+                      continuousSections_Update[j][i][2] += currentColorPos[2] - continuousSections_Colors[j][i][3];
+                      foundNewPos = true;
+                      break;
+                    } else {
+                      currentStep = newStep;
+                    }
+                  } else {
+                    currentPos += currentStep;
+                  }
+                }
+                break;
+            }
+          } // for
+        } // if
+      } // for
+
+      if (!foundBadAngle) break;
+
+      //// Update Colors
+      for (var j = 0; j < continuousSections_Colors.length; j++) {
+        if (continuousSections_Colors[j].length > 2) {
+          // continious section has more than two keys
+          for (var i = 0; i < continuousSections_Colors[j].length; i++) {
+            continuousSections_Colors[j][i][1] = continuousSections_Colors[j][i][1] + continuousSections_Update[j][i][0];
+            continuousSections_Colors[j][i][2] = continuousSections_Colors[j][i][2] + continuousSections_Update[j][i][1];
+            continuousSections_Colors[j][i][3] = continuousSections_Colors[j][i][3] + continuousSections_Update[j][i][2];
+
+            continuousSections_Update[j][i][0] = 0;
+            continuousSections_Update[j][i][1] = 0;
+            continuousSections_Update[j][i][2] = 0;
+          }
+        }
+      }
+    } // while
+
+    // Update Edit CMS with new Colors
+    for (var j = 0; j < continuousSections.length; j++) {
+      this.editCMS.setRightKeyColor(continuousSections[j][0], continuousSections_Colors[j][0]);
+
+      for (var i = continuousSections[j][0] + 1; i < continuousSections[j][1]; i++) {
+        this.editCMS.setRightKeyColor(i, continuousSections_Colors[j][i - continuousSections[j][0]]);
+        this.editCMS.setLeftKeyColor(i, continuousSections_Colors[j][i - continuousSections[j][0]]);
+      } // for
+      this.editCMS.setLeftKeyColor(continuousSections[j][1], continuousSections_Colors[j][continuousSections_Colors[j].length - 1]);
+    }
+  }
+
+  calcLocalSmoothOptimum_Alternative1() {
     var continuousSections = this.editCMS.searchForContinuousSections(document.getElementById("id_OptiPage_Optimization_FromKey").selectedIndex, document.getElementById("id_OptiPage_Optimization_TillKey").selectedIndex);
 
     var continuousSections_Colors = [];
@@ -2232,7 +2466,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
     }
   }
 
-  calcLocalSmoothOptimum_Alternative() {
+  calcLocalSmoothOptimum_Alternative2() {
     var continuousSections = this.editCMS.searchForContinuousSections(document.getElementById("id_OptiPage_Optimization_FromKey").selectedIndex, document.getElementById("id_OptiPage_Optimization_TillKey").selectedIndex);
 
     var continuousSections_Colors = [];
