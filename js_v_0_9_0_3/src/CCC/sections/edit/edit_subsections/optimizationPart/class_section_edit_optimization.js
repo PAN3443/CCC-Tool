@@ -2025,15 +2025,6 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
     document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").min = document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMin").value;
     switch (true) {
       case document.getElementById("id_smooth_orig").checked:
-        var value = document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").value;
-        if (value < 0.05) {
-          document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").value = 0.05;
-          document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMin").max = 0.05;
-        }
-        document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").min = 0.05;
-        drawMinAngle();
-        drawMaxAngle();
-        drawMergeAngle();
         this.calcLocalSmoothOptimum_Original();
         break;
       case document.getElementById("id_smooth_alt1").checked:
