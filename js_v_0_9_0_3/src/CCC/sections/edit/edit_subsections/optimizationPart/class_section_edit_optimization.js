@@ -2023,17 +2023,17 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
 
   calcLocalSmoothOptimum() {
     document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").min = document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMin").value;
-    switch (true) {
-      case document.getElementById("id_smooth_orig").checked:
-        this.calcLocalSmoothOptimum_Original();
-        break;
+    /*switch (true) {
+      case document.getElementById("id_smooth_orig").checked:*/
+    this.calcLocalSmoothOptimum_Original();
+    /*   break;
       case document.getElementById("id_smooth_alt1").checked:
         this.calcLocalSmoothOptimum_Alternative1();
         break;
       case document.getElementById("id_smooth_alt2").checked:
         this.calcLocalSmoothOptimum_Alternative2();
         break;
-    }
+    }*/
   }
 
   calcLocalSmoothOptimum_Original() {
