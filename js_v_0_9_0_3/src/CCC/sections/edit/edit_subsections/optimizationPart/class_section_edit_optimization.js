@@ -2025,8 +2025,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
     document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMax").min = document.getElementById("id_OptiPage_SmoothOpti_Local_DegreeMin").value;
     /*switch (true) {
       case document.getElementById("id_smooth_orig").checked:*/
-    //this.calcLocalSmoothOptimum_Original();
-    this.calcLocalSmoothOptimum_Paper();
+    this.calcLocalSmoothOptimum_Original();
     /*   break;
       case document.getElementById("id_smooth_alt1").checked:
         this.calcLocalSmoothOptimum_Alternative1();
@@ -2714,7 +2713,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
     }
   }
 
-  calcLocalSmoothOptimum_Paper() {
+  /*calcLocalSmoothOptimum_Paper() {
     var continuousSections = this.editCMS.searchForContinuousSections(document.getElementById("id_OptiPage_Optimization_FromKey").selectedIndex, document.getElementById("id_OptiPage_Optimization_TillKey").selectedIndex);
 
     var continuousSections_Colors = [];
@@ -2970,7 +2969,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
                   //console.log("intersectionLine_supVec[0]=(",d2,"*",norm1[1],"-",d1,"*",norm2[1],")/",intersectionLine_dirVec[2],"=",intersectionLine_supVec[0]);
                   //console.log("intersectionLine_supVec[1]=(",d1,"*",norm2[0],"-",d2,"*",norm1[0],")/",intersectionLine_dirVec[2],"=",intersectionLine_supVec[1]);
                   break;
-              }//*/
+              }//* /
 
                 console.log("Smooth: Intersection Line G:= ", intersectionLine_supVec, "+r*", intersectionLine_dirVec);
                 /////////////////////////////////////////////////////
@@ -3033,7 +3032,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
                   console.log("Smooth: c_j need a movement");
                   /*var newPoint = vec_Add(point_m,vecScalMulti(vecNorm(direction_m_To_Cj),radius));
                 this.editCMS.setRightKeyColor(k1,createColor(newPoint[0],newPoint[1],newPoint[2],this.editCMS.getInterpolationSpace()));
-                this.editCMS.setLeftKeyColor(k1,createColor(newPoint[0],newPoint[1],newPoint[2],this.editCMS.getInterpolationSpace()));*/
+                this.editCMS.setLeftKeyColor(k1,createColor(newPoint[0],newPoint[1],newPoint[2],this.editCMS.getInterpolationSpace()));* /
                   //return 2;
                 } else {
                   console.log("Smooth: the position of c_j is fine.");
@@ -3062,7 +3061,7 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
           }
         }
       }
-    } // while*/
+    } // while* /
 
     // Update Edit CMS with new Colors
     for (var j = 0; j < continuousSections.length; j++) {
@@ -3074,5 +3073,5 @@ class class_Edit_Optimization_Section extends class_Edit_Basis_Section {
       } // for
       this.editCMS.setLeftKeyColor(continuousSections[j][1], continuousSections_Colors[j][continuousSections_Colors[j].length - 1]);
     }
-  }
+  }*/
 }
