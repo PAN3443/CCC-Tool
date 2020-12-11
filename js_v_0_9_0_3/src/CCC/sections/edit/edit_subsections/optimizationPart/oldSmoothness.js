@@ -1,4 +1,4 @@
-calcLocalSmoothOptimum(){
+/*calcLocalSmoothOptimum(){
   var continuousSections = this.editCMS.searchForContinuousSections(document.getElementById("id_OptiPage_Optimization_FromKey").selectedIndex,document.getElementById("id_OptiPage_Optimization_TillKey").selectedIndex);
 
   for (var j = 0; j < continuousSections.length; j++) {
@@ -44,7 +44,7 @@ testCalcSmoothnessOptiumumForKey(k0,k1,k2,startID,endID){
     if(k2!=endID){
       this.testCalcSmoothnessOptiumumForKey(k0+1,k1+1,k2+1,startID,endID);
     }
-  }*/
+  }* /
 
 }
 
@@ -269,7 +269,7 @@ calcSmoothnessOptiumumForKey(k0,k1,k2){
         //console.log("intersectionLine_supVec[0]=(",d2,"*",norm1[1],"-",d1,"*",norm2[1],")/",intersectionLine_dirVec[2],"=",intersectionLine_supVec[0]);
         //console.log("intersectionLine_supVec[1]=(",d1,"*",norm2[0],"-",d2,"*",norm1[0],")/",intersectionLine_dirVec[2],"=",intersectionLine_supVec[1]);
         break;
-    }//*/
+    }//* /
 
     console.log("Smooth: Intersection Line G:= ",intersectionLine_supVec,"+r*",intersectionLine_dirVec);
     /////////////////////////////////////////////////////
@@ -346,4 +346,4 @@ calcSmoothnessOptiumumForKey(k0,k1,k2){
   color_Cj.deleteReferences();
   color_Ck.deleteReferences();
   }
-};
+};*/

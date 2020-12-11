@@ -389,7 +389,7 @@
                   value="0"
                   style="width: 10vw; margin: auto; margin-left: 0vw; margin-right: 0vw"
                   onchange="optiSection.calcOptiCMS()"
-                  oninput="onSliderInputSmoothMin()"
+                  oninput="onSliderInputSmoothMin_Local()"
                   onmouseup="document.getElementById('id_OptiPage_LocalSmooth_Max_Div').style.visibility='visible';"
                 />
                 <div style="width: 10vw; margin-top: 0.25vh; display: flex">
@@ -412,7 +412,7 @@
                   value="1"
                   style="width: 10vw; margin: auto; margin-left: 0vw; margin-right: 0vw"
                   onchange="optiSection.calcOptiCMS()"
-                  oninput="onSliderInputSmoothMax()"
+                  oninput="onSliderInputSmoothMax_Local()"
                   onmouseup="document.getElementById('id_OptiPage_LocalSmooth_Min_Div').style.visibility='visible'"
                 />
                 <div style="width: 10vw; margin-top: 0.25vh; display: flex">
@@ -443,7 +443,7 @@
 
           <hr style="color: var(--main-sepArea-font-color)" />
 
-          <div style="display: flex; display: none">
+          <div style="display: flex">
             <label class="class_checkbox_container" style="margin-left: 1vw; color: var(--main-sepArea-font-color); margin-right: auto; margin-top: 1vh; margin-bottom: 1vh">
               : Global
               <input type="checkbox" id="id_OptiPage_Global_SmoothOptimization" onchange="optiSection.updateOptiPageStyle()" />
@@ -452,10 +452,73 @@
             <button onmouseover="optiSection.showHelp(10)" onmouseout="optiSection.showHelp()" class="class_coloredButton" style="display: none; height: 3vh; width: 2vw; font-size: 2vh; margin: auto; margin-left: 1vw">?</button>
           </div>
 
-          <div id="id_OptiPage_SmoothOpti_Global_Options" style="width: 100%; display: none">
-            <div style="display: flex; width: 100%; margin-top: 1vh">
-              <p style="margin: auto; margin-left: 2vw; margin-right: 0.5vw; color: var(--main-sepArea-font-color)">Degree:</p>
-              <input id="id_OptiPage_SmoothOpti_Global_Degree" type="range" step="0.01" min="0" max="1" value="1" style="width: 10vw; margin: auto; margin-left: 0vw; margin-right: 0vw" onchange="optiSection.calcOptiCMS()" />
+          <div id="id_OptiPage_SmoothOpti_Global_Options" style="width: 100%">
+            <div style="width: 100%; display: flex">
+              <p style="color: var(--main-sepArea-font-color); margin-right: 2vw; margin-left: 2vw">Iterations:</p>
+              <input id="id_OptiPage_SmoothOpti_Global_Iterations" style="width: 3vw" type="number" name="quantity" min="1" value="50" step="1" onchange="optiSection.calcOptiCMS()" />
+            </div>
+
+            <div id="id_OptiPage_GlobalSmooth_Min_Div" style="display: flex; width: 100%; margin-top: 1vh">
+              <p style="margin-top: 0vh; margin-left: 2vw; margin-right: 0.5vw; color: var(--main-sepArea-font-color)">Min:</p>
+              <div>
+                <input
+                  id="id_OptiPage_SmoothOpti_Global_DegreeMin"
+                  type="range"
+                  step="0.01"
+                  min="0.03"
+                  max="1"
+                  value="0"
+                  style="width: 10vw; margin: auto; margin-left: 0vw; margin-right: 0vw"
+                  onchange="optiSection.calcOptiCMS()"
+                  oninput="onSliderInputSmoothMin_Global()"
+                  onmouseup="document.getElementById('id_OptiPage_GlobalSmooth_Max_Div').style.visibility='visible';"
+                />
+                <div style="width: 10vw; margin-top: 0.25vh; display: flex">
+                  <p style="font-size: var(--font-size-small); line-height: var(--line-height-small); margin-top: 0vh; margin-right: auto; color: var(--main-sepArea-font-color)">5&#xb0;</p>
+                  <p id="id_OptiPage_GlobalSmooth_DegreeMin_Max" style="font-size: var(--font-size-small); line-height: var(--line-height-small); margin-top: 0vh; margin-left: auto; color: var(--main-sepArea-font-color)">180&#xb0;</p>
+                </div>
+              </div>
+              <p id="id_OptiPage_GlobalSmooth_DegreeMin_Display" style="margin: auto; margin-top: 0vh; margin-left: 1vw; color: var(--main-sepArea-font-color)"></p>
+            </div>
+
+            <div id="id_OptiPage_GlobalSmooth_Max_Div" style="display: flex; width: 100%; margin-top: 1vh">
+              <p style="margin-top: 0vh; margin-left: 2vw; margin-right: 0.5vw; color: var(--main-sepArea-font-color)">Max:</p>
+              <div>
+                <input
+                  id="id_OptiPage_SmoothOpti_Global_DegreeMax"
+                  type="range"
+                  step="0.01"
+                  min="0"
+                  max="1"
+                  value="1"
+                  style="width: 10vw; margin: auto; margin-left: 0vw; margin-right: 0vw"
+                  onchange="optiSection.calcOptiCMS()"
+                  oninput="onSliderInputSmoothMax_Global()"
+                  onmouseup="document.getElementById('id_OptiPage_GlobalSmooth_Min_Div').style.visibility='visible'"
+                />
+                <div style="width: 10vw; margin-top: 0.25vh; display: flex">
+                  <p id="id_OptiPage_GlobalSmooth_DegreeMax_Min" style="font-size: var(--font-size-small); line-height: var(--line-height-small); margin-top: 0vh; margin-right: auto; color: var(--main-sepArea-font-color)">0&#xb0;</p>
+                  <p style="font-size: var(--font-size-small); line-height: var(--line-height-small); margin-top: 0vh; margin-left: auto; color: var(--main-sepArea-font-color)">180&#xb0;</p>
+                </div>
+              </div>
+              <p id="id_OptiPage_GlobalSmooth_DegreeMax_Display" style="margin: auto; margin-top: 0vh; margin-left: 1vw; color: var(--main-sepArea-font-color)"></p>
+            </div>
+
+            <div style="width: 100%; display: flex; margin-top: 1vh">
+              <div style="margin: auto">
+                <canvas id="id_OptiPage_GlobalSmooth_MinAngleCanvas" style="width: 5vw; max-width: 10vh; height: 5vw; max-height: 10vh; background: var(--main-bg-color); border: 0.2vh solid var(--main-sepArea-border)"> </canvas>
+                <p style="width: 100%; color: var(--main-sepArea-font-color); text-align: center">Min-Angle</p>
+              </div>
+              <p style="margin: auto; margin-left: 0vh; color: var(--main-sepArea-font-color); font-size: 2.5vh; line-height: 3vh">&#8898;</p>
+              <div style="margin: auto; margin-left: 0vh">
+                <canvas id="id_OptiPage_GlobalSmooth_MaxAngleCanvas" style="width: 5vw; max-width: 10vh; height: 5vw; max-height: 10vh; background: var(--main-bg-color); border: 0.2vh solid var(--main-sepArea-border)"> </canvas>
+                <p style="width: 100%; color: var(--main-sepArea-font-color); text-align: center">Max-Angle</p>
+              </div>
+              <p style="margin: auto; margin-left: 0vh; color: var(--main-sepArea-font-color); font-size: 2.5vh; line-height: 3vh">=</p>
+              <div style="margin: auto; margin-left: 0vh">
+                <canvas id="id_OptiPage_GlobalSmooth_MergeAngleCanvas" style="width: 5vw; max-width: 10vh; height: 5vw; max-height: 10vh; background: var(--main-bg-color); border: 0.2vh solid var(--main-sepArea-border)"> </canvas>
+                <p style="width: 100%; color: var(--main-sepArea-font-color); text-align: center">Merge</p>
+              </div>
             </div>
           </div>
         </div>
